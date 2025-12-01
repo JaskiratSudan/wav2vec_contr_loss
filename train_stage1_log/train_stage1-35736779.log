@@ -1,0 +1,41 @@
+Setting up the environment...
+Job started on gl1528.arc-ts.umich.edu at Mon Nov 10 21:09:30 EST 2025
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+Starting the Python training script...
+Some weights of Wav2Vec2Model were not initialized from the model checkpoint at facebook/wav2vec2-large-960h and are newly initialized: ['masked_spec_embed']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using device: cuda
+==> Starting Stage-1 training
+Encoder frozen: True | SupCon-Binary (τ=0.1) | Warmup epochs: 6 | Hard mining after warmup
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 385, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 324, in main
+    train_loss = train_one_epoch(
+  File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 141, in train_one_epoch
+    for batch in loader:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 734, in __next__
+    data = self._next_data()
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1516, in _next_data
+    return self._process_data(data, worker_id)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1551, in _process_data
+    data.reraise()
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/_utils.py", line 769, in reraise
+    raise exception
+ValueError: Caught ValueError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 55, in fetch
+    return self.collate_fn(data)
+  File "/home/jsudan/wav2vec_contr_loss/data_loader.py", line 70, in pad_collate_fn_speaker_source
+    waveforms, labels, speakers, sources = zip(*batch)
+ValueError: too many values to unpack (expected 4)
+
+----------------------------------------------------------------
+Training script finished.
+Job finished at: Mon Nov 10 21:09:57 EST 2025

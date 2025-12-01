@@ -1,0 +1,53 @@
+Setting up the environment...
+Job started on gl1507.arc-ts.umich.edu at Mon Nov 10 23:45:00 EST 2025
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+Starting the Python training script...
+Some weights of Wav2Vec2Model were not initialized from the model checkpoint at facebook/wav2vec2-large-960h and are newly initialized: ['masked_spec_embed']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using device: cuda
+==> Starting Stage-1 training
+Encoder frozen: True | SupCon-Binary (τ=0.01) | Warmup epochs: 6 | Hard mining after warmup
+[epoch 001] train_loss=6.0475 | dev_loss=3.2536
+[epoch 001] ✓ New best dev_loss=3.2536 -> checkpoints_stage1/stage1_head_best.pt
+[epoch 002] train_loss=2.6384 | dev_loss=2.0536
+[epoch 002] ✓ New best dev_loss=2.0536 -> checkpoints_stage1/stage1_head_best.pt
+[epoch 003] train_loss=2.4222 | dev_loss=1.9125
+[epoch 003] ✓ New best dev_loss=1.9125 -> checkpoints_stage1/stage1_head_best.pt
+[epoch 004] train_loss=2.3712 | dev_loss=1.8746
+[epoch 004] ✓ New best dev_loss=1.8746 -> checkpoints_stage1/stage1_head_best.pt
+[epoch 005] train_loss=2.3506 | dev_loss=1.8622
+[epoch 005] ✓ New best dev_loss=1.8622 -> checkpoints_stage1/stage1_head_best.pt
+[epoch 006] train_loss=2.3374 | dev_loss=1.8506
+[epoch 006] ✓ New best dev_loss=1.8506 -> checkpoints_stage1/stage1_head_best.pt
+[epoch 007] train_loss=2.3273 | dev_loss=1.8445
+[epoch 007] ✓ New best dev_loss=1.8445 -> checkpoints_stage1/stage1_head_best.pt
+[epoch 008] train_loss=2.3166 | dev_loss=1.8327
+[epoch 008] ✓ New best dev_loss=1.8327 -> checkpoints_stage1/stage1_head_best.pt
+[epoch 009] train_loss=2.3081 | dev_loss=1.8367
+[epoch 010] train_loss=2.2902 | dev_loss=1.8363
+[epoch 011] train_loss=2.2704 | dev_loss=1.8402
+[epoch 012] train_loss=2.1950 | dev_loss=1.8806
+[epoch 013] train_loss=1.8638 | dev_loss=2.3312
+[epoch 014] train_loss=0.8310 | dev_loss=3.6153
+[epoch 015] train_loss=0.2809 | dev_loss=4.0527
+[epoch 016] train_loss=0.4840 | dev_loss=4.4545
+[epoch 017] train_loss=0.1703 | dev_loss=4.9215
+[epoch 018] train_loss=0.0724 | dev_loss=5.9546
+[epoch 019] train_loss=0.3479 | dev_loss=6.3438
+[epoch 020] train_loss=0.0274 | dev_loss=7.1727
+==> Training complete.
+Best head (by dev_loss): checkpoints_stage1/stage1_head_best.pt (dev_loss=1.8327)
+Using device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap.py", line 266, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap.py", line 111, in main
+    encoder = Wav2Vec2Encoder(
+TypeError: __init__() got an unexpected keyword argument 'take_last_k_layers'
+----------------------------------------------------------------
+Training script finished.
+Job finished at: Tue Nov 11 00:28:11 EST 2025

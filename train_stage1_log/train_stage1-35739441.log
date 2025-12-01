@@ -1,0 +1,16 @@
+Setting up the environment...
+Job started on gl1507.arc-ts.umich.edu at Mon Nov 10 23:40:21 EST 2025
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+Starting the Python training script...
+Some weights of Wav2Vec2Model were not initialized from the model checkpoint at facebook/wav2vec2-large-960h and are newly initialized: ['masked_spec_embed']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using device: cuda
+==> Starting Stage-1 training
+Encoder frozen: True | SupCon-Binary (τ=0.01) | Warmup epochs: 6 | Hard mining after warmup
+[epoch 001] train_loss=6.0475 | dev_loss=3.2536
+[epoch 001] ✓ New best dev_loss=3.2536 -> checkpoints_stage1/stage1_head_best.pt
+slurmstepd: error: *** JOB 35739441 ON gl1507 CANCELLED AT 2025-11-10T23:44:19 ***
