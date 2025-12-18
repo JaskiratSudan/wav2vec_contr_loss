@@ -34,16 +34,20 @@ DROPOUT = 0.1
 EPOCHS = 100
 BATCH_SIZE = 256
 NUM_SAMPLES = None      # e.g. 5000 to subsample; None for all
-LR = 1e-3
-WEIGHT_DECAY = 1e-3
+LR = 5e-3
+WEIGHT_DECAY = 3e-3
 TEMPERATURE = 0.2
 NUM_WORKERS = 4
 SEED = 1337
-SAVE_DIR = "/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost"
+SAVE_DIR = "/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head"
+
+# ---- Uniformity regularizer (Wang & Isola) ----
+UNIFORMITY_WEIGHT = 0.2   # λ_uni; start with 0.01–0.1 range
+UNIFORMITY_T = 2.0         # t; try 1–5
 
 # ---- Hard-neg difficulty knobs ----
-TOPK_NEG = 8            # hardest negatives per anchor
-WARMUP_EPOCHS = 8        # pure full SupCon for stability
+TOPK_NEG = 15            # hardest negatives per anchor
+WARMUP_EPOCHS = 100        # pure full SupCon for stability
 ALPHA_END = 1          # final alpha weight on mined loss
 ALPHA_RAMP_EPOCHS = 80   # epochs to go 0 -> ALPHA_END after warmup
 
@@ -158,11 +162,14 @@ def evaluate(encoder, head, loss_fn, loader, device):
 
 def main():
 
+    # MODEL_NAME = "facebook/wav2vec2-large-960h"
+    MODEL_NAME = "facebook/wav2vec2-xls-r-300m"
+
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--model_name",
         type=str,
-        default="facebook/wav2vec2-large-960h",
+        default=MODEL_NAME,
         help="HF ID for Wav2Vec2, e.g. facebook/wav2vec2-large-960h or microsoft/wavlm-base-plus"
     )
     args = parser.parse_args()
@@ -203,7 +210,12 @@ def main():
     encoder = Wav2Vec2Encoder(model_name=MODEL_NAME, freeze_encoder=True).to(device)
     head = CompressionModule(INPUT_DIM, HIDDEN_DIM, DROPOUT).to(device)
 
-    loss_fn = SupConBinaryLoss(temperature=TEMPERATURE)
+    loss_fn = SupConBinaryLoss(
+        temperature=TEMPERATURE,
+        uniformity_weight=UNIFORMITY_WEIGHT,
+        uniformity_t=UNIFORMITY_T,
+    )
+
     optim = torch.optim.AdamW(head.parameters(), lr=LR, weight_decay=WEIGHT_DECAY)
 
     best, best_path = float("inf"), None
@@ -227,7 +239,8 @@ def main():
                     "BATCH_SIZE": BATCH_SIZE, "LR": LR, "WEIGHT_DECAY": WEIGHT_DECAY,
                     "TEMPERATURE": TEMPERATURE, "TOPK_NEG": TOPK_NEG,
                     "WARMUP_EPOCHS": WARMUP_EPOCHS, "ALPHA_END": ALPHA_END, "ALPHA_RAMP_EPOCHS": ALPHA_RAMP_EPOCHS,
-                    "USE_RAWBOOST": USE_RAWBOOST, "RAWBOOST_PROB": RAWBOOST_PROB
+                    "USE_RAWBOOST": USE_RAWBOOST, "RAWBOOST_PROB": RAWBOOST_PROB,
+                    "UNIFORMITY_WEIGHT": UNIFORMITY_WEIGHT, "UNIFORMITY_T": UNIFORMITY_T,
                 },
             }, best_path)
             print(f"✓ Saved best -> {best_path} (dev={best:.4f})")

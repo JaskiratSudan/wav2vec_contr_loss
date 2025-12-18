@@ -36,13 +36,13 @@ except ImportError:
 
 MODEL_NAME = "facebook/wav2vec2-xls-r-300m"
 
-EMB_DIR = f"stage1_embeddings/ASV/with_rawboost/{MODEL_NAME}"
+EMB_DIR = f"/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/{MODEL_NAME}"
 TRAIN_SPLIT = "train"
 DEV_SPLIT = "dev"
 
-BATCH_SIZE = 512
+BATCH_SIZE = 64
 EPOCHS = 200          # upper bound; early stopping will cut this
-LR = 1e-3
+LR = 1e-4
 WEIGHT_DECAY = 1e-4
 
 # "linear" -> single FC layer
@@ -52,7 +52,7 @@ HIDDEN_DIM = 128
 DROPOUT = 0.2
 
 SEED = 1337
-SAVE_DIR = f"checkpoints_stage2/with_rawboost/{MODEL_NAME}"
+SAVE_DIR = f"checkpoints_stage2/with_rawboost/no_hbm/{MODEL_NAME}"
 LOG_EVERY = 10
 
 # Early stopping based on EER (lower is better)

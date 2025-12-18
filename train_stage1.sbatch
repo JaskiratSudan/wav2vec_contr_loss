@@ -45,8 +45,8 @@ cd ~/wav2vec_contr_loss
 # Execute your main training script
 # python train_stage1.py --model_name facebook/wav2vec2-large-960h
 python train_stage1.py --model_name facebook/wav2vec2-xls-r-300m
-python plot_stage1_umap_asv.py --model_name facebook/wav2vec2-xls-r-300m --ckpt_path /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost --plots_dir /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/with_rawboost
-python plot_stage1_umap_itw.py --model_name facebook/wav2vec2-xls-r-300m --ckpt_path /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost --plots_dir /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/with_rawboost
+python plot_stage1_umap_asv.py --model_name facebook/wav2vec2-xls-r-300m --ckpt_path /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt --plots_dir /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/comp_head
+python plot_stage1_umap_itw.py --model_name facebook/wav2vec2-xls-r-300m --ckpt_path /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt --plots_dir /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/comp_head
 
 echo "----------------------------------------------------------------"
 echo "Training script finished."
