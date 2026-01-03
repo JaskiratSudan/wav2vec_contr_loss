@@ -10,9 +10,7 @@ has two main pipelines:
 
 ## Architectures
 
----
-
-**Baseline**
+### Baseline
 
 ![Baseline architecture](assets/baseline_architecture.png)
 
@@ -20,9 +18,7 @@ The baseline is an end-to-end binary classifier. Audio is encoded with
 Wav2Vec2, compressed into a clip embedding, and trained with BCE. This
 establishes the reference performance for all experiments.
 
----
-
-**Experiments (SupCon variants)**
+### Experiments (SupCon variants)
 
 ![SupCon/experiment architecture](assets/experiment_architecture.png)
 
@@ -36,8 +32,6 @@ in the contrastive objective or its hyperparameters:
 
 The pipeline is consistent across experiments: Stage-1 learns embeddings with
 SupCon, Stage-2 trains a lightweight classifier on those embeddings.
-
----
 
 ## Data
 
