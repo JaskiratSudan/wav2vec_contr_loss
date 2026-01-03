@@ -1,0 +1,172 @@
+Setting up the environment...
+Job started on gl1507.arc-ts.umich.edu at Wed Dec 24 23:31:00 EST 2025
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon
+W1224 23:31:11.137361 1363383 torch/distributed/run.py:774] 
+W1224 23:31:11.137361 1363383 torch/distributed/run.py:774] *****************************************
+W1224 23:31:11.137361 1363383 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W1224 23:31:11.137361 1363383 torch/distributed/run.py:774] *****************************************
+[W1224 23:31:11.108780469 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:41443 (errno: 97 - Address family not supported by protocol).
+[W1224 23:31:11.109817587 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:41443 (errno: 97 - Address family not supported by protocol).
+[W1224 23:31:11.110912257 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:41443 (errno: 97 - Address family not supported by protocol).
+[W1224 23:31:11.269029318 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [gl1507.arc-ts.umich.edu]:38213 (errno: 97 - Address family not supported by protocol).
+[W1224 23:31:23.385823113 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [gl1507.arc-ts.umich.edu]:38213 (errno: 97 - Address family not supported by protocol).
+[W1224 23:31:23.385873187 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [gl1507.arc-ts.umich.edu]:38213 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.2
+NUM_WORKERS=4
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=cosine
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 143, in <module>
+[rank1]:     main()
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 109, in main
+[rank1]:     train_loss, alpha = train_one_epoch(
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/stage1_utils.py", line 118, in train_one_epoch
+[rank1]:     hs = encoder(waveforms, attention_mask=attn)
+[rank1]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+[rank1]:     return self._call_impl(*args, **kwargs)
+[rank1]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+[rank1]:     return forward_call(*args, **kwargs)
+[rank1]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/parallel/distributed.py", line 1644, in forward
+[rank1]:     inputs, kwargs = self._pre_forward(*inputs, **kwargs)
+[rank1]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/parallel/distributed.py", line 1533, in _pre_forward
+[rank1]:     if torch.is_grad_enabled() and self.reducer._rebuild_buckets():
+[rank1]: RuntimeError: Expected to have finished reduction in the prior iteration before starting a new one. This error indicates that your module has parameters that were not used in producing loss. You can enable unused parameter detection by passing the keyword argument `find_unused_parameters=True` to `torch.nn.parallel.DistributedDataParallel`, and by 
+[rank1]: making sure all `forward` function outputs participate in calculating loss. 
+[rank1]: If you already have done the above, then the distributed data parallel module wasn't able to locate the output tensors in the return value of your module's `forward` function. Please include the loss function and the structure of the return value of `forward` of your module when reporting this issue (e.g. list, dict, iterable).
+[rank1]: Parameter indices which did not receive grad for rank 1: 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181
+[rank1]:  In addition, you can set the environment variable TORCH_DISTRIBUTED_DEBUG to either INFO or DETAIL to print out information about which particular parameters did not receive gradient on this rank as part of this error
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 143, in <module>
+[rank0]:     main()
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 109, in main
+[rank0]:     train_loss, alpha = train_one_epoch(
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/stage1_utils.py", line 118, in train_one_epoch
+[rank0]:     hs = encoder(waveforms, attention_mask=attn)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/parallel/distributed.py", line 1644, in forward
+[rank0]:     inputs, kwargs = self._pre_forward(*inputs, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/parallel/distributed.py", line 1533, in _pre_forward
+[rank0]:     if torch.is_grad_enabled() and self.reducer._rebuild_buckets():
+[rank0]: RuntimeError: Expected to have finished reduction in the prior iteration before starting a new one. This error indicates that your module has parameters that were not used in producing loss. You can enable unused parameter detection by passing the keyword argument `find_unused_parameters=True` to `torch.nn.parallel.DistributedDataParallel`, and by 
+[rank0]: making sure all `forward` function outputs participate in calculating loss. 
+[rank0]: If you already have done the above, then the distributed data parallel module wasn't able to locate the output tensors in the return value of your module's `forward` function. Please include the loss function and the structure of the return value of `forward` of your module when reporting this issue (e.g. list, dict, iterable).
+[rank0]: Parameter indices which did not receive grad for rank 0: 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 326 327 328 329 330 331 332 333 334 335 336 337 338 339 340 341 342 343 344 345 346 347 348 349 350 351 352 353 354 355 356 357 390 391 392 393 394 395 396 397 398 399 400 401 402 403 404 405
+[rank0]:  In addition, you can set the environment variable TORCH_DISTRIBUTED_DEBUG to either INFO or DETAIL to print out information about which particular parameters did not receive gradient on this rank as part of this error
+[rank0]:[W1224 23:31:39.041524037 ProcessGroupNCCL.cpp:1538] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+W1224 23:31:40.020629 1363383 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 1363591 closing signal SIGTERM
+E1224 23:31:40.284850 1363383 torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: 1) local_rank: 1 (pid: 1363592) of binary: /home/jsudan/myenv/bin/python
+Traceback (most recent call last):
+  File "/home/jsudan/myenv/bin/torchrun", line 7, in <module>
+    sys.exit(main())
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 901, in main
+    run(args)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+train_stage1.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-12-24_23:31:40
+  host      : gl1507.arc-ts.umich.edu
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 1363592)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+Using device: cuda
+Model: facebook/wav2vec2-xls-r-300m
+Checkpoint: /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+Saving to: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/supcon/facebook__wav2vec2-xls-r-300m
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_asv.py", line 321, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_asv.py", line 191, in main
+    head.load_state_dict(state_dict, strict=True)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 2624, in load_state_dict
+    raise RuntimeError(
+RuntimeError: Error(s) in loading state_dict for CompressionModule:
+	Unexpected key(s) in state_dict: "mlp1.weight", "mlp1.bias", "bn1.weight", "bn1.bias", "bn1.running_mean", "bn1.running_var", "bn1.num_batches_tracked", "mlp2.weight", "mlp2.bias". 
+Using device: cuda
+Model: facebook/wav2vec2-xls-r-300m
+Checkpoint: /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+Saving to: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/supcon/facebook__wav2vec2-xls-r-300m
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_itw.py", line 320, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_itw.py", line 185, in main
+    head.load_state_dict(state_dict, strict=True)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 2624, in load_state_dict
+    raise RuntimeError(
+RuntimeError: Error(s) in loading state_dict for CompressionModule:
+	Unexpected key(s) in state_dict: "mlp1.weight", "mlp1.bias", "bn1.weight", "bn1.bias", "bn1.running_mean", "bn1.running_var", "bn1.num_batches_tracked", "mlp2.weight", "mlp2.bias". 
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 341
+    global MODEL_NAME, STAGE1_CKPT, ASV_OUT_DIR, ITW_OUT_DIR
+    ^
+SyntaxError: name 'MODEL_NAME' is used prior to global declaration
+Using device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier.py", line 66, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier.py", line 34, in main
+    X_train = np.load(train_emb_path).astype("float32")
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 427, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/supcon/train_embeddings.npy'
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 235
+    global STAGE2_CKPT, EVAL_EMB_PATH, EVAL_LABEL_PATH, ITW_EMB_PATH, ITW_LABEL_PATH
+    ^
+SyntaxError: name 'STAGE2_CKPT' is used prior to global declaration
+----------------------------------------------------------------
+Training script finished.
+Job finished at: Wed Dec 24 23:32:34 EST 2025

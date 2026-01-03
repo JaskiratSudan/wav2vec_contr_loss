@@ -1,0 +1,9 @@
+Setting up the environment...
+Job started on gl1528.arc-ts.umich.edu at Fri Dec 26 21:49:41 EST 2025
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic
+slurmstepd: error: *** JOB 38940538 ON gl1528 CANCELLED AT 2025-12-26T21:49:53 ***

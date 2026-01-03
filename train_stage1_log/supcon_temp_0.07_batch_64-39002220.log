@@ -1,0 +1,58 @@
+Setting up the environment...
+Job started on gl1518.arc-ts.umich.edu at Sun Dec 28 18:05:05 EST 2025
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_temp_0.07_batch_64
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_temp_0.07_batch_64/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=64
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.07
+NUM_WORKERS=4
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=cosine
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+DISTRIBUTED=False | WORLD_SIZE=1 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 1
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 156, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 122, in main
+    train_loss, alpha = train_one_epoch(
+  File "/home/jsudan/wav2vec_contr_loss/stage1_utils.py", line 118, in train_one_epoch
+    hs = encoder(waveforms, attention_mask=attn)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 67, in forward
+    hs = torch.stack(selected, dim=0).transpose(0, 1)       # (B, K, T, D)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.52 GiB. GPU 0 has a total capacity of 44.43 GiB of which 850.62 MiB is free. Including non-PyTorch memory, this process has 43.59 GiB memory in use. Of the allocated memory 42.86 GiB is allocated by PyTorch, and 423.77 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[ERROR] Stage-1 checkpoint not found: /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_temp_0.07_batch_64/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt

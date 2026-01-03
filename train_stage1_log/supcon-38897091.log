@@ -1,0 +1,242 @@
+Setting up the environment...
+Job started on gl1526.arc-ts.umich.edu at Wed Dec 24 23:36:03 EST 2025
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon
+W1224 23:36:10.351270 2011327 torch/distributed/run.py:774] 
+W1224 23:36:10.351270 2011327 torch/distributed/run.py:774] *****************************************
+W1224 23:36:10.351270 2011327 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W1224 23:36:10.351270 2011327 torch/distributed/run.py:774] *****************************************
+[W1224 23:36:10.172037452 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:34503 (errno: 97 - Address family not supported by protocol).
+[W1224 23:36:10.172952042 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:34503 (errno: 97 - Address family not supported by protocol).
+[W1224 23:36:10.173856083 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:34503 (errno: 97 - Address family not supported by protocol).
+[W1224 23:36:10.259716316 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [gl1526.arc-ts.umich.edu]:39853 (errno: 97 - Address family not supported by protocol).
+[W1224 23:36:19.323668912 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [gl1526.arc-ts.umich.edu]:39853 (errno: 97 - Address family not supported by protocol).
+[W1224 23:36:19.324219946 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [gl1526.arc-ts.umich.edu]:39853 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.2
+NUM_WORKERS=4
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=cosine
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[rank1]:[W1224 23:36:26.032860576 reducer.cpp:1457] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank0]:[W1224 23:36:26.307656527 reducer.cpp:1457] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank1]:[E1224 23:49:36.465761004 ProcessGroupNCCL.cpp:685] [Rank 1] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=3452, OpType=ALLREDUCE, NumelIn=1, NumelOut=1, Timeout(ms)=600000) ran for 600073 milliseconds before timing out.
+[rank1]:[E1224 23:49:36.472822065 ProcessGroupNCCL.cpp:2252] [PG ID 0 PG GUID 0(default_pg) Rank 1]  failure detected by watchdog at work sequence id: 3452 PG status: last enqueued work: 3452, last completed work: 3451
+[rank1]:[E1224 23:49:36.472834925 ProcessGroupNCCL.cpp:732] Stack trace of the failed collective not found, potentially because FlightRecorder is disabled. You can enable it by setting TORCH_NCCL_TRACE_BUFFER_SIZE to a non-zero value.
+[rank1]:[E1224 23:49:36.472878495 ProcessGroupNCCL.cpp:2584] [PG ID 0 PG GUID 0(default_pg) Rank 1] First PG on this rank to signal dumping.
+[rank1]:[E1224 23:49:36.715429837 ProcessGroupNCCL.cpp:1870] [PG ID 0 PG GUID 0(default_pg) Rank 1] Received a dump signal due to a collective timeout from this local rank and we will try our best to dump the debug info. Last enqueued NCCL work: 3452, last completed NCCL work: 3451.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank0]:[E1224 23:49:36.715484309 ProcessGroupNCCL.cpp:1806] [PG ID 0 PG GUID 0(default_pg) Rank 0] Observed flight recorder dump signal from another rank via TCPStore.
+[rank0]:[E1224 23:49:36.715605090 ProcessGroupNCCL.cpp:1870] [PG ID 0 PG GUID 0(default_pg) Rank 0] Received a dump signal due to a collective timeout from  rank 1 and we will try our best to dump the debug info. Last enqueued NCCL work: 3490, last completed NCCL work: 3450.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank1]:[E1224 23:49:36.716773079 ProcessGroupNCCL.cpp:1589] [PG ID 0 PG GUID 0(default_pg) Rank 1] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1
+[rank0]:[E1224 23:49:36.716776606 ProcessGroupNCCL.cpp:1589] [PG ID 0 PG GUID 0(default_pg) Rank 0] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1
+[rank0]:[E1224 23:49:38.836977096 ProcessGroupNCCL.cpp:685] [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=3451, OpType=ALLREDUCE, NumelIn=256, NumelOut=256, Timeout(ms)=600000) ran for 600050 milliseconds before timing out.
+[rank0]:[E1224 23:49:38.837099378 ProcessGroupNCCL.cpp:2252] [PG ID 0 PG GUID 0(default_pg) Rank 0]  failure detected by watchdog at work sequence id: 3451 PG status: last enqueued work: 3490, last completed work: 3450
+[rank0]:[E1224 23:49:38.837105348 ProcessGroupNCCL.cpp:732] Stack trace of the failed collective not found, potentially because FlightRecorder is disabled. You can enable it by setting TORCH_NCCL_TRACE_BUFFER_SIZE to a non-zero value.
+[rank1]:[E1224 23:50:37.089766107 ProcessGroupNCCL.cpp:746] [Rank 1] Some NCCL operations have failed or timed out. Due to the asynchronous nature of CUDA kernels, subsequent GPU operations might run on corrupted/incomplete data.
+[rank1]:[E1224 23:50:37.089923637 ProcessGroupNCCL.cpp:760] [Rank 1] To avoid data inconsistency, we are taking the entire process down.
+[rank1]:[E1224 23:50:37.093793493 ProcessGroupNCCL.cpp:2068] [PG ID 0 PG GUID 0(default_pg) Rank 1] Process group watchdog thread terminated with exception: [Rank 1] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=3452, OpType=ALLREDUCE, NumelIn=1, NumelOut=1, Timeout(ms)=600000) ran for 600073 milliseconds before timing out.
+Exception raised from checkTimeout at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:688 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x80 (0x15255477feb0 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libc10.so)
+frame #1: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x247 (0x1525556e6147 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x1591 (0x1525556e9b61 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #3: c10d::ProcessGroupNCCL::Watchdog::run() + 0xd2 (0x1525556eaec2 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xc9039 (0x152538fb6039 in /sw/pkgs/arc/python3.9-anaconda/2021.11/bin/../lib/libstdc++.so.6)
+frame #5: <unknown function> + 0x81ca (0x1525b2e981ca in /lib64/libpthread.so.0)
+frame #6: clone + 0x43 (0x1525b2af38d3 in /lib64/libc.so.6)
+
+terminate called after throwing an instance of 'c10::DistBackendError'
+  what():  [PG ID 0 PG GUID 0(default_pg) Rank 1] Process group watchdog thread terminated with exception: [Rank 1] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=3452, OpType=ALLREDUCE, NumelIn=1, NumelOut=1, Timeout(ms)=600000) ran for 600073 milliseconds before timing out.
+Exception raised from checkTimeout at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:688 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x80 (0x15255477feb0 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libc10.so)
+frame #1: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x247 (0x1525556e6147 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x1591 (0x1525556e9b61 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #3: c10d::ProcessGroupNCCL::Watchdog::run() + 0xd2 (0x1525556eaec2 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xc9039 (0x152538fb6039 in /sw/pkgs/arc/python3.9-anaconda/2021.11/bin/../lib/libstdc++.so.6)
+frame #5: <unknown function> + 0x81ca (0x1525b2e981ca in /lib64/libpthread.so.0)
+frame #6: clone + 0x43 (0x1525b2af38d3 in /lib64/libc.so.6)
+
+Exception raised from run at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:2074 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x80 (0x15255477feb0 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0xe1c1a1 (0x1525556c21a1 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: <unknown function> + 0x9468e6 (0x1525551ec8e6 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #3: <unknown function> + 0xc9039 (0x152538fb6039 in /sw/pkgs/arc/python3.9-anaconda/2021.11/bin/../lib/libstdc++.so.6)
+frame #4: <unknown function> + 0x81ca (0x1525b2e981ca in /lib64/libpthread.so.0)
+frame #5: clone + 0x43 (0x1525b2af38d3 in /lib64/libc.so.6)
+
+[rank0]:[E1224 23:50:38.026470895 ProcessGroupNCCL.cpp:746] [Rank 0] Some NCCL operations have failed or timed out. Due to the asynchronous nature of CUDA kernels, subsequent GPU operations might run on corrupted/incomplete data.
+[rank0]:[E1224 23:50:38.026495488 ProcessGroupNCCL.cpp:760] [Rank 0] To avoid data inconsistency, we are taking the entire process down.
+[rank0]:[E1224 23:50:38.027362735 ProcessGroupNCCL.cpp:2068] [PG ID 0 PG GUID 0(default_pg) Rank 0] Process group watchdog thread terminated with exception: [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=3451, OpType=ALLREDUCE, NumelIn=256, NumelOut=256, Timeout(ms)=600000) ran for 600050 milliseconds before timing out.
+Exception raised from checkTimeout at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:688 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x80 (0x146cf6a7deb0 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libc10.so)
+frame #1: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x247 (0x146cf79e4147 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x1591 (0x146cf79e7b61 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #3: c10d::ProcessGroupNCCL::Watchdog::run() + 0xd2 (0x146cf79e8ec2 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xc9039 (0x146cdb2b4039 in /sw/pkgs/arc/python3.9-anaconda/2021.11/bin/../lib/libstdc++.so.6)
+frame #5: <unknown function> + 0x81ca (0x146d551961ca in /lib64/libpthread.so.0)
+frame #6: clone + 0x43 (0x146d54df18d3 in /lib64/libc.so.6)
+
+terminate called after throwing an instance of 'c10::DistBackendError'
+  what():  [PG ID 0 PG GUID 0(default_pg) Rank 0] Process group watchdog thread terminated with exception: [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=3451, OpType=ALLREDUCE, NumelIn=256, NumelOut=256, Timeout(ms)=600000) ran for 600050 milliseconds before timing out.
+Exception raised from checkTimeout at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:688 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x80 (0x146cf6a7deb0 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libc10.so)
+frame #1: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x247 (0x146cf79e4147 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x1591 (0x146cf79e7b61 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #3: c10d::ProcessGroupNCCL::Watchdog::run() + 0xd2 (0x146cf79e8ec2 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xc9039 (0x146cdb2b4039 in /sw/pkgs/arc/python3.9-anaconda/2021.11/bin/../lib/libstdc++.so.6)
+frame #5: <unknown function> + 0x81ca (0x146d551961ca in /lib64/libpthread.so.0)
+frame #6: clone + 0x43 (0x146d54df18d3 in /lib64/libc.so.6)
+
+Exception raised from run at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:2074 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x80 (0x146cf6a7deb0 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0xe1c1a1 (0x146cf79c01a1 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: <unknown function> + 0x9468e6 (0x146cf74ea8e6 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #3: <unknown function> + 0xc9039 (0x146cdb2b4039 in /sw/pkgs/arc/python3.9-anaconda/2021.11/bin/../lib/libstdc++.so.6)
+frame #4: <unknown function> + 0x81ca (0x146d551961ca in /lib64/libpthread.so.0)
+frame #5: clone + 0x43 (0x146d54df18d3 in /lib64/libc.so.6)
+
+W1224 23:50:46.036192 2011327 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 2011343 closing signal SIGTERM
+E1224 23:50:46.801574 2011327 torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: -6) local_rank: 0 (pid: 2011342) of binary: /home/jsudan/myenv/bin/python
+Traceback (most recent call last):
+  File "/home/jsudan/myenv/bin/torchrun", line 7, in <module>
+    sys.exit(main())
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 901, in main
+    run(args)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+========================================================
+train_stage1.py FAILED
+--------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+--------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-12-24_23:50:46
+  host      : gl1526.arc-ts.umich.edu
+  rank      : 0 (local_rank: 0)
+  exitcode  : -6 (pid: 2011342)
+  error_file: <N/A>
+  traceback : Signal 6 (SIGABRT) received by PID 2011342
+========================================================
+Using device: cuda
+Model: facebook/wav2vec2-xls-r-300m
+Checkpoint: /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+Saving to: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/supcon/facebook__wav2vec2-xls-r-300m
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_asv.py", line 321, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_asv.py", line 191, in main
+    head.load_state_dict(state_dict, strict=True)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 2624, in load_state_dict
+    raise RuntimeError(
+RuntimeError: Error(s) in loading state_dict for CompressionModule:
+	Unexpected key(s) in state_dict: "mlp1.weight", "mlp1.bias", "bn1.weight", "bn1.bias", "bn1.running_mean", "bn1.running_var", "bn1.num_batches_tracked", "mlp2.weight", "mlp2.bias". 
+Using device: cuda
+Model: facebook/wav2vec2-xls-r-300m
+Checkpoint: /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+Saving to: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/supcon/facebook__wav2vec2-xls-r-300m
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_itw.py", line 320, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_itw.py", line 185, in main
+    head.load_state_dict(state_dict, strict=True)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 2624, in load_state_dict
+    raise RuntimeError(
+RuntimeError: Error(s) in loading state_dict for CompressionModule:
+	Unexpected key(s) in state_dict: "mlp1.weight", "mlp1.bias", "bn1.weight", "bn1.bias", "bn1.running_mean", "bn1.running_var", "bn1.num_batches_tracked", "mlp2.weight", "mlp2.bias". 
+Using device: cuda
+Loading Stage-1 checkpoint from: /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 99, in load_state_dict_flexible
+    model.load_state_dict(state_dict, strict=True)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 2624, in load_state_dict
+    raise RuntimeError(
+RuntimeError: Error(s) in loading state_dict for CompressionModule:
+	Unexpected key(s) in state_dict: "mlp1.weight", "mlp1.bias", "bn1.weight", "bn1.bias", "bn1.running_mean", "bn1.running_var", "bn1.num_batches_tracked", "mlp2.weight", "mlp2.bias". 
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 364, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 352, in main
+    backbone = Stage1Backbone(STAGE1_CKPT, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 137, in __init__
+    load_state_dict_flexible(self.head, ckpt["compression_state_dict"])
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 106, in load_state_dict_flexible
+    model.load_state_dict(cleaned, strict=True)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 2624, in load_state_dict
+    raise RuntimeError(
+RuntimeError: Error(s) in loading state_dict for CompressionModule:
+	Unexpected key(s) in state_dict: "mlp1.weight", "mlp1.bias", "bn1.weight", "bn1.bias", "bn1.running_mean", "bn1.running_var", "bn1.num_batches_tracked", "mlp2.weight", "mlp2.bias". 
+Using device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier.py", line 66, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier.py", line 34, in main
+    X_train = np.load(train_emb_path).astype("float32")
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 427, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/supcon/train_embeddings.npy'
+Using device: cuda
+Loading Stage-2 checkpoint from: checkpoints_stage2/supcon/facebook/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 289, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 255, in main
+    clf = load_stage2_head(STAGE2_CKPT, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 88, in load_stage2_head
+    ckpt = safe_load(ckpt_path, map_location=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 49, in safe_load
+    return torch.load(ckpt_path, map_location=map_location, weights_only=False)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1484, in load
+    with _open_file_like(f, "rb") as opened_file:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 759, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 740, in __init__
+    super().__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: 'checkpoints_stage2/supcon/facebook/wav2vec2-xls-r-300m/stage2_binary_head_best.pt'
+----------------------------------------------------------------
+Training script finished.
+Job finished at: Wed Dec 24 23:51:44 EST 2025

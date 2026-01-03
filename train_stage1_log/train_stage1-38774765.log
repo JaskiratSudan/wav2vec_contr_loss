@@ -1,0 +1,11 @@
+Setting up the environment...
+Job started on gl1528.arc-ts.umich.edu at Sun Dec 21 15:04:53 EST 2025
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+Starting the Python training script...
+Model: facebook/wav2vec2-xls-r-300m
+Using device: cuda | RawBoost=True (p=0.7)
+slurmstepd: error: *** JOB 38774765 ON gl1528 CANCELLED AT 2025-12-21T15:08:05 ***

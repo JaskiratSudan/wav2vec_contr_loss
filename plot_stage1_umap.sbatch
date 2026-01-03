@@ -43,8 +43,8 @@ echo "Starting the umap script..."
 cd ~/wav2vec_contr_loss
 
 # Execute your main training script
-python plot_stage1_umap_asv.py --model_name microsoft/wavlm-base-plus --ckpt_path /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/e70 --plots_dir /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/with_rawboost/e70
-python plot_stage1_umap_asv.py --model_name microsoft/wavlm-base-plus --ckpt_path /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/e70 --plots_dir /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/with_rawboost/e70
+python plot_stage1_umap_asv.py --model_name facebook/wav2vec2-xls-r-300m --ckpt_path /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt --plots_dir /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/facebook__wav2vec2-xls-r-300m
+python plot_stage1_umap_itw.py --model_name facebook/wav2vec2-xls-r-300m --ckpt_path /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt --plots_dir /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/facebook__wav2vec2-xls-r-300m
 
 echo "----------------------------------------------------------------"
 echo "Job finished at: $(date)"

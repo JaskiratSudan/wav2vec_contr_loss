@@ -96,6 +96,25 @@ def resolve_ckpt_path(ckpt_path: str, run_tag: str) -> str:
         tried.append(os.path.join(ckpt_path, run_tag, f"{run_tag}_stage1_head_best.pt"))
     raise FileNotFoundError(f"Checkpoint not found. Tried: {tried}")
 
+def load_encoder_from_ckpt(encoder: torch.nn.Module, ckpt: dict) -> bool:
+    """
+    Load finetuned encoder weights if present in the checkpoint.
+    Returns True if weights were loaded.
+    """
+    if "encoder_state_dict" not in ckpt:
+        return False
+    state_dict = ckpt["encoder_state_dict"]
+    try:
+        encoder.load_state_dict(state_dict, strict=True)
+        return True
+    except RuntimeError:
+        cleaned = {
+            k.replace("module.", "", 1) if k.startswith("module.") else k: v
+            for k, v in state_dict.items()
+        }
+        encoder.load_state_dict(cleaned, strict=True)
+        return True
+
 
 # =========================
 #          MAIN
@@ -160,6 +179,8 @@ def main():
     ).to(DEVICE)
 
     ckpt = torch.load(ckpt_path, map_location=DEVICE)
+    if load_encoder_from_ckpt(encoder, ckpt):
+        print("Loaded finetuned encoder weights from checkpoint.")
     state_dict = ckpt.get("compression_state_dict", ckpt)
     head.load_state_dict(state_dict, strict=True)
     head.eval()

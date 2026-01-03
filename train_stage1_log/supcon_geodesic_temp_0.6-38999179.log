@@ -1,0 +1,26 @@
+Setting up the environment...
+Job started on gl3048.arc-ts.umich.edu at Sun Dec 28 17:08:33 EST 2025
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: False
+/var/spool/slurmd.spool/job38999179/slurm_script: line 33: nvidia-smi: command not found
+Current GPU: 
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.6
+Using device: cpu
+Loading Stage-2 checkpoint from: checkpoints_stage2/supcon_geodesic_temp_0.6/facebook/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+Loading embeddings from: /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/supcon_geodesic_temp_0.6/eval_embeddings.npy
+Total samples: 71237, emb_dim=256
+Writing scores to: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.6/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+Scoring asv_eval:   0%|          | 0/279 [00:00<?, ?it/s]Scoring asv_eval:  74%|███████▍  | 206/279 [00:00<00:00, 2052.44it/s]Scoring asv_eval: 100%|██████████| 279/279 [00:00<00:00, 2186.19it/s]
+Done writing scores: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.6/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+Loading embeddings from: /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ITW/supcon_geodesic_temp_0.6/itw_embeddings.npy
+Total samples: 31779, emb_dim=256
+Writing scores to: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.6/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+Scoring itw:   0%|          | 0/125 [00:00<?, ?it/s]Scoring itw: 100%|██████████| 125/125 [00:00<00:00, 2419.99it/s]
+Done writing scores: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.6/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+All requested score files handled (generated or skipped).
+----------------------------------------------------------------
+Training script finished.
+Job finished at: Sun Dec 28 17:08:40 EST 2025

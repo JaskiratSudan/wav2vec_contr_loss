@@ -20,11 +20,11 @@ class CompressionModule(nn.Module):
         super(CompressionModule, self).__init__()
 
         # --- Bottleneck Module Layers ---
-        self.mlp1 = nn.Linear(input_dim, hidden_dim)
-        self.bn1 = nn.BatchNorm1d(hidden_dim)
-        self.activation1 = nn.LeakyReLU()
-        self.dropout1 = nn.Dropout(p=dropout_rate)
-        self.mlp2 = nn.Linear(hidden_dim, input_dim)
+        # self.mlp1 = nn.Linear(input_dim, hidden_dim)
+        # self.bn1 = nn.BatchNorm1d(hidden_dim)
+        # self.activation1 = nn.LeakyReLU()
+        # self.dropout1 = nn.Dropout(p=dropout_rate)
+        # self.mlp2 = nn.Linear(hidden_dim, input_dim)
 
         # --- Head Module Layers ---
         self.dropout_head = nn.Dropout(p=dropout_rate)
@@ -49,15 +49,15 @@ class CompressionModule(nn.Module):
         x = pooled_features
 
         # --- Apply Bottleneck Module ---
-        skip_connection = x
+        # skip_connection = x
 
-        x = self.mlp1(x.transpose(1, 2)).transpose(1, 2)
-        x = self.bn1(x)
-        x = self.activation1(x)
-        x = self.dropout1(x)
-        x = self.mlp2(x.transpose(1, 2)).transpose(1, 2)
+        # x = self.mlp1(x.transpose(1, 2)).transpose(1, 2)
+        # x = self.bn1(x)
+        # x = self.activation1(x)
+        # x = self.dropout1(x)
+        # x = self.mlp2(x.transpose(1, 2)).transpose(1, 2)
 
-        x = x + skip_connection
+        # x = x + skip_connection
 
         # --- Apply Head Module ---
         x = self.dropout_head(x)

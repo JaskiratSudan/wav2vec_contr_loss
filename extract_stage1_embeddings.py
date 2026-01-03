@@ -29,6 +29,7 @@
 
 import os
 import random
+import argparse
 
 import numpy as np
 import torch
@@ -65,7 +66,8 @@ ITW_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/ds_wild/protocols/meta.csv
 ITW_NUM_SAMPLES = None  # None = all, or set to an int to subsample
 
 # Stage-1 checkpoint
-STAGE1_CKPT = "/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt"
+# STAGE1_CKPT = "/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt"
+STAGE1_CKPT = "/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesic_dist/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt"
 
 # Extraction
 MODEL_NAME = "facebook/wav2vec2-xls-r-300m"
@@ -76,8 +78,8 @@ NUM_WORKERS = 4
 SEED = 1337
 
 # Output dirs
-ASV_OUT_DIR = f"stage1_embeddings/ASV/{MODEL_NAME}"
-ITW_OUT_DIR = f"stage1_embeddings/ITW/{MODEL_NAME}"
+ASV_OUT_DIR = f"/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/{MODEL_NAME}"
+ITW_OUT_DIR = f"/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ITW/{MODEL_NAME}"
 
 # ============================================================
 #                       UTILS
@@ -88,6 +90,20 @@ def set_seed(seed: int = 1337):
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
+
+def load_state_dict_flexible(model: torch.nn.Module, state_dict: dict) -> None:
+    """
+    Load a state_dict, handling optional DataParallel 'module.' prefixes.
+    """
+    try:
+        model.load_state_dict(state_dict, strict=True)
+        return
+    except RuntimeError:
+        cleaned = {
+            k.replace("module.", "", 1) if k.startswith("module.") else k: v
+            for k, v in state_dict.items()
+        }
+        model.load_state_dict(cleaned, strict=True)
 
 
 class Stage1Backbone(torch.nn.Module):
@@ -107,6 +123,9 @@ class Stage1Backbone(torch.nn.Module):
         input_dim = cfg.get("INPUT_DIM", 1024)
         hidden_dim = cfg.get("HIDDEN_DIM", 256)
         dropout = cfg.get("DROPOUT", 0.1)
+        if "encoder_state_dict" in ckpt:
+            load_state_dict_flexible(self.encoder, ckpt["encoder_state_dict"])
+            print("[OK] Loaded finetuned encoder weights from checkpoint.")
 
         # Compression head
         self.head = CompressionModule(
@@ -115,7 +134,7 @@ class Stage1Backbone(torch.nn.Module):
             dropout_rate=dropout,
         ).to(device)
 
-        self.head.load_state_dict(ckpt["compression_state_dict"])
+        load_state_dict_flexible(self.head, ckpt["compression_state_dict"])
 
         # Freeze everything
         self.encoder.eval()
@@ -292,6 +311,39 @@ def extract_itw(backbone: Stage1Backbone, device: torch.device):
 # ============================================================
 
 def main():
+    global MODEL_NAME, STAGE1_CKPT, ASV_OUT_DIR, ITW_OUT_DIR
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--model_name",
+        type=str,
+        default=MODEL_NAME,
+        help="HF model id for Wav2Vec2 (must match stage-1 checkpoint)."
+    )
+    parser.add_argument(
+        "--stage1_ckpt",
+        type=str,
+        default=STAGE1_CKPT,
+        help="Path to stage-1 checkpoint."
+    )
+    parser.add_argument(
+        "--asv_out_dir",
+        type=str,
+        default=ASV_OUT_DIR,
+        help="Output directory for ASV embeddings."
+    )
+    parser.add_argument(
+        "--itw_out_dir",
+        type=str,
+        default=ITW_OUT_DIR,
+        help="Output directory for ITW embeddings."
+    )
+    args = parser.parse_args()
+
+    MODEL_NAME = args.model_name
+    STAGE1_CKPT = args.stage1_ckpt
+    ASV_OUT_DIR = args.asv_out_dir
+    ITW_OUT_DIR = args.itw_out_dir
+
     set_seed(SEED)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")

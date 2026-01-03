@@ -14,129 +14,16 @@ import soundfile
 import librosa
 import random
 
+from collate import (
+    pad_collate_fn,
+    pad_collate_fn_aug,
+    pad_collate_fn_speaker,
+    pad_collate_fn_speaker_source,
+    pad_collate_fn_speaker_source_multiclass,
+)
+from base_audio import BaseAudioDataset
+
 warnings.filterwarnings("ignore", category=UserWarning, module="torchaudio._backend.utils")
-
-def pad_collate_fn(batch):
-    """
-    Pads audio waveforms in a batch to the length of the longest waveform.
-    Uses only the first two elements of each item: (waveform, label).
-    Any extra elements in the batch items are ignored.
-    """
-    waveforms = []
-    labels = []
-    for item in batch:
-        waveform, label = item[0], item[1]  # ignore anything beyond (waveform, label)
-        waveforms.append(waveform)
-        labels.append(torch.as_tensor(label))
-
-    padded_waveforms = torch.nn.utils.rnn.pad_sequence(
-        waveforms, batch_first=True, padding_value=0.0
-    )
-    labels = torch.stack(labels)
-    return padded_waveforms, labels
-
-def pad_collate_fn_aug(batch):
-    """
-    Collate function for the DatasetWithAugmentation. It handles batches of
-    (original_waveform, augmented_waveform, label) tuples.
-    """
-    originals, augmenteds, labels = zip(*batch)
-    padded_originals = torch.nn.utils.rnn.pad_sequence(list(originals), batch_first=True, padding_value=0.0)
-    padded_augmenteds = torch.nn.utils.rnn.pad_sequence(list(augmenteds), batch_first=True, padding_value=0.0)
-    labels = torch.stack(list(labels))
-    return padded_originals, padded_augmenteds, labels
-
-    # Add this new function to data_loader.py
-
-def pad_collate_fn_speaker(batch):
-    """
-    Pads audio waveforms and handles speaker IDs.
-    Assumes each item in the batch is a (waveform, label, speaker_id) tuple.
-    """
-    # Unpack three items now
-    waveforms, labels, speakers = zip(*batch)
-    
-    padded_waveforms = torch.nn.utils.rnn.pad_sequence(list(waveforms), batch_first=True, padding_value=0.0)
-    labels = torch.stack(list(labels))
-    
-    # Speakers are usually strings, so we return them as a tuple
-    return padded_waveforms, labels, speakers
-
-# ---------- New collate for speaker + source ----------
-def pad_collate_fn_speaker_source(batch):
-    """
-    Pads audio waveforms and returns speaker + source strings.
-    Assumes each item is (waveform, label, speaker, source).
-    """
-    waveforms, labels, speakers, sources = zip(*batch)
-    padded_waveforms = torch.nn.utils.rnn.pad_sequence(
-        list(waveforms), batch_first=True, padding_value=0.0
-    )
-    labels = torch.stack(list(labels))
-    # speakers/sources are strings; return as tuples (kept as-is for your encoder)
-    return padded_waveforms, labels, speakers, sources
-
-def pad_collate_fn_speaker_source_multiclass(batch):
-    """
-    Pads audio waveforms and returns:
-      waveforms, binary_labels, multiclass_labels, speakers, sources
-    Assumes each item is:
-      (waveform, binary_label, multi_label, speaker, audio_name)
-    """
-    waveforms, bin_labels, attack_id, speakers, sources = zip(*batch)
-
-    padded_waveforms = torch.nn.utils.rnn.pad_sequence(
-        list(waveforms), batch_first=True, padding_value=0.0
-    )
-    bin_labels = torch.stack(list(bin_labels))
-    attack_id = torch.stack(list(attack_id))
-
-    return padded_waveforms, bin_labels, attack_id, speakers, sources
-
-class BaseAudioDataset(Dataset):
-    """
-    A base class for audio datasets to handle common processing tasks.
-    Tracks how many files were successfully decoded vs. failed.
-    """
-    loaded_count = 0
-    failed_count = 0
-
-    def __init__(self, target_sample_rate: int = 16000, max_duration_seconds: int = 5, **kwargs):
-        self.target_sample_rate = target_sample_rate
-        self.max_duration_seconds = max_duration_seconds
-
-    def _process_audio(self, audio_path: Path) -> torch.Tensor:
-        try:
-            waveform, sample_rate = librosa.load(
-                audio_path, sr=self.target_sample_rate, mono=True
-            )
-            waveform = torch.from_numpy(waveform).float()
-            BaseAudioDataset.loaded_count += 1
-        except Exception as e:
-            tqdm.write(f"[WARNING] Corrupted file: {audio_path}. Error: {e}")
-            BaseAudioDataset.failed_count += 1
-            if self.max_duration_seconds is not None:
-                return torch.zeros(self.max_duration_seconds * self.target_sample_rate)
-            else:
-                return torch.zeros(self.target_sample_rate)
-
-        if waveform.ndim > 1:
-            waveform = waveform.mean(dim=0)
-
-        if self.max_duration_seconds is not None:
-            target_len = self.max_duration_seconds * self.target_sample_rate
-            current_len = waveform.shape[0]
-            if current_len > target_len:
-                waveform = waveform[:target_len]
-            elif current_len < target_len:
-                waveform = F.pad(waveform, (0, target_len - current_len))
-
-        return waveform
-
-    @classmethod
-    def print_summary(cls):
-        total = cls.loaded_count + cls.failed_count
-        print(f"\n[DATASET SUMMARY] Loaded: {cls.loaded_count}, Failed: {cls.failed_count}, Total: {total}")
 
 # ---------- New Dataset: FamousFigures ----------
 class FamousFiguresDataset(BaseAudioDataset):

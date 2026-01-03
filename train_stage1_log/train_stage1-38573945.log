@@ -1,0 +1,201 @@
+Setting up the environment...
+Job started on gl1502.arc-ts.umich.edu at Wed Dec 17 19:15:04 EST 2025
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+Starting the Python training script...
+Model: facebook/wav2vec2-xls-r-300m
+Using device: cuda | RawBoost=True (p=0.9)
+[epoch 001] alpha=0.00 | train_loss=5.5062 | dev_loss=5.3757
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=5.3757)
+[epoch 002] alpha=0.00 | train_loss=5.1787 | dev_loss=5.0216
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=5.0216)
+[epoch 003] alpha=0.00 | train_loss=4.9582 | dev_loss=4.9223
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.9223)
+[epoch 004] alpha=0.00 | train_loss=4.8639 | dev_loss=4.8191
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.8191)
+[epoch 005] alpha=0.00 | train_loss=4.8139 | dev_loss=4.8109
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.8109)
+[epoch 006] alpha=0.00 | train_loss=4.8018 | dev_loss=4.7503
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.7503)
+[epoch 007] alpha=0.00 | train_loss=4.7574 | dev_loss=4.7562
+[epoch 008] alpha=0.00 | train_loss=4.7558 | dev_loss=4.7304
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.7304)
+[epoch 009] alpha=0.00 | train_loss=4.7206 | dev_loss=4.7227
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.7227)
+[epoch 010] alpha=0.00 | train_loss=4.7269 | dev_loss=4.7214
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.7214)
+[epoch 011] alpha=0.00 | train_loss=4.7349 | dev_loss=4.7161
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.7161)
+[epoch 012] alpha=0.00 | train_loss=4.7061 | dev_loss=4.7097
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.7097)
+[epoch 013] alpha=0.00 | train_loss=4.6818 | dev_loss=4.7405
+[epoch 014] alpha=0.00 | train_loss=4.6523 | dev_loss=4.7260
+[epoch 015] alpha=0.00 | train_loss=4.6425 | dev_loss=4.7045
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.7045)
+[epoch 016] alpha=0.00 | train_loss=4.6443 | dev_loss=4.7296
+[epoch 017] alpha=0.00 | train_loss=4.6185 | dev_loss=4.6980
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6980)
+[epoch 018] alpha=0.00 | train_loss=4.6620 | dev_loss=4.7055
+[epoch 019] alpha=0.00 | train_loss=4.6305 | dev_loss=4.6927
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6927)
+[epoch 020] alpha=0.00 | train_loss=4.6171 | dev_loss=4.6820
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6820)
+[epoch 021] alpha=0.00 | train_loss=4.5937 | dev_loss=4.6804
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6804)
+[epoch 022] alpha=0.00 | train_loss=4.5829 | dev_loss=4.7189
+[epoch 023] alpha=0.00 | train_loss=4.6005 | dev_loss=4.6917
+[epoch 024] alpha=0.00 | train_loss=4.5815 | dev_loss=4.6804
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6804)
+[epoch 025] alpha=0.00 | train_loss=4.5715 | dev_loss=4.6918
+[epoch 026] alpha=0.00 | train_loss=4.5921 | dev_loss=4.6828
+[epoch 027] alpha=0.00 | train_loss=4.5696 | dev_loss=4.6694
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6694)
+[epoch 028] alpha=0.00 | train_loss=4.5643 | dev_loss=4.6852
+[epoch 029] alpha=0.00 | train_loss=4.5779 | dev_loss=4.6618
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6618)
+[epoch 030] alpha=0.00 | train_loss=4.5587 | dev_loss=4.6777
+[epoch 031] alpha=0.00 | train_loss=4.5510 | dev_loss=4.6608
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6608)
+[epoch 032] alpha=0.00 | train_loss=4.5675 | dev_loss=4.7139
+[epoch 033] alpha=0.00 | train_loss=4.5620 | dev_loss=4.6686
+[epoch 034] alpha=0.00 | train_loss=4.5325 | dev_loss=4.6864
+[epoch 035] alpha=0.00 | train_loss=4.5449 | dev_loss=4.6547
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6547)
+[epoch 036] alpha=0.00 | train_loss=4.5292 | dev_loss=4.6550
+[epoch 037] alpha=0.00 | train_loss=4.5206 | dev_loss=4.6614
+[epoch 038] alpha=0.00 | train_loss=4.5149 | dev_loss=4.6658
+[epoch 039] alpha=0.00 | train_loss=4.5113 | dev_loss=4.6511
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6511)
+[epoch 040] alpha=0.00 | train_loss=4.5133 | dev_loss=4.6499
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6499)
+[epoch 041] alpha=0.00 | train_loss=4.5053 | dev_loss=4.6486
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6486)
+[epoch 042] alpha=0.00 | train_loss=4.5063 | dev_loss=4.6531
+[epoch 043] alpha=0.00 | train_loss=4.5399 | dev_loss=4.6494
+[epoch 044] alpha=0.00 | train_loss=4.5175 | dev_loss=4.6325
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6325)
+[epoch 045] alpha=0.00 | train_loss=4.5040 | dev_loss=4.6563
+[epoch 046] alpha=0.00 | train_loss=4.5014 | dev_loss=4.6325
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6325)
+[epoch 047] alpha=0.00 | train_loss=4.4983 | dev_loss=4.6328
+[epoch 048] alpha=0.00 | train_loss=4.5192 | dev_loss=4.6251
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6251)
+[epoch 049] alpha=0.00 | train_loss=4.5099 | dev_loss=4.6693
+[epoch 050] alpha=0.00 | train_loss=4.4966 | dev_loss=4.6424
+[epoch 051] alpha=0.00 | train_loss=4.5032 | dev_loss=4.6263
+[epoch 052] alpha=0.00 | train_loss=4.5056 | dev_loss=4.6514
+[epoch 053] alpha=0.00 | train_loss=4.5326 | dev_loss=4.6541
+[epoch 054] alpha=0.00 | train_loss=4.4923 | dev_loss=4.6300
+[epoch 055] alpha=0.00 | train_loss=4.4950 | dev_loss=4.6588
+[epoch 056] alpha=0.00 | train_loss=4.4834 | dev_loss=4.6231
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6231)
+[epoch 057] alpha=0.00 | train_loss=4.4808 | dev_loss=4.6529
+[epoch 058] alpha=0.00 | train_loss=4.4871 | dev_loss=4.6072
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6072)
+[epoch 059] alpha=0.00 | train_loss=4.4766 | dev_loss=4.6120
+[epoch 060] alpha=0.00 | train_loss=4.4850 | dev_loss=4.6355
+[epoch 061] alpha=0.00 | train_loss=4.4937 | dev_loss=4.6315
+[epoch 062] alpha=0.00 | train_loss=4.4801 | dev_loss=4.6152
+[epoch 063] alpha=0.00 | train_loss=4.4756 | dev_loss=4.6614
+[epoch 064] alpha=0.00 | train_loss=4.4964 | dev_loss=4.6577
+[epoch 065] alpha=0.00 | train_loss=4.4778 | dev_loss=4.6097
+[epoch 066] alpha=0.00 | train_loss=4.4739 | dev_loss=4.6060
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6060)
+[epoch 067] alpha=0.00 | train_loss=4.4843 | dev_loss=4.6301
+[epoch 068] alpha=0.00 | train_loss=4.4759 | dev_loss=4.6329
+[epoch 069] alpha=0.00 | train_loss=4.4762 | dev_loss=4.6044
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6044)
+[epoch 070] alpha=0.00 | train_loss=4.4600 | dev_loss=4.6071
+[epoch 071] alpha=0.00 | train_loss=4.4670 | dev_loss=4.6017
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.6017)
+[epoch 072] alpha=0.00 | train_loss=4.4628 | dev_loss=4.6173
+[epoch 073] alpha=0.00 | train_loss=4.4738 | dev_loss=4.6402
+[epoch 074] alpha=0.00 | train_loss=4.4716 | dev_loss=4.5900
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.5900)
+[epoch 075] alpha=0.00 | train_loss=4.4561 | dev_loss=4.6032
+[epoch 076] alpha=0.00 | train_loss=4.4712 | dev_loss=4.5946
+[epoch 077] alpha=0.00 | train_loss=4.4812 | dev_loss=4.6147
+[epoch 078] alpha=0.00 | train_loss=4.4722 | dev_loss=4.6156
+[epoch 079] alpha=0.00 | train_loss=4.4892 | dev_loss=4.5895
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.5895)
+[epoch 080] alpha=0.00 | train_loss=4.4767 | dev_loss=4.6363
+[epoch 081] alpha=0.00 | train_loss=4.4767 | dev_loss=4.5952
+[epoch 082] alpha=0.00 | train_loss=4.4636 | dev_loss=4.6070
+[epoch 083] alpha=0.00 | train_loss=4.4604 | dev_loss=4.5971
+[epoch 084] alpha=0.00 | train_loss=4.4616 | dev_loss=4.6032
+[epoch 085] alpha=0.00 | train_loss=4.4571 | dev_loss=4.5903
+[epoch 086] alpha=0.00 | train_loss=4.4631 | dev_loss=4.6192
+[epoch 087] alpha=0.00 | train_loss=4.4752 | dev_loss=4.5774
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.5774)
+[epoch 088] alpha=0.00 | train_loss=4.4551 | dev_loss=4.5864
+[epoch 089] alpha=0.00 | train_loss=4.4567 | dev_loss=4.5864
+[epoch 090] alpha=0.00 | train_loss=4.4559 | dev_loss=4.5816
+[epoch 091] alpha=0.00 | train_loss=4.4595 | dev_loss=4.6005
+[epoch 092] alpha=0.00 | train_loss=4.4579 | dev_loss=4.5894
+[epoch 093] alpha=0.00 | train_loss=4.4829 | dev_loss=4.5825
+[epoch 094] alpha=0.00 | train_loss=4.4663 | dev_loss=4.5744
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.5744)
+[epoch 095] alpha=0.00 | train_loss=4.4649 | dev_loss=4.5906
+[epoch 096] alpha=0.00 | train_loss=4.4636 | dev_loss=4.6119
+[epoch 097] alpha=0.00 | train_loss=4.4531 | dev_loss=4.5842
+[epoch 098] alpha=0.00 | train_loss=4.4555 | dev_loss=4.6117
+[epoch 099] alpha=0.00 | train_loss=4.4471 | dev_loss=4.5811
+[epoch 100] alpha=0.00 | train_loss=4.4437 | dev_loss=4.6071
+Best checkpoint: /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.5744)
+Using device: cuda
+Model: facebook/wav2vec2-xls-r-300m
+Checkpoint: /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+Saving to: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/comp_head/facebook__wav2vec2-xls-r-300m
+Collecting embeddings on eval set...
+/home/jsudan/myenv/lib/python3.9/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+/home/jsudan/myenv/lib/python3.9/site-packages/numba/np/ufunc/parallel.py:371: NumbaWarning: The TBB threading layer requires TBB version 2021 update 6 or later i.e., TBB_INTERFACE_VERSION >= 12060. Found TBB_INTERFACE_VERSION = 12040. The TBB threading layer is disabled.
+  warnings.warn(problem)
+Invalid MIT-MAGIC-COOKIE-1 key  Processed 5120 samples...
+  Processed 10240 samples...
+  Processed 15360 samples...
+  Processed 20480 samples...
+  Processed 25600 samples...
+  Processed 30720 samples...
+  Processed 35840 samples...
+  Processed 40960 samples...
+  Processed 46080 samples...
+  Processed 51200 samples...
+  Processed 56320 samples...
+  Processed 61440 samples...
+  Processed 66560 samples...
+Total eval embeddings: 71237 (dim=256)
+Running UMAP...
+Saving PNG plot...
+Saved PNG: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/comp_head/facebook__wav2vec2-xls-r-300m/stage1_umap_eval_by_attack.png
+Saving interactive HTML plot...
+Saved HTML: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/comp_head/facebook__wav2vec2-xls-r-300m/stage1_umap_eval_by_attack.html
+Done.
+Using device: cuda
+Model: facebook/wav2vec2-xls-r-300m
+Checkpoint: /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/comp_head/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+Saving to: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/comp_head/facebook__wav2vec2-xls-r-300m
+Collecting embeddings on ITW set...
+/home/jsudan/myenv/lib/python3.9/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+/home/jsudan/myenv/lib/python3.9/site-packages/numba/np/ufunc/parallel.py:371: NumbaWarning: The TBB threading layer requires TBB version 2021 update 6 or later i.e., TBB_INTERFACE_VERSION >= 12060. Found TBB_INTERFACE_VERSION = 12040. The TBB threading layer is disabled.
+  warnings.warn(problem)
+Invalid MIT-MAGIC-COOKIE-1 key  Processed 5120 samples...
+  Processed 10240 samples...
+  Processed 15360 samples...
+  Processed 20480 samples...
+  Processed 25600 samples...
+  Processed 30720 samples...
+Total ITW embeddings: 31779 (dim=256)
+Running UMAP...
+Saving PNG plot...
+Saved PNG: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/comp_head/facebook__wav2vec2-xls-r-300m/stage1_umap_itw_real_vs_spoof.png
+Saving interactive HTML plot...
+Saved HTML: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/comp_head/facebook__wav2vec2-xls-r-300m/stage1_umap_itw_real_vs_spoof.html
+Done.
+----------------------------------------------------------------
+Training script finished.
+Job finished at: Thu Dec 18 06:27:11 EST 2025
