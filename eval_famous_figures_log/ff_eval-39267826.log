@@ -1,0 +1,44 @@
+Setting up the environment...
+Job started on gl1500.arc-ts.umich.edu at Sun Jan  4 15:35:41 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon
+Device: cuda
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon/famous_figures/score_cm_ff.txt
+EER: 56.292600893711764
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic
+Device: cuda
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic/famous_figures/score_cm_ff.txt
+EER: 58.43667256048695
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_uniformity_weight_0.1
+Device: cuda
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_uniformity_weight_0.1/famous_figures/score_cm_ff.txt
+EER: 54.140186074320695
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_uniformity
+Device: cuda
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_uniformity/famous_figures/score_cm_ff.txt
+EER: 61.01713702987974
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_uniformity_weight_0.6
+Device: cuda
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_uniformity_weight_0.6/famous_figures/score_cm_ff.txt
+EER: 56.57501841771253
+----------------------------------------------------------------
+Evaluation finished at: Sun Jan  4 22:11:58 EST 2026

@@ -41,12 +41,14 @@ class FamousFiguresDataset(BaseAudioDataset):
         subset: str = "all",             # 'all' | 'bonafide' | 'spoof'
         include_speakers: list = None,   # optional allowlist of speakers
         include_sources: list = None,    # optional allowlist of sources
+        return_audio_name: bool = False, # return audio file name for utt_id if True
         **kwargs
     ):
         num_samples = kwargs.pop("num_samples", None)
         super().__init__(**kwargs)
 
         self.root_dir = Path(root_dir) if root_dir else None
+        self.return_audio_name = return_audio_name
 
         # Load protocol; tabs or general whitespace both OK
         try:
@@ -125,6 +127,9 @@ class FamousFiguresDataset(BaseAudioDataset):
         audio_path, label_int, speaker, source = self.rows[idx]
         waveform = self._process_audio(audio_path)
         label = torch.tensor(label_int, dtype=torch.long)
+        if self.return_audio_name:
+            audio_name = Path(audio_path).name
+            return waveform, label, speaker, source, audio_name
         return waveform, label, speaker, source
 
 class ASVspoof2019Dataset(BaseAudioDataset):

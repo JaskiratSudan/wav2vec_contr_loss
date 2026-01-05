@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=supcon_uniformity_weight_0.1    # Job name
+#SBATCH --job-name=supcon_geodesic_temp_0.03    # Job name
 #SBATCH --partition=spgpu                # GPU partition
 #SBATCH --account=hafiz1               # Great Lakes account name
 #SBATCH --gpus-per-node=1              # GPU per node
@@ -36,8 +36,8 @@ echo "----------------------------------------------------------------"
 #----------------------------------------------------------------#
 #  EXPERIMENT VARIABLES
 #----------------------------------------------------------------#
-EXP_NAME=supcon_uniformity_weight_0.1
-SUPCON_SIMILARITY=cosine
+EXP_NAME=supcon_geodesic_temp_0.03
+SUPCON_SIMILARITY=geodesic
 MODEL=facebook/wav2vec2-xls-r-300m
 RUN_TAG=${MODEL//\//__}
 
@@ -73,8 +73,8 @@ ${LAUNCHER} train_stage1.py \
   --finetune_encoder 1 \
   --save_dir /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/${EXP_NAME} \
   --epochs 100 --batch_size ${BATCH_SIZE} --num_samples None \
-  --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight 0.1 --uniformity_t 2.0 \
-  --enc_lr 1e-5 --head_lr 5e-3 --weight_decay 3e-3 --temperature 0.2 \
+  --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight 0.00 --uniformity_t 2.00 \
+  --enc_lr 1e-5 --head_lr 5e-3 --weight_decay 3e-3 --temperature 0.03 \
   --num_workers 2 --seed 1337 \
   --topk_neg 15 --warmup_epochs 100 --alpha_end 1 --alpha_ramp_epochs 80 \
   --use_rawboost 1 --rawboost_prob 0.7

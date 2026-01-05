@@ -1,0 +1,89 @@
+Setting up the environment...
+Job started on gl1526.arc-ts.umich.edu at Sun Jan  4 00:25:55 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_temp_0.05
+Device: cuda
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_temp_0.05/famous_figures/score_cm_ff.txt
+EER: 59.432062692798546
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_temp_0.07
+Device: cuda
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_temp_0.07/famous_figures/score_cm_ff.txt
+EER: 56.65258734032814
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_temp_0.1
+Device: cuda
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_temp_0.1/famous_figures/score_cm_ff.txt
+EER: 60.36839176556982
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_temp_0.2
+[ERROR] Stage-1 checkpoint not found: /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_temp_0.2/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_temp_0.6
+Device: cuda
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_temp_0.6/famous_figures/score_cm_ff.txt
+EER: 49.737433206768465
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.05
+Device: cuda
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.05/famous_figures/score_cm_ff.txt
+EER: 57.04260167079098
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.07
+Device: cuda
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07/famous_figures/score_cm_ff.txt
+EER: 53.833578384781
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.1
+Device: cuda
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.1/famous_figures/score_cm_ff.txt
+EER: 54.59158659755261
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.2
+[ERROR] Stage-1 checkpoint not found: /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesic_temp_0.2/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.6
+Device: cuda
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.6/famous_figures/score_cm_ff.txt
+EER: 57.122004593867935
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_uniformity_weight_0.01
+Device: cuda
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_uniformity_weight_0.01/famous_figures/score_cm_ff.txt
+EER: 52.902415596470284
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_uniformity_weight_0.05
+Device: cuda
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_uniformity_weight_0.05/famous_figures/score_cm_ff.txt
+EER: 57.14419290048376
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_uniformity_weight_0.1
+Device: cuda
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+slurmstepd: error: *** JOB 39233851 ON gl1526 CANCELLED AT 2026-01-04T13:25:56 DUE TO TIME LIMIT ***
