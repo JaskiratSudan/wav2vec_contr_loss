@@ -5,7 +5,7 @@
 #SBATCH --gpus-per-node=1              # GPU per node
 #SBATCH --mem=24G                      # CPU RAM
 #SBATCH --cpus-per-task=4             # CPU cores (matches your num_workers)
-#SBATCH --time=14:00:00                # time requested (hh:mm:ss)
+#SBATCH --time=21:00:00                # time requested (hh:mm:ss)
 #SBATCH --output=baseline_train_log/%x-%j.log             # (%x=job_name, %j=job_id)
 
 # --- Email Notifications (Optional but Recommended) ---

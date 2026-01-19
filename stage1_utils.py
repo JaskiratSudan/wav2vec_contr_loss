@@ -26,35 +26,49 @@ class BalancedBatchSampler(Sampler[List[int]]):
         self.real = [i for i, it in enumerate(self.data) if it[1] == 1]
         self.fake = [i for i, it in enumerate(self.data) if it[1] == 0]
         self.per_class = batch_size // 2
-        self.num_batches = min(len(self.real)//self.per_class, len(self.fake)//self.per_class)
+
+        self.num_batches_total = min(len(self.real)//self.per_class, len(self.fake)//self.per_class)
+
+        # IMPORTANT: make it divisible so every rank has SAME number of steps
+        self.num_batches_total = (self.num_batches_total // world_size) * world_size
+        self.num_batches_per_rank = self.num_batches_total // world_size
+
         self.seed = seed
         self.epoch = 0
         self.rank = rank
         self.world_size = world_size
 
     def __len__(self):
-        return (self.num_batches - self.rank + self.world_size - 1) // self.world_size
+        return self.num_batches_per_rank
 
     def __iter__(self):
         rng = random.Random(self.seed + self.epoch)
-        rng.shuffle(self.real); rng.shuffle(self.fake)
-        r = self.real[: self.num_batches*self.per_class]
-        f = self.fake[: self.num_batches*self.per_class]
-        for b in range(self.num_batches):
+        rng.shuffle(self.real)
+        rng.shuffle(self.fake)
+
+        # truncate to exactly the usable amount
+        r = self.real[: self.num_batches_total * self.per_class]
+        f = self.fake[: self.num_batches_total * self.per_class]
+
+        # each rank takes its own interleaved batches
+        for local_b in range(self.num_batches_per_rank):
+            b = local_b * self.world_size + self.rank  # global batch index
             idx = r[b*self.per_class:(b+1)*self.per_class] + f[b*self.per_class:(b+1)*self.per_class]
             rng.shuffle(idx)
-            if (b % self.world_size) == self.rank:
-                yield idx
+            yield idx
 
     def set_epoch(self, epoch: int):
         self.epoch = epoch
 
 
-def apply_rawboost_batch(x: torch.Tensor, cfg) -> torch.Tensor:
+def apply_rawboost_batch(x: torch.Tensor, attn_mask: torch.Tensor, cfg) -> torch.Tensor:
     if not cfg.use_rawboost:
         return x
     device = x.device
-    pad_mask = (x != 0.0)
+
+    # attn_mask: (B, T) with 1 for real samples, 0 for padding
+    pad_mask = attn_mask.to(device=device, dtype=x.dtype)
+
     a = x.detach().cpu().numpy()
     for i in range(a.shape[0]):
         if random.random() < cfg.rawboost_prob:
@@ -77,9 +91,11 @@ def apply_rawboost_batch(x: torch.Tensor, cfg) -> torch.Tensor:
             if random.random() < 0.5:
                 y = ISD_additive_noise(y, P=10.0, g_sd=2.0)
             a[i] = y
-    y = torch.from_numpy(a).to(device=device, dtype=x.dtype)
-    return y * pad_mask.to(device=y.device, dtype=y.dtype)
 
+    y = torch.from_numpy(a).to(device=device, dtype=x.dtype)
+
+    # Keep padding at exactly zero
+    return y * pad_mask
 
 def alpha_for_epoch(epoch: int, cfg) -> float:
     if epoch <= cfg.warmup_epochs:
@@ -107,29 +123,81 @@ def train_one_epoch(encoder, head, loss_fn, loader, optimizer, device, epoch, cf
     head.train()
     total, steps = 0.0, 0
     alpha = alpha_for_epoch(epoch, cfg)
-    for waveforms, labels, *_ in loader:
+    LOG_EVERY = 500
+    rank = dist.get_rank() if dist.is_initialized() else 0
+    use_amp = bool(getattr(cfg, "use_amp", False)) and torch.cuda.is_available()
+    if use_amp and not hasattr(cfg, "_amp_scaler"):
+        cfg._amp_scaler = torch.cuda.amp.GradScaler()
+    accum_steps = int(getattr(cfg, "accum_steps", 1))
+    if accum_steps < 1:
+        accum_steps = 1
+    optimizer.zero_grad(set_to_none=True)
+    for step_idx, (waveforms, attn, labels, *_ ) in enumerate(loader, start=1):
         waveforms = waveforms.to(device)
+        attn = attn.to(device)
         labels = labels.to(device).long()
+
         if cfg.use_rawboost:
-            waveforms = apply_rawboost_batch(waveforms, cfg)
-        attn = (waveforms != 0.0).long()
+            waveforms = apply_rawboost_batch(waveforms, attn, cfg)
 
-        if cfg.finetune_encoder:
-            hs = encoder(waveforms, attention_mask=attn)
+        if use_amp:
+            with torch.cuda.amp.autocast():
+                if cfg.finetune_encoder:
+                    hs = encoder(waveforms, attention_mask=attn)
+                else:
+                    with torch.no_grad():
+                        hs = encoder(waveforms, attention_mask=attn)
+                seq = head(hs)
+                z = F.normalize(seq.mean(dim=-1), p=2, dim=1)
+                loss = loss_fn(z, labels, topk_neg=cfg.topk_neg, alpha=alpha)
         else:
-            with torch.no_grad():
+            if cfg.finetune_encoder:
                 hs = encoder(waveforms, attention_mask=attn)
-        seq = head(hs)
-        z = F.normalize(seq.mean(dim=-1), p=2, dim=1)
+            else:
+                with torch.no_grad():
+                    hs = encoder(waveforms, attention_mask=attn)
+            seq = head(hs)
+            z = F.normalize(seq.mean(dim=-1), p=2, dim=1)
+            loss = loss_fn(z, labels, topk_neg=cfg.topk_neg, alpha=alpha)
 
-        loss = loss_fn(z, labels, topk_neg=cfg.topk_neg, alpha=alpha)
+        with torch.no_grad():
+            B = labels.numel()
+            sim = z @ z.t()
+            eye = torch.eye(B, device=z.device, dtype=torch.bool)
 
-        optimizer.zero_grad(set_to_none=True)
-        loss.backward()
-        torch.nn.utils.clip_grad_norm_(head.parameters(), 5.0)
-        optimizer.step()
+            pos = (labels.view(-1,1) == labels.view(1,-1)) & (~eye)
+            neg = (labels.view(-1,1) != labels.view(1,-1))
 
-        total += loss.item()
+            pos_mean = sim[pos].mean().item() if pos.any() else float("nan")
+            neg_mean = sim[neg].mean().item() if neg.any() else float("nan")
+
+            if steps % LOG_EVERY == 0 and rank == 0:
+                print(f"[rank{rank}] pos_mean={pos_mean:.4f} neg_mean={neg_mean:.4f} "
+                    f"n_pos={int((labels==1).sum())} n_neg={int((labels==0).sum())}")
+
+        if steps % LOG_EVERY == 0:
+            with torch.no_grad():
+                sim = z @ z.t()
+                print(f"[rank{rank}] sim_mean={sim.mean().item():.4f} sim_std={sim.std().item():.4f} Loss: {loss}")
+
+        loss = loss / accum_steps
+        if use_amp:
+            cfg._amp_scaler.scale(loss).backward()
+        else:
+            loss.backward()
+
+        if step_idx % accum_steps == 0:
+            if use_amp:
+                cfg._amp_scaler.unscale_(optimizer)
+                torch.nn.utils.clip_grad_norm_(head.parameters(), 5.0)
+                cfg._amp_scaler.step(optimizer)
+                cfg._amp_scaler.update()
+            else:
+                torch.nn.utils.clip_grad_norm_(head.parameters(), 5.0)
+                optimizer.step()
+            optimizer.zero_grad(set_to_none=True)
+
+        total += loss.item() * accum_steps
         steps += 1
 
     return _reduce_avg(total, steps, device), alpha
@@ -140,17 +208,26 @@ def evaluate(encoder, head, loss_fn, loader, device, cfg):
     encoder.eval()
     head.eval()
     total, steps = 0.0, 0
-    for waveforms, labels, *_ in loader:
+    use_amp = bool(getattr(cfg, "use_amp", False)) and torch.cuda.is_available()
+    for waveforms, attn, labels, *_ in loader:
         waveforms = waveforms.to(device)
+        attn = attn.to(device)
         labels = labels.to(device).long()
-        attn = (waveforms != 0.0).long()
-        hs = encoder(waveforms, attention_mask=attn)
-        seq = head(hs)
-        z = F.normalize(seq.mean(dim=-1), p=2, dim=1)
+
+        if use_amp:
+            with torch.cuda.amp.autocast():
+                hs = encoder(waveforms, attention_mask=attn)
+                seq = head(hs)
+                z = F.normalize(seq.mean(dim=-1), p=2, dim=1)
+        else:
+            hs = encoder(waveforms, attention_mask=attn)
+            seq = head(hs)
+            z = F.normalize(seq.mean(dim=-1), p=2, dim=1)
         loss = loss_fn(z, labels, topk_neg=cfg.topk_neg, alpha=0.0)
+
         total += loss.item()
         steps += 1
-    return _reduce_avg(total, steps, device)
+    return total / max(1, steps)
 
 
 def setup_distributed():

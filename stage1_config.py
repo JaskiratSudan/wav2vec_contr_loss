@@ -9,6 +9,8 @@ TRAIN_ROOT = "/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/A
 TRAIN_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt"
 DEV_ROOT = "/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac"
 DEV_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt"
+RAVDESS_ROOT = "/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio"
+CV_ROOT = "/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files"
 
 TARGET_SAMPLE_RATE = 16000
 MAX_DURATION_SECONDS = 5
@@ -20,11 +22,11 @@ DROPOUT = 0.1
 EPOCHS = 100
 BATCH_SIZE = 256
 NUM_SAMPLES = None
-HEAD_LR = 5e-3
+HEAD_LR = 6e-3
 ENC_LR = 1e-5
 WEIGHT_DECAY = 3e-3
 TEMPERATURE = 0.2
-NUM_WORKERS = 4
+NUM_WORKERS = 16
 SEED = 1337
 SAVE_DIR = "/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesic_dist"
 FINETUNE_ENCODER = False
@@ -40,6 +42,7 @@ ALPHA_RAMP_EPOCHS = 80
 
 USE_RAWBOOST = True
 RAWBOOST_PROB = 0.7
+PATIENCE = 10
 
 
 def build_config():
@@ -95,6 +98,32 @@ def build_config():
         help="Subsample size for dataset (int) or None.",
     )
     parser.add_argument(
+        "--use_ravdess",
+        type=int,
+        default=0,
+        choices=[0, 1],
+        help="Include RAVDESS in stage 1 training.",
+    )
+    parser.add_argument(
+        "--use_commonvoice",
+        type=int,
+        default=0,
+        choices=[0, 1],
+        help="Include Common Voice in stage 1 training.",
+    )
+    parser.add_argument(
+        "--ravdess_root",
+        type=str,
+        default=RAVDESS_ROOT,
+        help="RAVDESS root directory.",
+    )
+    parser.add_argument(
+        "--commonvoice_root",
+        type=str,
+        default=CV_ROOT,
+        help="Common Voice root directory.",
+    )
+    parser.add_argument(
         "--head_lr",
         type=float,
         default=HEAD_LR,
@@ -123,6 +152,12 @@ def build_config():
         type=int,
         default=NUM_WORKERS,
         help="DataLoader num_workers.",
+    )
+    parser.add_argument(
+        "--patience",
+        type=int,
+        default=PATIENCE,
+        help="Early stopping patience on dev loss (0 disables).",
     )
     parser.add_argument(
         "--seed",
@@ -193,6 +228,8 @@ def build_config():
         train_protocol=TRAIN_PROTOCOL,
         dev_root=DEV_ROOT,
         dev_protocol=DEV_PROTOCOL,
+        ravdess_root=args.ravdess_root,
+        commonvoice_root=args.commonvoice_root,
         target_sample_rate=TARGET_SAMPLE_RATE,
         max_duration_seconds=MAX_DURATION_SECONDS,
         input_dim=INPUT_DIM,
@@ -217,6 +254,9 @@ def build_config():
         use_rawboost=bool(args.use_rawboost),
         rawboost_prob=args.rawboost_prob,
         finetune_encoder=bool(args.finetune_encoder),
+        use_ravdess=bool(args.use_ravdess),
+        use_commonvoice=bool(args.use_commonvoice),
+        patience=args.patience,
     )
 
 
@@ -230,6 +270,8 @@ def print_config(cfg, is_distributed=False, world_size=1, rank=0):
     print(f"TRAIN_PROTOCOL={cfg.train_protocol}")
     print(f"DEV_ROOT={cfg.dev_root}")
     print(f"DEV_PROTOCOL={cfg.dev_protocol}")
+    print(f"RAVDESS_ROOT={cfg.ravdess_root}")
+    print(f"COMMONVOICE_ROOT={cfg.commonvoice_root}")
     print(f"TARGET_SAMPLE_RATE={cfg.target_sample_rate}")
     print(f"MAX_DURATION_SECONDS={cfg.max_duration_seconds}")
     print(f"INPUT_DIM={cfg.input_dim}")
@@ -254,6 +296,9 @@ def print_config(cfg, is_distributed=False, world_size=1, rank=0):
     print(f"USE_RAWBOOST={cfg.use_rawboost}")
     print(f"RAWBOOST_PROB={cfg.rawboost_prob}")
     print(f"FINETUNE_ENCODER={cfg.finetune_encoder}")
+    print(f"USE_RAVDESS={cfg.use_ravdess}")
+    print(f"USE_COMMONVOICE={cfg.use_commonvoice}")
+    print(f"PATIENCE={cfg.patience}")
     print(f"DISTRIBUTED={is_distributed} | WORLD_SIZE={world_size} | RANK={rank}")
     print("=============")
 
@@ -280,4 +325,7 @@ def ckpt_config(cfg):
         "UNIFORMITY_T": cfg.uniformity_t,
         "SUPCON_SIMILARITY": cfg.supcon_similarity,
         "FINETUNE_ENCODER": cfg.finetune_encoder,
+        "USE_RAVDESS": cfg.use_ravdess,
+        "USE_COMMONVOICE": cfg.use_commonvoice,
+        "PATIENCE": cfg.patience,
     }

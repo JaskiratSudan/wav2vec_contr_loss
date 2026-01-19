@@ -2,3 +2,6 @@
 *.pth
 *.npy
 *.html
+*.log
+debug_audio_samples
+__pycache__

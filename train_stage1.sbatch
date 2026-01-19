@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=supcon_geodesic_temp_0.03    # Job name
+#SBATCH --job-name=windowed_loader_supcon_geodesic_temp_0.05   # Job name
 #SBATCH --partition=spgpu                # GPU partition
 #SBATCH --account=hafiz1               # Great Lakes account name
-#SBATCH --gpus-per-node=1              # GPU per node
+#SBATCH --gpus-per-node=2              # GPU per node
 #SBATCH --mem=36G                      # CPU RAM
-#SBATCH --cpus-per-task=2             # CPU cores 
-#SBATCH --time=16:00:00                # time requested (hh:mm:ss)
+#SBATCH --cpus-per-task=6             # CPU cores 
+#SBATCH --time=12:00:00                # time requested (hh:mm:ss)
 #SBATCH --output=train_stage1_log/%x-%j.log             # (%x=job_name, %j=job_id)
 
 # --- Email Notifications (Optional but Recommended) ---
@@ -33,16 +33,22 @@ echo "CUDA available: $(python -c 'import torch; print(torch.cuda.is_available()
 echo "Current GPU: $(nvidia-smi --query-gpu=name --format=csv,noheader)"
 echo "----------------------------------------------------------------"
 
+# Avoid DDP port collisions when multiple jobs run on the same node.
+export MASTER_PORT=$((29500 + $SLURM_JOB_ID % 1000))
+
 #----------------------------------------------------------------#
 #  EXPERIMENT VARIABLES
 #----------------------------------------------------------------#
-EXP_NAME=supcon_geodesic_temp_0.03
+EXP_NAME=windowed_loader_supcon_geodesic_temp_0.05
 SUPCON_SIMILARITY=geodesic
 MODEL=facebook/wav2vec2-xls-r-300m
 RUN_TAG=${MODEL//\//__}
+USE_RAVDESS=0
+USE_COMMONVOICE=0
 
-CKPT_DIR=/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/${EXP_NAME}/${RUN_TAG}
-CKPT=${CKPT_DIR}/${RUN_TAG}_stage1_head_best.pt
+CKPT_ROOT=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/${EXP_NAME}
+CKPT_DIR=${CKPT_ROOT}/${RUN_TAG}
+CKPT=${CKPT_ROOT}/${RUN_TAG}/${RUN_TAG}_stage1_head_best.pt
 
 ASV_EMB_DIR=/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/${EXP_NAME}
 ITW_EMB_DIR=/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ITW/${EXP_NAME}
@@ -63,7 +69,7 @@ cd ~/wav2vec_contr_loss
 
 # Execute your main training script
 # python train_stage1.py --model_name facebook/wav2vec2-large-960h
-LAUNCHER="python"
+LAUNCHER="torchrun --nproc_per_node=2 --rdzv_endpoint=localhost:${MASTER_PORT}"
 BATCH_SIZE=32
 
 echo "Using BATCH_SIZE=${BATCH_SIZE}"
@@ -71,13 +77,14 @@ echo "Using BATCH_SIZE=${BATCH_SIZE}"
 ${LAUNCHER} train_stage1.py \
   --model_name ${MODEL} \
   --finetune_encoder 1 \
-  --save_dir /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/${EXP_NAME} \
+  --save_dir ${CKPT_ROOT} \
   --epochs 100 --batch_size ${BATCH_SIZE} --num_samples None \
-  --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight 0.00 --uniformity_t 2.00 \
-  --enc_lr 1e-5 --head_lr 5e-3 --weight_decay 3e-3 --temperature 0.03 \
-  --num_workers 2 --seed 1337 \
+  --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight 0.0 --uniformity_t 2.0 \
+  --enc_lr 1e-5 --head_lr 5e-3 --weight_decay 3e-3 --temperature 0.05 \
+  --num_workers 6 --seed 1337 \
   --topk_neg 15 --warmup_epochs 100 --alpha_end 1 --alpha_ramp_epochs 80 \
-  --use_rawboost 1 --rawboost_prob 0.7
+  --use_rawboost 1 --rawboost_prob 0.7 \
+  --use_ravdess ${USE_RAVDESS} --use_commonvoice ${USE_COMMONVOICE}
 
 if [ ! -f "${CKPT}" ]; then
   echo "[ERROR] Stage-1 checkpoint not found: ${CKPT}"

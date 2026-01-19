@@ -39,6 +39,7 @@ from tqdm import tqdm
 
 from data_loader import (
     ASVspoof2019Dataset,
+    ASVspoof5Dataset,
     InTheWildDataset,
     pad_collate_fn_speaker_source_multiclass,
     pad_collate_fn_speaker_source,
@@ -84,6 +85,12 @@ ITW_OUT_DIR = f"/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embe
 # ============================================================
 #                       UTILS
 # ============================================================
+
+def _require_env(name: str) -> str:
+    val = os.environ.get(name)
+    if not val:
+        raise RuntimeError(f"Missing required env var: {name}")
+    return val
 
 def set_seed(seed: int = 1337):
     random.seed(seed)
@@ -171,6 +178,7 @@ def extract_asv_split(
     split_name: str,
     backbone: Stage1Backbone,
     device: torch.device,
+    dataset_cls=ASVspoof2019Dataset,
 ):
     """
     Extract embeddings for one ASVspoof2019 split and save as .npy.
@@ -187,7 +195,7 @@ def extract_asv_split(
         return
 
     print(f"==> Building ASV dataset for split: {split_name}")
-    ds = ASVspoof2019Dataset(
+    ds = dataset_cls(
         root_dir=root_dir,
         protocol_file=protocol_file,
         subset="all",
@@ -312,6 +320,7 @@ def extract_itw(backbone: Stage1Backbone, device: torch.device):
 
 def main():
     global MODEL_NAME, STAGE1_CKPT, ASV_OUT_DIR, ITW_OUT_DIR
+    use_asv5 = os.environ.get("ASV_DATASET", "asv19").lower() in {"asv5", "asvspoof5", "5"}
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--model_name",
@@ -351,10 +360,28 @@ def main():
     print(f"Loading Stage-1 checkpoint from: {STAGE1_CKPT}")
     backbone = Stage1Backbone(STAGE1_CKPT, device=device)
 
-    # ASVspoof2019 splits
-    extract_asv_split(TRAIN_ROOT, TRAIN_PROTOCOL, "train", backbone, device)
-    extract_asv_split(DEV_ROOT,   DEV_PROTOCOL,   "dev",   backbone, device)
-    extract_asv_split(EVAL_ROOT,  EVAL_PROTOCOL,  "eval",  backbone, device)
+    if use_asv5:
+        train_root = _require_env("ASV5_TRAIN_ROOT")
+        train_protocol = _require_env("ASV5_TRAIN_PROTOCOL")
+        dev_root = _require_env("ASV5_DEV_ROOT")
+        dev_protocol = _require_env("ASV5_DEV_PROTOCOL")
+        eval_root = _require_env("ASV5_EVAL_ROOT")
+        eval_protocol = _require_env("ASV5_EVAL_PROTOCOL")
+        dataset_cls = ASVspoof5Dataset
+        print("[INFO] Using ASVspoof5 dataset for embedding extraction.")
+    else:
+        train_root = TRAIN_ROOT
+        train_protocol = TRAIN_PROTOCOL
+        dev_root = DEV_ROOT
+        dev_protocol = DEV_PROTOCOL
+        eval_root = EVAL_ROOT
+        eval_protocol = EVAL_PROTOCOL
+        dataset_cls = ASVspoof2019Dataset
+        print("[INFO] Using ASVspoof2019 dataset for embedding extraction.")
+
+    extract_asv_split(train_root, train_protocol, "train", backbone, device, dataset_cls=dataset_cls)
+    extract_asv_split(dev_root,   dev_protocol,   "dev",   backbone, device, dataset_cls=dataset_cls)
+    extract_asv_split(eval_root,  eval_protocol,  "eval",  backbone, device, dataset_cls=dataset_cls)
 
     # In-The-Wild
     extract_itw(backbone, device)

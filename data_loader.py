@@ -25,6 +25,51 @@ from base_audio import BaseAudioDataset
 
 warnings.filterwarnings("ignore", category=UserWarning, module="torchaudio._backend.utils")
 
+def load_fakexpose_items(root_dir: str, allowed_exts=None):
+    if allowed_exts is None:
+        allowed_exts = {".wav", ".flac", ".mp3", ".m4a"}
+
+    root = Path(root_dir)
+    fake_candidates = ["ElevenLabs", "11 labs", "11_labs", "11labs"]
+    real_candidates = ["Original", "original"]
+
+    fake_dir = None
+    real_dir = None
+
+    for name in fake_candidates:
+        cand = root / name
+        if cand.exists():
+            fake_dir = cand
+            break
+    for name in real_candidates:
+        cand = root / name
+        if cand.exists():
+            real_dir = cand
+            break
+
+    missing = []
+    if fake_dir is None:
+        missing.append(f"{root}/<{','.join(fake_candidates)}>")
+    if real_dir is None:
+        missing.append(f"{root}/<{','.join(real_candidates)}>")
+    if missing:
+        raise FileNotFoundError(f"Missing Fakexpose directories: {missing}")
+
+    items = []
+
+    def _collect(dir_path: Path, label: int, source: str):
+        for path in dir_path.rglob("*"):
+            if not path.is_file():
+                continue
+            if path.suffix.lower() in allowed_exts:
+                items.append((path, label, source))
+
+    _collect(fake_dir, 0, "elevenlabs")
+    _collect(real_dir, 1, "original")
+
+    items.sort(key=lambda x: str(x[0]))
+    return items
+
 # ---------- New Dataset: FamousFigures ----------
 class FamousFiguresDataset(BaseAudioDataset):
     """
@@ -153,6 +198,10 @@ class ASVspoof2019Dataset(BaseAudioDataset):
                 f"subset must be one of 'all', 'bonafide', or 'spoof' (got: {subset})"
             )
 
+        sample_limit = int(num_samples) if num_samples is not None else None
+        seen = 0
+        rng = random.Random(sample_seed)
+
         with open(protocol_file, "r") as f:
             for line in f:
                 parts = line.strip().split()
@@ -192,8 +241,8 @@ class ASVspoof2019Dataset(BaseAudioDataset):
 
         if num_samples is not None:
             n = min(int(num_samples), len(self.data))
-            rng = random.Random(sample_seed)     # reproducible
-            self.data = rng.sample(self.data, n) # random subset
+            rng = random.Random(sample_seed)
+            self.data = rng.sample(self.data, n)
 
         if not self.data:
             raise RuntimeError(
@@ -212,6 +261,185 @@ class ASVspoof2019Dataset(BaseAudioDataset):
             torch.tensor(binary_label, dtype=torch.long),
             torch.tensor(multi_label, dtype=torch.long),
             speaker_id,
+            audio_name,
+        )
+
+class ASVspoof5Dataset(BaseAudioDataset):
+    """
+    ASVspoof5 protocol format (whitespace-separated):
+      SPEAKER_ID | FILE | GENDER | CODEC | ATTACK | LABEL
+    Returns (waveform, binary_label, multi_label, speaker_id, audio_name)
+    """
+    def __init__(
+        self,
+        protocol_file: str,
+        root_dir: str = "",
+        num_samples: int = None,
+        subset: str = "all",
+        sample_seed: int = 1337,
+        file_ext: str = ".flac",
+        **kwargs,
+    ):
+        super().__init__(**kwargs)
+        self.root_dir = Path(root_dir) if root_dir else None
+        self.data = []
+        self.attack_to_idx = {"bonafide": 0}
+
+        subset = (subset or "all").lower()
+        if subset not in {"all", "bonafide", "spoof"}:
+            raise ValueError(
+                f"subset must be one of 'all', 'bonafide', or 'spoof' (got: {subset})"
+            )
+
+        def _with_ext(name: str) -> str:
+            return name if Path(name).suffix else f"{name}{file_ext}"
+
+        sample_limit = int(num_samples) if num_samples is not None else None
+        seen = 0
+        rng = random.Random(sample_seed)
+
+        with open(protocol_file, "r") as f:
+            for line in f:
+                parts = line.strip().split()
+                if len(parts) < 6:
+                    continue
+
+                speaker_id = parts[0]
+                file_name = parts[1]
+                attack_id_raw = parts[4]
+                label_str = parts[5].lower()
+
+                if subset != "all" and label_str != subset:
+                    continue
+
+                audio_name = _with_ext(file_name)
+                full_path = (self.root_dir / audio_name) if self.root_dir else Path(audio_name)
+                binary_label = 1 if label_str == "bonafide" else 0
+
+                key = "bonafide" if label_str == "bonafide" else attack_id_raw
+                if key not in self.attack_to_idx:
+                    self.attack_to_idx[key] = len(self.attack_to_idx)
+                multi_label = self.attack_to_idx[key]
+
+                row = (full_path, binary_label, multi_label, speaker_id, audio_name)
+                if sample_limit is None:
+                    self.data.append(row)
+                else:
+                    seen += 1
+                    if len(self.data) < sample_limit:
+                        self.data.append(row)
+                    else:
+                        j = rng.randint(0, seen - 1)
+                        if j < sample_limit:
+                            self.data[j] = row
+
+        if not self.data:
+            raise RuntimeError(
+                f"No audio files found from protocol {protocol_file} "
+                f"after applying subset='{subset}'."
+            )
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        audio_path, binary_label, multi_label, speaker_id, audio_name = self.data[idx]
+        waveform = self._process_audio(audio_path)
+        return (
+            waveform,
+            torch.tensor(binary_label, dtype=torch.long),
+            torch.tensor(multi_label, dtype=torch.long),
+            speaker_id,
+            audio_name,
+        )
+
+class MLAADMailabsDataset(BaseAudioDataset):
+    """
+    Protocol format (whitespace-separated):
+      rel_path lang corpus source_or_attack label
+    Example:
+      MLAAD/fake/it/...wav it MLAAD tts_models_it_mai_male_vits spoof
+      MAILabs/...wav de MAILABS - bonafide
+    Returns (waveform, binary_label, multi_label, audio_name)
+    """
+    def __init__(
+        self,
+        protocol_file: str,
+        root_dir: str,
+        num_samples: int = None,
+        subset: str = "all",
+        sample_seed: int = 1337,
+        **kwargs,
+    ):
+        super().__init__(**kwargs)
+        self.root_dir = Path(root_dir)
+        self.data = []
+        self.attack_to_idx = {"bonafide": 0}
+
+        subset = (subset or "all").lower()
+        if subset not in {"all", "bonafide", "spoof"}:
+            raise ValueError(
+                f"subset must be one of 'all', 'bonafide', or 'spoof' (got: {subset})"
+            )
+
+        sample_limit = int(num_samples) if num_samples is not None else None
+        seen = 0
+        rng = random.Random(sample_seed)
+
+        with open(protocol_file, "r") as f:
+            for line in f:
+                parts = line.strip().split()
+                if len(parts) < 5:
+                    continue
+
+                rel_path = parts[0]
+                source_or_attack = parts[3]
+                label_str = parts[4].lower()
+
+                if subset != "all" and label_str != subset:
+                    continue
+
+                audio_name = Path(rel_path).name
+                full_path = self.root_dir / rel_path
+                binary_label = 1 if label_str == "bonafide" else 0
+
+                key = "bonafide" if label_str == "bonafide" else source_or_attack
+                if key not in self.attack_to_idx:
+                    self.attack_to_idx[key] = len(self.attack_to_idx)
+                multi_label = self.attack_to_idx[key]
+
+                row = (full_path, binary_label, multi_label, audio_name)
+                if sample_limit is None:
+                    self.data.append(row)
+                else:
+                    seen += 1
+                    if len(self.data) < sample_limit:
+                        self.data.append(row)
+                    else:
+                        j = rng.randint(0, seen - 1)
+                        if j < sample_limit:
+                            self.data[j] = row
+
+        if not self.data:
+            raise RuntimeError(
+                f"No audio files found from protocol {protocol_file} "
+                f"after applying subset='{subset}'."
+            )
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        audio_path, binary_label, multi_label, audio_name = self.data[idx]
+        waveform = self._process_audio(audio_path)
+        if self.max_duration_seconds is not None:
+            target_len = int(self.max_duration_seconds * self.target_sample_rate)
+            if waveform.shape[0] < target_len:
+                waveform = F.pad(waveform, (0, target_len - waveform.shape[0]))
+        return (
+            waveform,
+            torch.tensor(binary_label, dtype=torch.long),
+            torch.tensor(multi_label, dtype=torch.long),
             audio_name,
         )
 
@@ -262,52 +490,6 @@ class CommonVoiceDataset(BaseAudioDataset):
         waveform = self._process_audio(audio_path)
         label = torch.tensor(1, dtype=torch.long)
         return waveform, label
-
-# class ASVspoof2021Dataset(BaseAudioDataset):
-#     """A PyTorch Dataset for loading audio from the ASVspoof 2021 DF eval dataset."""
-#     def __init__(self, root_dir: str, protocol_file: str, subset='all', **kwargs):
-#         num_samples = kwargs.pop("num_samples", None)
-#         super().__init__(**kwargs)
-        
-#         self.root_dir = Path(root_dir)
-#         self.audio_folder = self.root_dir / "flac"
-        
-#         if not Path(protocol_file).exists():
-#             raise FileNotFoundError(f"Protocol file not found: {protocol_file}")
-            
-#         col_names = ['speaker_id', 'filename', 'compression', 'source', 'attack_id', 'label', 'trim', 'set', 'vocoder_type', 'col10', 'col11', 'col12', 'col13']
-#         protocol_df = pd.read_csv(protocol_file, sep='\s+', header=None, engine='python', names=col_names)
-        
-#         protocol_df.dropna(subset=['filename'], inplace=True)
-
-#         original_count = len(protocol_df)
-#         protocol_df['exists'] = protocol_df['filename'].apply(lambda fname: (self.audio_folder / f"{fname}.flac").exists())
-#         protocol_df = protocol_df[protocol_df['exists']]
-#         if len(protocol_df) < original_count:
-#             print(f"[INFO] ASVspoof2021: Filtered out {original_count - len(protocol_df)} missing audio files.")
-
-#         if subset == 'bonafide':
-#             self.protocol = protocol_df[protocol_df['label'] == 'bonafide'].reset_index(drop=True)
-#         elif subset == 'spoof':
-#             self.protocol = protocol_df[protocol_df['label'] != 'bonafide'].reset_index(drop=True)
-#         else:
-#             self.protocol = protocol_df
-        
-#         if num_samples is not None:
-#             self.protocol = self.protocol.sample(frac=1, random_state=42).reset_index(drop=True).head(num_samples)
-
-#         if len(self.protocol) == 0:
-#             raise RuntimeError(f"Found 0 audio files after filtering for subset '{subset}'.")
-
-#     def __len__(self):
-#         return len(self.protocol)
-
-#     def __getitem__(self, idx):
-#         row = self.protocol.iloc[idx]
-#         audio_path = self.audio_folder / f"{row['filename']}.flac"
-#         waveform = self._process_audio(audio_path)
-#         label = torch.tensor(1 if row['label'] == 'bonafide' else 0, dtype=torch.long)
-#         return waveform, label
 
 class ASVspoof2021Dataset(BaseAudioDataset):
     """A PyTorch Dataset for loading audio from the ASVspoof 2021 DF eval dataset using ok_files.txt."""
@@ -433,6 +615,55 @@ class InTheWildDataset(BaseAudioDataset):
 
         # ---------- KEY CHANGE: now return 4 items ----------
         return waveform, label, speaker, audio_name
+
+class FakeXposeDataset(BaseAudioDataset):
+    """Dataset for Fakexpose: 11 labs (fake) vs original (real)."""
+    def __init__(
+        self,
+        root_dir: str,
+        subset: str = "all",
+        num_samples: int = None,
+        sample_seed: int = 1337,
+        allowed_exts=None,
+        return_audio_name: bool = True,
+        **kwargs,
+    ):
+        super().__init__(**kwargs)
+
+        subset = (subset or "all").lower()
+        if subset not in {"all", "bonafide", "spoof"}:
+            raise ValueError(
+                f"subset must be one of 'all', 'bonafide', or 'spoof' (got: {subset})"
+            )
+
+        items = load_fakexpose_items(root_dir, allowed_exts=allowed_exts)
+
+        if subset == "bonafide":
+            items = [it for it in items if it[1] == 1]
+        elif subset == "spoof":
+            items = [it for it in items if it[1] == 0]
+
+        if num_samples is not None:
+            n = min(int(num_samples), len(items))
+            rng = random.Random(sample_seed)
+            items = rng.sample(items, n)
+
+        if not items:
+            raise RuntimeError("FakeXposeDataset: no audio files after filtering.")
+
+        self.items = items
+        self.return_audio_name = return_audio_name
+
+    def __len__(self):
+        return len(self.items)
+
+    def __getitem__(self, idx):
+        audio_path, label_int, source = self.items[idx]
+        waveform = self._process_audio(audio_path)
+        label = torch.tensor(label_int, dtype=torch.long)
+        if self.return_audio_name:
+            return waveform, label, source, Path(audio_path).name
+        return waveform, label, source
 
 # Example of how to use the new InTheWildDataset
 if __name__ == '__main__':

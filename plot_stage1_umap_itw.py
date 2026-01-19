@@ -42,7 +42,7 @@ DROPOUT = 0.1
 # Audio / loader
 MAX_DURATION_SECONDS = 5
 TARGET_SAMPLE_RATE = 16000  # kept for reference
-BATCH_SIZE = 256
+BATCH_SIZE = 64
 NUM_WORKERS = 4
 ITW_NUM_SAMPLES = None  # e.g., 500 to subsample, or None for all
 

@@ -266,31 +266,25 @@ def main():
 
     # ---- ASVspoof2019 eval ----
     if RUN_ASV_EVAL:
-        if os.path.exists(SCORE_FILE_ASV_EVAL):
-            print(f"[SKIP] Found existing ASV eval score file: {SCORE_FILE_ASV_EVAL}")
-        else:
-            write_cm_scores_from_embeddings(
-                emb_path=EVAL_EMB_PATH,
-                label_path=EVAL_LABEL_PATH,
-                clf=clf,
-                device=device,
-                score_path=SCORE_FILE_ASV_EVAL,
-                utt_prefix="asv_eval",
-            )
+        write_cm_scores_from_embeddings(
+            emb_path=EVAL_EMB_PATH,
+            label_path=EVAL_LABEL_PATH,
+            clf=clf,
+            device=device,
+            score_path=SCORE_FILE_ASV_EVAL,
+            utt_prefix="asv_eval",
+        )
 
     # ---- ITW ----
     if RUN_ITW:
-        if os.path.exists(SCORE_FILE_ITW):
-            print(f"[SKIP] Found existing ITW score file: {SCORE_FILE_ITW}")
-        else:
-            write_cm_scores_from_embeddings(
-                emb_path=ITW_EMB_PATH,
-                label_path=ITW_LABEL_PATH,
-                clf=clf,
-                device=device,
-                score_path=SCORE_FILE_ITW,
-                utt_prefix="itw",
-            )
+        write_cm_scores_from_embeddings(
+            emb_path=ITW_EMB_PATH,
+            label_path=ITW_LABEL_PATH,
+            clf=clf,
+            device=device,
+            score_path=SCORE_FILE_ITW,
+            utt_prefix="itw",
+        )
 
     print("All requested score files handled (generated or skipped).")
 
