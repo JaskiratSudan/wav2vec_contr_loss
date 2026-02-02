@@ -74,7 +74,7 @@ STAGE1_CKPT = "/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesi
 MODEL_NAME = "facebook/wav2vec2-xls-r-300m"
 MAX_DURATION_SECONDS = 5
 TARGET_SAMPLE_RATE = 16000  # kept for reference; ITW loader may already be 16k
-BATCH_SIZE = 256
+BATCH_SIZE = 64
 NUM_WORKERS = 4
 SEED = 1337
 
@@ -165,7 +165,6 @@ class Stage1Backbone(torch.nn.Module):
         seq = self.head(hs_4d)
         # mean-pool over time -> (B, D)
         z = seq.mean(dim=-1)
-        # L2-normalize
         z = F.normalize(z, p=2, dim=1)
         return z
 
@@ -319,8 +318,9 @@ def extract_itw(backbone: Stage1Backbone, device: torch.device):
 # ============================================================
 
 def main():
-    global MODEL_NAME, STAGE1_CKPT, ASV_OUT_DIR, ITW_OUT_DIR
+    global MODEL_NAME, STAGE1_CKPT, ASV_OUT_DIR, ITW_OUT_DIR, MAX_DURATION_SECONDS
     use_asv5 = os.environ.get("ASV_DATASET", "asv19").lower() in {"asv5", "asvspoof5", "5"}
+    skip_itw = os.environ.get("SKIP_ITW", "0") == "1"
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--model_name",
@@ -346,12 +346,19 @@ def main():
         default=ITW_OUT_DIR,
         help="Output directory for ITW embeddings."
     )
+    parser.add_argument(
+        "--max_duration_seconds",
+        type=int,
+        default=MAX_DURATION_SECONDS,
+        help="Max audio length (seconds) for truncation/padding."
+    )
     args = parser.parse_args()
 
     MODEL_NAME = args.model_name
     STAGE1_CKPT = args.stage1_ckpt
     ASV_OUT_DIR = args.asv_out_dir
     ITW_OUT_DIR = args.itw_out_dir
+    MAX_DURATION_SECONDS = args.max_duration_seconds
 
     set_seed(SEED)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -384,7 +391,10 @@ def main():
     extract_asv_split(eval_root,  eval_protocol,  "eval",  backbone, device, dataset_cls=dataset_cls)
 
     # In-The-Wild
-    extract_itw(backbone, device)
+    if skip_itw:
+        print("[INFO] SKIP_ITW=1 set; skipping ITW embedding extraction.")
+    else:
+        extract_itw(backbone, device)
 
 
 if __name__ == "__main__":
