@@ -121,7 +121,8 @@ def _save_embeddings(ds, out_dir: str, split_name: str, backbone: Stage1Backbone
 
 def _split_dataset(ds, seed: int, train_frac: float = 0.8):
     rng = random.Random(seed)
-    idx = list(range(len(ds.data)))
+    data = list(ds.data)
+    idx = list(range(len(data)))
     rng.shuffle(idx)
     n_train = int(len(idx) * train_frac)
     train_idx = idx[:n_train]
@@ -130,8 +131,8 @@ def _split_dataset(ds, seed: int, train_frac: float = 0.8):
     train_ds = ds
     dev_ds = MLAADMailabsDataset.__new__(MLAADMailabsDataset)
     dev_ds.__dict__ = train_ds.__dict__.copy()
-    train_ds.data = [ds.data[i] for i in train_idx]
-    dev_ds.data = [ds.data[i] for i in dev_idx]
+    train_ds.data = [data[i] for i in train_idx]
+    dev_ds.data = [data[i] for i in dev_idx]
     return train_ds, dev_ds
 
 
