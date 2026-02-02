@@ -5,7 +5,7 @@
 #SBATCH --gpus-per-node=1              # GPU per node
 #SBATCH --mem=24G                      # CPU RAM
 #SBATCH --cpus-per-task=4             # CPU cores (matches your num_workers)
-#SBATCH --time=21:00:00                # time requested (hh:mm:ss)
+#SBATCH --time=10:00:00                # time requested (hh:mm:ss)
 #SBATCH --output=baseline_train_log/%x-%j.log             # (%x=job_name, %j=job_id)
 
 # --- Email Notifications (Optional but Recommended) ---
@@ -47,8 +47,33 @@ cd ~/wav2vec_contr_loss
 MODEL=facebook/wav2vec2-xls-r-300m
 RUN_TAG=${MODEL//\//__}
 CKPT=/home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/${RUN_TAG}/${RUN_TAG}_baseline_bce_best.pt
-ASV_SCORE=/home/jsudan/wav2vec_contr_loss/scores/baseline/${MODEL}/score_cm_eval.txt
-ITW_SCORE=/home/jsudan/wav2vec_contr_loss/scores/baseline/${MODEL}/score_cm_itw.txt
+SCORES_DIR=/home/jsudan/wav2vec_contr_loss/scores
+
+# Dataset list for eval_baseline_datasets.py
+DATASET_LIST=(
+  itw
+  asv19
+  asv5
+  famous_figures
+  fakexpose
+  mlaad
+)
+DATASETS=$(IFS=,; echo "${DATASET_LIST[*]}")
+
+# FamousFigures speaker filter (line-by-line; leave empty for all)
+FF_SPEAKERS_LIST=(
+  Anthony_Blinken
+  Barack_Obama
+  Donald_Trump
+  Elon_Musk
+  JD_Vance
+  Joe_Biden
+  Kamala_Harris
+  Mathew_Miller
+  Tim_Walz
+  Vivek_Ramaswamy
+)
+FF_SPEAKERS=$(IFS=,; echo "${FF_SPEAKERS_LIST[*]}")
 
 python baseline_train.py \
   --model_name ${MODEL} \
@@ -58,15 +83,15 @@ python baseline_train.py \
   --enc_lr 1e-5 \
   --head_lr 5e-4
 
-rm -rf ${ASV_SCORE}
-rm -rf ${ITW_SCORE}
-
-python eval_baseline_score_file.py \
-  --ckpt ${CKPT} \
-  --asv_score_path ${ASV_SCORE} \
-  --itw_score_path ${ITW_SCORE} \
-  --run_asv_eval \
-  --run_itw
+python eval_baseline_datasets.py \
+  --datasets "${DATASETS}" \
+  --model_name "${MODEL}" \
+  --ckpt "${CKPT}" \
+  --scores_dir "${SCORES_DIR}" \
+  --batch_size 32 --num_workers 4 --subset all \
+  --ff_speakers "${FF_SPEAKERS}" \
+  --print_eer \
+  --force_rescore
 
 echo "----------------------------------------------------------------"
 echo "Training script finished."
