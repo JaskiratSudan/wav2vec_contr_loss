@@ -1,0 +1,22 @@
+Setting up the environment...
+Job started on gl1502.arc-ts.umich.edu at Sun Feb 15 17:45:12 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: hbm_1024_mem_16384_supcon_temp_0.07
+USE_QUEUE=1
+QUEUE_SIZE=16384
+ACCUM_STEPS=1
+CENTER_BEFORE_NORM=0
+GLOBAL_CENTER=0
+Detected NUM_GPUS=1
+Using BATCH_SIZE=32
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_la' -> /home/jsudan/wav2vec_contr_loss/scores/hbm_1024_mem_16384_supcon_temp_0.07/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/hbm_1024_mem_16384_supcon_temp_0.07/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 6.844846244830993
+----------------------------------------------------------------
+ASV19 pipeline finished at: Sun Feb 15 18:43:51 EST 2026

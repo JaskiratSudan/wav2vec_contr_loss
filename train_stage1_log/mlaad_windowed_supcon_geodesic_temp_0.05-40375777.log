@@ -1,0 +1,127 @@
+Setting up the environment...
+Job started on gl1525.arc-ts.umich.edu at Tue Jan 20 00:11:58 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+MLAAD_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/multilingual
+MLAAD_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/multilingual/protocol_MLAAD_MAILabs_total_balanced.txt
+MLAAD_STAGE2_SPLIT_SEED=2027
+MLAAD_MAX_DURATION_SECONDS=10
+USE_AMP=1
+ACCUM_STEPS=2
+QUEUE_SIZE=8192
+EXPERIMENT NAME: name=mlaad_windowed_supcon_geodesic_temp_0.05
+Detected NUM_GPUS=2
+Using BATCH_SIZE=32
+W0120 00:12:05.286906 1149063 torch/distributed/run.py:774] 
+W0120 00:12:05.286906 1149063 torch/distributed/run.py:774] *****************************************
+W0120 00:12:05.286906 1149063 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0120 00:12:05.286906 1149063 torch/distributed/run.py:774] *****************************************
+[W120 00:12:05.665845477 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30277 (errno: 97 - Address family not supported by protocol).
+[W120 00:12:05.666784436 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30277 (errno: 97 - Address family not supported by protocol).
+[W120 00:12:05.667715736 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30277 (errno: 97 - Address family not supported by protocol).
+[W120 00:12:12.351839355 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30277 (errno: 97 - Address family not supported by protocol).
+[W120 00:12:12.352553762 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30277 (errno: 97 - Address family not supported by protocol).
+[W120 00:12:12.352982809 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30277 (errno: 97 - Address family not supported by protocol).
+[W120 00:12:12.353506641 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30277 (errno: 97 - Address family not supported by protocol).
+[W120 00:12:12.353914111 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30277 (errno: 97 - Address family not supported by protocol).
+[W120 00:12:12.354357510 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30277 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/name=mlaad_windowed_supcon_geodesic_temp_0.05/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=10
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.05
+NUM_WORKERS=6
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=0.5
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=False
+RAWBOOST_PROB=0.0
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=10
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=False (p=0.0)
+CUDA device count: 2
+[INFO] Train samples loaded: bonafide=123360, spoof=123040
+[INFO] Dev samples loaded: bonafide=30640, spoof=30960
+[INFO] Global batch size=32 | Per-GPU batch size=16
+[INFO] Queue size=8192 (per-rank)
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:179: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  cfg._amp_scaler = torch.cuda.amp.GradScaler()
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:179: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  cfg._amp_scaler = torch.cuda.amp.GradScaler()
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:197: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:197: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+[rank0] pos_mean=0.9391 neg_mean=0.9140 n_pos=8 n_neg=8
+[rank1] sim_mean=0.9199 sim_std=0.0659 Loss: 3.771789312362671
+[rank0] sim_mean=0.9303 sim_std=0.0629 Loss: 3.1656687259674072
+[rank0] pos_mean=0.9098 neg_mean=0.9140 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9175 sim_std=0.0609 Loss: 9.400615692138672
+[rank1] sim_mean=0.9171 sim_std=0.0775 Loss: 9.465913772583008
+[rank1] sim_mean=0.9507 sim_std=0.0355 Loss: 8.507143020629883
+[rank0] pos_mean=0.9186 neg_mean=0.9181 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9234 sim_std=0.0717 Loss: 9.270519256591797
+[rank0] pos_mean=0.9182 neg_mean=0.9219 n_pos=8 n_neg=8[rank1] sim_mean=0.9265 sim_std=0.0682 Loss: 9.175536155700684
+
+[rank0] sim_mean=0.9252 sim_std=0.0631 Loss: 9.315462112426758
+[rank1] sim_mean=0.9436 sim_std=0.0474 Loss: 8.894084930419922
+[rank0] pos_mean=0.9078 neg_mean=0.9073 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9133 sim_std=0.0684 Loss: 9.344152450561523
+[rank0] pos_mean=0.9329 neg_mean=0.9347 n_pos=8 n_neg=8[rank1] sim_mean=0.9447 sim_std=0.0440 Loss: 8.778532028198242
+
+[rank0] sim_mean=0.9380 sim_std=0.0465 Loss: 8.93249797821045
+[rank0] pos_mean=0.9431 neg_mean=0.9472 n_pos=8 n_neg=8
+[rank1] sim_mean=0.9430 sim_std=0.0518 Loss: 8.481426239013672
+[rank0] sim_mean=0.9487 sim_std=0.0414 Loss: 8.80955982208252
+[rank0] pos_mean=0.9324 neg_mean=0.9364 n_pos=8 n_neg=8[rank1] sim_mean=0.9485 sim_std=0.0403 Loss: 8.707406997680664
+
+[rank0] sim_mean=0.9386 sim_std=0.0628 Loss: 8.911294937133789
+[rank1] sim_mean=0.9259 sim_std=0.0594 Loss: 9.071578979492188[rank0] pos_mean=0.9449 neg_mean=0.9215 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.9367 sim_std=0.0505 Loss: 8.559120178222656
+[rank0] pos_mean=0.8965 neg_mean=0.9035 n_pos=8 n_neg=8[rank1] sim_mean=0.9034 sim_std=0.0755 Loss: 9.701714515686035
+
+[rank0] sim_mean=0.9065 sim_std=0.0834 Loss: 9.619452476501465
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank1] sim_mean=0.9036 sim_std=0.0755 Loss: 9.626855850219727[rank0] pos_mean=0.9258 neg_mean=0.9263 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.9307 sim_std=0.0545 Loss: 9.127724647521973
+[rank0] pos_mean=0.9175 neg_mean=0.9171 n_pos=8 n_neg=8
+[rank1] sim_mean=0.8999 sim_std=0.0779 Loss: 9.269787788391113
+[rank0] sim_mean=0.9225 sim_std=0.0552 Loss: 9.197023391723633
+[2026-01-20T01:12:17.005] error: *** JOB 40375777 ON gl1525 CANCELLED AT 2026-01-20T01:12:17 DUE TO TIME LIMIT ***

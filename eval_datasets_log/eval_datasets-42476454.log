@@ -1,0 +1,198 @@
+Setting up the environment...
+Job started on gl1513.arc-ts.umich.edu at Thu Feb 12 17:36:05 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.3
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/supcon_geodesic_temp_0.3/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/supcon_geodesic_temp_0.3/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 8.546668772928284
+[INFO] Scoring dataset 'asv21_la' -> scores/supcon_geodesic_temp_0.3/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/supcon_geodesic_temp_0.3/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 6.36790619435697
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.6
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/supcon_geodesic_temp_0.6/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/supcon_geodesic_temp_0.6/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 10.076584908851089
+[INFO] Scoring dataset 'asv21_la' -> scores/supcon_geodesic_temp_0.6/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/supcon_geodesic_temp_0.6/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 7.435399500796924
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_256_supcon_temp_0.07
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_256_supcon_temp_0.07/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_256_supcon_temp_0.07/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 9.324835600469974
+[INFO] Scoring dataset 'asv21_la' -> scores/mem_256_supcon_temp_0.07/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/mem_256_supcon_temp_0.07/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 7.050811563630252
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_256_supcon_temp_0.3
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_256_supcon_temp_0.3/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_256_supcon_temp_0.3/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 8.330487261100494
+[INFO] Scoring dataset 'asv21_la' -> scores/mem_256_supcon_temp_0.3/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/mem_256_supcon_temp_0.3/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 7.283813048780893
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_256_supcon_geodesic_temp_0.07
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_256_supcon_geodesic_temp_0.07/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_256_supcon_geodesic_temp_0.07/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 5.827459510025813
+[INFO] Scoring dataset 'asv21_la' -> scores/mem_256_supcon_geodesic_temp_0.07/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/mem_256_supcon_geodesic_temp_0.07/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 6.28102262113599
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_256_supcon_geodesic_temp_0.3
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_256_supcon_geodesic_temp_0.3/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_256_supcon_geodesic_temp_0.3/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 10.69658605782912
+[INFO] Scoring dataset 'asv21_la' -> scores/mem_256_supcon_geodesic_temp_0.3/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/mem_256_supcon_geodesic_temp_0.3/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 7.516814533931537
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_256_supcon_temp_0.07_uni_weight_0.1_uni_t_2
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_256_supcon_temp_0.07_uni_weight_0.1_uni_t_2/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_256_supcon_temp_0.07_uni_weight_0.1_uni_t_2/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 7.998443800944349
+[INFO] Scoring dataset 'asv21_la' -> scores/mem_256_supcon_temp_0.07_uni_weight_0.1_uni_t_2/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/mem_256_supcon_temp_0.07_uni_weight_0.1_uni_t_2/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 6.411347980967462
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_256_supcon_temp_0.3_uni_weight_0.1_uni_t_2
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_256_supcon_temp_0.3_uni_weight_0.1_uni_t_2/asv21_df/score_cm_asv21_df.txt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 659, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 642, in main
+    score_and_write(stage1, stage2, loader, device, out_path)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 345, in score_and_write
+    f.write(f"{utt_id} {source} {key} {scores[i]:.6f}\n")
+OSError: [Errno 116] Stale file handle
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_256_supcon_geodesic_temp_0.07_uni_weight_0.1_uni_t_2
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_256_supcon_geodesic_temp_0.07_uni_weight_0.1_uni_t_2/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_256_supcon_geodesic_temp_0.07_uni_weight_0.1_uni_t_2/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 6.328030238631569
+[INFO] Scoring dataset 'asv21_la' -> scores/mem_256_supcon_geodesic_temp_0.07_uni_weight_0.1_uni_t_2/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/mem_256_supcon_geodesic_temp_0.07_uni_weight_0.1_uni_t_2/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 6.827827556410969
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_256_supcon_geodesic_temp_0.3_uni_weight_0.1_uni_t_2
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_256_supcon_geodesic_temp_0.3_uni_weight_0.1_uni_t_2/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_256_supcon_geodesic_temp_0.3_uni_weight_0.1_uni_t_2/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 5.234979048507714
+[INFO] Scoring dataset 'asv21_la' -> scores/mem_256_supcon_geodesic_temp_0.3_uni_weight_0.1_uni_t_2/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/mem_256_supcon_geodesic_temp_0.3_uni_weight_0.1_uni_t_2/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 6.188977041909097
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_256_qst_12_supcon_temp_0.07
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_256_qst_12_supcon_temp_0.07/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_256_qst_12_supcon_temp_0.07/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 8.149557394520125
+[INFO] Scoring dataset 'asv21_la' -> scores/mem_256_qst_12_supcon_temp_0.07/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/mem_256_qst_12_supcon_temp_0.07/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 6.605763151433064
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_256_qst_12_supcon_temp_0.3
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_256_qst_12_supcon_temp_0.3/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_256_qst_12_supcon_temp_0.3/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 8.356141048361518
+[INFO] Scoring dataset 'asv21_la' -> scores/mem_256_qst_12_supcon_temp_0.3/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/mem_256_qst_12_supcon_temp_0.3/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 7.071153053573431
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_256_qst_12_supcon_geodesic_temp_0.07
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_256_qst_12_supcon_geodesic_temp_0.07/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_256_qst_12_supcon_geodesic_temp_0.07/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 7.958605374453606
+[INFO] Scoring dataset 'asv21_la' -> scores/mem_256_qst_12_supcon_geodesic_temp_0.07/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/mem_256_qst_12_supcon_geodesic_temp_0.07/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 6.580566189564434
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_256_qst_12_supcon_geodesic_temp_0.3
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_256_qst_12_supcon_geodesic_temp_0.3/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_256_qst_12_supcon_geodesic_temp_0.3/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 10.346195472699685
+[INFO] Scoring dataset 'asv21_la' -> scores/mem_256_qst_12_supcon_geodesic_temp_0.3/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/mem_256_qst_12_supcon_geodesic_temp_0.3/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 7.343353921570031
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_256_qst_12_supcon_temp_0.07_uni_weight_0.1_uni_t_2
+Device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 659, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 564, in main
+    stage1_ckpt, stage2_ckpt = resolve_ckpts(
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 368, in resolve_ckpts
+    raise FileNotFoundError(f"Stage-1 checkpoint not found: {stage1_ckpt}")
+FileNotFoundError: Stage-1 checkpoint not found: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_qst_12_supcon_temp_0.07_uni_weight_0.1_uni_t_2/wav2vec2-xls-r-300m_stage1_head_best.pt
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_256_qst_12_supcon_temp_0.3_uni_weight_0.1_uni_t_2
+Device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 659, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 564, in main
+    stage1_ckpt, stage2_ckpt = resolve_ckpts(
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 368, in resolve_ckpts
+    raise FileNotFoundError(f"Stage-1 checkpoint not found: {stage1_ckpt}")
+FileNotFoundError: Stage-1 checkpoint not found: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_qst_12_supcon_temp_0.3_uni_weight_0.1_uni_t_2/wav2vec2-xls-r-300m_stage1_head_best.pt
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_256_qst_12_supcon_geodesic_temp_0.07_uni_weight_0.1_uni_t_2
+Device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 659, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 564, in main
+    stage1_ckpt, stage2_ckpt = resolve_ckpts(
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 368, in resolve_ckpts
+    raise FileNotFoundError(f"Stage-1 checkpoint not found: {stage1_ckpt}")
+FileNotFoundError: Stage-1 checkpoint not found: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_qst_12_supcon_geodesic_temp_0.07_uni_weight_0.1_uni_t_2/wav2vec2-xls-r-300m_stage1_head_best.pt
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_256_qst_12_supcon_geodesic_temp_0.3_uni_weight_0.1_uni_t_2
+Device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 659, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 564, in main
+    stage1_ckpt, stage2_ckpt = resolve_ckpts(
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 368, in resolve_ckpts
+    raise FileNotFoundError(f"Stage-1 checkpoint not found: {stage1_ckpt}")
+FileNotFoundError: Stage-1 checkpoint not found: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_qst_12_supcon_geodesic_temp_0.3_uni_weight_0.1_uni_t_2/wav2vec2-xls-r-300m_stage1_head_best.pt
+----------------------------------------------------------------
+Evaluation finished at: Sat Feb 14 22:33:01 EST 2026

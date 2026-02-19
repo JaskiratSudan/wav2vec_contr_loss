@@ -1,0 +1,133 @@
+Setting up the environment...
+Job started on gl1523.arc-ts.umich.edu at Sun Jan 18 18:43:37 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+MLAAD_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/multilingual
+MLAAD_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/multilingual/protocol_MLAAD_MAILabs_total_balanced.txt
+MLAAD_STAGE2_SPLIT_SEED=2027
+MLAAD_MAX_CHUNKS=4
+EXPERIMENT NAME: mlaad_windowed_supcon_geodesic_temp_0.05
+Detected NUM_GPUS=4
+Using BATCH_SIZE=32
+W0118 18:43:43.837855 1943557 torch/distributed/run.py:774] 
+W0118 18:43:43.837855 1943557 torch/distributed/run.py:774] *****************************************
+W0118 18:43:43.837855 1943557 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0118 18:43:43.837855 1943557 torch/distributed/run.py:774] *****************************************
+[W118 18:43:43.707538999 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29697 (errno: 97 - Address family not supported by protocol).
+[W118 18:43:43.708442365 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29697 (errno: 97 - Address family not supported by protocol).
+[W118 18:43:43.709462622 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29697 (errno: 97 - Address family not supported by protocol).
+[W118 18:43:49.599910188 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29697 (errno: 97 - Address family not supported by protocol).
+[W118 18:43:49.600032420 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29697 (errno: 97 - Address family not supported by protocol).
+[W118 18:43:49.600042916 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29697 (errno: 97 - Address family not supported by protocol).
+[W118 18:43:49.600141389 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29697 (errno: 97 - Address family not supported by protocol).
+[W118 18:43:49.600999739 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29697 (errno: 97 - Address family not supported by protocol).
+[W118 18:43:49.601016789 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29697 (errno: 97 - Address family not supported by protocol).
+[W118 18:43:49.601111838 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29697 (errno: 97 - Address family not supported by protocol).
+[W118 18:43:49.601145339 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29697 (errno: 97 - Address family not supported by protocol).
+[W118 18:43:49.601956089 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29697 (errno: 97 - Address family not supported by protocol).
+[W118 18:43:49.601981040 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29697 (errno: 97 - Address family not supported by protocol).
+[W118 18:43:49.602071719 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29697 (errno: 97 - Address family not supported by protocol).
+[W118 18:43:49.602104242 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29697 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mlaad_windowed_supcon_geodesic_temp_0.05/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.05
+NUM_WORKERS=6
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=False
+RAWBOOST_PROB=0.0
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=10
+DISTRIBUTED=True | WORLD_SIZE=4 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=False (p=0.0)
+CUDA device count: 4
+[INFO] Train samples loaded: bonafide=123360, spoof=123040
+[INFO] Dev samples loaded: bonafide=30640, spoof=30960
+[INFO] Global batch size=32 | Per-GPU batch size=8
+[rank3]:[E118 18:59:50.616289547 ProcessGroupNCCL.cpp:1870] [PG ID 0 PG GUID 0(default_pg) Rank 3] ProcessGroupNCCL's watchdog got stuck for 480 seconds without making progress in monitoring enqueued collectives. This typically indicates a NCCL/CUDA API (e.g., CudaEventDestroy) hang blocking the watchdog, and could be triggered by another thread holding the GIL inside a CUDA api (for example, CudaEventDestroy), or other deadlock-prone behaviors.If you suspect the watchdog is not actually stuck and a longer timeout would help, you can either increase the timeout (TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC) to a larger value or disable the heartbeat monitor (TORCH_NCCL_ENABLE_MONITORING=0).If either of aforementioned helps, feel free to file an issue to PyTorch about the short timeout or false positive abort; otherwise, please attempt to debug the hang. 
+[rank0]:[E118 18:59:50.616302262 ProcessGroupNCCL.cpp:1870] [PG ID 0 PG GUID 0(default_pg) Rank 0] ProcessGroupNCCL's watchdog got stuck for 480 seconds without making progress in monitoring enqueued collectives. This typically indicates a NCCL/CUDA API (e.g., CudaEventDestroy) hang blocking the watchdog, and could be triggered by another thread holding the GIL inside a CUDA api (for example, CudaEventDestroy), or other deadlock-prone behaviors.If you suspect the watchdog is not actually stuck and a longer timeout would help, you can either increase the timeout (TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC) to a larger value or disable the heartbeat monitor (TORCH_NCCL_ENABLE_MONITORING=0).If either of aforementioned helps, feel free to file an issue to PyTorch about the short timeout or false positive abort; otherwise, please attempt to debug the hang. 
+[rank2]:[E118 18:59:50.616386118 ProcessGroupNCCL.cpp:1870] [PG ID 0 PG GUID 0(default_pg) Rank 2] ProcessGroupNCCL's watchdog got stuck for 480 seconds without making progress in monitoring enqueued collectives. This typically indicates a NCCL/CUDA API (e.g., CudaEventDestroy) hang blocking the watchdog, and could be triggered by another thread holding the GIL inside a CUDA api (for example, CudaEventDestroy), or other deadlock-prone behaviors.If you suspect the watchdog is not actually stuck and a longer timeout would help, you can either increase the timeout (TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC) to a larger value or disable the heartbeat monitor (TORCH_NCCL_ENABLE_MONITORING=0).If either of aforementioned helps, feel free to file an issue to PyTorch about the short timeout or false positive abort; otherwise, please attempt to debug the hang. 
+[rank0]:[E118 18:59:50.617110627 ProcessGroupNCCL.cpp:1589] [PG ID 0 PG GUID 0(default_pg) Rank 0] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1
+[rank3]:[E118 18:59:50.617183275 ProcessGroupNCCL.cpp:1589] [PG ID 0 PG GUID 0(default_pg) Rank 3] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1
+[rank2]:[E118 18:59:50.617247411 ProcessGroupNCCL.cpp:1589] [PG ID 0 PG GUID 0(default_pg) Rank 2] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1
+[rank1]:[E118 18:59:50.634966651 ProcessGroupNCCL.cpp:1870] [PG ID 0 PG GUID 0(default_pg) Rank 1] ProcessGroupNCCL's watchdog got stuck for 480 seconds without making progress in monitoring enqueued collectives. This typically indicates a NCCL/CUDA API (e.g., CudaEventDestroy) hang blocking the watchdog, and could be triggered by another thread holding the GIL inside a CUDA api (for example, CudaEventDestroy), or other deadlock-prone behaviors.If you suspect the watchdog is not actually stuck and a longer timeout would help, you can either increase the timeout (TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC) to a larger value or disable the heartbeat monitor (TORCH_NCCL_ENABLE_MONITORING=0).If either of aforementioned helps, feel free to file an issue to PyTorch about the short timeout or false positive abort; otherwise, please attempt to debug the hang. 
+[rank1]:[E118 18:59:50.635105307 ProcessGroupNCCL.cpp:1589] [PG ID 0 PG GUID 0(default_pg) Rank 1] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1
+[rank3]:[F118 19:07:50.641460665 ProcessGroupNCCL.cpp:1614] [PG ID 0 PG GUID 0(default_pg) Rank 3] [PG ID 0 PG GUID 0(default_pg) Rank 3] Terminating the process after attempting to dump debug info, due to ProcessGroupNCCL watchdog hang.
+[rank2]:[F118 19:07:50.641875215 ProcessGroupNCCL.cpp:1614] [PG ID 0 PG GUID 0(default_pg) Rank 2] [PG ID 0 PG GUID 0(default_pg) Rank 2] Terminating the process after attempting to dump debug info, due to ProcessGroupNCCL watchdog hang.
+[rank1]:[F118 19:07:50.662458534 ProcessGroupNCCL.cpp:1614] [PG ID 0 PG GUID 0(default_pg) Rank 1] [PG ID 0 PG GUID 0(default_pg) Rank 1] Terminating the process after attempting to dump debug info, due to ProcessGroupNCCL watchdog hang.
+[rank0]:[F118 19:07:50.669696363 ProcessGroupNCCL.cpp:1614] [PG ID 0 PG GUID 0(default_pg) Rank 0] [PG ID 0 PG GUID 0(default_pg) Rank 0] Terminating the process after attempting to dump debug info, due to ProcessGroupNCCL watchdog hang.
+W0118 19:08:01.814226 1943557 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 1943570 closing signal SIGTERM
+W0118 19:08:01.816315 1943557 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 1943571 closing signal SIGTERM
+W0118 19:08:01.816644 1943557 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 1943572 closing signal SIGTERM
+E0118 19:08:02.915275 1943557 torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: -6) local_rank: 3 (pid: 1943573) of binary: /home/jsudan/myenv/bin/python
+Traceback (most recent call last):
+  File "/home/jsudan/myenv/bin/torchrun", line 7, in <module>
+    sys.exit(main())
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 901, in main
+    run(args)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+========================================================
+train_stage1_mlaad.py FAILED
+--------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+--------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-01-18_19:08:01
+  host      : gl1523.arc-ts.umich.edu
+  rank      : 3 (local_rank: 3)
+  exitcode  : -6 (pid: 1943573)
+  error_file: <N/A>
+  traceback : Signal 6 (SIGABRT) received by PID 1943573
+========================================================
+Using device: cuda
+[OK] Loaded finetuned encoder weights from checkpoint.
+[OK] Saved train: embeddings (25380, 256), labels (25380,)
+     -> /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV19/mlaad_windowed_supcon_geodesic_temp_0.05/train_embeddings.npy
+     -> /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV19/mlaad_windowed_supcon_geodesic_temp_0.05/train_labels.npy
+[OK] Saved dev: embeddings (24844, 256), labels (24844,)
+     -> /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV19/mlaad_windowed_supcon_geodesic_temp_0.05/dev_embeddings.npy
+     -> /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV19/mlaad_windowed_supcon_geodesic_temp_0.05/dev_labels.npy
+[2026-01-18T19:21:02.175] error: *** JOB 40281197 ON gl1523 CANCELLED AT 2026-01-18T19:21:02 DUE to SIGNAL Terminated ***

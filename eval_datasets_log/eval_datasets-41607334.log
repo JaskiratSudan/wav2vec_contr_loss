@@ -1,0 +1,253 @@
+Setting up the environment...
+Job started on gl1513.arc-ts.umich.edu at Mon Feb  2 18:28:55 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: hbm_256_mem_bank_16384_supcon_geodesic_temp_0.5
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> scores/hbm_256_mem_bank_16384_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 659, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 642, in main
+    score_and_write(stage1, stage2, loader, device, out_path)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 335, in score_and_write
+    embs = stage1(waveforms, attn)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 99, in forward
+    hs_4d = self.encoder(waveforms, attention_mask=attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 55, in forward
+    hidden_states = self._forward_frozen(waveforms, attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 34, in _forward_frozen
+    out = self.model(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1453, in forward
+    extract_features = self.feature_extractor(input_values)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 431, in forward
+    hidden_states = conv_layer(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/modeling_layers.py", line 93, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 309, in forward
+    hidden_states = self.layer_norm(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/normalization.py", line 217, in forward
+    return F.layer_norm(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/functional.py", line 2905, in layer_norm
+    return torch.layer_norm(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 15.62 GiB. GPU 0 has a total capacity of 44.42 GiB of which 11.22 GiB is free. Including non-PyTorch memory, this process has 33.19 GiB memory in use. Of the allocated memory 32.88 GiB is allocated by PyTorch, and 6.94 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+----------------------------------------------------------------
+EXPERIMENT NAME: hbm_256_alp_ramp_2_alp_end_1_mem_bank_16384_supcon_geodesic_temp_0.5
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> scores/hbm_256_alp_ramp_2_alp_end_1_mem_bank_16384_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 659, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 642, in main
+    score_and_write(stage1, stage2, loader, device, out_path)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 335, in score_and_write
+    embs = stage1(waveforms, attn)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 99, in forward
+    hs_4d = self.encoder(waveforms, attention_mask=attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 55, in forward
+    hidden_states = self._forward_frozen(waveforms, attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 34, in _forward_frozen
+    out = self.model(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1453, in forward
+    extract_features = self.feature_extractor(input_values)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 431, in forward
+    hidden_states = conv_layer(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/modeling_layers.py", line 93, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 309, in forward
+    hidden_states = self.layer_norm(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/normalization.py", line 217, in forward
+    return F.layer_norm(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/functional.py", line 2905, in layer_norm
+    return torch.layer_norm(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 15.62 GiB. GPU 0 has a total capacity of 44.42 GiB of which 11.21 GiB is free. Including non-PyTorch memory, this process has 33.19 GiB memory in use. Of the allocated memory 32.88 GiB is allocated by PyTorch, and 6.94 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+----------------------------------------------------------------
+EXPERIMENT NAME: hbm_256_mem_bank_32768_supcon_geodesic_temp_0.5
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> scores/hbm_256_mem_bank_32768_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 659, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 642, in main
+    score_and_write(stage1, stage2, loader, device, out_path)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 335, in score_and_write
+    embs = stage1(waveforms, attn)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 99, in forward
+    hs_4d = self.encoder(waveforms, attention_mask=attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 55, in forward
+    hidden_states = self._forward_frozen(waveforms, attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 34, in _forward_frozen
+    out = self.model(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1453, in forward
+    extract_features = self.feature_extractor(input_values)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 431, in forward
+    hidden_states = conv_layer(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/modeling_layers.py", line 93, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 309, in forward
+    hidden_states = self.layer_norm(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/normalization.py", line 217, in forward
+    return F.layer_norm(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/functional.py", line 2905, in layer_norm
+    return torch.layer_norm(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 15.62 GiB. GPU 0 has a total capacity of 44.42 GiB of which 11.21 GiB is free. Including non-PyTorch memory, this process has 33.19 GiB memory in use. Of the allocated memory 32.88 GiB is allocated by PyTorch, and 6.94 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+----------------------------------------------------------------
+EXPERIMENT NAME: hbm_256_alp_ramp_2_alp_end_1_mem_bank_32768_supcon_geodesic_temp_0.5
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> scores/hbm_256_alp_ramp_2_alp_end_1_mem_bank_32768_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 659, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 642, in main
+    score_and_write(stage1, stage2, loader, device, out_path)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 335, in score_and_write
+    embs = stage1(waveforms, attn)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 99, in forward
+    hs_4d = self.encoder(waveforms, attention_mask=attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 55, in forward
+    hidden_states = self._forward_frozen(waveforms, attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 34, in _forward_frozen
+    out = self.model(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1453, in forward
+    extract_features = self.feature_extractor(input_values)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 431, in forward
+    hidden_states = conv_layer(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/modeling_layers.py", line 93, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 309, in forward
+    hidden_states = self.layer_norm(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/normalization.py", line 217, in forward
+    return F.layer_norm(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/functional.py", line 2905, in layer_norm
+    return torch.layer_norm(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 15.62 GiB. GPU 0 has a total capacity of 44.42 GiB of which 11.21 GiB is free. Including non-PyTorch memory, this process has 33.19 GiB memory in use. Of the allocated memory 32.88 GiB is allocated by PyTorch, and 6.94 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+----------------------------------------------------------------
+Evaluation finished at: Mon Feb  2 18:31:07 EST 2026

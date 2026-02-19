@@ -1,0 +1,39 @@
+Setting up the environment...
+Job started on gl1509.arc-ts.umich.edu at Wed Jan 21 22:38:21 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: windowed_loader_supcon_temp_0.6
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Found existing score file for 'asv19': scores/windowed_loader_supcon_temp_0.6/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+EER (asv19): 2.6938206151718673
+[INFO] Scoring dataset 'asv5' -> scores/windowed_loader_supcon_temp_0.6/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[OK] Wrote: scores/windowed_loader_supcon_temp_0.6/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+EER (asv5): 14.39565406036497
+[INFO] Found existing score file for 'itw': scores/windowed_loader_supcon_temp_0.6/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 15.520018313500827
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> scores/windowed_loader_supcon_temp_0.6/famous_figures/score_cm_ff.txt
+[OK] Wrote: scores/windowed_loader_supcon_temp_0.6/famous_figures/score_cm_ff.txt
+EER (famous_figures): 49.89056919307657
+[INFO] Scoring dataset 'fakexpose' -> scores/windowed_loader_supcon_temp_0.6/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote: scores/windowed_loader_supcon_temp_0.6/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 58.73041316328873
+----------------------------------------------------------------
+EXPERIMENT NAME: windowed_loader_supcon_geodesic_temp_0.05_uni_weight_0.05_uni_t_0.5
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Found existing score file for 'asv19': scores/windowed_loader_supcon_geodesic_temp_0.05_uni_weight_0.05_uni_t_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+EER (asv19): 0.231406218437542
+[INFO] Scoring dataset 'asv5' -> scores/windowed_loader_supcon_geodesic_temp_0.05_uni_weight_0.05_uni_t_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[OK] Wrote: scores/windowed_loader_supcon_geodesic_temp_0.05_uni_weight_0.05_uni_t_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+EER (asv5): 16.79600856428867
+[INFO] Found existing score file for 'itw': scores/windowed_loader_supcon_geodesic_temp_0.05_uni_weight_0.05_uni_t_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 11.602187006354445
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> scores/windowed_loader_supcon_geodesic_temp_0.05_uni_weight_0.05_uni_t_0.5/famous_figures/score_cm_ff.txt
+[2026-01-22T05:38:33.004] error: *** JOB 40668873 ON gl1509 CANCELLED AT 2026-01-22T05:38:33 DUE TO TIME LIMIT ***

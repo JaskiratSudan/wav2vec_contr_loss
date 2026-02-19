@@ -1,0 +1,293 @@
+Setting up the environment...
+Job started on gl1514.arc-ts.umich.edu at Sat Jan 17 00:00:34 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: asv5_supcon_temp_0.2
+Using BATCH_SIZE=64
+W0117 00:00:40.696895 902372 torch/distributed/run.py:774] 
+W0117 00:00:40.696895 902372 torch/distributed/run.py:774] *****************************************
+W0117 00:00:40.696895 902372 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0117 00:00:40.696895 902372 torch/distributed/run.py:774] *****************************************
+[W117 00:00:40.642266237 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29682 (errno: 97 - Address family not supported by protocol).
+[W117 00:00:46.813228115 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29682 (errno: 97 - Address family not supported by protocol).
+[W117 00:00:46.813236207 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29682 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_supcon_temp_0.2/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5_train_protocol.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5.dev.metadata.txt
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=64
+NUM_SAMPLES=None
+HEAD_LR=5e-05
+ENC_LR=0.0001
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.2
+NUM_WORKERS=10
+SEED=1337
+SUPCON_SIMILARITY=cosine
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=0.5
+TOPK_NEG=7
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+PATIENCE=10
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[INFO] Global batch size=64 | Per-GPU batch size=32
+[rank0] pos_mean=0.9801 neg_mean=0.9785 n_pos=16 n_neg=16
+[rank1] sim_mean=0.9771 sim_std=0.0093 Loss: 3.434250831604004
+[rank0] sim_mean=0.9799 sim_std=0.0070 Loss: 3.4302120208740234
+[rank0] pos_mean=0.9799 neg_mean=-0.0557 n_pos=16 n_neg=16
+[rank0] sim_mean=0.4627 sim_std=0.5313 Loss: 2.7271783351898193
+[rank1] sim_mean=0.4775 sim_std=0.5152 Loss: 2.7243144512176514
+[epoch 001] alpha=0.00 | train_loss=2.8307 | dev_loss=3.4204
+[timing] train=1636.1s (2.79s/step, 587 steps) | dev=432.9s (979 steps) | est_remaining=56.90h
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 967, in save
+[rank0]:     _save(
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1268, in _save
+[rank0]:     zip_file.write_record(name, storage, num_bytes)
+[rank0]: RuntimeError: [enforce fail at inline_container.cc:858] . PytorchStreamWriter failed writing file data/0: file write failed
+
+[rank0]: During handling of the above exception, another exception occurred:
+
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1_asv5.py", line 217, in <module>
+[rank0]:     main()
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1_asv5.py", line 195, in main
+[rank0]:     torch.save(ckpt, best_path)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 974, in save
+[rank0]:     return
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 798, in __exit__
+[rank0]:     self.file_like.write_end_of_file()
+[rank0]: RuntimeError: [enforce fail at inline_container.cc:664] . unexpected pos 89792 vs 89686
+[rank0]:[W117 00:38:55.627237898 ProcessGroupNCCL.cpp:1538] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+W0117 00:38:56.980761 902372 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 904114 closing signal SIGTERM
+E0117 00:38:57.099308 902372 torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: 1) local_rank: 0 (pid: 904103) of binary: /home/jsudan/myenv/bin/python
+Traceback (most recent call last):
+  File "/home/jsudan/myenv/bin/torchrun", line 7, in <module>
+    sys.exit(main())
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 901, in main
+    run(args)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+train_stage1_asv5.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-01-17_00:38:56
+  host      : gl1514.arc-ts.umich.edu
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 904103)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+Using device: cuda
+Model: facebook/wav2vec2-xls-r-300m
+Checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_supcon_temp_0.2/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+Saving to: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV5/asv5_supcon_temp_0.2/facebook__wav2vec2-xls-r-300m
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_asv5.py", line 374, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_asv5.py", line 302, in main
+    ckpt = torch.load(ckpt_path, map_location=DEVICE)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1491, in load
+    with _open_zipfile_reader(opened_file) as opened_zipfile:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 771, in __init__
+    super().__init__(torch._C.PyTorchFileReader(name_or_buffer))
+RuntimeError: PytorchStreamReader failed reading zip archive: failed finding central directory
+Using device: cuda
+Loading Stage-1 checkpoint from: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_supcon_temp_0.2/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_asv5.py", line 224, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_asv5.py", line 194, in main
+    backbone = Stage1Backbone(STAGE1_CKPT, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_asv5.py", line 88, in __init__
+    ckpt = torch.load(ckpt_path, map_location=device)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1491, in load
+    with _open_zipfile_reader(opened_file) as opened_zipfile:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 771, in __init__
+    super().__init__(torch._C.PyTorchFileReader(name_or_buffer))
+RuntimeError: PytorchStreamReader failed reading zip archive: failed finding central directory
+Using device: cuda
+Loading Stage-1 checkpoint from: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_supcon_temp_0.2/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 364, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 352, in main
+    backbone = Stage1Backbone(STAGE1_CKPT, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 121, in __init__
+    ckpt = torch.load(ckpt_path, map_location=device)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1491, in load
+    with _open_zipfile_reader(opened_file) as opened_zipfile:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 771, in __init__
+    super().__init__(torch._C.PyTorchFileReader(name_or_buffer))
+RuntimeError: PytorchStreamReader failed reading zip archive: failed finding central directory
+W0117 00:39:27.699830 929718 torch/distributed/run.py:774] 
+W0117 00:39:27.699830 929718 torch/distributed/run.py:774] *****************************************
+W0117 00:39:27.699830 929718 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0117 00:39:27.699830 929718 torch/distributed/run.py:774] *****************************************
+[W117 00:39:27.644956640 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29682 (errno: 97 - Address family not supported by protocol).
+Using device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier_asv5.py", line 67, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier_asv5.py", line 35, in main
+    X_train = np.load(train_emb_path).astype("float32")
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 427, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV5/facebook__wav2vec2-xls-r-300m/asv5_supcon_temp_0.2/train_embeddings.npy'
+Using device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier_asv5.py", line 67, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier_asv5.py", line 35, in main
+    X_train = np.load(train_emb_path).astype("float32")
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 427, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV5/facebook__wav2vec2-xls-r-300m/asv5_supcon_temp_0.2/train_embeddings.npy'
+E0117 00:39:30.751627 929718 torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: 1) local_rank: 0 (pid: 929740) of binary: /home/jsudan/myenv/bin/python
+Traceback (most recent call last):
+  File "/home/jsudan/myenv/bin/torchrun", line 7, in <module>
+    sys.exit(main())
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 901, in main
+    run(args)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+train_stage2_classifier_asv5.py FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2026-01-17_00:39:30
+  host      : gl1514.arc-ts.umich.edu
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 929741)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-01-17_00:39:30
+  host      : gl1514.arc-ts.umich.edu
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 929740)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+Using device: cuda
+Loading Stage-2 checkpoint from: checkpoints_stage2/asv5_supcon_temp_0.2/facebook/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file_asv5.py", line 174, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file_asv5.py", line 155, in main
+    clf = load_stage2_head(STAGE2_CKPT, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file_asv5.py", line 69, in load_stage2_head
+    ckpt = safe_load(ckpt_path, map_location=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file_asv5.py", line 33, in safe_load
+    return torch.load(ckpt_path, map_location=map_location, weights_only=False)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1484, in load
+    with _open_file_like(f, "rb") as opened_file:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 759, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 740, in __init__
+    super().__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: 'checkpoints_stage2/asv5_supcon_temp_0.2/facebook/wav2vec2-xls-r-300m/stage2_binary_head_best.pt'
+Using device: cuda
+Loading Stage-2 checkpoint from: checkpoints_stage2/asv5_supcon_temp_0.2/facebook/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 293, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 265, in main
+    clf = load_stage2_head(STAGE2_CKPT, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 98, in load_stage2_head
+    ckpt = safe_load(ckpt_path, map_location=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 59, in safe_load
+    return torch.load(ckpt_path, map_location=map_location, weights_only=False)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1484, in load
+    with _open_file_like(f, "rb") as opened_file:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 759, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 740, in __init__
+    super().__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: 'checkpoints_stage2/asv5_supcon_temp_0.2/facebook/wav2vec2-xls-r-300m/stage2_binary_head_best.pt'
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_file_asv5.py", line 21, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_file_asv5.py", line 16, in main
+    eer = calculate_EER(args.score_path)
+  File "/home/jsudan/wav2vec_contr_loss/evaluation.py", line 13, in calculate_EER
+    cm_data = np.genfromtxt(cm_scores_file, dtype=str)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 1980, in genfromtxt
+    fid = np.lib._datasource.open(fname, 'rt', encoding=encoding)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 193, in open
+    return ds.open(path, mode, encoding=encoding, newline=newline)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 533, in open
+    raise FileNotFoundError(f"{path} not found.")
+FileNotFoundError: /home/jsudan/wav2vec_contr_loss/scores/asv5_supcon_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt not found.
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_file_asv5.py", line 21, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_file_asv5.py", line 16, in main
+    eer = calculate_EER(args.score_path)
+  File "/home/jsudan/wav2vec_contr_loss/evaluation.py", line 13, in calculate_EER
+    cm_data = np.genfromtxt(cm_scores_file, dtype=str)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 1980, in genfromtxt
+    fid = np.lib._datasource.open(fname, 'rt', encoding=encoding)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 193, in open
+    return ds.open(path, mode, encoding=encoding, newline=newline)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 533, in open
+    raise FileNotFoundError(f"{path} not found.")
+FileNotFoundError: /home/jsudan/wav2vec_contr_loss/scores/asv5_supcon_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt not found.
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_file_asv5.py", line 21, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_file_asv5.py", line 16, in main
+    eer = calculate_EER(args.score_path)
+  File "/home/jsudan/wav2vec_contr_loss/evaluation.py", line 13, in calculate_EER
+    cm_data = np.genfromtxt(cm_scores_file, dtype=str)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 1980, in genfromtxt
+    fid = np.lib._datasource.open(fname, 'rt', encoding=encoding)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 193, in open
+    return ds.open(path, mode, encoding=encoding, newline=newline)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 533, in open
+    raise FileNotFoundError(f"{path} not found.")
+FileNotFoundError: /home/jsudan/wav2vec_contr_loss/scores/asv5_supcon_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt not found.
+----------------------------------------------------------------
+ASV5 pipeline finished.
+Job finished at: Sat Jan 17 00:39:36 EST 2026

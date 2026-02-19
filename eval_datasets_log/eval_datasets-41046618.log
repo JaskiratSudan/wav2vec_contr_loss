@@ -1,0 +1,10 @@
+Setting up the environment...
+Job started on gl1529.arc-ts.umich.edu at Mon Jan 26 22:41:25 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_bank_512_supcon_temp_0.5
+[2026-01-27T03:41:23.014] error: *** JOB 41046618 ON gl1529 CANCELLED AT 2026-01-27T03:41:23 DUE TO TIME LIMIT ***

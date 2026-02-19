@@ -1,0 +1,78 @@
+Setting up the environment...
+Job started on gl1524.arc-ts.umich.edu at Wed Jan 28 04:55:11 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_bank_512_supcon_temp_0.5
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> scores/mem_bank_512_supcon_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote (windowed): scores/mem_bank_512_supcon_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 15.435124038374173
+[INFO] Scoring dataset 'fakexpose' -> scores/mem_bank_512_supcon_temp_0.5/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote (windowed): scores/mem_bank_512_supcon_temp_0.5/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 59.15779991362218
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> scores/mem_bank_512_supcon_temp_0.5/famous_figures/score_cm_ff.txt
+[OK] Wrote (windowed): scores/mem_bank_512_supcon_temp_0.5/famous_figures/score_cm_ff.txt
+EER (famous_figures): 57.09599127362649
+[INFO] Scoring dataset 'asv5' -> scores/mem_bank_512_supcon_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[OK] Wrote (windowed): scores/mem_bank_512_supcon_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+EER (asv5): 15.62856086151653
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_bank_512_supcon_geodesic_temp_0.5
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> scores/mem_bank_512_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote (windowed): scores/mem_bank_512_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 11.595450822342254
+[INFO] Scoring dataset 'fakexpose' -> scores/mem_bank_512_supcon_geodesic_temp_0.5/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote (windowed): scores/mem_bank_512_supcon_geodesic_temp_0.5/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 52.692753421428954
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> scores/mem_bank_512_supcon_geodesic_temp_0.5/famous_figures/score_cm_ff.txt
+[OK] Wrote (windowed): scores/mem_bank_512_supcon_geodesic_temp_0.5/famous_figures/score_cm_ff.txt
+EER (famous_figures): 57.50337238217779
+[INFO] Scoring dataset 'asv5' -> scores/mem_bank_512_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[OK] Wrote (windowed): scores/mem_bank_512_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+EER (asv5): 16.29055559505097
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_bank_512_supcon_temp_0.2
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> scores/mem_bank_512_supcon_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote (windowed): scores/mem_bank_512_supcon_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 16.28406678964073
+[INFO] Scoring dataset 'fakexpose' -> scores/mem_bank_512_supcon_temp_0.2/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote (windowed): scores/mem_bank_512_supcon_temp_0.2/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 62.19891404917837
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> scores/mem_bank_512_supcon_temp_0.2/famous_figures/score_cm_ff.txt
+[OK] Wrote (windowed): scores/mem_bank_512_supcon_temp_0.2/famous_figures/score_cm_ff.txt
+EER (famous_figures): 46.774282685963584
+[INFO] Scoring dataset 'asv5' -> scores/mem_bank_512_supcon_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[OK] Wrote (windowed): scores/mem_bank_512_supcon_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+EER (asv5): 16.264663742342066
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_bank_512_supcon_geodesic_temp_0.2
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> scores/mem_bank_512_supcon_geodesic_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote (windowed): scores/mem_bank_512_supcon_geodesic_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 13.565723068719787
+[INFO] Scoring dataset 'fakexpose' -> scores/mem_bank_512_supcon_geodesic_temp_0.2/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote (windowed): scores/mem_bank_512_supcon_geodesic_temp_0.2/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 59.74274306178864
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> scores/mem_bank_512_supcon_geodesic_temp_0.2/famous_figures/score_cm_ff.txt
+[OK] Wrote (windowed): scores/mem_bank_512_supcon_geodesic_temp_0.2/famous_figures/score_cm_ff.txt
+EER (famous_figures): 39.18541525060745
+[INFO] Scoring dataset 'asv5' -> scores/mem_bank_512_supcon_geodesic_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[OK] Wrote (windowed): scores/mem_bank_512_supcon_geodesic_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+EER (asv5): 14.629963619075653
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_bank_1024_supcon_temp_0.2
+[2026-01-29T04:55:35.009] error: *** JOB 41196135 ON gl1524 CANCELLED AT 2026-01-29T04:55:35 DUE TO TIME LIMIT ***

@@ -1,0 +1,21 @@
+Setting up the environment...
+Job started on gl1523.arc-ts.umich.edu at Thu Jan 22 23:30:46 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_bank_1024_supcon_temp_0.05
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Found existing score file for 'asv19': scores/mem_bank_1024_supcon_temp_0.05/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+EER (asv19): 21.3189125616569
+[INFO] Found existing score file for 'itw': scores/mem_bank_1024_supcon_temp_0.05/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 14.141501359437775
+[INFO] Scoring dataset 'fakexpose' -> scores/mem_bank_1024_supcon_temp_0.05/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote: scores/mem_bank_1024_supcon_temp_0.05/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 69.18781220607684
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> scores/mem_bank_1024_supcon_temp_0.05/famous_figures/score_cm_ff.txt
+[2026-01-23T00:08:27.182] error: *** JOB 40749589 ON gl1523 CANCELLED AT 2026-01-23T00:08:27 DUE to SIGNAL Terminated ***

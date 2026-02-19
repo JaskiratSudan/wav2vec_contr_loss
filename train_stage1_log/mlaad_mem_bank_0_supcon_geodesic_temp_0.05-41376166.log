@@ -1,0 +1,1514 @@
+Setting up the environment...
+Job started on gl1506.arc-ts.umich.edu at Fri Jan 30 15:50:15 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+MLAAD_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/multilingual
+MLAAD_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/multilingual/protocol_MLAAD_MAILabs_total_balanced.txt
+MLAAD_STAGE2_SPLIT_SEED=2027
+MLAAD_MAX_DURATION_SECONDS=10
+USE_AMP=1
+ACCUM_STEPS=2
+QUEUE_SIZE=8192
+EXPERIMENT NAME: mlaad_mem_bank_0_supcon_geodesic_temp_0.05
+Detected NUM_GPUS=2
+Using BATCH_SIZE=32
+W0130 15:50:26.131825 1665401 torch/distributed/run.py:774] 
+W0130 15:50:26.131825 1665401 torch/distributed/run.py:774] *****************************************
+W0130 15:50:26.131825 1665401 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0130 15:50:26.131825 1665401 torch/distributed/run.py:774] *****************************************
+[W130 15:50:26.094810300 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29666 (errno: 97 - Address family not supported by protocol).
+[W130 15:50:26.095865025 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29666 (errno: 97 - Address family not supported by protocol).
+[W130 15:50:26.096887849 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29666 (errno: 97 - Address family not supported by protocol).
+[W130 15:50:35.008989827 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29666 (errno: 97 - Address family not supported by protocol).
+[W130 15:50:35.009885740 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29666 (errno: 97 - Address family not supported by protocol).
+[W130 15:50:35.010949096 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29666 (errno: 97 - Address family not supported by protocol).
+[W130 15:50:35.015725913 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29666 (errno: 97 - Address family not supported by protocol).
+[W130 15:50:35.016770689 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29666 (errno: 97 - Address family not supported by protocol).
+[W130 15:50:35.017664848 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29666 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+MODEL_ID=wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mlaad_mem_bank_0_supcon_geodesic_temp_0.05
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=10
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+ACCUM_STEPS=2
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.05
+NUM_WORKERS=6
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=0.5
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=False
+RAWBOOST_PROB=0.0
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=10
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=False (p=0.0)
+CUDA device count: 2
+[INFO] Train samples loaded: bonafide=123360, spoof=123040
+[INFO] Dev samples loaded: bonafide=30640, spoof=30960
+[INFO] Global batch size=32 | Per-GPU batch size=16
+[INFO] Queue size=8192 (per-rank)
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:243: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  cfg._amp_scaler = torch.cuda.amp.GradScaler()
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:243: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  cfg._amp_scaler = torch.cuda.amp.GradScaler()
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:261: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:261: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+[rank1] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.8148 std=0.1308 min=0.4394 max=0.9646 var_mean=1.695736e-04
+[rank0] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.8373 std=0.1235 min=0.4484 max=0.9808 var_mean=1.489462e-04
+[rank1] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9145 std=0.0647 min=0.7116 max=0.9854 var_mean=3.130320e-04
+[rank0] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9257 std=0.0622 min=0.7134 max=0.9927 var_mean=2.720759e-04
+[rank1] head_post: z_norm_mean=1.0000 offdiag_cos mean=-0.0585 std=0.5270 min=-0.8209 max=0.8430 var_mean=3.876363e-03
+[rank0] head_post: z_norm_mean=1.0000 offdiag_cos mean=-0.0587 std=0.5319 min=-0.8386 max=0.8637 var_mean=3.877165e-03
+[rank1] sim_mean=0.0077 sim_std=0.5712 Loss: 10.821548461914062
+[rank0] pos_mean=0.0878 neg_mean=-0.1869 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0074 sim_std=0.5754 Loss: 8.829397201538086
+[rank1] sim_mean=0.0247 sim_std=0.5673 Loss: 16.656492233276367[rank0] pos_mean=-0.0799 neg_mean=-0.0443 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0054 sim_std=0.5584 Loss: 16.69896697998047
+[rank0] pos_mean=-0.0700 neg_mean=-0.0275 n_pos=8 n_neg=8[rank1] sim_mean=0.0050 sim_std=0.4648 Loss: 14.561201095581055
+
+[rank0] sim_mean=0.0181 sim_std=0.5663 Loss: 16.859394073486328
+[rank1] sim_mean=0.0196 sim_std=0.5187 Loss: 16.12104606628418[rank0] pos_mean=-0.0754 neg_mean=-0.0415 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0087 sim_std=0.6010 Loss: 17.06424331665039
+[rank0] pos_mean=-0.0355 neg_mean=-0.0817 n_pos=8 n_neg=8[rank1] sim_mean=0.0046 sim_std=0.5567 Loss: 16.903167724609375
+
+[rank0] sim_mean=0.0061 sim_std=0.5583 Loss: 15.999683380126953
+[rank1] sim_mean=0.0035 sim_std=0.5225 Loss: 15.724266052246094[rank0] pos_mean=-0.0705 neg_mean=-0.0321 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0156 sim_std=0.5073 Loss: 15.851654052734375
+[rank1] sim_mean=0.0075 sim_std=0.5082 Loss: 13.635477066040039
+[rank0] pos_mean=-0.0848 neg_mean=-0.0354 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0077 sim_std=0.5443 Loss: 16.44546127319336
+[rank1] sim_mean=0.0071 sim_std=0.4519 Loss: 15.213920593261719[rank0] pos_mean=-0.0645 neg_mean=-0.0379 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0153 sim_std=0.5663 Loss: 16.534223556518555
+[rank1] sim_mean=0.0069 sim_std=0.5308 Loss: 15.657089233398438
+[rank0] pos_mean=0.0729 neg_mean=-0.1814 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0037 sim_std=0.6149 Loss: 14.83748722076416
+[rank1] sim_mean=0.0131 sim_std=0.5612 Loss: 16.923133850097656[rank0] pos_mean=-0.0723 neg_mean=-0.0242 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0188 sim_std=0.5308 Loss: 16.272071838378906
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank1] sim_mean=0.0104 sim_std=0.5714 Loss: 16.788780212402344[rank0] pos_mean=-0.0428 neg_mean=-0.0508 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0184 sim_std=0.5731 Loss: 16.410228729248047
+[rank0] pos_mean=-0.0544 neg_mean=-0.0706 n_pos=8 n_neg=8[rank1] sim_mean=0.0075 sim_std=0.5859 Loss: 14.744486808776855
+
+[rank0] sim_mean=0.0034 sim_std=0.5527 Loss: 16.352924346923828
+[rank1] sim_mean=0.0064 sim_std=0.6218 Loss: 14.776762008666992[rank0] pos_mean=-0.0196 neg_mean=-0.0883 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0097 sim_std=0.5634 Loss: 15.850044250488281
+[rank0] pos_mean=0.0298 neg_mean=-0.1256 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0127 sim_std=0.5712 Loss: 15.530582427978516
+[rank1] sim_mean=0.0368 sim_std=0.5267 Loss: 15.650195121765137
+[rank1] sim_mean=0.0073 sim_std=0.5648 Loss: 15.787939071655273
+[rank0] pos_mean=0.0234 neg_mean=-0.0876 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0289 sim_std=0.5208 Loss: 14.684442520141602
+[rank1] sim_mean=0.0120 sim_std=0.5197 Loss: 16.227462768554688[rank0] pos_mean=0.1212 neg_mean=-0.2221 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0045 sim_std=0.5740 Loss: 13.76806354522705
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:372: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:372: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[epoch 001] alpha=0.00 | train_loss=15.8151 | dev_loss=9.9778
+[epoch 001] time=98.66 min | ETA=9766.92 min
+[epoch 001] alpha=0.00 | train_loss=15.8151 | dev_loss=10.0159
+[epoch 001] time=98.66 min | ETA=9767.05 min
+[rank1] sim_mean=0.0163 sim_std=0.5269 Loss: 12.461665153503418
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=10.0159)
+[rank0] pos_mean=-0.0585 neg_mean=-0.0573 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0083 sim_std=0.5123 Loss: 15.701245307922363
+[rank0] pos_mean=-0.0812 neg_mean=-0.0362 n_pos=8 n_neg=8
+[rank1] sim_mean=0.0508 sim_std=0.5696 Loss: 14.935233116149902
+[rank0] sim_mean=0.0088 sim_std=0.4980 Loss: 15.914005279541016
+[rank0] pos_mean=-0.0638 neg_mean=-0.0643 n_pos=8 n_neg=8[rank1] sim_mean=0.0087 sim_std=0.6024 Loss: 14.89573860168457
+
+[rank0] sim_mean=0.0025 sim_std=0.5390 Loss: 16.18816375732422
+[rank1] sim_mean=0.0061 sim_std=0.5433 Loss: 16.356792449951172[rank0] pos_mean=0.0258 neg_mean=-0.1370 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0053 sim_std=0.5597 Loss: 15.149993896484375
+[rank0] pos_mean=-0.0662 neg_mean=-0.0511 n_pos=8 n_neg=8[rank1] sim_mean=0.0129 sim_std=0.5433 Loss: 15.876141548156738
+
+[rank0] sim_mean=0.0080 sim_std=0.6247 Loss: 17.260467529296875
+[rank0] pos_mean=0.0133 neg_mean=-0.1068 n_pos=8 n_neg=8[rank1] sim_mean=0.0205 sim_std=0.6696 Loss: 18.128047943115234
+
+[rank0] sim_mean=0.0149 sim_std=0.6732 Loss: 16.767364501953125
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank0] pos_mean=-0.0698 neg_mean=-0.0493 n_pos=8 n_neg=8[rank1] sim_mean=0.0112 sim_std=0.5608 Loss: 15.065433502197266
+
+[rank0] sim_mean=0.0073 sim_std=0.5983 Loss: 17.026962280273438
+[rank0] pos_mean=0.0067 neg_mean=-0.1223 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0043 sim_std=0.5238 Loss: 14.871652603149414
+[rank1] sim_mean=0.0086 sim_std=0.5271 Loss: 14.94611930847168
+[rank0] pos_mean=-0.0199 neg_mean=-0.0991 n_pos=8 n_neg=8
+[rank1] sim_mean=0.0038 sim_std=0.6242 Loss: 17.82720947265625
+[rank0] sim_mean=0.0043 sim_std=0.6347 Loss: 16.61160659790039
+[rank0] pos_mean=-0.0691 neg_mean=-0.0246 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0200 sim_std=0.5062 Loss: 16.142366409301758
+[rank1] sim_mean=0.0160 sim_std=0.5813 Loss: 16.09381103515625
+[rank0] pos_mean=0.0781 neg_mean=-0.1546 n_pos=8 n_neg=8[rank1] sim_mean=0.0316 sim_std=0.5296 Loss: 15.973699569702148
+
+[rank0] sim_mean=0.0194 sim_std=0.4978 Loss: 13.53915786743164
+[rank0] pos_mean=-0.0156 neg_mean=-0.0888 n_pos=8 n_neg=8[rank1] sim_mean=0.0115 sim_std=0.4707 Loss: 15.333915710449219
+
+[rank0] sim_mean=0.0112 sim_std=0.5018 Loss: 15.085610389709473
+[rank1] sim_mean=0.0131 sim_std=0.5649 Loss: 16.7259521484375
+[rank0] pos_mean=-0.0484 neg_mean=-0.0646 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0091 sim_std=0.5242 Loss: 16.007604598999023
+[rank1] sim_mean=0.0038 sim_std=0.5990 Loss: 17.36245346069336
+[rank0] pos_mean=-0.0421 neg_mean=-0.0720 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0081 sim_std=0.5247 Loss: 15.704200744628906
+[rank1] sim_mean=0.0282 sim_std=0.5791 Loss: 15.757026672363281[rank0] pos_mean=-0.0297 neg_mean=-0.0557 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0216 sim_std=0.5675 Loss: 16.024112701416016
+[rank1] sim_mean=0.0273 sim_std=0.4891 Loss: 15.752196311950684
+[rank0] pos_mean=-0.0824 neg_mean=-0.0257 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0136 sim_std=0.5693 Loss: 17.07065200805664
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[epoch 002] alpha=0.00 | train_loss=15.8341 | dev_loss=10.0190
+[epoch 002] time=98.95 min | ETA=9682.79 min
+[epoch 002] alpha=0.00 | train_loss=15.8341 | dev_loss=10.0253
+[epoch 002] time=98.62 min | ETA=9666.50 min
+[rank1] sim_mean=0.0086 sim_std=0.5926 Loss: 16.9444522857666
+[rank0] pos_mean=-0.0300 neg_mean=-0.0554 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0217 sim_std=0.5844 Loss: 16.418048858642578
+[rank0] pos_mean=-0.0135 neg_mean=-0.0850 n_pos=8 n_neg=8[rank1] sim_mean=0.0098 sim_std=0.5657 Loss: 15.349907875061035
+
+[rank0] sim_mean=0.0141 sim_std=0.4596 Loss: 14.324686050415039
+[rank1] sim_mean=0.0031 sim_std=0.5566 Loss: 16.734697341918945[rank0] pos_mean=-0.0956 neg_mean=-0.0337 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0038 sim_std=0.5980 Loss: 17.464967727661133
+[rank1] sim_mean=0.0091 sim_std=0.5588 Loss: 16.70467185974121
+[rank0] pos_mean=-0.0841 neg_mean=-0.0368 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0073 sim_std=0.6039 Loss: 17.137845993041992
+[rank1] sim_mean=0.0097 sim_std=0.5677 Loss: 14.803980827331543
+[rank0] pos_mean=-0.0791 neg_mean=-0.0154 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0202 sim_std=0.6851 Loss: 18.241065979003906
+[rank1] sim_mean=0.0194 sim_std=0.4827 Loss: 14.82956314086914
+[rank0] pos_mean=0.0373 neg_mean=-0.1389 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0094 sim_std=0.6740 Loss: 16.422239303588867
+[rank1] sim_mean=0.0086 sim_std=0.5990 Loss: 17.166589736938477
+[rank0] pos_mean=-0.0148 neg_mean=-0.1023 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0049 sim_std=0.5239 Loss: 15.193094253540039
+[rank1] sim_mean=0.0021 sim_std=0.5845 Loss: 16.485864639282227
+[rank0] pos_mean=0.0792 neg_mean=-0.1131 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0406 sim_std=0.5224 Loss: 14.045740127563477
+[rank1] sim_mean=0.0078 sim_std=0.5485 Loss: 16.825454711914062
+[rank0] pos_mean=-0.0641 neg_mean=-0.0436 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0127 sim_std=0.5948 Loss: 16.798097610473633
+[rank1] sim_mean=0.0089 sim_std=0.5641 Loss: 15.750072479248047[rank0] pos_mean=-0.0142 neg_mean=-0.1035 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0046 sim_std=0.5233 Loss: 15.293984413146973
+[rank1] sim_mean=0.0209 sim_std=0.6253 Loss: 11.951333999633789
+[rank0] pos_mean=-0.0369 neg_mean=-0.0779 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0074 sim_std=0.5473 Loss: 15.86841869354248
+[rank1] sim_mean=0.0117 sim_std=0.5032 Loss: 15.535322189331055
+[rank0] pos_mean=0.0020 neg_mean=-0.1105 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0081 sim_std=0.5777 Loss: 15.858964920043945
+[rank1] sim_mean=0.0065 sim_std=0.4302 Loss: 14.675226211547852
+[rank0] pos_mean=0.0174 neg_mean=-0.1242 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0080 sim_std=0.4952 Loss: 14.369874954223633
+[rank1] sim_mean=0.0090 sim_std=0.4711 Loss: 13.255637168884277
+[rank0] pos_mean=0.0021 neg_mean=-0.1108 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0080 sim_std=0.5700 Loss: 15.203851699829102
+[rank1] sim_mean=0.0185 sim_std=0.5295 Loss: 16.27751350402832
+[rank0] pos_mean=0.0361 neg_mean=-0.1277 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0144 sim_std=0.7104 Loss: 16.66435432434082
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank0] pos_mean=0.0122 neg_mean=-0.1208 n_pos=8 n_neg=8[rank1] sim_mean=0.0021 sim_std=0.6460 Loss: 17.454444885253906
+
+[rank0] sim_mean=0.0074 sim_std=0.4852 Loss: 14.1299467086792
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[epoch 003] alpha=0.00 | train_loss=15.8362 | dev_loss=9.9461
+[epoch 003] time=98.63 min | ETA=9578.35 min
+[epoch 003] alpha=0.00 | train_loss=15.8362 | dev_loss=9.9986
+[epoch 003] time=98.66 min | ETA=9568.53 min
+[rank1] sim_mean=0.0324 sim_std=0.5968 Loss: 12.621809005737305
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=9.9986)
+[rank0] pos_mean=-0.0221 neg_mean=-0.0743 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0157 sim_std=0.5278 Loss: 15.472991943359375
+[rank1] sim_mean=0.0239 sim_std=0.5831 Loss: 16.13766860961914[rank0] pos_mean=0.0243 neg_mean=-0.1375 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0044 sim_std=0.4526 Loss: 13.584221839904785
+[rank1] sim_mean=0.0325 sim_std=0.5275 Loss: 16.156503677368164[rank0] pos_mean=-0.0921 neg_mean=-0.0195 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0125 sim_std=0.6735 Loss: 18.38384246826172
+[rank1] sim_mean=0.0056 sim_std=0.5448 Loss: 16.375160217285156
+[rank0] pos_mean=0.1496 neg_mean=-0.2434 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0062 sim_std=0.6642 Loss: 14.393165588378906
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank1] sim_mean=0.0021 sim_std=0.5490 Loss: 16.398225784301758
+[rank0] pos_mean=-0.0894 neg_mean=-0.0414 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0027 sim_std=0.5579 Loss: 16.85917091369629
+[rank1] sim_mean=0.0102 sim_std=0.5051 Loss: 15.690163612365723[rank0] pos_mean=0.0946 neg_mean=-0.1711 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0183 sim_std=0.5398 Loss: 13.845802307128906
+[rank1] sim_mean=0.0035 sim_std=0.6397 Loss: 17.01237678527832
+[rank0] pos_mean=0.2661 neg_mean=-0.2996 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0291 sim_std=0.5769 Loss: 12.119990348815918
+[rank1] sim_mean=0.0075 sim_std=0.5568 Loss: 16.39008331298828
+[rank0] pos_mean=-0.0808 neg_mean=-0.0328 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0108 sim_std=0.5971 Loss: 17.266265869140625
+[rank1] sim_mean=0.0126 sim_std=0.5327 Loss: 15.47031021118164
+[rank0] pos_mean=-0.0526 neg_mean=-0.0482 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0154 sim_std=0.5014 Loss: 15.737162590026855
+[rank1] sim_mean=0.0148 sim_std=0.6259 Loss: 17.884254455566406
+[rank0] pos_mean=0.1631 neg_mean=-0.2520 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0079 sim_std=0.5706 Loss: 13.266660690307617
+[rank1] sim_mean=0.0096 sim_std=0.4990 Loss: 15.79488754272461
+[rank0] pos_mean=-0.0198 neg_mean=-0.0988 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0044 sim_std=0.6352 Loss: 16.902833938598633
+[rank1] sim_mean=0.0127 sim_std=0.4489 Loss: 14.251937866210938
+[rank0] pos_mean=-0.0314 neg_mean=-0.0919 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0028 sim_std=0.5708 Loss: 15.938996315002441
+[rank1] sim_mean=0.0068 sim_std=0.5052 Loss: 15.789024353027344[rank0] pos_mean=-0.0508 neg_mean=-0.0632 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0087 sim_std=0.5357 Loss: 15.978164672851562
+[rank1] sim_mean=0.0109 sim_std=0.4842 Loss: 15.144474983215332
+[rank0] pos_mean=-0.0068 neg_mean=-0.1094 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0048 sim_std=0.5323 Loss: 15.270549774169922
+[rank0] pos_mean=-0.0629 neg_mean=-0.0630 n_pos=8 n_neg=8[rank1] sim_mean=0.0066 sim_std=0.5604 Loss: 16.554372787475586
+
+[rank0] sim_mean=0.0035 sim_std=0.6290 Loss: 17.156373977661133
+[rank0] pos_mean=-0.1038 neg_mean=-0.0219 n_pos=8 n_neg=8[rank1] sim_mean=0.0060 sim_std=0.5929 Loss: 16.736814498901367
+
+[rank0] sim_mean=0.0061 sim_std=0.6451 Loss: 18.22828483581543
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[epoch 004] alpha=0.00 | train_loss=15.8339 | dev_loss=9.9624
+[epoch 004] time=98.77 min | ETA=9480.22 min
+[epoch 004] alpha=0.00 | train_loss=15.8339 | dev_loss=9.9850
+[epoch 004] time=98.61 min | ETA=9469.06 min
+[rank1] sim_mean=0.0045 sim_std=0.5313 Loss: 14.958699226379395
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=9.9850)
+[rank0] pos_mean=-0.0435 neg_mean=-0.0455 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0207 sim_std=0.5621 Loss: 16.282751083374023
+[rank1] sim_mean=0.0206 sim_std=0.5597 Loss: 14.91118335723877
+[rank0] pos_mean=0.0975 neg_mean=-0.1886 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0108 sim_std=0.5802 Loss: 14.213817596435547
+[rank1] sim_mean=0.0319 sim_std=0.5630 Loss: 12.831356048583984
+[rank0] pos_mean=0.2251 neg_mean=-0.2919 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0150 sim_std=0.6328 Loss: 13.3006591796875
+[rank1] sim_mean=0.0143 sim_std=0.4978 Loss: 13.393896102905273
+[rank0] pos_mean=-0.0524 neg_mean=-0.0657 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0067 sim_std=0.6009 Loss: 16.76795768737793
+[rank1] sim_mean=0.0251 sim_std=0.5705 Loss: 16.93043327331543[rank0] pos_mean=-0.0344 neg_mean=-0.0560 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0194 sim_std=0.4337 Loss: 14.42250919342041
+[rank1] sim_mean=0.0160 sim_std=0.6274 Loss: 17.59919548034668
+[rank0] pos_mean=-0.0993 neg_mean=-0.0296 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0043 sim_std=0.5142 Loss: 16.34524154663086
+[rank1] sim_mean=0.0129 sim_std=0.5251 Loss: 16.365232467651367
+[rank0] pos_mean=0.0908 neg_mean=-0.1603 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0221 sim_std=0.6055 Loss: 14.614213943481445
+[rank1] sim_mean=0.0174 sim_std=0.5253 Loss: 15.888019561767578
+[rank0] pos_mean=-0.0203 neg_mean=-0.0885 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0093 sim_std=0.5261 Loss: 15.292202949523926
+[rank1] sim_mean=0.0088 sim_std=0.4800 Loss: 15.293352127075195[rank0] pos_mean=0.0255 neg_mean=-0.1237 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0118 sim_std=0.4889 Loss: 14.246234893798828
+[rank0] pos_mean=-0.0573 neg_mean=-0.0021 n_pos=8 n_neg=8[rank1] sim_mean=0.0076 sim_std=0.4400 Loss: 14.448970794677734
+
+[rank0] sim_mean=0.0364 sim_std=0.5042 Loss: 15.872492790222168
+[rank1] sim_mean=0.0106 sim_std=0.4545 Loss: 14.952864646911621
+[rank0] pos_mean=-0.0754 neg_mean=-0.0300 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0145 sim_std=0.5485 Loss: 16.37601089477539
+[rank1] sim_mean=0.0192 sim_std=0.5368 Loss: 16.189632415771484
+[rank0] pos_mean=-0.0071 neg_mean=-0.1103 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0042 sim_std=0.4980 Loss: 14.683526039123535
+[rank0] pos_mean=-0.0533 neg_mean=-0.0612 n_pos=8 n_neg=8
+[rank1] sim_mean=0.0103 sim_std=0.5831 Loss: 16.335895538330078
+[rank0] sim_mean=0.0086 sim_std=0.6096 Loss: 17.06199073791504
+[rank1] sim_mean=0.0412 sim_std=0.6316 Loss: 17.387203216552734[rank0] pos_mean=0.3083 neg_mean=-0.3643 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0153 sim_std=0.6179 Loss: 12.185661315917969
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank0] pos_mean=-0.0621 neg_mean=-0.0013 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0347 sim_std=0.4949 Loss: 15.539190292358398
+[rank1] sim_mean=0.0278 sim_std=0.5210 Loss: 16.055110931396484
+[rank1] sim_mean=0.0143 sim_std=0.5219 Loss: 16.243532180786133
+[rank0] pos_mean=-0.0591 neg_mean=-0.0239 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0247 sim_std=0.6487 Loss: 17.331768035888672
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[epoch 005] alpha=0.00 | train_loss=15.8291 | dev_loss=9.9706
+[epoch 005] time=98.68 min | ETA=9380.07 min
+[epoch 005] alpha=0.00 | train_loss=15.8291 | dev_loss=9.9733
+[epoch 005] time=98.60 min | ETA=9369.72 min
+[rank1] sim_mean=0.0074 sim_std=0.5120 Loss: 15.482650756835938
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=9.9733)
+[rank0] pos_mean=0.0748 neg_mean=-0.1475 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0215 sim_std=0.6344 Loss: 15.589662551879883
+[rank1] sim_mean=0.0119 sim_std=0.6588 Loss: 14.273416519165039
+[rank0] pos_mean=-0.0107 neg_mean=-0.0876 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0140 sim_std=0.5644 Loss: 15.674242973327637
+[rank1] sim_mean=0.0067 sim_std=0.6243 Loss: 16.47332000732422
+[rank0] pos_mean=0.1357 neg_mean=-0.2364 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0037 sim_std=0.5539 Loss: 13.303877830505371
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank1] sim_mean=0.0132 sim_std=0.4828 Loss: 15.187418937683105
+[rank0] pos_mean=-0.0137 neg_mean=-0.1038 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0046 sim_std=0.5984 Loss: 16.169189453125
+[rank1] sim_mean=0.0108 sim_std=0.5912 Loss: 17.612356185913086
+[rank0] pos_mean=0.1575 neg_mean=-0.2554 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0037 sim_std=0.5254 Loss: 12.935215950012207
+[rank1] sim_mean=0.0492 sim_std=0.4666 Loss: 14.097900390625
+[rank0] pos_mean=0.0769 neg_mean=-0.1695 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0114 sim_std=0.4440 Loss: 12.561690330505371
+[rank1] sim_mean=0.0465 sim_std=0.6203 Loss: 17.266529083251953
+[rank0] pos_mean=0.0707 neg_mean=-0.1111 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0379 sim_std=0.6201 Loss: 15.203933715820312
+[rank1] sim_mean=0.0150 sim_std=0.5572 Loss: 16.886646270751953
+[rank0] pos_mean=0.0532 neg_mean=-0.1570 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0073 sim_std=0.6639 Loss: 15.996576309204102
+[rank1] sim_mean=0.0431 sim_std=0.5404 Loss: 16.03371238708496
+[rank0] pos_mean=-0.0295 neg_mean=-0.0782 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0105 sim_std=0.4083 Loss: 13.889779090881348
+[rank1] sim_mean=0.0251 sim_std=0.6301 Loss: 17.638078689575195
+[rank0] pos_mean=-0.0760 neg_mean=-0.0349 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0118 sim_std=0.5982 Loss: 17.23798370361328
+[rank1] sim_mean=0.0123 sim_std=0.6651 Loss: 18.04880142211914
+[rank0] pos_mean=-0.0708 neg_mean=-0.0436 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0097 sim_std=0.4925 Loss: 15.750805854797363
+[rank1] sim_mean=0.0176 sim_std=0.4848 Loss: 15.481620788574219
+[rank0] pos_mean=0.0225 neg_mean=-0.1327 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0060 sim_std=0.5775 Loss: 15.282482147216797
+[rank1] sim_mean=0.0590 sim_std=0.6544 Loss: 17.15625
+[rank0] pos_mean=-0.0573 neg_mean=-0.0480 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0135 sim_std=0.4693 Loss: 14.951906204223633
+[rank1] sim_mean=0.0138 sim_std=0.6093 Loss: 14.303058624267578
+[rank0] pos_mean=-0.0514 neg_mean=-0.0541 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0130 sim_std=0.6011 Loss: 16.84708595275879
+[rank1] sim_mean=0.0208 sim_std=0.6328 Loss: 16.14459228515625
+[rank0] pos_mean=0.0530 neg_mean=-0.1569 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0073 sim_std=0.6428 Loss: 15.615177154541016
+[rank0] pos_mean=-0.0522 neg_mean=-0.0567 n_pos=8 n_neg=8[rank1] sim_mean=0.0100 sim_std=0.5392 Loss: 16.1640625
+
+[rank0] sim_mean=0.0113 sim_std=0.5332 Loss: 15.827930450439453
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[epoch 006] alpha=0.00 | train_loss=15.8113 | dev_loss=9.9947
+[epoch 006] time=98.54 min | ETA=9278.24 min
+[epoch 006] alpha=0.00 | train_loss=15.8113 | dev_loss=9.9914
+[epoch 006] time=98.46 min | ETA=9268.48 min
+[rank1] sim_mean=0.0175 sim_std=0.5966 Loss: 15.700231552124023
+[rank0] pos_mean=0.0460 neg_mean=-0.1484 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0084 sim_std=0.4413 Loss: 13.077354431152344
+[rank1] sim_mean=0.0134 sim_std=0.6517 Loss: 15.511116981506348[rank0] pos_mean=-0.0584 neg_mean=-0.0469 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0135 sim_std=0.4760 Loss: 15.288860321044922
+[rank1] sim_mean=0.0109 sim_std=0.5870 Loss: 15.794668197631836
+[rank0] pos_mean=-0.0092 neg_mean=-0.0592 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0289 sim_std=0.5745 Loss: 15.98305892944336
+[rank1] sim_mean=0.0264 sim_std=0.6747 Loss: 14.694467544555664
+[rank0] pos_mean=-0.0530 neg_mean=-0.0488 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0149 sim_std=0.5742 Loss: 16.685081481933594
+[rank1] sim_mean=0.0207 sim_std=0.5367 Loss: 15.920114517211914
+[rank0] pos_mean=-0.0616 neg_mean=-0.0427 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0142 sim_std=0.6641 Loss: 17.703102111816406
+[rank1] sim_mean=0.0110 sim_std=0.5699 Loss: 16.89036750793457
+[rank0] pos_mean=-0.0801 neg_mean=-0.0432 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0058 sim_std=0.4911 Loss: 15.881903648376465
+[rank1] sim_mean=0.0123 sim_std=0.5528 Loss: 15.519858360290527
+[rank0] pos_mean=-0.0593 neg_mean=0.0053 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0392 sim_std=0.6429 Loss: 17.618701934814453
+[rank1] sim_mean=0.0265 sim_std=0.5441 Loss: 14.473406791687012
+[rank0] pos_mean=-0.0404 neg_mean=-0.0740 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0078 sim_std=0.6050 Loss: 16.668636322021484
+[rank1] sim_mean=0.0071 sim_std=0.4157 Loss: 13.509515762329102
+[rank0] pos_mean=-0.0542 neg_mean=-0.0358 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0209 sim_std=0.6148 Loss: 16.961532592773438
+[rank1] sim_mean=0.0027 sim_std=0.4859 Loss: 14.988395690917969
+[rank0] pos_mean=-0.0137 neg_mean=-0.1035 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0048 sim_std=0.5048 Loss: 14.802223205566406
+[rank1] sim_mean=0.0180 sim_std=0.5843 Loss: 15.245856285095215
+[rank0] pos_mean=-0.0118 neg_mean=-0.1026 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0060 sim_std=0.5015 Loss: 14.69243049621582
+[rank1] sim_mean=0.0225 sim_std=0.5580 Loss: 13.431640625
+[rank0] pos_mean=-0.0494 neg_mean=-0.0454 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0182 sim_std=0.4592 Loss: 15.055521011352539
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank1] sim_mean=0.0148 sim_std=0.5856 Loss: 16.802196502685547
+[rank0] pos_mean=-0.0442 neg_mean=-0.0621 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0121 sim_std=0.5584 Loss: 16.132640838623047
+[rank1] sim_mean=0.0105 sim_std=0.5011 Loss: 15.691656112670898
+[rank0] pos_mean=-0.0448 neg_mean=-0.0592 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0133 sim_std=0.6100 Loss: 16.700260162353516
+[rank1] sim_mean=0.0122 sim_std=0.5919 Loss: 15.07657527923584
+[rank0] pos_mean=-0.0448 neg_mean=-0.0664 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0097 sim_std=0.5423 Loss: 16.099117279052734
+[rank1] sim_mean=0.0104 sim_std=0.5850 Loss: 16.273479461669922
+[rank0] pos_mean=-0.0796 neg_mean=-0.0444 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0055 sim_std=0.4759 Loss: 15.5601806640625
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[epoch 007] alpha=0.00 | train_loss=15.8347 | dev_loss=10.0295
+[epoch 007] time=98.41 min | ETA=9175.64 min
+[rank1] sim_mean=0.0152 sim_std=0.5323 Loss: 16.344331741333008
+[epoch 007] alpha=0.00 | train_loss=15.8347 | dev_loss=9.9582
+[epoch 007] time=98.44 min | ETA=9167.72 min
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=9.9582)
+[rank0] pos_mean=-0.0730 neg_mean=-0.0520 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0045 sim_std=0.5694 Loss: 16.780929565429688
+[rank1] sim_mean=0.0249 sim_std=0.4861 Loss: 12.285147666931152
+[rank0] pos_mean=-0.0460 neg_mean=-0.0677 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0085 sim_std=0.5190 Loss: 15.477118492126465
+[rank1] sim_mean=0.0084 sim_std=0.5136 Loss: 15.51597785949707
+[rank0] pos_mean=-0.0706 neg_mean=-0.0367 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0132 sim_std=0.5088 Loss: 16.022254943847656
+[rank1] sim_mean=0.0141 sim_std=0.6481 Loss: 17.423866271972656
+[rank0] pos_mean=-0.0544 neg_mean=-0.0481 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0146 sim_std=0.4748 Loss: 15.125040054321289
+[rank1] sim_mean=0.0049 sim_std=0.5916 Loss: 13.720714569091797
+[rank0] pos_mean=-0.0475 neg_mean=-0.0750 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0042 sim_std=0.6147 Loss: 16.56305694580078
+[rank1] sim_mean=0.0092 sim_std=0.5537 Loss: 15.130389213562012
+[rank0] pos_mean=0.0705 neg_mean=-0.1741 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0063 sim_std=0.5419 Loss: 14.20583438873291
+[rank1] sim_mean=0.0069 sim_std=0.5492 Loss: 16.81011199951172
+[rank0] pos_mean=-0.0856 neg_mean=-0.0396 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0053 sim_std=0.6041 Loss: 17.41674041748047
+[rank1] sim_mean=0.0054 sim_std=0.5576 Loss: 15.226445198059082
+[rank0] pos_mean=-0.0739 neg_mean=-0.0243 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0180 sim_std=0.5355 Loss: 16.307947158813477
+[rank1] sim_mean=0.0068 sim_std=0.5431 Loss: 16.671255111694336
+[rank0] pos_mean=0.0153 neg_mean=-0.0991 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0196 sim_std=0.4707 Loss: 14.175106048583984
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank1] sim_mean=0.0141 sim_std=0.4977 Loss: 16.06812286376953
+[rank0] pos_mean=-0.0951 neg_mean=-0.0348 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0035 sim_std=0.5470 Loss: 16.741016387939453
+[rank0] pos_mean=-0.0622 neg_mean=-0.0355 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0175 sim_std=0.5291 Loss: 15.81124210357666
+[rank1] sim_mean=0.0096 sim_std=0.5340 Loss: 16.563308715820312
+[rank1] sim_mean=0.0197 sim_std=0.5826 Loss: 16.948299407958984
+[rank0] pos_mean=-0.0650 neg_mean=-0.0517 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0082 sim_std=0.5478 Loss: 16.282926559448242
+[rank1] sim_mean=0.0173 sim_std=0.5706 Loss: 10.774557113647461
+[rank0] pos_mean=-0.0754 neg_mean=-0.0453 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0069 sim_std=0.4770 Loss: 15.452600479125977
+[rank1] sim_mean=0.0131 sim_std=0.5384 Loss: 15.379968643188477
+[rank0] pos_mean=0.1077 neg_mean=-0.1730 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0231 sim_std=0.6654 Loss: 15.204570770263672
+[rank1] sim_mean=0.0182 sim_std=0.5126 Loss: 15.90280818939209
+[rank0] pos_mean=-0.0376 neg_mean=-0.0660 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0131 sim_std=0.5530 Loss: 15.929237365722656
+[rank1] sim_mean=0.0134 sim_std=0.6030 Loss: 15.350622177124023
+[rank0] pos_mean=-0.0678 neg_mean=-0.0457 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0100 sim_std=0.5657 Loss: 16.707712173461914
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[epoch 008] alpha=0.00 | train_loss=15.8429 | dev_loss=9.9971
+[epoch 008] time=98.51 min | ETA=9075.26 min
+[epoch 008] alpha=0.00 | train_loss=15.8429 | dev_loss=10.0280
+[epoch 008] time=98.45 min | ETA=9067.62 min
+[rank1] sim_mean=0.0123 sim_std=0.6892 Loss: 18.342844009399414
+[rank0] pos_mean=-0.0616 neg_mean=-0.0173 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0269 sim_std=0.6183 Loss: 17.23842430114746
+[rank1] sim_mean=0.0053 sim_std=0.4316 Loss: 14.10680866241455
+[rank0] pos_mean=-0.0893 neg_mean=-0.0346 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0061 sim_std=0.5795 Loss: 17.226818084716797
+[rank1] sim_mean=0.0117 sim_std=0.5500 Loss: 15.805513381958008
+[rank0] pos_mean=-0.0454 neg_mean=-0.0550 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0151 sim_std=0.6091 Loss: 16.82305908203125
+[rank1] sim_mean=0.0040 sim_std=0.6099 Loss: 17.006092071533203
+[rank0] pos_mean=-0.0805 neg_mean=-0.0455 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0046 sim_std=0.5632 Loss: 16.658042907714844
+[rank1] sim_mean=0.0156 sim_std=0.6085 Loss: 14.267208099365234
+[rank0] pos_mean=0.0563 neg_mean=-0.1316 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0213 sim_std=0.6779 Loss: 16.055505752563477
+[rank1] sim_mean=0.0204 sim_std=0.5499 Loss: 16.83279037475586
+[rank0] pos_mean=-0.0223 neg_mean=-0.0876 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0090 sim_std=0.5764 Loss: 15.803174018859863
+[rank1] sim_mean=0.0067 sim_std=0.5427 Loss: 16.600692749023438
+[rank0] pos_mean=-0.0772 neg_mean=-0.0470 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0052 sim_std=0.5345 Loss: 16.272354125976562
+[rank1] sim_mean=0.0311 sim_std=0.6055 Loss: 14.622333526611328
+[rank0] pos_mean=0.0275 neg_mean=-0.1081 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0205 sim_std=0.6582 Loss: 16.294944763183594
+[rank1] sim_mean=0.0113 sim_std=0.5828 Loss: 16.20929527282715
+[rank0] pos_mean=0.0899 neg_mean=-0.1888 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0074 sim_std=0.7162 Loss: 16.098453521728516
+[rank1] sim_mean=0.0021 sim_std=0.5961 Loss: 15.159494400024414
+[rank0] pos_mean=-0.0581 neg_mean=-0.0661 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0041 sim_std=0.5328 Loss: 15.849470138549805
+[rank1] sim_mean=0.0064 sim_std=0.7059 Loss: 18.64552879333496
+[rank0] pos_mean=-0.0868 neg_mean=-0.0178 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0156 sim_std=0.5733 Loss: 17.087970733642578
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank1] sim_mean=0.0199 sim_std=0.4849 Loss: 14.672027587890625
+[rank0] pos_mean=-0.0844 neg_mean=-0.0263 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0124 sim_std=0.5447 Loss: 16.527738571166992
+[rank1] sim_mean=0.0235 sim_std=0.5651 Loss: 16.765106201171875
+[rank0] pos_mean=0.0028 neg_mean=-0.1115 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0080 sim_std=0.5593 Loss: 15.857654571533203
+[rank1] sim_mean=0.0131 sim_std=0.7181 Loss: 18.504352569580078
+[rank0] pos_mean=-0.0688 neg_mean=-0.0542 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0053 sim_std=0.4535 Loss: 15.05921459197998
+[rank1] sim_mean=0.0087 sim_std=0.4765 Loss: 14.736332893371582
+[rank0] pos_mean=0.1024 neg_mean=-0.1516 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0315 sim_std=0.5892 Loss: 14.60808277130127
+[rank1] sim_mean=0.0165 sim_std=0.5234 Loss: 15.756227493286133
+[rank0] pos_mean=-0.0761 neg_mean=-0.0372 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0106 sim_std=0.5649 Loss: 16.785507202148438
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[epoch 009] alpha=0.00 | train_loss=15.8494 | dev_loss=10.0189
+[epoch 009] time=98.51 min | ETA=8975.24 min
+[rank1] sim_mean=0.0053 sim_std=0.5352 Loss: 16.313207626342773
+[epoch 009] alpha=0.00 | train_loss=15.8494 | dev_loss=10.0019
+[epoch 009] time=98.51 min | ETA=8968.56 min
+[rank0] pos_mean=-0.0983 neg_mean=-0.0260 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0065 sim_std=0.6383 Loss: 17.832565307617188
+[rank1] sim_mean=0.0214 sim_std=0.4952 Loss: 14.066017150878906
+[rank0] pos_mean=0.0771 neg_mean=-0.1836 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0044 sim_std=0.5622 Loss: 14.261255264282227
+[rank1] sim_mean=0.0047 sim_std=0.4406 Loss: 14.559038162231445
+[rank0] pos_mean=-0.0720 neg_mean=-0.0520 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0050 sim_std=0.5478 Loss: 16.247966766357422
+[rank1] sim_mean=0.0125 sim_std=0.5431 Loss: 16.68706703186035
+[rank0] pos_mean=0.0142 neg_mean=-0.1142 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0116 sim_std=0.7344 Loss: 17.423786163330078
+[rank1] sim_mean=0.0053 sim_std=0.5113 Loss: 13.508140563964844
+[rank0] pos_mean=0.0043 neg_mean=-0.1020 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0134 sim_std=0.4551 Loss: 13.867364883422852
+[rank1] sim_mean=0.0114 sim_std=0.5854 Loss: 17.199188232421875
+[rank0] pos_mean=-0.0350 neg_mean=-0.0618 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0163 sim_std=0.5014 Loss: 15.244255065917969
+[rank1] sim_mean=0.0064 sim_std=0.4971 Loss: 15.977632522583008
+[rank0] pos_mean=0.0956 neg_mean=-0.1982 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0052 sim_std=0.6563 Loss: 15.222827911376953
+[rank1] sim_mean=0.0019 sim_std=0.6489 Loss: 15.57571029663086
+[rank0] pos_mean=0.2380 neg_mean=-0.2986 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0173 sim_std=0.5731 Loss: 12.31446647644043
+[rank1] sim_mean=0.0173 sim_std=0.6173 Loss: 14.778106689453125
+[rank0] pos_mean=0.0569 neg_mean=-0.1671 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0038 sim_std=0.6396 Loss: 15.668760299682617
+[rank1] sim_mean=0.0101 sim_std=0.5438 Loss: 16.499385833740234
+[rank0] pos_mean=-0.0535 neg_mean=-0.0474 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0154 sim_std=0.4889 Loss: 15.314085960388184
+[rank1] sim_mean=0.0097 sim_std=0.5849 Loss: 17.1451473236084
+[rank0] pos_mean=-0.0555 neg_mean=0.0091 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0428 sim_std=0.5930 Loss: 17.0516414642334
+[rank1] sim_mean=0.0073 sim_std=0.4923 Loss: 14.410983085632324
+[rank0] pos_mean=-0.0536 neg_mean=-0.0413 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0184 sim_std=0.6016 Loss: 16.7716064453125
+[rank1] sim_mean=0.0048 sim_std=0.5903 Loss: 16.027118682861328
+[rank0] pos_mean=-0.0702 neg_mean=-0.0500 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0068 sim_std=0.5843 Loss: 16.925636291503906
+[rank1] sim_mean=0.0140 sim_std=0.6434 Loss: 13.519210815429688
+[rank0] pos_mean=0.1559 neg_mean=-0.2513 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0051 sim_std=0.5845 Loss: 13.829263687133789
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank1] sim_mean=0.0152 sim_std=0.5738 Loss: 16.706586837768555
+[rank0] pos_mean=0.0264 neg_mean=-0.1042 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0220 sim_std=0.6215 Loss: 16.089370727539062
+[rank1] sim_mean=0.0110 sim_std=0.6119 Loss: 17.31188201904297
+[rank0] pos_mean=-0.0568 neg_mean=-0.0568 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0092 sim_std=0.5765 Loss: 16.757083892822266
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[epoch 010] alpha=0.00 | train_loss=15.8299 | dev_loss=10.0314
+[epoch 010] time=98.54 min | ETA=8875.83 min
+[epoch 010] alpha=0.00 | train_loss=15.8299 | dev_loss=9.9569
+[epoch 010] time=98.54 min | ETA=8869.86 min
+[rank1] sim_mean=0.0128 sim_std=0.5792 Loss: 16.86404037475586
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=9.9569)
+[rank0] pos_mean=-0.0834 neg_mean=-0.0120 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0200 sim_std=0.6466 Loss: 17.803752899169922
+[rank1] sim_mean=0.0167 sim_std=0.5561 Loss: 13.86700439453125
+[rank0] pos_mean=-0.0584 neg_mean=-0.0591 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0074 sim_std=0.6617 Loss: 17.6328125
+[rank1] sim_mean=0.0133 sim_std=0.4639 Loss: 14.506782531738281
+[rank0] pos_mean=0.0420 neg_mean=-0.1452 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0083 sim_std=0.5452 Loss: 14.656444549560547
+[rank1] sim_mean=0.0141 sim_std=0.5597 Loss: 15.050712585449219
+[rank0] pos_mean=-0.0672 neg_mean=-0.0509 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0077 sim_std=0.5476 Loss: 16.072534561157227
+[rank1] sim_mean=0.0038 sim_std=0.6077 Loss: 16.953523635864258
+[rank0] pos_mean=-0.0085 neg_mean=-0.0822 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0177 sim_std=0.5657 Loss: 15.875296592712402
+[rank1] sim_mean=0.0290 sim_std=0.5708 Loss: 16.167640686035156
+[rank0] pos_mean=-0.0740 neg_mean=-0.0273 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0165 sim_std=0.7167 Loss: 18.560367584228516
+[rank1] sim_mean=0.0131 sim_std=0.5744 Loss: 16.081985473632812
+[rank0] pos_mean=0.0273 neg_mean=-0.1311 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0089 sim_std=0.5356 Loss: 14.610416412353516
+[rank1] sim_mean=0.0063 sim_std=0.4896 Loss: 15.777000427246094
+[rank0] pos_mean=-0.0887 neg_mean=-0.0332 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0071 sim_std=0.5829 Loss: 17.119903564453125
+[rank1] sim_mean=0.0100 sim_std=0.4974 Loss: 12.593027114868164
+[rank0] pos_mean=-0.0326 neg_mean=-0.0839 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0063 sim_std=0.5939 Loss: 16.58623504638672
+[rank1] sim_mean=0.0071 sim_std=0.6064 Loss: 17.076698303222656
+[rank0] pos_mean=-0.0530 neg_mean=-0.0414 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0186 sim_std=0.6296 Loss: 17.12990951538086
+[rank1] sim_mean=0.0048 sim_std=0.7075 Loss: 17.681922912597656
+[rank0] pos_mean=-0.0208 neg_mean=-0.0802 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0133 sim_std=0.6240 Loss: 16.558162689208984
+[rank1] sim_mean=0.0127 sim_std=0.5913 Loss: 14.785767555236816
+[rank0] pos_mean=-0.0194 neg_mean=-0.0859 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0110 sim_std=0.6198 Loss: 16.648040771484375
+[rank1] sim_mean=0.0044 sim_std=0.5627 Loss: 15.30302619934082
+[rank0] pos_mean=-0.0653 neg_mean=-0.0553 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0063 sim_std=0.5399 Loss: 16.406578063964844
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank1] sim_mean=0.0182 sim_std=0.5935 Loss: 17.062294006347656
+[rank0] pos_mean=-0.0010 neg_mean=-0.1077 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0082 sim_std=0.5564 Loss: 15.422550201416016
+[rank1] sim_mean=0.0275 sim_std=0.5729 Loss: 16.684314727783203
+[rank0] pos_mean=-0.0493 neg_mean=-0.0473 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0173 sim_std=0.5565 Loss: 16.282386779785156
+[rank1] sim_mean=0.0125 sim_std=0.5821 Loss: 15.13271713256836
+[rank0] pos_mean=-0.0414 neg_mean=-0.0721 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0084 sim_std=0.4431 Loss: 14.590726852416992
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[epoch 011] alpha=0.00 | train_loss=15.8404 | dev_loss=10.0417
+[epoch 011] time=98.61 min | ETA=8777.12 min
+[rank1] sim_mean=0.0120 sim_std=0.6297 Loss: 17.583078384399414
+[epoch 011] alpha=0.00 | train_loss=15.8404 | dev_loss=9.9786
+[epoch 011] time=98.53 min | ETA=8771.14 min
+[rank0] pos_mean=-0.0799 neg_mean=-0.0363 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0094 sim_std=0.5806 Loss: 17.14753532409668
+[rank1] sim_mean=0.0073 sim_std=0.5577 Loss: 12.872228622436523
+[rank0] pos_mean=-0.0438 neg_mean=-0.0747 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0060 sim_std=0.6118 Loss: 16.766983032226562
+[rank1] sim_mean=0.0081 sim_std=0.5019 Loss: 12.904234886169434
+[rank0] pos_mean=-0.0448 neg_mean=-0.0739 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0059 sim_std=0.5168 Loss: 15.634342193603516
+[rank1] sim_mean=0.0097 sim_std=0.4889 Loss: 15.797883987426758
+[rank0] pos_mean=0.0531 neg_mean=-0.1572 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0071 sim_std=0.5436 Loss: 14.412769317626953
+[rank1] sim_mean=0.0099 sim_std=0.6823 Loss: 16.585254669189453
+[rank0] pos_mean=-0.0832 neg_mean=-0.0001 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0261 sim_std=0.6755 Loss: 18.104595184326172
+[rank1] sim_mean=0.0106 sim_std=0.6339 Loss: 15.749911308288574
+[rank0] pos_mean=-0.0433 neg_mean=-0.0618 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0127 sim_std=0.5008 Loss: 15.320136070251465
+[rank1] sim_mean=0.0038 sim_std=0.6732 Loss: 18.013748168945312
+[rank0] pos_mean=-0.0279 neg_mean=-0.0330 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0338 sim_std=0.6353 Loss: 17.049610137939453
+[rank1] sim_mean=0.0232 sim_std=0.6218 Loss: 17.243568420410156
+[rank0] pos_mean=-0.0765 neg_mean=-0.0301 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0140 sim_std=0.6410 Loss: 17.63962173461914
+[rank1] sim_mean=0.0212 sim_std=0.4956 Loss: 15.675949096679688
+[rank0] pos_mean=0.0685 neg_mean=-0.1288 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0280 sim_std=0.6202 Loss: 15.116731643676758
+[rank1] sim_mean=0.0058 sim_std=0.6093 Loss: 16.431884765625
+[rank0] pos_mean=0.1287 neg_mean=-0.2158 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0109 sim_std=0.5299 Loss: 13.028314590454102
+[rank1] sim_mean=0.0383 sim_std=0.4925 Loss: 15.531135559082031
+[rank0] pos_mean=0.1148 neg_mean=-0.2077 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0089 sim_std=0.5771 Loss: 14.148262023925781
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank1] sim_mean=0.0182 sim_std=0.4213 Loss: 13.522518157958984
+[rank0] pos_mean=-0.0604 neg_mean=-0.0545 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0088 sim_std=0.5337 Loss: 16.066022872924805
+[rank1] sim_mean=0.0081 sim_std=0.5891 Loss: 16.027999877929688
+[rank0] pos_mean=-0.0833 neg_mean=-0.0401 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0060 sim_std=0.5760 Loss: 16.77831268310547
+[rank0] pos_mean=0.0968 neg_mean=-0.1901 n_pos=8 n_neg=8[rank1] sim_mean=0.0036 sim_std=0.5436 Loss: 15.12594223022461
+
+[rank0] sim_mean=0.0098 sim_std=0.6649 Loss: 15.428404808044434
+[rank1] sim_mean=0.0085 sim_std=0.6057 Loss: 17.29892349243164
+[rank0] pos_mean=-0.0506 neg_mean=-0.0690 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0059 sim_std=0.6580 Loss: 17.222795486450195
+[rank1] sim_mean=0.0088 sim_std=0.5134 Loss: 15.816756248474121
+[rank0] pos_mean=-0.0807 neg_mean=-0.0386 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0079 sim_std=0.5239 Loss: 16.097105026245117
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[epoch 012] alpha=0.00 | train_loss=15.8451 | dev_loss=10.0188
+[epoch 012] time=98.54 min | ETA=8677.94 min
+[rank1] sim_mean=0.0308 sim_std=0.4631 Loss: 13.918237686157227
+[epoch 012] alpha=0.00 | train_loss=15.8451 | dev_loss=9.9535
+[epoch 012] time=98.55 min | ETA=8672.55 min
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=9.9535)
+[rank0] pos_mean=0.0334 neg_mean=-0.1289 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0127 sim_std=0.5424 Loss: 14.914610862731934
+[rank1] sim_mean=0.0075 sim_std=0.5622 Loss: 17.003005981445312
+[rank0] pos_mean=0.0376 neg_mean=-0.1511 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0034 sim_std=0.6307 Loss: 15.74057388305664
+[rank1] sim_mean=0.0052 sim_std=0.5066 Loss: 14.950708389282227
+[rank0] pos_mean=-0.0120 neg_mean=-0.0874 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0136 sim_std=0.4581 Loss: 14.466297149658203
+[rank1] sim_mean=0.0067 sim_std=0.5894 Loss: 17.285419464111328
+[rank0] pos_mean=-0.0476 neg_mean=-0.0717 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0058 sim_std=0.5567 Loss: 16.139705657958984
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank1] sim_mean=0.0251 sim_std=0.4809 Loss: 12.76637077331543
+[rank0] pos_mean=-0.0360 neg_mean=-0.0885 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0025 sim_std=0.6243 Loss: 16.822412490844727
+[rank1] sim_mean=0.0121 sim_std=0.6575 Loss: 18.01939582824707
+[rank0] pos_mean=-0.0937 neg_mean=-0.0299 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0066 sim_std=0.5612 Loss: 16.90680694580078
+[rank1] sim_mean=0.0211 sim_std=0.5361 Loss: 16.461973190307617
+[rank0] pos_mean=-0.0113 neg_mean=-0.0958 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0096 sim_std=0.5594 Loss: 15.562692642211914
+[rank1] sim_mean=0.0144 sim_std=0.4622 Loss: 15.251129150390625
+[rank0] pos_mean=-0.0644 neg_mean=-0.0056 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0315 sim_std=0.6023 Loss: 16.920021057128906
+[rank1] sim_mean=0.0088 sim_std=0.5522 Loss: 16.675273895263672
+[rank0] pos_mean=-0.0371 neg_mean=-0.0680 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0123 sim_std=0.5067 Loss: 15.562076568603516
+[rank1] sim_mean=0.0067 sim_std=0.5204 Loss: 14.512198448181152
+[rank0] pos_mean=-0.0678 neg_mean=-0.0554 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0052 sim_std=0.5701 Loss: 16.599895477294922
+[rank1] sim_mean=0.0192 sim_std=0.5487 Loss: 14.55163288116455
+[rank0] pos_mean=-0.0067 neg_mean=-0.0998 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0097 sim_std=0.5282 Loss: 15.302624702453613
+[rank1] sim_mean=0.0070 sim_std=0.4695 Loss: 15.142498970031738
+[rank0] pos_mean=-0.0522 neg_mean=-0.0621 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0086 sim_std=0.5245 Loss: 15.776673316955566
+[rank1] sim_mean=0.0192 sim_std=0.5481 Loss: 12.335905075073242
+[rank0] pos_mean=-0.0804 neg_mean=-0.0382 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0082 sim_std=0.5088 Loss: 16.158750534057617
+[rank1] sim_mean=0.0047 sim_std=0.5019 Loss: 15.556143760681152
+[rank0] pos_mean=0.0641 neg_mean=-0.1632 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0090 sim_std=0.5051 Loss: 13.78625202178955
+[rank1] sim_mean=0.0048 sim_std=0.6124 Loss: 15.818289756774902
+[rank0] pos_mean=-0.0858 neg_mean=-0.0422 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0039 sim_std=0.5813 Loss: 16.892391204833984
+[rank1] sim_mean=0.0050 sim_std=0.5164 Loss: 15.787747383117676
+[rank0] pos_mean=-0.0308 neg_mean=-0.0910 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0035 sim_std=0.4235 Loss: 13.992623329162598
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[epoch 013] alpha=0.00 | train_loss=15.8413 | dev_loss=10.0149
+[epoch 013] time=98.68 min | ETA=8579.78 min
+[epoch 013] alpha=0.00 | train_loss=15.8413 | dev_loss=9.9824
+[epoch 013] time=98.60 min | ETA=8574.30 min
+[rank0] pos_mean=-0.0057 neg_mean=-0.0881 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0159 sim_std=0.5283 Loss: 15.085552215576172
+[rank0]:[E131 13:22:53.248221764 ProcessGroupNCCL.cpp:685] [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=4198743, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=600000) ran for 600092 milliseconds before timing out.
+[rank0]:[E131 13:22:53.271466923 ProcessGroupNCCL.cpp:2252] [PG ID 0 PG GUID 0(default_pg) Rank 0]  failure detected by watchdog at work sequence id: 4198743 PG status: last enqueued work: 4198781, last completed work: 4198742
+[rank0]:[E131 13:22:53.271481888 ProcessGroupNCCL.cpp:732] Stack trace of the failed collective not found, potentially because FlightRecorder is disabled. You can enable it by setting TORCH_NCCL_TRACE_BUFFER_SIZE to a non-zero value.
+[rank0]:[E131 13:22:53.271520285 ProcessGroupNCCL.cpp:2584] [PG ID 0 PG GUID 0(default_pg) Rank 0] First PG on this rank to signal dumping.
+[rank0]:[E131 13:22:53.737268937 ProcessGroupNCCL.cpp:1870] [PG ID 0 PG GUID 0(default_pg) Rank 0] Received a dump signal due to a collective timeout from this local rank and we will try our best to dump the debug info. Last enqueued NCCL work: 4198781, last completed NCCL work: 4198742.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank0]:[E131 13:22:53.737497375 ProcessGroupNCCL.cpp:1589] [PG ID 0 PG GUID 0(default_pg) Rank 0] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1
+[rank0]:[E131 13:23:53.643614935 ProcessGroupNCCL.cpp:746] [Rank 0] Some NCCL operations have failed or timed out. Due to the asynchronous nature of CUDA kernels, subsequent GPU operations might run on corrupted/incomplete data.
+[rank0]:[E131 13:23:53.643637299 ProcessGroupNCCL.cpp:760] [Rank 0] To avoid data inconsistency, we are taking the entire process down.
+[rank0]:[E131 13:23:53.655577759 ProcessGroupNCCL.cpp:2068] [PG ID 0 PG GUID 0(default_pg) Rank 0] Process group watchdog thread terminated with exception: [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=4198743, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=600000) ran for 600092 milliseconds before timing out.
+Exception raised from checkTimeout at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:688 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x80 (0x14ead0479eb0 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libc10.so)
+frame #1: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x247 (0x14ead13e0147 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x1591 (0x14ead13e3b61 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #3: c10d::ProcessGroupNCCL::Watchdog::run() + 0xd2 (0x14ead13e4ec2 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xc9039 (0x14eab4cb0039 in /sw/pkgs/arc/python3.9-anaconda/2021.11/bin/../lib/libstdc++.so.6)
+frame #5: <unknown function> + 0x81ca (0x14eb2eb961ca in /lib64/libpthread.so.0)
+frame #6: clone + 0x43 (0x14eb2e7f08d3 in /lib64/libc.so.6)
+
+terminate called after throwing an instance of 'c10::DistBackendError'
+  what():  [PG ID 0 PG GUID 0(default_pg) Rank 0] Process group watchdog thread terminated with exception: [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=4198743, OpType=ALLREDUCE, NumelIn=262144, NumelOut=262144, Timeout(ms)=600000) ran for 600092 milliseconds before timing out.
+Exception raised from checkTimeout at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:688 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x80 (0x14ead0479eb0 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libc10.so)
+frame #1: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x247 (0x14ead13e0147 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x1591 (0x14ead13e3b61 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #3: c10d::ProcessGroupNCCL::Watchdog::run() + 0xd2 (0x14ead13e4ec2 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xc9039 (0x14eab4cb0039 in /sw/pkgs/arc/python3.9-anaconda/2021.11/bin/../lib/libstdc++.so.6)
+frame #5: <unknown function> + 0x81ca (0x14eb2eb961ca in /lib64/libpthread.so.0)
+frame #6: clone + 0x43 (0x14eb2e7f08d3 in /lib64/libc.so.6)
+
+Exception raised from run at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:2074 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x80 (0x14ead0479eb0 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0xe1c1a1 (0x14ead13bc1a1 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: <unknown function> + 0x9468e6 (0x14ead0ee68e6 in /home/jsudan/myenv/lib/python3.9/site-packages/torch/lib/libtorch_cuda.so)
+frame #3: <unknown function> + 0xc9039 (0x14eab4cb0039 in /sw/pkgs/arc/python3.9-anaconda/2021.11/bin/../lib/libstdc++.so.6)
+frame #4: <unknown function> + 0x81ca (0x14eb2eb961ca in /lib64/libpthread.so.0)
+frame #5: clone + 0x43 (0x14eb2e7f08d3 in /lib64/libc.so.6)
+
+E0131 13:24:00.654474 1665401 torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: -6) local_rank: 0 (pid: 1665414) of binary: /home/jsudan/myenv/bin/python
+Traceback (most recent call last):
+  File "/home/jsudan/myenv/bin/torchrun", line 7, in <module>
+    sys.exit(main())
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 901, in main
+    run(args)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+========================================================
+train_stage1_mlaad.py FAILED
+--------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+--------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-01-31_13:24:00
+  host      : gl1506.arc-ts.umich.edu
+  rank      : 0 (local_rank: 0)
+  exitcode  : -6 (pid: 1665414)
+  error_file: <N/A>
+  traceback : Signal 6 (SIGABRT) received by PID 1665414
+========================================================
+Using device: cuda
+[OK] Loaded finetuned encoder weights from checkpoint.
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 291, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 285, in main
+    train_ds, dev_ds = _split_dataset(full_ds, seed=args.mlaad_split_seed, train_frac=0.8)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 134, in _split_dataset
+    dev_ds.data = [ds.data[i] for i in dev_idx]
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 134, in <listcomp>
+    dev_ds.data = [ds.data[i] for i in dev_idx]
+IndexError: list index out of range
+Using device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier.py", line 66, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier.py", line 34, in main
+    X_train = np.load(train_emb_path).astype("float32")
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 427, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/MLAAD/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/train_embeddings.npy'
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/generate_score_files_all.py", line 80, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/generate_score_files_all.py", line 46, in main
+    clf = load_stage2_head(args.stage2_ckpt, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 98, in load_stage2_head
+    ckpt = safe_load(ckpt_path, map_location=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 59, in safe_load
+    return torch.load(ckpt_path, map_location=map_location, weights_only=False)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1484, in load
+    with _open_file_like(f, "rb") as opened_file:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 759, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 740, in __init__
+    super().__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: 'checkpoints_stage2/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/wav2vec2-xls-r-300m/stage2_binary_head_best.pt'
+Using device: cuda
+[OK] Loaded finetuned encoder weights from checkpoint.
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 291, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 253, in main
+    _save_embeddings(ds, args.itw_out_dir, "itw", backbone, device, args.batch_size, args.num_workers)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 105, in _save_embeddings
+    z = backbone(waveforms, attn_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 73, in forward
+    hs_4d = self.encoder(waveforms, attention_mask=attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 55, in forward
+    hidden_states = self._forward_frozen(waveforms, attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 34, in _forward_frozen
+    out = self.model(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1453, in forward
+    extract_features = self.feature_extractor(input_values)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 431, in forward
+    hidden_states = conv_layer(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/modeling_layers.py", line 93, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 309, in forward
+    hidden_states = self.layer_norm(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/normalization.py", line 217, in forward
+    return F.layer_norm(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/functional.py", line 2905, in layer_norm
+    return torch.layer_norm(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 15.62 GiB. GPU 0 has a total capacity of 44.42 GiB of which 11.22 GiB is free. Including non-PyTorch memory, this process has 33.19 GiB memory in use. Of the allocated memory 32.88 GiB is allocated by PyTorch, and 6.94 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/generate_score_files_all.py", line 80, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/generate_score_files_all.py", line 46, in main
+    clf = load_stage2_head(args.stage2_ckpt, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 98, in load_stage2_head
+    ckpt = safe_load(ckpt_path, map_location=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 59, in safe_load
+    return torch.load(ckpt_path, map_location=map_location, weights_only=False)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1484, in load
+    with _open_file_like(f, "rb") as opened_file:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 759, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 740, in __init__
+    super().__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: 'checkpoints_stage2/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/wav2vec2-xls-r-300m/stage2_binary_head_best.pt'
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 74, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 55, in main
+    scores, labels = _load_scores(path)
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 11, in _load_scores
+    data = np.genfromtxt(path, dtype=str)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 1980, in genfromtxt
+    fid = np.lib._datasource.open(fname, 'rt', encoding=encoding)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 193, in open
+    return ds.open(path, mode, encoding=encoding, newline=newline)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 533, in open
+    raise FileNotFoundError(f"{path} not found.")
+FileNotFoundError: /home/jsudan/wav2vec_contr_loss/scores/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/wav2vec2-xls-r-300m/score_cm_itw.txt not found.
+Using device: cuda
+[OK] Loaded finetuned encoder weights from checkpoint.
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 291, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 196, in main
+    _save_embeddings(ds, args.asv19_out_dir, "train", backbone, device, args.batch_size, args.num_workers)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 105, in _save_embeddings
+    z = backbone(waveforms, attn_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 73, in forward
+    hs_4d = self.encoder(waveforms, attention_mask=attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 55, in forward
+    hidden_states = self._forward_frozen(waveforms, attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 34, in _forward_frozen
+    out = self.model(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1453, in forward
+    extract_features = self.feature_extractor(input_values)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 431, in forward
+    hidden_states = conv_layer(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/modeling_layers.py", line 93, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 309, in forward
+    hidden_states = self.layer_norm(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/normalization.py", line 217, in forward
+    return F.layer_norm(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/functional.py", line 2905, in layer_norm
+    return torch.layer_norm(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 12.20 GiB. GPU 0 has a total capacity of 44.42 GiB of which 10.50 GiB is free. Including non-PyTorch memory, this process has 33.91 GiB memory in use. Of the allocated memory 25.94 GiB is allocated by PyTorch, and 7.65 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/generate_score_files_all.py", line 80, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/generate_score_files_all.py", line 46, in main
+    clf = load_stage2_head(args.stage2_ckpt, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 98, in load_stage2_head
+    ckpt = safe_load(ckpt_path, map_location=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 59, in safe_load
+    return torch.load(ckpt_path, map_location=map_location, weights_only=False)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1484, in load
+    with _open_file_like(f, "rb") as opened_file:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 759, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 740, in __init__
+    super().__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: 'checkpoints_stage2/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/wav2vec2-xls-r-300m/stage2_binary_head_best.pt'
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 74, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 55, in main
+    scores, labels = _load_scores(path)
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 11, in _load_scores
+    data = np.genfromtxt(path, dtype=str)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 1980, in genfromtxt
+    fid = np.lib._datasource.open(fname, 'rt', encoding=encoding)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 193, in open
+    return ds.open(path, mode, encoding=encoding, newline=newline)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 533, in open
+    raise FileNotFoundError(f"{path} not found.")
+FileNotFoundError: /home/jsudan/wav2vec_contr_loss/scores/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/wav2vec2-xls-r-300m/score_cm_eval.txt not found.
+Using device: cuda
+[OK] Loaded finetuned encoder weights from checkpoint.
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 291, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 274, in main
+    _save_embeddings(ds, args.fakexpose_out_dir, "fakexpose", backbone, device, args.batch_size, args.num_workers)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 105, in _save_embeddings
+    z = backbone(waveforms, attn_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 73, in forward
+    hs_4d = self.encoder(waveforms, attention_mask=attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 55, in forward
+    hidden_states = self._forward_frozen(waveforms, attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 34, in _forward_frozen
+    out = self.model(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1453, in forward
+    extract_features = self.feature_extractor(input_values)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 431, in forward
+    hidden_states = conv_layer(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/modeling_layers.py", line 93, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 309, in forward
+    hidden_states = self.layer_norm(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/normalization.py", line 217, in forward
+    return F.layer_norm(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/functional.py", line 2905, in layer_norm
+    return torch.layer_norm(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 15.62 GiB. GPU 0 has a total capacity of 44.42 GiB of which 11.22 GiB is free. Including non-PyTorch memory, this process has 33.19 GiB memory in use. Of the allocated memory 32.88 GiB is allocated by PyTorch, and 6.94 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/generate_score_files_all.py", line 80, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/generate_score_files_all.py", line 46, in main
+    clf = load_stage2_head(args.stage2_ckpt, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 98, in load_stage2_head
+    ckpt = safe_load(ckpt_path, map_location=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 59, in safe_load
+    return torch.load(ckpt_path, map_location=map_location, weights_only=False)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1484, in load
+    with _open_file_like(f, "rb") as opened_file:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 759, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 740, in __init__
+    super().__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: 'checkpoints_stage2/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/wav2vec2-xls-r-300m/stage2_binary_head_best.pt'
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 74, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 55, in main
+    scores, labels = _load_scores(path)
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 11, in _load_scores
+    data = np.genfromtxt(path, dtype=str)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 1980, in genfromtxt
+    fid = np.lib._datasource.open(fname, 'rt', encoding=encoding)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 193, in open
+    return ds.open(path, mode, encoding=encoding, newline=newline)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 533, in open
+    raise FileNotFoundError(f"{path} not found.")
+FileNotFoundError: /home/jsudan/wav2vec_contr_loss/scores/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/fakexpose/score_cm_fakexpose.txt not found.
+Using device: cuda
+[OK] Loaded finetuned encoder weights from checkpoint.
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 291, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 264, in main
+    _save_embeddings(ds, args.ff_out_dir, "ff", backbone, device, args.batch_size, args.num_workers)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 105, in _save_embeddings
+    z = backbone(waveforms, attn_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 73, in forward
+    hs_4d = self.encoder(waveforms, attention_mask=attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 55, in forward
+    hidden_states = self._forward_frozen(waveforms, attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 34, in _forward_frozen
+    out = self.model(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1453, in forward
+    extract_features = self.feature_extractor(input_values)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 431, in forward
+    hidden_states = conv_layer(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/modeling_layers.py", line 93, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 309, in forward
+    hidden_states = self.layer_norm(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/normalization.py", line 217, in forward
+    return F.layer_norm(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/functional.py", line 2905, in layer_norm
+    return torch.layer_norm(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 15.62 GiB. GPU 0 has a total capacity of 44.42 GiB of which 11.22 GiB is free. Including non-PyTorch memory, this process has 33.19 GiB memory in use. Of the allocated memory 32.88 GiB is allocated by PyTorch, and 6.94 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/generate_score_files_all.py", line 80, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/generate_score_files_all.py", line 46, in main
+    clf = load_stage2_head(args.stage2_ckpt, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 98, in load_stage2_head
+    ckpt = safe_load(ckpt_path, map_location=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 59, in safe_load
+    return torch.load(ckpt_path, map_location=map_location, weights_only=False)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1484, in load
+    with _open_file_like(f, "rb") as opened_file:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 759, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 740, in __init__
+    super().__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: 'checkpoints_stage2/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/wav2vec2-xls-r-300m/stage2_binary_head_best.pt'
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 74, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 55, in main
+    scores, labels = _load_scores(path)
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 11, in _load_scores
+    data = np.genfromtxt(path, dtype=str)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 1980, in genfromtxt
+    fid = np.lib._datasource.open(fname, 'rt', encoding=encoding)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 193, in open
+    return ds.open(path, mode, encoding=encoding, newline=newline)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 533, in open
+    raise FileNotFoundError(f"{path} not found.")
+FileNotFoundError: /home/jsudan/wav2vec_contr_loss/scores/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/famous_figures/score_cm_ff.txt not found.
+Using device: cuda
+[OK] Loaded finetuned encoder weights from checkpoint.
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 291, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 225, in main
+    _save_embeddings(ds, args.asv5_out_dir, "train", backbone, device, args.batch_size, args.num_workers)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 105, in _save_embeddings
+    z = backbone(waveforms, attn_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_all.py", line 73, in forward
+    hs_4d = self.encoder(waveforms, attention_mask=attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 55, in forward
+    hidden_states = self._forward_frozen(waveforms, attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 34, in _forward_frozen
+    out = self.model(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1453, in forward
+    extract_features = self.feature_extractor(input_values)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 431, in forward
+    hidden_states = conv_layer(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/modeling_layers.py", line 93, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 309, in forward
+    hidden_states = self.layer_norm(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/normalization.py", line 217, in forward
+    return F.layer_norm(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/functional.py", line 2905, in layer_norm
+    return torch.layer_norm(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 15.62 GiB. GPU 0 has a total capacity of 44.42 GiB of which 11.22 GiB is free. Including non-PyTorch memory, this process has 33.19 GiB memory in use. Of the allocated memory 32.88 GiB is allocated by PyTorch, and 6.94 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/generate_score_files_all.py", line 80, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/generate_score_files_all.py", line 46, in main
+    clf = load_stage2_head(args.stage2_ckpt, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 98, in load_stage2_head
+    ckpt = safe_load(ckpt_path, map_location=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 59, in safe_load
+    return torch.load(ckpt_path, map_location=map_location, weights_only=False)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1484, in load
+    with _open_file_like(f, "rb") as opened_file:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 759, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 740, in __init__
+    super().__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: 'checkpoints_stage2/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/wav2vec2-xls-r-300m/stage2_binary_head_best.pt'
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 74, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 55, in main
+    scores, labels = _load_scores(path)
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 11, in _load_scores
+    data = np.genfromtxt(path, dtype=str)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 1980, in genfromtxt
+    fid = np.lib._datasource.open(fname, 'rt', encoding=encoding)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 193, in open
+    return ds.open(path, mode, encoding=encoding, newline=newline)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 533, in open
+    raise FileNotFoundError(f"{path} not found.")
+FileNotFoundError: /home/jsudan/wav2vec_contr_loss/scores/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt not found.
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 74, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 55, in main
+    scores, labels = _load_scores(path)
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_files.py", line 11, in _load_scores
+    data = np.genfromtxt(path, dtype=str)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 1980, in genfromtxt
+    fid = np.lib._datasource.open(fname, 'rt', encoding=encoding)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 193, in open
+    return ds.open(path, mode, encoding=encoding, newline=newline)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 533, in open
+    raise FileNotFoundError(f"{path} not found.")
+FileNotFoundError: /home/jsudan/wav2vec_contr_loss/scores/mlaad_mem_bank_0_supcon_geodesic_temp_0.05/wav2vec2-xls-r-300m/score_cm_itw.txt not found.
+----------------------------------------------------------------
+Training script finished.
+Job finished at: Sat Jan 31 13:30:50 EST 2026

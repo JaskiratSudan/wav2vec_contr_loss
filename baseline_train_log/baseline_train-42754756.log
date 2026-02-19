@@ -1,0 +1,87 @@
+Setting up the environment...
+Job started on gl1503.arc-ts.umich.edu at Sun Feb 15 18:25:38 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+Starting the Python training script...
+/home/jsudan/wav2vec_contr_loss/baseline_train.py:371: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler()
+Model: facebook/wav2vec2-xls-r-300m
+Device: cuda | AMP=True | RawBoost=True (p=0.7)
+Finetune encoder: True
+pos_weight (neg/pos) = 8.8372
+/home/jsudan/wav2vec_contr_loss/baseline_train.py:200: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+[DEV] acc@0.5=65.63% | acc@eer_thr=90.69% | eer_thr=0.9964
+[epoch 001] train_loss=1.6108 | dev_loss=1.4262 | dev_eer=9.30% | dev_acc=65.63%
+✓ Saved best (EER=9.30%) -> /home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_baseline_bce_best.pt
+[DEV] acc@0.5=81.51% | acc@eer_thr=99.47% | eer_thr=0.9998
+[epoch 002] train_loss=1.3748 | dev_loss=0.6425 | dev_eer=0.52% | dev_acc=81.51%
+✓ Saved best (EER=0.52%) -> /home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_baseline_bce_best.pt
+[DEV] acc@0.5=96.04% | acc@eer_thr=99.84% | eer_thr=1.0000
+[epoch 003] train_loss=1.3053 | dev_loss=0.1927 | dev_eer=0.19% | dev_acc=96.04%
+✓ Saved best (EER=0.19%) -> /home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_baseline_bce_best.pt
+[DEV] acc@0.5=97.12% | acc@eer_thr=99.90% | eer_thr=1.0000
+[epoch 004] train_loss=0.5889 | dev_loss=0.1067 | dev_eer=0.11% | dev_acc=97.12%
+✓ Saved best (EER=0.11%) -> /home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_baseline_bce_best.pt
+[DEV] acc@0.5=96.98% | acc@eer_thr=89.74% | eer_thr=1.0000
+[epoch 005] train_loss=0.4926 | dev_loss=0.1936 | dev_eer=0.16% | dev_acc=96.98%
+No EER improvement (1/10) | best=0.11%
+[DEV] acc@0.5=99.19% | acc@eer_thr=89.74% | eer_thr=1.0000
+[epoch 006] train_loss=0.3400 | dev_loss=0.0514 | dev_eer=0.02% | dev_acc=99.19%
+✓ Saved best (EER=0.02%) -> /home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_baseline_bce_best.pt
+[DEV] acc@0.5=94.65% | acc@eer_thr=89.74% | eer_thr=1.0000
+[epoch 007] train_loss=0.2933 | dev_loss=0.4360 | dev_eer=0.35% | dev_acc=94.65%
+No EER improvement (1/10) | best=0.02%
+[DEV] acc@0.5=88.38% | acc@eer_thr=89.74% | eer_thr=1.0000
+[epoch 008] train_loss=0.5374 | dev_loss=1.0204 | dev_eer=0.88% | dev_acc=88.38%
+No EER improvement (2/10) | best=0.02%
+[DEV] acc@0.5=98.95% | acc@eer_thr=89.74% | eer_thr=1.0000
+[epoch 009] train_loss=0.2610 | dev_loss=0.0759 | dev_eer=0.10% | dev_acc=98.95%
+No EER improvement (3/10) | best=0.02%
+[DEV] acc@0.5=99.22% | acc@eer_thr=89.74% | eer_thr=1.0000
+[epoch 010] train_loss=0.3815 | dev_loss=0.0561 | dev_eer=0.07% | dev_acc=99.22%
+No EER improvement (4/10) | best=0.02%
+[DEV] acc@0.5=99.59% | acc@eer_thr=89.74% | eer_thr=1.0000
+[epoch 011] train_loss=0.1983 | dev_loss=0.0266 | dev_eer=0.04% | dev_acc=99.59%
+No EER improvement (5/10) | best=0.02%
+[DEV] acc@0.5=99.45% | acc@eer_thr=99.94% | eer_thr=1.0000
+[epoch 012] train_loss=0.4359 | dev_loss=0.0275 | dev_eer=0.05% | dev_acc=99.45%
+No EER improvement (6/10) | best=0.02%
+[DEV] acc@0.5=97.84% | acc@eer_thr=89.74% | eer_thr=1.0000
+[epoch 013] train_loss=0.2524 | dev_loss=0.2003 | dev_eer=0.20% | dev_acc=97.84%
+No EER improvement (7/10) | best=0.02%
+[DEV] acc@0.5=98.03% | acc@eer_thr=89.74% | eer_thr=1.0000
+[epoch 014] train_loss=0.5545 | dev_loss=0.1409 | dev_eer=0.16% | dev_acc=98.03%
+No EER improvement (8/10) | best=0.02%
+[DEV] acc@0.5=99.73% | acc@eer_thr=99.94% | eer_thr=1.0000
+[epoch 015] train_loss=0.5479 | dev_loss=0.0197 | dev_eer=0.05% | dev_acc=99.73%
+No EER improvement (9/10) | best=0.02%
+[DEV] acc@0.5=99.62% | acc@eer_thr=89.74% | eer_thr=1.0000
+[epoch 016] train_loss=0.2372 | dev_loss=0.0254 | dev_eer=0.04% | dev_acc=99.62%
+No EER improvement (10/10) | best=0.02%
+[EARLY STOP] Patience reached. Best dev EER = 0.02%
+Best checkpoint: /home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_baseline_bce_best.pt (best EER=0.02%)
+Device: cuda
+[INFO] Scoring dataset 'itw' -> /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 12.212423933837519
+[INFO] Scoring dataset 'asv19' -> /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+EER (asv19): 0.22069465645264424
+[INFO] Scoring dataset 'asv21_la' -> /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/asv21_la/score_cm_asv21_la.txt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_baseline_datasets.py", line 480, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_baseline_datasets.py", line 463, in main
+    score_and_write(model, loader, device, out_path, speaker_out_path=speaker_out)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/eval_baseline_datasets.py", line 172, in score_and_write
+    speaker_labels.setdefault(speaker, []).append(int(labels_np[i]))
+OSError: [Errno 116] Stale file handle
+----------------------------------------------------------------
+Training script finished.
+Job finished at: Sun Feb 15 22:26:02 EST 2026

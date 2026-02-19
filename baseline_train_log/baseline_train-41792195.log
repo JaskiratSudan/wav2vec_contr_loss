@@ -1,0 +1,15 @@
+Setting up the environment...
+Job started on gl1516.arc-ts.umich.edu at Wed Feb  4 13:51:18 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+Starting the Python training script...
+  File "/home/jsudan/wav2vec_contr_loss/eval_baseline_datasets.py", line 179
+    f.write(f\"{speaker},{n},{mean_score:.6f},{eer},{acc}\\n\")
+                                                              ^
+SyntaxError: unexpected character after line continuation character
+----------------------------------------------------------------
+Training script finished.
+Job finished at: Wed Feb  4 13:51:26 EST 2026

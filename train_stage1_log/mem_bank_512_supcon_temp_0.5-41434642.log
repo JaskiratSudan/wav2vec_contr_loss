@@ -1,0 +1,28 @@
+Setting up the environment...
+Job started on gl1508.arc-ts.umich.edu at Sat Jan 31 07:58:38 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 11.891328468499493
+[INFO] Scoring dataset 'asv19' -> /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+EER (asv19): 0.20372154974466328
+[INFO] Scoring dataset 'asv5' -> /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+EER (asv5): 16.414363598312658
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_temp_0.5/famous_figures/score_cm_ff.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_temp_0.5/famous_figures/score_cm_ff.txt
+EER (famous_figures): 44.305930039058964
+[INFO] Scoring dataset 'fakexpose' -> /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_temp_0.5/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_temp_0.5/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 61.428354863152414
+----------------------------------------------------------------
+ASV19 pipeline finished at: Sat Jan 31 13:30:15 EST 2026

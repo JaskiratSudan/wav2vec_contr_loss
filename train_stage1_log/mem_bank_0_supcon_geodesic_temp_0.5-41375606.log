@@ -1,0 +1,96 @@
+Setting up the environment...
+Job started on gl1511.arc-ts.umich.edu at Fri Jan 30 15:11:52 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_bank_0_supcon_geodesic_temp_0.5
+USE_QUEUE=0
+QUEUE_SIZE=512
+ACCUM_STEPS=1
+CENTER_BEFORE_NORM=1
+GLOBAL_CENTER=1
+Detected NUM_GPUS=2
+Using BATCH_SIZE=32
+W0130 15:11:58.904371 601025 torch/distributed/run.py:774] 
+W0130 15:11:58.904371 601025 torch/distributed/run.py:774] *****************************************
+W0130 15:11:58.904371 601025 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0130 15:11:58.904371 601025 torch/distributed/run.py:774] *****************************************
+[W130 15:11:58.851455999 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30106 (errno: 97 - Address family not supported by protocol).
+[W130 15:11:58.852465971 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30106 (errno: 97 - Address family not supported by protocol).
+[W130 15:11:58.853476718 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30106 (errno: 97 - Address family not supported by protocol).
+usage: train_stage1.py [-h] [--model_name MODEL_NAME] [--save_dir SAVE_DIR]
+                       [--supcon_similarity {cosine,geodesic}]
+                       [--uniformity_weight UNIFORMITY_WEIGHT]
+                       [--uniformity_t UNIFORMITY_T] [--epochs EPOCHS]
+                       [--batch_size BATCH_SIZE] [--accum_steps ACCUM_STEPS]
+                       [--num_samples NUM_SAMPLES] [--use_ravdess {0,1}]
+                       [--use_commonvoice {0,1}] [--ravdess_root RAVDESS_ROOT]
+                       [--commonvoice_root COMMONVOICE_ROOT]
+                       [--head_lr HEAD_LR] [--enc_lr ENC_LR]
+                       [--weight_decay WEIGHT_DECAY]
+                       [--temperature TEMPERATURE] [--num_workers NUM_WORKERS]
+                       [--patience PATIENCE] [--seed SEED]
+                       [--topk_neg TOPK_NEG] [--warmup_epochs WARMUP_EPOCHS]
+                       [--alpha_end ALPHA_END]
+                       [--alpha_ramp_epochs ALPHA_RAMP_EPOCHS]
+                       [--use_rawboost {0,1}] [--rawboost_prob RAWBOOST_PROB]
+                       [--finetune_encoder {0,1}]
+usage: train_stage1.py [-h] [--model_name MODEL_NAME] [--save_dir SAVE_DIR]
+                       [--supcon_similarity {cosine,geodesic}]
+                       [--uniformity_weight UNIFORMITY_WEIGHT]
+                       [--uniformity_t UNIFORMITY_T] [--epochs EPOCHS]
+                       [--batch_size BATCH_SIZE] [--accum_steps ACCUM_STEPS]
+                       [--num_samples NUM_SAMPLES] [--use_ravdess {0,1}]
+                       [--use_commonvoice {0,1}] [--ravdess_root RAVDESS_ROOT]
+                       [--commonvoice_root COMMONVOICE_ROOT]
+                       [--head_lr HEAD_LR] [--enc_lr ENC_LR]
+                       [--weight_decay WEIGHT_DECAY]
+                       [--temperature TEMPERATURE] [--num_workers NUM_WORKERS]
+                       [--patience PATIENCE] [--seed SEED]
+                       [--topk_neg TOPK_NEG] [--warmup_epochs WARMUP_EPOCHS]
+                       [--alpha_end ALPHA_END]
+                       [--alpha_ramp_epochs ALPHA_RAMP_EPOCHS]
+                       [--use_rawboost {0,1}] [--rawboost_prob RAWBOOST_PROB]
+                       [--finetune_encoder {0,1}]
+train_stage1.py: error: unrecognized arguments: --max_duration_seconds 10
+train_stage1.py: error: unrecognized arguments: --max_duration_seconds 10
+E0130 15:12:05.756568 601025 torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: 2) local_rank: 0 (pid: 601095) of binary: /home/jsudan/myenv/bin/python
+Traceback (most recent call last):
+  File "/home/jsudan/myenv/bin/torchrun", line 7, in <module>
+    sys.exit(main())
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 901, in main
+    run(args)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+train_stage1.py FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2026-01-30_15:12:05
+  host      : gl1511.arc-ts.umich.edu
+  rank      : 1 (local_rank: 1)
+  exitcode  : 2 (pid: 601096)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-01-30_15:12:05
+  host      : gl1511.arc-ts.umich.edu
+  rank      : 0 (local_rank: 0)
+  exitcode  : 2 (pid: 601095)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+[ERROR] Stage-1 checkpoint not found: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_0_supcon_geodesic_temp_0.5/wav2vec2-xls-r-300m_stage1_head_best.pt

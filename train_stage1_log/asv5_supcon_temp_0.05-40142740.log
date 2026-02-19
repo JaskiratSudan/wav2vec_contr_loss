@@ -1,0 +1,134 @@
+Setting up the environment...
+Job started on gl1524.arc-ts.umich.edu at Fri Jan 16 03:01:59 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: asv5_supcon_temp_0.05
+Using BATCH_SIZE=64
+W0116 03:02:06.951426 627792 torch/distributed/run.py:774] 
+W0116 03:02:06.951426 627792 torch/distributed/run.py:774] *****************************************
+W0116 03:02:06.951426 627792 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0116 03:02:06.951426 627792 torch/distributed/run.py:774] *****************************************
+[W116 03:02:06.820203830 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30240 (errno: 97 - Address family not supported by protocol).
+[W116 03:02:16.691703604 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30240 (errno: 97 - Address family not supported by protocol).
+[W116 03:02:16.691704399 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30240 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_supcon_temp_0.05/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5_train_protocol.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5.dev.metadata.txt
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=64
+NUM_SAMPLES=None
+HEAD_LR=5e-05
+ENC_LR=0.0001
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.05
+NUM_WORKERS=10
+SEED=1337
+SUPCON_SIMILARITY=cosine
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=0.5
+TOPK_NEG=7
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+PATIENCE=10
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[INFO] Global batch size=64 | Per-GPU batch size=32
+[rank1] sim_mean=0.9773 sim_std=0.0082 Loss: 3.447021007537842
+[rank0] pos_mean=0.9787 neg_mean=0.9756 n_pos=3 n_neg=29
+[rank0] sim_mean=0.9788 sim_std=0.0076 Loss: 3.44149112701416
+[rank0] pos_mean=0.9970 neg_mean=0.7436 n_pos=1 n_neg=31
+[rank0] sim_mean=0.9817 sim_std=0.0610 Loss: nan
+[rank1] sim_mean=0.9773 sim_std=0.0552 Loss: 3.2164411544799805
+[rank1] sim_mean=0.9777 sim_std=0.0496 Loss: 3.2119669914245605
+[rank0] pos_mean=0.9991 neg_mean=0.8487 n_pos=2 n_neg=30
+[rank0] sim_mean=0.9815 sim_std=0.0500 Loss: 3.229032516479492
+[rank0] pos_mean=0.9972 neg_mean=0.6670 n_pos=3 n_neg=29
+[rank0] sim_mean=0.9412 sim_std=0.1249 Loss: 3.088728427886963
+[rank1] sim_mean=0.9027 sim_std=0.1428 Loss: 2.930311679840088
+[rank0] pos_mean=0.9989 neg_mean=0.6678 n_pos=1 n_neg=31
+[rank0] sim_mean=0.9789 sim_std=0.0791 Loss: nan
+[rank1] sim_mean=0.8901 sim_std=0.1415 Loss: 2.8508505821228027
+[rank1] sim_mean=0.9570 sim_std=0.1153 Loss: 3.158613681793213
+[rank0] pos_mean=0.9969 neg_mean=0.6355 n_pos=2 n_neg=30
+[rank0] sim_mean=0.9547 sim_std=0.1171 Loss: 3.162639617919922
+[epoch 001] alpha=0.00 | train_loss=nan | dev_loss=nan[epoch 001] alpha=0.00 | train_loss=nan | dev_loss=nan
+
+[timing] train=7970.6s (2.80s/step, 2849 steps) | dev=976.1s (2202 steps) | est_remaining=246.03h
+[rank1] sim_mean=0.9521 sim_std=0.1295 Loss: 3.1595914363861084
+[rank0] pos_mean=0.9987 neg_mean=0.5408 n_pos=4 n_neg=28
+[rank0] sim_mean=0.8986 sim_std=0.1905 Loss: 3.0217394828796387
+[rank1] sim_mean=0.9430 sim_std=0.1223 Loss: 3.088075637817383
+[rank0] pos_mean=0.9985 neg_mean=0.6688 n_pos=5 n_neg=27
+[rank0] sim_mean=0.9116 sim_std=0.1461 Loss: 2.9680233001708984
+[rank1] sim_mean=0.8915 sim_std=0.1802 Loss: 2.9666337966918945
+[rank0] pos_mean=0.9981 neg_mean=0.5565 n_pos=2 n_neg=30
+[rank0] sim_mean=0.9465 sim_std=0.1426 Loss: 3.157877206802368
+[rank0] pos_mean=0.9982 neg_mean=0.7484 n_pos=6 n_neg=26
+[rank0] sim_mean=0.9222 sim_std=0.1236 Loss: 2.9760122299194336
+[rank1] sim_mean=0.9242 sim_std=0.1266 Loss: 2.9705452919006348
+[rank0] pos_mean=0.9941 neg_mean=0.9437 n_pos=1 n_neg=31
+[rank0] sim_mean=0.9912 sim_std=0.0185 Loss: nan
+[rank1] sim_mean=0.8693 sim_std=0.1825 Loss: 2.878509521484375
+[rank0] pos_mean=0.9990 neg_mean=nan n_pos=0 n_neg=32
+[rank0] sim_mean=0.9991 sim_std=0.0011 Loss: nan
+[rank1] sim_mean=0.9564 sim_std=0.0972 Loss: 3.100771188735962
+[epoch 002] alpha=0.00 | train_loss=nan | dev_loss=nan[epoch 002] alpha=0.00 | train_loss=nan | dev_loss=nan
+
+[timing] train=7927.6s (2.78s/step, 2849 steps) | dev=975.0s (2202 steps) | est_remaining=242.35h
+[rank0] pos_mean=0.9934 neg_mean=0.6933 n_pos=3 n_neg=29
+[rank0] sim_mean=0.9427 sim_std=0.1156 Loss: 3.1135005950927734
+[rank1] sim_mean=0.9288 sim_std=0.1284 Loss: 3.0380923748016357
+[rank0] pos_mean=0.9989 neg_mean=0.6470 n_pos=4 n_neg=28
+[rank0] sim_mean=0.9219 sim_std=0.1460 Loss: 3.0226690769195557
+[rank1] sim_mean=0.8976 sim_std=0.1570 Loss: 3.086268901824951
+[rank1] sim_mean=0.9504 sim_std=0.1325 Loss: 3.1576972007751465
+[rank0] pos_mean=0.9988 neg_mean=0.6343 n_pos=2 n_neg=30
+[rank0] sim_mean=0.9561 sim_std=0.1179 Loss: 3.1587119102478027
+[rank0] pos_mean=0.9992 neg_mean=0.6054 n_pos=6 n_neg=26
+[rank0] sim_mean=0.8793 sim_std=0.1824 Loss: 2.91798734664917
+[rank1] sim_mean=0.9495 sim_std=0.1359 Loss: 3.15757417678833
+[rank1] sim_mean=0.9756 sim_std=0.0767 Loss: nan
+[rank0] pos_mean=0.9983 neg_mean=0.6496 n_pos=6 n_neg=26
+[rank0] sim_mean=0.8921 sim_std=0.1614 Loss: 2.918839454650879
+[rank0] pos_mean=0.9989 neg_mean=0.6101 n_pos=2 n_neg=30
+[rank0] sim_mean=0.9534 sim_std=0.1254 Loss: 3.1579244136810303
+[rank1] sim_mean=0.9137 sim_std=0.1593 Loss: 3.0281882286071777
+[epoch 003] alpha=0.00 | train_loss=nan | dev_loss=nan[epoch 003] alpha=0.00 | train_loss=nan | dev_loss=nan
+
+[timing] train=7918.7s (2.78s/step, 2849 steps) | dev=974.6s (2202 steps) | est_remaining=239.63h
+[rank0] pos_mean=0.9988 neg_mean=0.6943 n_pos=2 n_neg=30
+[rank1] sim_mean=0.9293 sim_std=0.1330 Loss: 3.0239665508270264
+[rank0] sim_mean=0.9631 sim_std=0.0984 Loss: 3.1620595455169678
+[rank0] pos_mean=0.9970 neg_mean=0.5898 n_pos=4 n_neg=28
+[rank0] sim_mean=0.9080 sim_std=0.1696 Loss: 3.027634620666504
+[rank1] sim_mean=0.9295 sim_std=0.1540 Loss: 3.0853731632232666
+[rank1] sim_mean=0.9715 sim_std=0.0947 Loss: nan
+[rank0] pos_mean=0.9970 neg_mean=0.6035 n_pos=3 n_neg=29
+[rank0] sim_mean=0.9303 sim_std=0.1489 Loss: 3.090906858444214
+[rank1] sim_mean=0.9577 sim_std=0.1149 Loss: 3.158440113067627
+[rank0] pos_mean=0.9992 neg_mean=0.7167 n_pos=2 n_neg=30
+[rank0] sim_mean=0.9661 sim_std=0.0915 Loss: 3.164997100830078
+[rank0] pos_mean=0.9994 neg_mean=0.6616 n_pos=1 n_neg=31
+[rank0] sim_mean=0.9790 sim_std=0.0807 Loss: nan
+[rank1] sim_mean=0.9361 sim_std=0.1395 Loss: 3.085914134979248
+[rank1] sim_mean=0.9475 sim_std=0.1413 Loss: 3.157590627670288
+[rank0] pos_mean=0.9995 neg_mean=0.5819 n_pos=3 n_neg=29
+[rank0] sim_mean=0.9285 sim_std=0.1572 Loss: 3.085200309753418
+[2026-01-16T12:31:23.512] error: *** JOB 40142740 ON gl1524 CANCELLED AT 2026-01-16T12:31:23 DUE to SIGNAL Terminated ***

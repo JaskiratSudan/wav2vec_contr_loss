@@ -1,0 +1,39 @@
+Setting up the environment...
+Job started on gl1500.arc-ts.umich.edu at Sat Jan 10 21:01:05 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_temp_0.6
+Device: cuda
+Fakexpose samples: real=3376, fake=2333
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+Chunked eval: chunk_seconds=5.0, hop_seconds=5.0, agg=mean, repeat_short=True
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_temp_0.6/fakexpose/score_cm_fakexpose.txt
+EER: 61.79896467944981
+EER threshold: 0.438533
+Accuracy@EERth: 38.19%
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.05
+Device: cuda
+Fakexpose samples: real=3376, fake=2333
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+Chunked eval: chunk_seconds=5.0, hop_seconds=5.0, agg=mean, repeat_short=True
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.05/fakexpose/score_cm_fakexpose.txt
+EER: 57.43580540280298
+EER threshold: 0.052372
+Accuracy@EERth: 42.55%
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_uniformity_weight_0.05_t_0.5
+Device: cuda
+Fakexpose samples: real=3376, fake=2333
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+Chunked eval: chunk_seconds=5.0, hop_seconds=5.0, agg=mean, repeat_short=True
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_uniformity_weight_0.05_t_0.5/fakexpose/score_cm_fakexpose.txt
+EER: 59.188317525387845
+EER threshold: 0.446149
+Accuracy@EERth: 40.83%
+----------------------------------------------------------------
+Evaluation finished at: Sat Jan 10 21:26:11 EST 2026

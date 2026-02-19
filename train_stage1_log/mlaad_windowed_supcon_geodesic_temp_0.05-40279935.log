@@ -1,0 +1,106 @@
+Setting up the environment...
+Job started on gl1523.arc-ts.umich.edu at Sun Jan 18 18:09:46 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+MLAAD_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/multilingual
+MLAAD_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/multilingual/protocol_MLAAD_MAILabs_total_balanced.txt
+MLAAD_STAGE2_SPLIT_SEED=2027
+MLAAD_MAX_CHUNKS=4
+EXPERIMENT NAME: mlaad_windowed_supcon_geodesic_temp_0.05
+Detected NUM_GPUS=4
+Using BATCH_SIZE=32
+W0118 18:09:52.869784 1918948 torch/distributed/run.py:774] 
+W0118 18:09:52.869784 1918948 torch/distributed/run.py:774] *****************************************
+W0118 18:09:52.869784 1918948 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0118 18:09:52.869784 1918948 torch/distributed/run.py:774] *****************************************
+[W118 18:09:52.739497273 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30435 (errno: 97 - Address family not supported by protocol).
+[W118 18:09:52.740509560 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30435 (errno: 97 - Address family not supported by protocol).
+[W118 18:09:52.741523498 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30435 (errno: 97 - Address family not supported by protocol).
+[W118 18:09:59.769938238 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30435 (errno: 97 - Address family not supported by protocol).
+[W118 18:09:59.770022655 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30435 (errno: 97 - Address family not supported by protocol).
+[W118 18:09:59.770057201 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30435 (errno: 97 - Address family not supported by protocol).
+[W118 18:09:59.770142382 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30435 (errno: 97 - Address family not supported by protocol).
+[W118 18:09:59.771034949 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30435 (errno: 97 - Address family not supported by protocol).
+[W118 18:09:59.771051403 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30435 (errno: 97 - Address family not supported by protocol).
+[W118 18:09:59.771150840 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30435 (errno: 97 - Address family not supported by protocol).
+[W118 18:09:59.771229312 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30435 (errno: 97 - Address family not supported by protocol).
+[W118 18:09:59.772131600 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30435 (errno: 97 - Address family not supported by protocol).
+[W118 18:09:59.772152982 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30435 (errno: 97 - Address family not supported by protocol).
+[W118 18:09:59.772180741 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30435 (errno: 97 - Address family not supported by protocol).
+[W118 18:09:59.772218894 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30435 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mlaad_windowed_supcon_geodesic_temp_0.05/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.05
+NUM_WORKERS=6
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=False
+RAWBOOST_PROB=0.0
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=10
+DISTRIBUTED=True | WORLD_SIZE=4 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=False (p=0.0)
+CUDA device count: 4
+[INFO] Train samples loaded: bonafide=123360, spoof=123040
+[INFO] Dev samples loaded: bonafide=30640, spoof=30960
+[INFO] Global batch size=32 | Per-GPU batch size=8
+[rank2] sim_mean=0.9264 sim_std=0.0671 Loss: 3.615612030029297
+[rank1] sim_mean=0.9536 sim_std=0.0354 Loss: 2.91121506690979
+[rank0] pos_mean=0.9354 neg_mean=0.9086 n_pos=6 n_neg=8
+[rank3] sim_mean=0.9211 sim_std=0.0720 Loss: 3.9475128650665283
+[rank0] sim_mean=0.9269 sim_std=0.0673 Loss: 3.3058664798736572
+[rank1] sim_mean=0.9684 sim_std=0.0332 Loss: 1.428550362586975
+[rank0] pos_mean=0.9995 neg_mean=0.9361 n_pos=7 n_neg=6
+[rank0] sim_mean=0.9680 sim_std=0.0324 Loss: 1.7349791526794434
+[rank3] sim_mean=0.9682 sim_std=0.0339 Loss: 2.002251148223877
+[rank2] sim_mean=0.9713 sim_std=0.0292 Loss: 2.0692310333251953
+[rank0] pos_mean=0.9987 neg_mean=0.9468 n_pos=9 n_neg=5
+[rank2] sim_mean=0.9720 sim_std=0.0281 Loss: 1.8214117288589478
+[rank0] sim_mean=0.9750 sim_std=0.0270 Loss: 1.8935185670852661
+[rank3] sim_mean=0.9693 sim_std=0.0308 Loss: 1.8931010961532593
+[rank1] sim_mean=0.9712 sim_std=0.0298 Loss: 2.0582334995269775
+[rank2] sim_mean=0.9422 sim_std=0.0580 Loss: 1.797645926475525
+[rank1] sim_mean=0.9428 sim_std=0.0575 Loss: 1.878365397453308
+[rank0] pos_mean=0.9927 neg_mean=0.8937 n_pos=9 n_neg=7
+[rank0] sim_mean=0.9445 sim_std=0.0563 Loss: 2.257340431213379
+[rank3] sim_mean=0.9405 sim_std=0.0601 Loss: 2.206169605255127
+[rank0] pos_mean=0.9998 neg_mean=0.9117 n_pos=5 n_neg=6
+[rank0] sim_mean=0.9561 sim_std=0.0444 Loss: 1.5169661045074463
+[rank1] sim_mean=0.9576 sim_std=0.0429 Loss: 1.736643671989441
+[rank3] sim_mean=0.9558 sim_std=0.0444 Loss: 2.580471992492676
+[rank2] sim_mean=0.9564 sim_std=0.0439 Loss: 2.1131176948547363
+[2026-01-18T18:43:19.758] error: *** JOB 40279935 ON gl1523 CANCELLED AT 2026-01-18T18:43:19 DUE to SIGNAL Terminated ***
+W0118 18:43:19.761122 1918948 torch/distributed/elastic/agent/server/api.py:723] Received Signals.SIGTERM death signal, shutting down workers

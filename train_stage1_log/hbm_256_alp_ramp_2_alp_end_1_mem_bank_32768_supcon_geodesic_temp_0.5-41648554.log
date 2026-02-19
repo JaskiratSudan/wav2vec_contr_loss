@@ -1,0 +1,212 @@
+Setting up the environment...
+Job started on gl1516.arc-ts.umich.edu at Mon Feb  2 23:12:20 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: hbm_256_alp_ramp_2_alp_end_1_mem_bank_32768_supcon_geodesic_temp_0.5
+USE_QUEUE=1
+QUEUE_SIZE=32768
+ACCUM_STEPS=1
+CENTER_BEFORE_NORM=1
+GLOBAL_CENTER=1
+Detected NUM_GPUS=2
+Using BATCH_SIZE=32
+W0202 23:12:26.130383 276820 torch/distributed/run.py:774] 
+W0202 23:12:26.130383 276820 torch/distributed/run.py:774] *****************************************
+W0202 23:12:26.130383 276820 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0202 23:12:26.130383 276820 torch/distributed/run.py:774] *****************************************
+[W202 23:12:26.076588120 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30054 (errno: 97 - Address family not supported by protocol).
+[W202 23:12:26.077628293 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30054 (errno: 97 - Address family not supported by protocol).
+[W202 23:12:26.078527955 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30054 (errno: 97 - Address family not supported by protocol).
+[W202 23:12:32.137215904 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30054 (errno: 97 - Address family not supported by protocol).
+[W202 23:12:32.137243308 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30054 (errno: 97 - Address family not supported by protocol).
+[W202 23:12:32.138187034 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30054 (errno: 97 - Address family not supported by protocol).
+[W202 23:12:32.138233282 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30054 (errno: 97 - Address family not supported by protocol).
+[W202 23:12:32.139128104 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30054 (errno: 97 - Address family not supported by protocol).
+[W202 23:12:32.139302028 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30054 (errno: 97 - Address family not supported by protocol).
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 238, in <module>
+[rank1]:     main()
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 35, in main
+[rank1]:     is_distributed, rank, world_size, local_rank = setup_distributed()
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/stage1_utils.py", line 401, in setup_distributed
+[rank1]:     torch.cuda.set_device(local_rank)
+[rank1]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/cuda/__init__.py", line 569, in set_device
+[rank1]:     torch._C._cuda_setDevice(device)
+[rank1]: torch.AcceleratorError: CUDA error: CUDA-capable device(s) is/are busy or unavailable
+[rank1]: CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+[rank1]: For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+[rank1]: Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 238, in <module>
+[rank0]:     main()
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 35, in main
+[rank0]:     is_distributed, rank, world_size, local_rank = setup_distributed()
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/stage1_utils.py", line 401, in setup_distributed
+[rank0]:     torch.cuda.set_device(local_rank)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/cuda/__init__.py", line 569, in set_device
+[rank0]:     torch._C._cuda_setDevice(device)
+[rank0]: torch.AcceleratorError: CUDA error: CUDA-capable device(s) is/are busy or unavailable
+[rank0]: CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+[rank0]: For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+[rank0]: Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+[rank0]:[W202 23:12:32.618302048 ProcessGroupNCCL.cpp:1538] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+E0202 23:12:33.190712 276820 torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: 1) local_rank: 0 (pid: 276841) of binary: /home/jsudan/myenv/bin/python
+Traceback (most recent call last):
+  File "/home/jsudan/myenv/bin/torchrun", line 7, in <module>
+    sys.exit(main())
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 901, in main
+    run(args)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+train_stage1.py FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2026-02-02_23:12:33
+  host      : gl1516.arc-ts.umich.edu
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 276842)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-02-02_23:12:33
+  host      : gl1516.arc-ts.umich.edu
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 276841)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+Using device: cuda
+Model: facebook/wav2vec2-xls-r-300m
+Checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/hbm_256_alp_ramp_2_alp_end_1_mem_bank_32768_supcon_geodesic_temp_0.5/wav2vec2-xls-r-300m_stage1_head_best.pt
+Saving to: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/hbm_256_alp_ramp_2_alp_end_1_mem_bank_32768_supcon_geodesic_temp_0.5/facebook__wav2vec2-xls-r-300m
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_asv.py", line 328, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_asv.py", line 181, in main
+    encoder = Wav2Vec2Encoder(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1369, in to
+    return self._apply(convert)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 928, in _apply
+    module._apply(fn)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 928, in _apply
+    module._apply(fn)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 928, in _apply
+    module._apply(fn)
+  [Previous line repeated 2 more times]
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 955, in _apply
+    param_applied = fn(param)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1355, in convert
+    return t.to(
+torch.AcceleratorError: CUDA error: CUDA-capable device(s) is/are busy or unavailable
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Using device: cuda
+Model: facebook/wav2vec2-xls-r-300m
+Checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/hbm_256_alp_ramp_2_alp_end_1_mem_bank_32768_supcon_geodesic_temp_0.5/wav2vec2-xls-r-300m_stage1_head_best.pt
+Saving to: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/hbm_256_alp_ramp_2_alp_end_1_mem_bank_32768_supcon_geodesic_temp_0.5/facebook__wav2vec2-xls-r-300m
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_itw.py", line 327, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_itw.py", line 175, in main
+    encoder = Wav2Vec2Encoder(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1369, in to
+    return self._apply(convert)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 928, in _apply
+    module._apply(fn)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 928, in _apply
+    module._apply(fn)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 928, in _apply
+    module._apply(fn)
+  [Previous line repeated 2 more times]
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 955, in _apply
+    param_applied = fn(param)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1355, in convert
+    return t.to(
+torch.AcceleratorError: CUDA error: CUDA-capable device(s) is/are busy or unavailable
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Using device: cuda
+Loading Stage-1 checkpoint from: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/hbm_256_alp_ramp_2_alp_end_1_mem_bank_32768_supcon_geodesic_temp_0.5/wav2vec2-xls-r-300m_stage1_head_best.pt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 401, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 368, in main
+    backbone = Stage1Backbone(STAGE1_CKPT, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 125, in __init__
+    self.encoder = Wav2Vec2Encoder(model_name=MODEL_NAME, freeze_encoder=True).to(device)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1369, in to
+    return self._apply(convert)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 928, in _apply
+    module._apply(fn)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 928, in _apply
+    module._apply(fn)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 928, in _apply
+    module._apply(fn)
+  [Previous line repeated 2 more times]
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 955, in _apply
+    param_applied = fn(param)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1355, in convert
+    return t.to(
+torch.AcceleratorError: CUDA error: CUDA-capable device(s) is/are busy or unavailable
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Using device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier.py", line 66, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier.py", line 34, in main
+    X_train = np.load(train_emb_path).astype("float32")
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 427, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/hbm_256_alp_ramp_2_alp_end_1_mem_bank_32768_supcon_geodesic_temp_0.5/train_embeddings.npy'
+Device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 659, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 573, in main
+    stage1 = Stage1Backbone(stage1_ckpt, model_name=args.model_name, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 71, in __init__
+    self.encoder = Wav2Vec2Encoder(model_name=model_name, freeze_encoder=True).to(device)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1369, in to
+    return self._apply(convert)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 928, in _apply
+    module._apply(fn)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 928, in _apply
+    module._apply(fn)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 928, in _apply
+    module._apply(fn)
+  [Previous line repeated 2 more times]
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 955, in _apply
+    param_applied = fn(param)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1355, in convert
+    return t.to(
+torch.AcceleratorError: CUDA error: CUDA-capable device(s) is/are busy or unavailable
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+----------------------------------------------------------------
+ASV19 pipeline finished at: Mon Feb  2 23:13:22 EST 2026

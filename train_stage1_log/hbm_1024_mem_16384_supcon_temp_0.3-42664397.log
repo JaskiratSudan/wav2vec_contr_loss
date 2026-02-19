@@ -1,0 +1,31 @@
+Setting up the environment...
+Job started on gl1520.arc-ts.umich.edu at Sat Feb 14 22:06:39 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: hbm_1024_mem_16384_supcon_temp_0.3
+USE_QUEUE=1
+QUEUE_SIZE=16384
+ACCUM_STEPS=1
+CENTER_BEFORE_NORM=0
+GLOBAL_CENTER=0
+Detected NUM_GPUS=1
+Using BATCH_SIZE=32
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv19' -> /home/jsudan/wav2vec_contr_loss/scores/hbm_1024_mem_16384_supcon_temp_0.3/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/hbm_1024_mem_16384_supcon_temp_0.3/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+EER (asv19): 0.14991759853967665
+[INFO] Scoring dataset 'itw' -> /home/jsudan/wav2vec_contr_loss/scores/hbm_1024_mem_16384_supcon_temp_0.3/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/hbm_1024_mem_16384_supcon_temp_0.3/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 9.478103211320088
+[INFO] Scoring dataset 'asv21_df' -> /home/jsudan/wav2vec_contr_loss/scores/hbm_1024_mem_16384_supcon_temp_0.3/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/hbm_1024_mem_16384_supcon_temp_0.3/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 6.862070571385787
+[INFO] Scoring dataset 'asv21_la' -> /home/jsudan/wav2vec_contr_loss/scores/hbm_1024_mem_16384_supcon_temp_0.3/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/hbm_1024_mem_16384_supcon_temp_0.3/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 6.887674963280565
+----------------------------------------------------------------
+ASV19 pipeline finished at: Sun Feb 15 04:00:44 EST 2026

@@ -1,0 +1,159 @@
+Setting up the environment...
+Job started on gl1503.arc-ts.umich.edu at Tue Jan  6 20:00:17 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_uniformity_weight_0.05_t_4
+Using BATCH_SIZE=32
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_4/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.2
+NUM_WORKERS=2
+SEED=1337
+UNIFORMITY_WEIGHT=0.05
+UNIFORMITY_T=4.0
+SUPCON_SIMILARITY=cosine
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+DISTRIBUTED=False | WORLD_SIZE=1 | RANK=0
+=============
+Using device: cuda | RawBoost=True (p=0.7)
+CUDA device count: 1
+[epoch 001] alpha=0.00 | train_loss=3.0385 | dev_loss=2.9681
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.9681)
+[epoch 002] alpha=0.00 | train_loss=2.7607 | dev_loss=3.0328
+[epoch 003] alpha=0.00 | train_loss=2.7379 | dev_loss=2.7558
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7558)
+[epoch 004] alpha=0.00 | train_loss=2.7224 | dev_loss=2.7608
+[epoch 005] alpha=0.00 | train_loss=2.7190 | dev_loss=2.7509
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7509)
+[epoch 006] alpha=0.00 | train_loss=2.7051 | dev_loss=2.7307
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7307)
+[epoch 007] alpha=0.00 | train_loss=2.6943 | dev_loss=2.7198
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7198)
+[epoch 008] alpha=0.00 | train_loss=2.7041 | dev_loss=2.8160
+[epoch 009] alpha=0.00 | train_loss=2.6917 | dev_loss=2.8469
+[epoch 010] alpha=0.00 | train_loss=2.6915 | dev_loss=2.6728
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6728)
+[epoch 011] alpha=0.00 | train_loss=2.6909 | dev_loss=2.6993
+[epoch 012] alpha=0.00 | train_loss=2.6916 | dev_loss=2.6726
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6726)
+[epoch 013] alpha=0.00 | train_loss=2.6899 | dev_loss=2.6725
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6725)
+[epoch 014] alpha=0.00 | train_loss=2.6804 | dev_loss=2.6855
+[epoch 015] alpha=0.00 | train_loss=2.6797 | dev_loss=2.6707
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6707)
+[epoch 016] alpha=0.00 | train_loss=2.6817 | dev_loss=2.6715
+[epoch 017] alpha=0.00 | train_loss=2.6857 | dev_loss=2.6785
+[epoch 018] alpha=0.00 | train_loss=2.6787 | dev_loss=2.7179
+[epoch 019] alpha=0.00 | train_loss=2.6886 | dev_loss=2.6827
+[epoch 020] alpha=0.00 | train_loss=2.6721 | dev_loss=2.6804
+[epoch 021] alpha=0.00 | train_loss=2.6835 | dev_loss=2.6704
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6704)
+[epoch 022] alpha=0.00 | train_loss=2.6689 | dev_loss=2.6739
+[epoch 023] alpha=0.00 | train_loss=2.6607 | dev_loss=2.6780
+[epoch 024] alpha=0.00 | train_loss=2.6671 | dev_loss=2.6908
+[epoch 025] alpha=0.00 | train_loss=2.6690 | dev_loss=2.6945
+[epoch 026] alpha=0.00 | train_loss=2.6737 | dev_loss=2.6768
+[epoch 027] alpha=0.00 | train_loss=2.6722 | dev_loss=2.6726
+[epoch 028] alpha=0.00 | train_loss=2.6663 | dev_loss=2.6700
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6700)
+[epoch 029] alpha=0.00 | train_loss=2.6649 | dev_loss=2.6766
+[epoch 030] alpha=0.00 | train_loss=2.6671 | dev_loss=2.7041
+[epoch 031] alpha=0.00 | train_loss=2.6652 | dev_loss=2.6839
+[epoch 032] alpha=0.00 | train_loss=2.6594 | dev_loss=2.6690
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6690)
+[epoch 033] alpha=0.00 | train_loss=2.6520 | dev_loss=2.6760
+[epoch 034] alpha=0.00 | train_loss=2.6547 | dev_loss=2.6693
+[epoch 035] alpha=0.00 | train_loss=2.6610 | dev_loss=2.6695
+[epoch 036] alpha=0.00 | train_loss=2.6607 | dev_loss=2.6670
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6670)
+[epoch 037] alpha=0.00 | train_loss=2.6548 | dev_loss=2.6793
+[epoch 038] alpha=0.00 | train_loss=2.6439 | dev_loss=2.6785
+[epoch 039] alpha=0.00 | train_loss=2.6442 | dev_loss=2.6684
+[epoch 040] alpha=0.00 | train_loss=2.6495 | dev_loss=2.6759
+[epoch 041] alpha=0.00 | train_loss=2.6376 | dev_loss=2.6770
+[epoch 042] alpha=0.00 | train_loss=2.6351 | dev_loss=2.6815
+[epoch 043] alpha=0.00 | train_loss=2.6273 | dev_loss=2.6886
+[epoch 044] alpha=0.00 | train_loss=2.6343 | dev_loss=2.7033
+[epoch 045] alpha=0.00 | train_loss=2.6257 | dev_loss=2.6767
+[epoch 046] alpha=0.00 | train_loss=2.6163 | dev_loss=2.6880
+[epoch 047] alpha=0.00 | train_loss=2.6081 | dev_loss=2.6822
+[epoch 048] alpha=0.00 | train_loss=2.6317 | dev_loss=2.6917
+[epoch 049] alpha=0.00 | train_loss=2.6127 | dev_loss=2.6944
+[epoch 050] alpha=0.00 | train_loss=2.6122 | dev_loss=2.6894
+[epoch 051] alpha=0.00 | train_loss=2.6079 | dev_loss=2.7189
+[epoch 052] alpha=0.00 | train_loss=2.5984 | dev_loss=2.6962
+[epoch 053] alpha=0.00 | train_loss=2.5906 | dev_loss=2.7069
+[epoch 054] alpha=0.00 | train_loss=2.5825 | dev_loss=2.6964
+[epoch 055] alpha=0.00 | train_loss=2.5793 | dev_loss=2.7118
+[epoch 056] alpha=0.00 | train_loss=2.5872 | dev_loss=2.7120
+[epoch 057] alpha=0.00 | train_loss=2.5815 | dev_loss=2.6798
+[epoch 058] alpha=0.00 | train_loss=2.5718 | dev_loss=2.7025
+[epoch 059] alpha=0.00 | train_loss=2.5707 | dev_loss=2.6978
+[epoch 060] alpha=0.00 | train_loss=2.5671 | dev_loss=2.7189
+[epoch 061] alpha=0.00 | train_loss=2.5649 | dev_loss=2.6890
+[epoch 062] alpha=0.00 | train_loss=2.5598 | dev_loss=2.7057
+[epoch 063] alpha=0.00 | train_loss=2.5608 | dev_loss=2.7123
+[epoch 064] alpha=0.00 | train_loss=2.5586 | dev_loss=2.7035
+[epoch 065] alpha=0.00 | train_loss=2.5690 | dev_loss=2.7131
+[epoch 066] alpha=0.00 | train_loss=2.5568 | dev_loss=2.7015
+[epoch 067] alpha=0.00 | train_loss=2.5501 | dev_loss=2.6914
+[epoch 068] alpha=0.00 | train_loss=2.5452 | dev_loss=2.7113
+[epoch 069] alpha=0.00 | train_loss=2.5466 | dev_loss=2.7088
+[epoch 070] alpha=0.00 | train_loss=2.5544 | dev_loss=2.6991
+[epoch 071] alpha=0.00 | train_loss=2.5414 | dev_loss=2.7009
+[epoch 072] alpha=0.00 | train_loss=2.5460 | dev_loss=2.7141
+[epoch 073] alpha=0.00 | train_loss=2.5378 | dev_loss=2.7208
+[epoch 074] alpha=0.00 | train_loss=2.5408 | dev_loss=2.7119
+[epoch 075] alpha=0.00 | train_loss=2.5433 | dev_loss=2.7090
+[epoch 076] alpha=0.00 | train_loss=2.5385 | dev_loss=2.7065
+[epoch 077] alpha=0.00 | train_loss=2.5312 | dev_loss=2.7076
+[epoch 078] alpha=0.00 | train_loss=2.5349 | dev_loss=2.7049
+[epoch 079] alpha=0.00 | train_loss=2.5330 | dev_loss=2.7565
+[epoch 080] alpha=0.00 | train_loss=2.5307 | dev_loss=2.7058
+[epoch 081] alpha=0.00 | train_loss=2.5279 | dev_loss=2.7150
+[epoch 082] alpha=0.00 | train_loss=2.5289 | dev_loss=2.7019
+[epoch 083] alpha=0.00 | train_loss=2.5355 | dev_loss=2.7057
+[epoch 084] alpha=0.00 | train_loss=2.5282 | dev_loss=2.7006
+[epoch 085] alpha=0.00 | train_loss=2.5356 | dev_loss=2.7018
+[epoch 086] alpha=0.00 | train_loss=2.5261 | dev_loss=2.6986
+[epoch 087] alpha=0.00 | train_loss=2.5217 | dev_loss=2.6892
+[epoch 088] alpha=0.00 | train_loss=2.5236 | dev_loss=2.6818
+[epoch 089] alpha=0.00 | train_loss=2.5208 | dev_loss=2.6901
+[epoch 090] alpha=0.00 | train_loss=2.5268 | dev_loss=2.6810
+[epoch 091] alpha=0.00 | train_loss=2.5245 | dev_loss=2.7086
+[epoch 092] alpha=0.00 | train_loss=2.5223 | dev_loss=2.6737
+[epoch 093] alpha=0.00 | train_loss=2.5192 | dev_loss=2.6772
+[epoch 094] alpha=0.00 | train_loss=2.5154 | dev_loss=2.6812
+[epoch 095] alpha=0.00 | train_loss=2.5168 | dev_loss=2.6803
+[epoch 096] alpha=0.00 | train_loss=2.5185 | dev_loss=2.6834
+[epoch 097] alpha=0.00 | train_loss=2.5138 | dev_loss=2.7021
+[epoch 098] alpha=0.00 | train_loss=2.5138 | dev_loss=2.6904
+[epoch 099] alpha=0.00 | train_loss=2.5184 | dev_loss=2.6905
+[epoch 100] alpha=0.00 | train_loss=2.5170 | dev_loss=2.6881
+Best checkpoint: /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6670)
+[ERROR] Stage-1 checkpoint not found: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt

@@ -1,0 +1,82 @@
+Setting up the environment...
+Job started on gl1515.arc-ts.umich.edu at Thu Jan 15 17:46:31 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: asv5_supcon_temp_0.6
+Using BATCH_SIZE=64
+W0115 17:46:38.937042 2433555 torch/distributed/run.py:774] 
+W0115 17:46:38.937042 2433555 torch/distributed/run.py:774] *****************************************
+W0115 17:46:38.937042 2433555 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0115 17:46:38.937042 2433555 torch/distributed/run.py:774] *****************************************
+[W115 17:46:38.909443433 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30141 (errno: 97 - Address family not supported by protocol).
+[W115 17:46:48.625580636 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30141 (errno: 97 - Address family not supported by protocol).
+[W115 17:46:48.625728607 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30141 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_supcon_temp_0.6/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5_train_protocol.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5.dev.metadata.txt
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=64
+NUM_SAMPLES=None
+HEAD_LR=0.05
+ENC_LR=0.0001
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.6
+NUM_WORKERS=10
+SEED=1337
+SUPCON_SIMILARITY=cosine
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=0.5
+TOPK_NEG=7
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+PATIENCE=10
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[INFO] Global batch size=64 | Per-GPU batch size=32
+Loss: 3.4344472885131836
+Loss: 3.4341237545013428
+Loss: 3.393173933029175
+Loss: 3.3678174018859863
+Loss: 3.433952808380127
+Loss: 3.4339451789855957
+Loss: 3.4339816570281982
+Loss: 3.433908700942993
+Loss: 3.433948516845703
+Loss: 3.4338362216949463
+Loss: 3.433464765548706
+Loss: nan
+Loss: nan
+Loss: 3.433985710144043
+Loss: nan
+Loss: 3.4339852333068848
+Loss: 3.433985710144043
+Loss: 3.433986186981201
+Loss: 3.433987617492676
+Loss: 3.4339871406555176
+Loss: nan
+Loss: 3.4339866638183594
+Loss: 3.433985710144043
+Loss: 3.4339866638183594
+Loss: nan
+Loss: 3.4339871406555176
+[2026-01-15T18:15:23.187] error: *** JOB 40117641 ON gl1515 CANCELLED AT 2026-01-15T18:15:23 DUE to SIGNAL Terminated ***
+W0115 18:15:23.189404 2433555 torch/distributed/elastic/agent/server/api.py:723] Received Signals.SIGTERM death signal, shutting down workers
+W0115 18:15:23.191932 2433555 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 2433569 closing signal SIGTERM
+W0115 18:15:23.192585 2433555 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 2433570 closing signal SIGTERM

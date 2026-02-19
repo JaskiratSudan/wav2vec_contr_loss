@@ -1,0 +1,18 @@
+Setting up the environment...
+Job started on gl1512.arc-ts.umich.edu at Sun Feb  8 19:42:13 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+Starting the Python training script...
+Device: cuda
+[INFO] Scoring dataset 'itw' -> /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 13.033644232351177
+[INFO] Scoring dataset 'asv19' -> /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+EER (asv19): 0.2598735802208061
+----------------------------------------------------------------
+Training script finished.
+Job finished at: Sun Feb  8 20:05:15 EST 2026

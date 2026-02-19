@@ -1,0 +1,997 @@
+Setting up the environment...
+Job started on gl1507.arc-ts.umich.edu at Mon Jan 19 03:14:47 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+MLAAD_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/multilingual
+MLAAD_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/multilingual/protocol_MLAAD_MAILabs_total_balanced.txt
+MLAAD_STAGE2_SPLIT_SEED=2027
+MLAAD_MAX_CHUNKS=4
+USE_AMP=1
+EXPERIMENT NAME: mlaad_windowed_supcon_geodesic_temp_0.05
+Detected NUM_GPUS=4
+Using BATCH_SIZE=32
+W0119 03:14:54.364878 69970 torch/distributed/run.py:774] 
+W0119 03:14:54.364878 69970 torch/distributed/run.py:774] *****************************************
+W0119 03:14:54.364878 69970 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0119 03:14:54.364878 69970 torch/distributed/run.py:774] *****************************************
+[W119 03:14:54.321124221 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29840 (errno: 97 - Address family not supported by protocol).
+[W119 03:14:54.322171888 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29840 (errno: 97 - Address family not supported by protocol).
+[W119 03:14:54.323067158 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29840 (errno: 97 - Address family not supported by protocol).
+[W119 03:15:03.239884537 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29840 (errno: 97 - Address family not supported by protocol).
+[W119 03:15:03.240029196 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29840 (errno: 97 - Address family not supported by protocol).
+[W119 03:15:03.240051000 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29840 (errno: 97 - Address family not supported by protocol).
+[W119 03:15:03.240098919 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29840 (errno: 97 - Address family not supported by protocol).
+[W119 03:15:03.240859390 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29840 (errno: 97 - Address family not supported by protocol).
+[W119 03:15:03.241041602 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29840 (errno: 97 - Address family not supported by protocol).
+[W119 03:15:03.241080669 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29840 (errno: 97 - Address family not supported by protocol).
+[W119 03:15:03.241124791 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29840 (errno: 97 - Address family not supported by protocol).
+[W119 03:15:03.241810455 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29840 (errno: 97 - Address family not supported by protocol).
+[W119 03:15:03.242019161 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29840 (errno: 97 - Address family not supported by protocol).
+[W119 03:15:03.242124112 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29840 (errno: 97 - Address family not supported by protocol).
+[W119 03:15:03.242133749 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29840 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mlaad_windowed_supcon_geodesic_temp_0.05/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.05
+NUM_WORKERS=6
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=False
+RAWBOOST_PROB=0.0
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=10
+DISTRIBUTED=True | WORLD_SIZE=4 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=False (p=0.0)
+CUDA device count: 4
+[INFO] Train samples loaded: bonafide=123360, spoof=123040
+[INFO] Dev samples loaded: bonafide=30640, spoof=30960
+[INFO] Global batch size=32 | Per-GPU batch size=8
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:130: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  cfg._amp_scaler = torch.cuda.amp.GradScaler()
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:130: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  cfg._amp_scaler = torch.cuda.amp.GradScaler()
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:130: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  cfg._amp_scaler = torch.cuda.amp.GradScaler()
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:130: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  cfg._amp_scaler = torch.cuda.amp.GradScaler()
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:140: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+[rank2] sim_mean=0.9256 sim_std=0.0687 Loss: 3.6499061584472656
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:140: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:140: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:140: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+[rank1] sim_mean=0.9554 sim_std=0.0362 Loss: 2.9733998775482178
+[rank3] sim_mean=0.9169 sim_std=0.0749 Loss: 3.9345221519470215
+[rank0] pos_mean=0.9313 neg_mean=0.9058 n_pos=6 n_neg=8
+[rank0] sim_mean=0.9237 sim_std=0.0695 Loss: 3.3988149166107178
+[rank1] sim_mean=0.9404 sim_std=0.0510 Loss: 3.0095648765563965
+[rank0] pos_mean=0.9591 neg_mean=0.9583 n_pos=7 n_neg=6
+[rank0] sim_mean=0.9619 sim_std=0.0317 Loss: 2.7538928985595703
+[rank3] sim_mean=0.9466 sim_std=0.0466 Loss: 3.268368721008301
+[rank2] sim_mean=0.9166 sim_std=0.0678 Loss: 4.037012577056885
+[rank2] sim_mean=0.9410 sim_std=0.0557 Loss: 3.265634298324585
+[rank0] pos_mean=0.9365 neg_mean=0.9403 n_pos=9 n_neg=5
+[rank0] sim_mean=0.9428 sim_std=0.0574 Loss: 3.096112012863159
+[rank3] sim_mean=0.9443 sim_std=0.0439 Loss: 3.2892520427703857
+[rank1] sim_mean=0.9325 sim_std=0.0700 Loss: 3.392629861831665
+[rank1] sim_mean=0.9371 sim_std=0.0585 Loss: 3.4839932918548584
+[rank2] sim_mean=0.9291 sim_std=0.0682 Loss: 3.3048222064971924
+[rank0] pos_mean=0.9035 neg_mean=0.9097 n_pos=9 n_neg=7
+[rank0] sim_mean=0.9126 sim_std=0.0832 Loss: 4.087158203125
+[rank3] sim_mean=0.9330 sim_std=0.0530 Loss: 3.6760804653167725
+[rank0] pos_mean=0.9558 neg_mean=0.9603 n_pos=5 n_neg=6
+[rank0] sim_mean=0.9621 sim_std=0.0390 Loss: 2.5643467903137207
+[rank1] sim_mean=0.9255 sim_std=0.0571 Loss: 3.464073896408081
+[rank3] sim_mean=0.9146 sim_std=0.0813 Loss: 3.886526584625244
+[rank2] sim_mean=0.9357 sim_std=0.0679 Loss: 3.568608522415161
+[rank0] pos_mean=0.9309 neg_mean=0.9371 n_pos=6 n_neg=7
+[rank0] sim_mean=0.9393 sim_std=0.0457 Loss: 2.99914288520813
+[rank2] sim_mean=0.9331 sim_std=0.0561 Loss: 3.607905387878418
+[rank1] sim_mean=0.9633 sim_std=0.0386 Loss: 3.0776469707489014
+[rank3] sim_mean=0.9402 sim_std=0.0594 Loss: 3.33176589012146
+[rank3] sim_mean=0.9477 sim_std=0.0431 Loss: 3.0187301635742188
+[rank0] pos_mean=0.9329 neg_mean=0.9319 n_pos=8 n_neg=7
+[rank0] sim_mean=0.9369 sim_std=0.0731 Loss: 3.4090003967285156
+[rank2] sim_mean=0.9340 sim_std=0.0671 Loss: 3.2613377571105957
+[rank1] sim_mean=0.9289 sim_std=0.0760 Loss: 3.804441213607788
+[rank2] sim_mean=0.9549 sim_std=0.0369 Loss: 3.0194690227508545
+[rank1] sim_mean=0.9397 sim_std=0.0725 Loss: 3.304279327392578
+[rank0] pos_mean=0.9105 neg_mean=0.9150 n_pos=8 n_neg=9
+[rank0] sim_mean=0.9180 sim_std=0.0686 Loss: 4.240314483642578
+[rank3] sim_mean=0.9248 sim_std=0.0639 Loss: 3.851900815963745
+[rank3] sim_mean=0.9112 sim_std=0.0745 Loss: 3.6488771438598633
+[rank1] sim_mean=0.9311 sim_std=0.0626 Loss: 3.5047037601470947
+[rank2] sim_mean=0.9218 sim_std=0.0646 Loss: 3.6827967166900635
+[rank0] pos_mean=0.9169 neg_mean=0.9245 n_pos=8 n_neg=11
+[rank0] sim_mean=0.9250 sim_std=0.0734 Loss: 3.901491641998291
+[rank3] sim_mean=0.9336 sim_std=0.0628 Loss: 3.5158071517944336
+[rank0] pos_mean=0.8922 neg_mean=0.8987 n_pos=8 n_neg=7
+[rank0] sim_mean=0.9027 sim_std=0.0857 Loss: 4.0747880935668945
+[rank1] sim_mean=0.9103 sim_std=0.0824 Loss: 3.346808433532715
+[rank2] sim_mean=0.9053 sim_std=0.0788 Loss: 4.079036235809326
+/home/jsudan/wav2vec_contr_loss/asvspoof_windowed_loader.py:20: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, _ = librosa.load(audio_path, sr=target_sample_rate, mono=True)
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[rank2] sim_mean=0.9096 sim_std=0.0705 Loss: 3.832301616668701
+[rank3] sim_mean=0.9200 sim_std=0.0635 Loss: 3.793139934539795
+[rank0] pos_mean=0.9221 neg_mean=0.9015 n_pos=9 n_neg=11
+[rank0] sim_mean=0.9158 sim_std=0.0764 Loss: 3.782600164413452
+[rank1] sim_mean=0.9337 sim_std=0.0796 Loss: 3.7785637378692627
+[rank0] pos_mean=0.9325 neg_mean=0.9429 n_pos=5 n_neg=7
+[rank0] sim_mean=0.9432 sim_std=0.0493 Loss: 3.081430196762085
+[rank1] sim_mean=0.9459 sim_std=0.0450 Loss: 2.903945207595825
+[rank2] sim_mean=0.8941 sim_std=0.0899 Loss: 3.9229888916015625
+[rank3] sim_mean=0.9314 sim_std=0.0640 Loss: 3.5640838146209717
+[rank3] sim_mean=0.9210 sim_std=0.0613 Loss: 3.0340774059295654
+[rank0] pos_mean=0.9294 neg_mean=0.9175 n_pos=7 n_neg=7
+[rank0] sim_mean=0.9285 sim_std=0.0675 Loss: 3.3214144706726074
+[rank1] sim_mean=0.9195 sim_std=0.0772 Loss: 3.850895881652832
+[rank2] sim_mean=0.9321 sim_std=0.0741 Loss: 3.7146518230438232
+[rank1] sim_mean=0.9436 sim_std=0.0589 Loss: 3.171513080596924
+[rank3] sim_mean=0.9485 sim_std=0.0495 Loss: 3.1419084072113037
+[rank0] pos_mean=0.9219 neg_mean=0.9242 n_pos=9 n_neg=8
+[rank0] sim_mean=0.9277 sim_std=0.0634 Loss: 3.703601598739624
+[rank2] sim_mean=0.9482 sim_std=0.0537 Loss: 3.294705629348755
+[rank0] pos_mean=0.9207 neg_mean=0.9385 n_pos=5 n_neg=8
+[rank0] sim_mean=0.9352 sim_std=0.0647 Loss: 3.265634536743164
+[rank3] sim_mean=0.8984 sim_std=0.0821 Loss: 4.376258373260498
+[rank1] sim_mean=0.8976 sim_std=0.0868 Loss: 3.849601984024048
+[rank2] sim_mean=0.9555 sim_std=0.0460 Loss: 2.8011229038238525
+[rank1] sim_mean=0.9234 sim_std=0.0629 Loss: 3.3961124420166016
+[rank0] pos_mean=0.9521 neg_mean=0.9109 n_pos=6 n_neg=9
+[rank0] sim_mean=0.9355 sim_std=0.0724 Loss: 2.909475088119507
+[rank3] sim_mean=0.9209 sim_std=0.0656 Loss: 3.529693603515625
+[rank2] sim_mean=0.9438 sim_std=0.0623 Loss: 3.0190138816833496
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:209: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:209: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:209: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+/home/jsudan/wav2vec_contr_loss/stage1_utils.py:209: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+/home/jsudan/wav2vec_contr_loss/asvspoof_windowed_loader.py:20: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, _ = librosa.load(audio_path, sr=target_sample_rate, mono=True)
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[epoch 001] alpha=0.00 | train_loss=3.4070 | dev_loss=3.6469
+[epoch 001] time=66.51 min | ETA=6584.29 min
+[epoch 001] alpha=0.00 | train_loss=3.4070 | dev_loss=3.6494
+[epoch 001] time=66.51 min | ETA=6584.96 min
+[epoch 001] alpha=0.00 | train_loss=3.4070 | dev_loss=3.6439
+[epoch 001] time=66.51 min | ETA=6584.96 min
+[epoch 001] alpha=0.00 | train_loss=3.4070 | dev_loss=3.6542
+[epoch 001] time=66.53 min | ETA=6586.43 min
+[rank3] sim_mean=0.9471 sim_std=0.0377 Loss: 3.043114185333252
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mlaad_windowed_supcon_geodesic_temp_0.05/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=3.6439)
+[rank1] sim_mean=0.9320 sim_std=0.0591 Loss: 3.08884334564209
+[rank2] sim_mean=0.9187 sim_std=0.0709 Loss: 3.92822003364563
+[rank0] pos_mean=0.9083 neg_mean=0.9124 n_pos=9 n_neg=7
+[rank0] sim_mean=0.9161 sim_std=0.0737 Loss: 4.034221649169922
+[rank3] sim_mean=0.9436 sim_std=0.0571 Loss: 3.3386332988739014
+[rank0] pos_mean=0.9024 neg_mean=0.9044 n_pos=8 n_neg=7
+[rank0] sim_mean=0.9099 sim_std=0.0742 Loss: 4.0168375968933105
+[rank1] sim_mean=0.9354 sim_std=0.0651 Loss: 3.629359245300293
+[rank2] sim_mean=0.9475 sim_std=0.0452 Loss: 3.3509681224823
+[rank1] sim_mean=0.9426 sim_std=0.0676 Loss: 3.0249998569488525
+[rank3] sim_mean=0.9337 sim_std=0.0613 Loss: 3.52878999710083
+[rank0] pos_mean=0.9267 neg_mean=0.9278 n_pos=8 n_neg=7
+[rank0] sim_mean=0.9322 sim_std=0.0637 Loss: 3.345839262008667
+[rank2] sim_mean=0.9463 sim_std=0.0356 Loss: 2.991657257080078
+[rank3] sim_mean=0.9439 sim_std=0.0547 Loss: 3.0923571586608887
+[rank2] sim_mean=0.9308 sim_std=0.0586 Loss: 3.476595163345337
+[rank1] sim_mean=0.9445 sim_std=0.0425 Loss: 2.8572804927825928
+[rank0] pos_mean=0.9374 neg_mean=0.9415 n_pos=8 n_neg=9
+[rank0] sim_mean=0.9431 sim_std=0.0619 Loss: 3.4753315448760986
+[rank1] sim_mean=0.9269 sim_std=0.0624 Loss: 3.606590509414673
+[rank3] sim_mean=0.9329 sim_std=0.0543 Loss: 3.5414628982543945
+[rank0] pos_mean=0.9239 neg_mean=0.9254 n_pos=7 n_neg=9
+[rank0] sim_mean=0.9294 sim_std=0.0753 Loss: 3.622612476348877
+[rank2] sim_mean=0.9311 sim_std=0.0688 Loss: 3.4958584308624268
+[rank1] sim_mean=0.9409 sim_std=0.0617 Loss: 2.8757081031799316
+[rank2] sim_mean=0.9314 sim_std=0.0693 Loss: 3.571326732635498
+[rank3] sim_mean=0.9420 sim_std=0.0691 Loss: 3.4849648475646973
+[rank0] pos_mean=0.9051 neg_mean=0.9009 n_pos=9 n_neg=11
+[rank0] sim_mean=0.9077 sim_std=0.0726 Loss: 4.1909499168396
+/home/jsudan/wav2vec_contr_loss/asvspoof_windowed_loader.py:20: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, _ = librosa.load(audio_path, sr=target_sample_rate, mono=True)
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[rank2] sim_mean=0.9592 sim_std=0.0266 Loss: 2.758573293685913
+[rank0] pos_mean=0.9154 neg_mean=0.9279 n_pos=8 n_neg=6
+[rank0] sim_mean=0.9275 sim_std=0.0749 Loss: 3.6091785430908203
+[rank1] sim_mean=0.9554 sim_std=0.0343 Loss: 3.1086244583129883
+[rank3] sim_mean=0.9473 sim_std=0.0423 Loss: 3.133899450302124
+[rank3] sim_mean=0.9362 sim_std=0.0521 Loss: 3.195310115814209
+[rank0] pos_mean=0.9339 neg_mean=0.9355 n_pos=6 n_neg=7
+[rank0] sim_mean=0.9398 sim_std=0.0555 Loss: 3.2871828079223633
+[rank1] sim_mean=0.9381 sim_std=0.0564 Loss: 3.3333938121795654
+[rank2] sim_mean=0.9326 sim_std=0.0674 Loss: 3.3677825927734375
+[rank3] sim_mean=0.9557 sim_std=0.0345 Loss: 3.029066324234009
+[rank2] sim_mean=0.9267 sim_std=0.0712 Loss: 3.47690749168396
+[rank0] pos_mean=0.9531 neg_mean=0.9506 n_pos=5 n_neg=10
+[rank0] sim_mean=0.9551 sim_std=0.0346 Loss: 3.0749073028564453
+[rank1] sim_mean=0.9308 sim_std=0.0644 Loss: 3.6602108478546143
+[rank1] sim_mean=0.9222 sim_std=0.0753 Loss: 3.3488504886627197
+[rank0] pos_mean=0.9294 neg_mean=0.9344 n_pos=7 n_neg=7
+[rank0] sim_mean=0.9369 sim_std=0.0557 Loss: 3.3037407398223877
+[rank3] sim_mean=0.9467 sim_std=0.0462 Loss: 3.2074811458587646
+[rank2] sim_mean=0.9266 sim_std=0.0744 Loss: 3.729811906814575
+[rank0] pos_mean=0.9436 neg_mean=0.9402 n_pos=7 n_neg=7
+[rank0] sim_mean=0.9459 sim_std=0.0484 Loss: 3.0440309047698975
+[rank3] sim_mean=0.9386 sim_std=0.0567 Loss: 3.2433345317840576
+[rank2] sim_mean=0.9511 sim_std=0.0618 Loss: 3.230766534805298
+[rank1] sim_mean=0.9257 sim_std=0.0627 Loss: 3.6268913745880127
+[rank0] pos_mean=0.9572 neg_mean=0.9549 n_pos=4 n_neg=8
+[rank0] sim_mean=0.9598 sim_std=0.0296 Loss: 2.802422523498535
+[rank2] sim_mean=0.9305 sim_std=0.0707 Loss: 3.497500419616699
+[rank3] sim_mean=0.9354 sim_std=0.0514 Loss: 3.2124502658843994
+[rank1] sim_mean=0.9208 sim_std=0.0595 Loss: 3.7462141513824463
+[rank2] sim_mean=0.9253 sim_std=0.0628 Loss: 3.5639352798461914
+[rank1] sim_mean=0.9453 sim_std=0.0476 Loss: 3.0870046615600586
+[rank3] sim_mean=0.9275 sim_std=0.0551 Loss: 3.534273862838745
+[rank0] pos_mean=0.9155 neg_mean=0.9140 n_pos=8 n_neg=9
+[rank0] sim_mean=0.9197 sim_std=0.0651 Loss: 3.7606425285339355
+[rank2] sim_mean=0.9439 sim_std=0.0572 Loss: 3.0469956398010254
+[rank0] pos_mean=0.9185 neg_mean=0.9027 n_pos=6 n_neg=6
+[rank0] sim_mean=0.9174 sim_std=0.0592 Loss: 3.331075429916382
+[rank1] sim_mean=0.9572 sim_std=0.0312 Loss: 3.0514309406280518
+[rank3] sim_mean=0.9267 sim_std=0.0726 Loss: 3.764925003051758
+[rank2] sim_mean=0.9468 sim_std=0.0454 Loss: 3.429185628890991
+[rank3] sim_mean=0.9216 sim_std=0.0651 Loss: 3.7141952514648438
+[rank0] pos_mean=0.9264 neg_mean=0.9176 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9266 sim_std=0.0631 Loss: 3.5507538318634033
+[rank1] sim_mean=0.9499 sim_std=0.0435 Loss: 3.432807683944702
+[rank0] pos_mean=0.9164 neg_mean=0.9171 n_pos=6 n_neg=6
+[rank0] sim_mean=0.9237 sim_std=0.0643 Loss: 3.3645224571228027
+[rank1] sim_mean=0.9565 sim_std=0.0329 Loss: 2.936094045639038
+[rank2] sim_mean=0.9418 sim_std=0.0546 Loss: 3.1354620456695557
+[rank3] sim_mean=0.9188 sim_std=0.0760 Loss: 4.05352258682251
+/home/jsudan/wav2vec_contr_loss/asvspoof_windowed_loader.py:20: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, _ = librosa.load(audio_path, sr=target_sample_rate, mono=True)
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[epoch 002] alpha=0.00 | train_loss=3.4076 | dev_loss=3.6498
+[epoch 002] time=66.46 min | ETA=6515.60 min
+[epoch 002] alpha=0.00 | train_loss=3.4076 | dev_loss=3.6506
+[epoch 002] time=66.55 min | ETA=6519.93 min
+[epoch 002] alpha=0.00 | train_loss=3.4076 | dev_loss=3.6538
+[epoch 002] time=66.56 min | ETA=6520.20 min
+[epoch 002] alpha=0.00 | train_loss=3.4076 | dev_loss=3.6422
+[epoch 002] time=66.54 min | ETA=6520.26 min
+[rank0] pos_mean=0.8988 neg_mean=0.8991 n_pos=9 n_neg=12
+[rank0] sim_mean=0.9038 sim_std=0.0834 Loss: 4.333252906799316
+[rank1] sim_mean=0.9036 sim_std=0.0761 Loss: 3.395789861679077
+[rank3] sim_mean=0.9477 sim_std=0.0358 Loss: 2.8904337882995605
+[rank2] sim_mean=0.9448 sim_std=0.0492 Loss: 3.256364107131958
+[rank3] sim_mean=0.9465 sim_std=0.0424 Loss: 2.906057834625244
+[rank1] sim_mean=0.9299 sim_std=0.0614 Loss: 3.5613694190979004
+[rank0] pos_mean=0.8909 neg_mean=0.8916 n_pos=6 n_neg=10
+[rank0] sim_mean=0.8980 sim_std=0.0792 Loss: 4.227770805358887
+[rank2] sim_mean=0.9462 sim_std=0.0569 Loss: 3.1232566833496094
+[rank2] sim_mean=0.9603 sim_std=0.0295 Loss: 2.8064804077148438
+[rank1] sim_mean=0.9296 sim_std=0.0688 Loss: 3.397101879119873
+[rank0] pos_mean=0.9403 neg_mean=0.9210 n_pos=6 n_neg=7
+[rank0] sim_mean=0.9353 sim_std=0.0576 Loss: 3.095149278640747
+[rank3] sim_mean=0.9339 sim_std=0.0613 Loss: 3.616556167602539
+[rank1] sim_mean=0.9273 sim_std=0.0628 Loss: 3.390836477279663
+[rank0] pos_mean=0.9569 neg_mean=0.9577 n_pos=8 n_neg=6
+[rank0] sim_mean=0.9604 sim_std=0.0348 Loss: 3.017704963684082
+[rank2] sim_mean=0.9269 sim_std=0.0727 Loss: 3.7214787006378174
+[rank3] sim_mean=0.9202 sim_std=0.0844 Loss: 3.9356276988983154
+[rank3] sim_mean=0.9200 sim_std=0.0677 Loss: 3.771636486053467
+[rank0] pos_mean=0.9215 neg_mean=0.9272 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9293 sim_std=0.0737 Loss: 3.82720685005188
+[rank1] sim_mean=0.9307 sim_std=0.0629 Loss: 3.693394184112549
+[rank2] sim_mean=0.9177 sim_std=0.0769 Loss: 3.9275259971618652
+[rank1] sim_mean=0.9338 sim_std=0.0666 Loss: 3.054229497909546
+[rank2] sim_mean=0.9312 sim_std=0.0489 Loss: 3.2489216327667236
+[rank0] pos_mean=0.9269 neg_mean=0.9184 n_pos=8 n_neg=10
+[rank0] sim_mean=0.9268 sim_std=0.0721 Loss: 3.66865873336792
+[rank3] sim_mean=0.9554 sim_std=0.0391 Loss: 3.283069133758545
+[rank0] pos_mean=0.9383 neg_mean=0.9197 n_pos=5 n_neg=5
+[rank0] sim_mean=0.9351 sim_std=0.0556 Loss: 2.688093900680542
+[rank1] sim_mean=0.9468 sim_std=0.0402 Loss: 3.0163540840148926
+[rank3] sim_mean=0.9264 sim_std=0.0625 Loss: 3.4243459701538086
+[rank2] sim_mean=0.9406 sim_std=0.0405 Loss: 3.3191070556640625
+[rank1] sim_mean=0.9376 sim_std=0.0671 Loss: 3.327690601348877[rank2] sim_mean=0.9231 sim_std=0.0679 Loss: 3.1008753776550293
+
+[rank3] sim_mean=0.9286 sim_std=0.0631 Loss: 3.6391263008117676
+[rank0] pos_mean=0.9601 neg_mean=0.9525 n_pos=7 n_neg=11
+[rank0] sim_mean=0.9587 sim_std=0.0306 Loss: 3.136878490447998
+[rank0] pos_mean=0.8986 neg_mean=0.8955 n_pos=6 n_neg=8
+[rank0] sim_mean=0.9043 sim_std=0.0830 Loss: 3.7964026927948
+[rank1] sim_mean=0.9513 sim_std=0.0499 Loss: 3.2337496280670166
+[rank2] sim_mean=0.9180 sim_std=0.0713 Loss: 3.6616721153259277
+[rank3] sim_mean=0.9349 sim_std=0.0639 Loss: 3.5621023178100586
+[rank0] pos_mean=0.9506 neg_mean=0.9344 n_pos=6 n_neg=7
+[rank0] sim_mean=0.9463 sim_std=0.0466 Loss: 2.70159912109375
+[rank2] sim_mean=0.9493 sim_std=0.0425 Loss: 3.049546718597412
+[rank3] sim_mean=0.9254 sim_std=0.0564 Loss: 3.3600687980651855
+[rank1] sim_mean=0.9272 sim_std=0.0595 Loss: 3.7906081676483154
+[rank1] sim_mean=0.9220 sim_std=0.0687 Loss: 3.5652976036071777
+[rank3] sim_mean=0.9325 sim_std=0.0572 Loss: 3.4094886779785156
+[rank2] sim_mean=0.9384 sim_std=0.0530 Loss: 2.890540838241577
+[rank0] pos_mean=0.9375 neg_mean=0.9352 n_pos=9 n_neg=9
+[rank0] sim_mean=0.9398 sim_std=0.0540 Loss: 3.3721630573272705
+[rank1] sim_mean=0.9314 sim_std=0.0745 Loss: 3.222139835357666
+[rank2] sim_mean=0.9501 sim_std=0.0381 Loss: 3.1384663581848145
+[rank0] pos_mean=0.9204 neg_mean=0.9233 n_pos=9 n_neg=7
+[rank0] sim_mean=0.9268 sim_std=0.0718 Loss: 3.8760526180267334
+[rank3] sim_mean=0.9207 sim_std=0.0772 Loss: 3.896782875061035
+[rank2] sim_mean=0.9299 sim_std=0.0614 Loss: 3.3300492763519287
+[rank0] pos_mean=0.9203 neg_mean=0.9307 n_pos=7 n_neg=9
+[rank0] sim_mean=0.9304 sim_std=0.0544 Loss: 3.833361864089966
+[rank1] sim_mean=0.9372 sim_std=0.0656 Loss: 3.458273410797119
+[rank3] sim_mean=0.9269 sim_std=0.0624 Loss: 3.735476016998291
+[rank0] pos_mean=0.9556 neg_mean=0.9463 n_pos=6 n_neg=6
+[rank0] sim_mean=0.9547 sim_std=0.0445 Loss: 2.7142276763916016
+[rank1] sim_mean=0.9266 sim_std=0.0662 Loss: 2.9921112060546875
+[rank3] sim_mean=0.9408 sim_std=0.0501 Loss: 3.480630397796631
+[rank2] sim_mean=0.9061 sim_std=0.0784 Loss: 3.9994168281555176
+[rank3] sim_mean=0.9007 sim_std=0.0746 Loss: 4.064352989196777
+[rank0] pos_mean=0.9340 neg_mean=0.9251 n_pos=5 n_neg=10
+[rank0] sim_mean=0.9344 sim_std=0.0709 Loss: 3.2758536338806152
+[rank2] sim_mean=0.9590 sim_std=0.0287 Loss: 3.053234100341797
+[rank1] sim_mean=0.9479 sim_std=0.0500 Loss: 3.219656229019165
+/home/jsudan/wav2vec_contr_loss/asvspoof_windowed_loader.py:20: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, _ = librosa.load(audio_path, sr=target_sample_rate, mono=True)
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[rank0] pos_mean=0.9100 neg_mean=0.9030 n_pos=7 n_neg=7
+[rank0] sim_mean=0.9129 sim_std=0.0740 Loss: 3.708449602127075
+[rank1] sim_mean=0.9255 sim_std=0.0679 Loss: 3.5199193954467773
+[rank3] sim_mean=0.9377 sim_std=0.0636 Loss: 3.5688836574554443
+[rank2] sim_mean=0.9293 sim_std=0.0784 Loss: 3.387650966644287
+/home/jsudan/wav2vec_contr_loss/asvspoof_windowed_loader.py:20: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, _ = librosa.load(audio_path, sr=target_sample_rate, mono=True)
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[epoch 003] alpha=0.00 | train_loss=3.4065 | dev_loss=3.6556
+[epoch 003] time=66.39 min | ETA=6446.15 min
+[epoch 003] alpha=0.00 | train_loss=3.4065 | dev_loss=3.6551
+[epoch 003] time=66.39 min | ETA=6449.03 min
+[epoch 003] alpha=0.00 | train_loss=3.4065 | dev_loss=3.6408
+[epoch 003] time=66.39 min | ETA=6449.13 min
+[epoch 003] alpha=0.00 | train_loss=3.4065 | dev_loss=3.6382
+[epoch 003] time=66.40 min | ETA=6449.43 min
+[rank0] pos_mean=0.9394 neg_mean=0.8959 n_pos=8 n_neg=11
+[rank0] sim_mean=0.9214 sim_std=0.0725 Loss: 3.4433388710021973
+[rank1] sim_mean=0.9413 sim_std=0.0498 Loss: 3.4411489963531494
+[rank3] sim_mean=0.9194 sim_std=0.0737 Loss: 3.819197177886963
+[rank2] sim_mean=0.9419 sim_std=0.0476 Loss: 3.2822976112365723
+[rank0] pos_mean=0.9291 neg_mean=0.9249 n_pos=5 n_neg=8
+[rank0] sim_mean=0.9326 sim_std=0.0499 Loss: 3.240445375442505
+[rank1] sim_mean=0.9510 sim_std=0.0500 Loss: 3.0654404163360596
+[rank2] sim_mean=0.9572 sim_std=0.0320 Loss: 3.0176215171813965
+[rank3] sim_mean=0.9469 sim_std=0.0517 Loss: 3.464658737182617
+[rank3] sim_mean=0.9197 sim_std=0.0769 Loss: 3.6409192085266113
+[rank0] pos_mean=0.9240 neg_mean=0.9289 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9312 sim_std=0.0678 Loss: 3.720475196838379
+[rank1] sim_mean=0.9491 sim_std=0.0592 Loss: 3.252020835876465
+[rank2] sim_mean=0.9358 sim_std=0.0619 Loss: 3.7939534187316895
+[rank0] pos_mean=0.9345 neg_mean=0.9276 n_pos=4 n_neg=8
+[rank0] sim_mean=0.9369 sim_std=0.0581 Loss: 3.172123432159424
+[rank2] sim_mean=0.9313 sim_std=0.0778 Loss: 3.322469472885132
+[rank3] sim_mean=0.9240 sim_std=0.0638 Loss: 3.497178077697754
+[rank1] sim_mean=0.9447 sim_std=0.0420 Loss: 3.362186908721924
+/home/jsudan/wav2vec_contr_loss/asvspoof_windowed_loader.py:20: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, _ = librosa.load(audio_path, sr=target_sample_rate, mono=True)
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[rank3] sim_mean=0.9199 sim_std=0.0743 Loss: 3.408005475997925
+[rank0] pos_mean=0.9240 neg_mean=0.9266 n_pos=9 n_neg=8
+[rank0] sim_mean=0.9297 sim_std=0.0674 Loss: 3.626680612564087
+[rank1] sim_mean=0.9221 sim_std=0.0703 Loss: 3.8694610595703125
+[rank2] sim_mean=0.9418 sim_std=0.0517 Loss: 3.644869327545166
+[rank0] pos_mean=0.9306 neg_mean=0.9044 n_pos=6 n_neg=7
+[rank0] sim_mean=0.9229 sim_std=0.0711 Loss: 3.268984317779541
+[rank1] sim_mean=0.9099 sim_std=0.0755 Loss: 3.940985679626465
+[rank3] sim_mean=0.9274 sim_std=0.0582 Loss: 3.3627679347991943
+[rank2] sim_mean=0.9381 sim_std=0.0532 Loss: 3.514909505844116
+[rank2] sim_mean=0.9216 sim_std=0.0802 Loss: 3.2287521362304688
+[rank1] sim_mean=0.9314 sim_std=0.0585 Loss: 3.434342384338379
+[rank3] sim_mean=0.9183 sim_std=0.0823 Loss: 3.9508893489837646
+[rank0] pos_mean=0.9523 neg_mean=0.9535 n_pos=7 n_neg=13
+[rank0] sim_mean=0.9552 sim_std=0.0388 Loss: 3.2408859729766846
+[rank3] sim_mean=0.9282 sim_std=0.0563 Loss: 3.6047961711883545[rank1] sim_mean=0.9149 sim_std=0.0705 Loss: 3.683262348175049
+
+[rank0] pos_mean=0.9336 neg_mean=0.9348 n_pos=8 n_neg=7
+[rank0] sim_mean=0.9386 sim_std=0.0509 Loss: 3.38718581199646
+[rank2] sim_mean=0.9136 sim_std=0.0724 Loss: 4.14656400680542
+[rank0] pos_mean=0.9128 neg_mean=0.8852 n_pos=6 n_neg=7
+[rank0] sim_mean=0.9058 sim_std=0.0950 Loss: 3.478752374649048
+[rank1] sim_mean=0.9596 sim_std=0.0332 Loss: 2.7361764907836914
+[rank3] sim_mean=0.9278 sim_std=0.0615 Loss: 3.5877418518066406
+[rank2] sim_mean=0.9184 sim_std=0.0748 Loss: 3.7598090171813965
+[rank1] sim_mean=0.9461 sim_std=0.0558 Loss: 2.63675856590271
+[rank3] sim_mean=0.9311 sim_std=0.0650 Loss: 3.259547233581543
+[rank0] pos_mean=0.9399 neg_mean=0.8952 n_pos=5 n_neg=14
+[rank0] sim_mean=0.9257 sim_std=0.0508 Loss: 3.199981212615967
+[rank2] sim_mean=0.9404 sim_std=0.0612 Loss: 3.6522648334503174
+[rank2] sim_mean=0.9409 sim_std=0.0468 Loss: 2.9153494834899902
+[rank0] pos_mean=0.9100 neg_mean=0.9166 n_pos=7 n_neg=6
+[rank0] sim_mean=0.9202 sim_std=0.0627 Loss: 3.637586832046509
+[rank1] sim_mean=0.9296 sim_std=0.0601 Loss: 3.606609582901001
+[rank3] sim_mean=0.9182 sim_std=0.0667 Loss: 3.8237266540527344
+[rank1] sim_mean=0.9285 sim_std=0.0687 Loss: 3.3116214275360107
+[rank2] sim_mean=0.9344 sim_std=0.0599 Loss: 3.3851561546325684
+[rank0] pos_mean=0.9524 neg_mean=0.9497 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9540 sim_std=0.0327 Loss: 3.0177526473999023
+[rank3] sim_mean=0.9515 sim_std=0.0407 Loss: 3.226735830307007
+[rank2] sim_mean=0.9342 sim_std=0.0586 Loss: 3.4225499629974365
+[rank0] pos_mean=0.9345 neg_mean=0.9201 n_pos=7 n_neg=7
+[rank0] sim_mean=0.9319 sim_std=0.0552 Loss: 3.187243938446045
+[rank3] sim_mean=0.9399 sim_std=0.0618 Loss: 3.44136381149292
+[rank1] sim_mean=0.9159 sim_std=0.0753 Loss: 3.7523279190063477
+[rank0] pos_mean=0.9690 neg_mean=0.9643 n_pos=4 n_neg=5
+[rank0] sim_mean=0.9702 sim_std=0.0179 Loss: 2.1333117485046387
+[rank3] sim_mean=0.9280 sim_std=0.0511 Loss: 3.443006753921509
+[rank1] sim_mean=0.9276 sim_std=0.0632 Loss: 3.6270785331726074
+[rank2] sim_mean=0.9225 sim_std=0.0663 Loss: 3.5939109325408936
+[rank3] sim_mean=0.9490 sim_std=0.0448 Loss: 2.7806313037872314
+[rank0] pos_mean=0.9436 neg_mean=0.9359 n_pos=6 n_neg=6
+[rank0] sim_mean=0.9445 sim_std=0.0608 Loss: 2.894740104675293
+[rank2] sim_mean=0.9245 sim_std=0.0768 Loss: 3.4513049125671387
+[rank1] sim_mean=0.9326 sim_std=0.0654 Loss: 3.545839548110962
+[rank2] sim_mean=0.9501 sim_std=0.0585 Loss: 2.947209119796753
+[rank0] pos_mean=0.9225 neg_mean=0.9225 n_pos=7 n_neg=7
+[rank0] sim_mean=0.9280 sim_std=0.0616 Loss: 3.290085554122925
+[rank3] sim_mean=0.9335 sim_std=0.0636 Loss: 3.6420862674713135
+[rank1] sim_mean=0.9627 sim_std=0.0428 Loss: 2.9252028465270996
+/home/jsudan/wav2vec_contr_loss/asvspoof_windowed_loader.py:20: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, _ = librosa.load(audio_path, sr=target_sample_rate, mono=True)
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[epoch 004] alpha=0.00 | train_loss=3.4075 | dev_loss=3.6484
+[epoch 004] time=66.53 min | ETA=6381.57 min
+[epoch 004] alpha=0.00 | train_loss=3.4075 | dev_loss=3.6512
+[epoch 004] time=66.54 min | ETA=6384.04 min
+[epoch 004] alpha=0.00 | train_loss=3.4075 | dev_loss=3.6395
+[epoch 004] time=66.57 min | ETA=6384.50 min
+[epoch 004] alpha=0.00 | train_loss=3.4075 | dev_loss=3.6475
+[epoch 004] time=66.56 min | ETA=6384.72 min
+[rank0] pos_mean=0.9209 neg_mean=0.9257 n_pos=7 n_neg=7
+[rank0] sim_mean=0.9289 sim_std=0.0517 Loss: 3.3139474391937256
+[rank3] sim_mean=0.9276 sim_std=0.0786 Loss: 3.8200154304504395
+[rank2] sim_mean=0.9081 sim_std=0.0820 Loss: 3.936227798461914
+[rank1] sim_mean=0.9043 sim_std=0.0814 Loss: 4.312108516693115
+[rank1] sim_mean=0.9319 sim_std=0.0579 Loss: 3.3476226329803467
+[rank2] sim_mean=0.9227 sim_std=0.0656 Loss: 3.3527989387512207
+[rank3] sim_mean=0.9236 sim_std=0.0629 Loss: 3.6708686351776123
+[rank0] pos_mean=0.9558 neg_mean=0.9472 n_pos=10 n_neg=11
+[rank0] sim_mean=0.9536 sim_std=0.0400 Loss: 3.316542148590088
+[rank3] sim_mean=0.9466 sim_std=0.0533 Loss: 2.9090869426727295
+[rank0] pos_mean=0.9318 neg_mean=0.9513 n_pos=4 n_neg=11
+[rank0] sim_mean=0.9440 sim_std=0.0543 Loss: 3.1308534145355225
+[rank1] sim_mean=0.9221 sim_std=0.0721 Loss: 3.642493724822998
+[rank2] sim_mean=0.9528 sim_std=0.0342 Loss: 2.852449655532837
+[rank2] sim_mean=0.9241 sim_std=0.0695 Loss: 3.664952278137207
+[rank0] pos_mean=0.9175 neg_mean=0.9236 n_pos=8 n_neg=6
+[rank0] sim_mean=0.9264 sim_std=0.0701 Loss: 3.6505820751190186
+[rank3] sim_mean=0.9265 sim_std=0.0522 Loss: 3.605736017227173
+[rank1] sim_mean=0.9210 sim_std=0.0754 Loss: 3.530784845352173
+[rank3] sim_mean=0.9328 sim_std=0.0580 Loss: 3.504188299179077
+[rank1] sim_mean=0.9313 sim_std=0.0564 Loss: 3.367260456085205
+[rank0] pos_mean=0.9302 neg_mean=0.9307 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9348 sim_std=0.0615 Loss: 3.4694831371307373
+[rank2] sim_mean=0.9288 sim_std=0.0755 Loss: 3.9220991134643555
+[rank0] pos_mean=0.9290 neg_mean=0.9377 n_pos=6 n_neg=5
+[rank0] sim_mean=0.9398 sim_std=0.0620 Loss: 3.0071606636047363
+[rank2] sim_mean=0.9385 sim_std=0.0558 Loss: 3.397989511489868
+[rank3] sim_mean=0.9224 sim_std=0.0832 Loss: 3.76462721824646
+[rank1] sim_mean=0.9219 sim_std=0.0616 Loss: 3.8793766498565674
+[rank3] sim_mean=0.9427 sim_std=0.0603 Loss: 2.9712741374969482
+[rank2] sim_mean=0.9286 sim_std=0.0681 Loss: 3.2397804260253906
+[rank0] pos_mean=0.9218 neg_mean=0.9244 n_pos=8 n_neg=7
+[rank0] sim_mean=0.9283 sim_std=0.0677 Loss: 3.611841917037964
+[rank1] sim_mean=0.9421 sim_std=0.0516 Loss: 3.1475987434387207
+[rank0] pos_mean=0.9313 neg_mean=0.9098 n_pos=4 n_neg=5
+[rank0] sim_mean=0.9283 sim_std=0.0591 Loss: 2.821916341781616
+[rank2] sim_mean=0.9100 sim_std=0.0789 Loss: 3.946575403213501
+[rank3] sim_mean=0.9204 sim_std=0.0707 Loss: 3.62677001953125
+[rank1] sim_mean=0.9162 sim_std=0.0788 Loss: 3.9198312759399414
+[rank1] sim_mean=0.9165 sim_std=0.0716 Loss: 3.6687228679656982
+[rank0] pos_mean=0.9155 neg_mean=0.9146 n_pos=6 n_neg=7
+[rank0] sim_mean=0.9216 sim_std=0.0764 Loss: 3.342925786972046
+[rank2] sim_mean=0.9415 sim_std=0.0559 Loss: 3.111668109893799
+[rank3] sim_mean=0.9387 sim_std=0.0597 Loss: 3.2147490978240967
+[rank1] sim_mean=0.9433 sim_std=0.0490 Loss: 3.156933546066284
+[rank2] sim_mean=0.9382 sim_std=0.0582 Loss: 3.5066022872924805
+[rank0] pos_mean=0.9293 neg_mean=0.9283 n_pos=7 n_neg=10
+[rank0] sim_mean=0.9330 sim_std=0.0616 Loss: 3.3208870887756348
+[rank3] sim_mean=0.9566 sim_std=0.0301 Loss: 3.066930055618286
+[rank2] sim_mean=0.9342 sim_std=0.0580 Loss: 3.36478328704834
+[rank0] pos_mean=0.9166 neg_mean=0.9062 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9166 sim_std=0.0685 Loss: 3.6635830402374268
+[rank1] sim_mean=0.9353 sim_std=0.0600 Loss: 3.3693013191223145
+[rank3] sim_mean=0.9380 sim_std=0.0548 Loss: 3.7407984733581543
+[rank3] sim_mean=0.9229 sim_std=0.0844 Loss: 3.47037410736084
+[rank2] sim_mean=0.9278 sim_std=0.0748 Loss: 3.1175918579101562
+[rank1] sim_mean=0.9112 sim_std=0.0726 Loss: 3.8222882747650146
+[rank0] pos_mean=0.9285 neg_mean=0.9299 n_pos=10 n_neg=10
+[rank0] sim_mean=0.9328 sim_std=0.0665 Loss: 3.7553367614746094
+[rank1] sim_mean=0.9345 sim_std=0.0629 Loss: 3.270634651184082
+[rank2] sim_mean=0.9327 sim_std=0.0556 Loss: 3.2537853717803955
+[rank0] pos_mean=0.9531 neg_mean=0.9538 n_pos=6 n_neg=9
+[rank0] sim_mean=0.9566 sim_std=0.0352 Loss: 3.1461362838745117
+[rank3] sim_mean=0.9243 sim_std=0.0760 Loss: 3.6799936294555664
+[rank1] sim_mean=0.9285 sim_std=0.0732 Loss: 3.0991995334625244
+[rank0] pos_mean=0.9319 neg_mean=0.9138 n_pos=5 n_neg=9
+[rank0] sim_mean=0.9285 sim_std=0.0607 Loss: 3.249534845352173
+[rank2] sim_mean=0.9312 sim_std=0.0644 Loss: 3.3173348903656006
+[rank3] sim_mean=0.9303 sim_std=0.0892 Loss: 3.877544403076172
+/home/jsudan/wav2vec_contr_loss/asvspoof_windowed_loader.py:20: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, _ = librosa.load(audio_path, sr=target_sample_rate, mono=True)
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[rank3] sim_mean=0.9484 sim_std=0.0476 Loss: 3.139343500137329
+[rank2] sim_mean=0.9248 sim_std=0.0636 Loss: 3.862952947616577
+[rank1] sim_mean=0.9278 sim_std=0.0774 Loss: 3.385477066040039
+[rank0] pos_mean=0.9538 neg_mean=0.9539 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9567 sim_std=0.0319 Loss: 3.129837989807129
+[rank0] pos_mean=0.8848 neg_mean=0.8926 n_pos=7 n_neg=5
+[rank0] sim_mean=0.8982 sim_std=0.0808 Loss: 4.157082557678223
+[rank3] sim_mean=0.9183 sim_std=0.0756 Loss: 3.5048999786376953
+[rank2] sim_mean=0.9141 sim_std=0.0736 Loss: 3.8554418087005615
+[rank1] sim_mean=0.9285 sim_std=0.0617 Loss: 3.7332427501678467
+/home/jsudan/wav2vec_contr_loss/asvspoof_windowed_loader.py:20: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, _ = librosa.load(audio_path, sr=target_sample_rate, mono=True)
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[epoch 005] alpha=0.00 | train_loss=3.4064 | dev_loss=3.6376
+[epoch 005] time=66.81 min | ETA=6323.75 min
+[epoch 005] alpha=0.00 | train_loss=3.4064 | dev_loss=3.6611
+[epoch 005] time=66.87 min | ETA=6322.58 min
+[epoch 005] alpha=0.00 | train_loss=3.4064 | dev_loss=3.6306
+[epoch 005] time=66.82 min | ETA=6324.19 min
+[epoch 005] alpha=0.00 | train_loss=3.4064 | dev_loss=3.6530
+[epoch 005] time=66.88 min | ETA=6324.80 min
+[rank1] sim_mean=0.9294 sim_std=0.0743 Loss: 3.396669864654541
+[rank0] pos_mean=0.9413 neg_mean=0.9348 n_pos=7 n_neg=7
+[rank0] sim_mean=0.9422 sim_std=0.0578 Loss: 3.0661404132843018
+[rank2] sim_mean=0.9292 sim_std=0.0575 Loss: 3.8759818077087402
+[rank3] sim_mean=0.9419 sim_std=0.0649 Loss: 2.9520740509033203
+[rank3] sim_mean=0.9403 sim_std=0.0629 Loss: 3.3199357986450195[rank0] pos_mean=0.9201 neg_mean=0.9007 n_pos=7 n_neg=8
+
+[rank0] sim_mean=0.9157 sim_std=0.0771 Loss: 3.4560508728027344
+[rank2] sim_mean=0.9443 sim_std=0.0629 Loss: 3.4755618572235107
+[rank1] sim_mean=0.9517 sim_std=0.0361 Loss: 3.2337958812713623
+[rank3] sim_mean=0.9478 sim_std=0.0451 Loss: 2.7907557487487793
+[rank0] pos_mean=0.9343 neg_mean=0.9320 n_pos=6 n_neg=10
+[rank0] sim_mean=0.9373 sim_std=0.0662 Loss: 3.3542656898498535
+[rank2] sim_mean=0.9087 sim_std=0.0694 Loss: 4.215534687042236
+[rank1] sim_mean=0.9293 sim_std=0.0650 Loss: 3.50624418258667
+/home/jsudan/wav2vec_contr_loss/asvspoof_windowed_loader.py:20: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, _ = librosa.load(audio_path, sr=target_sample_rate, mono=True)
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[rank0] pos_mean=0.9599 neg_mean=0.9440 n_pos=5 n_neg=8
+[rank0] sim_mean=0.9555 sim_std=0.0385 Loss: 2.672991991043091
+[rank1] sim_mean=0.9214 sim_std=0.0759 Loss: 3.8548901081085205
+[rank3] sim_mean=0.9542 sim_std=0.0379 Loss: 3.175145387649536
+[rank2] sim_mean=0.9210 sim_std=0.0810 Loss: 3.9967193603515625
+[rank0] pos_mean=0.9040 neg_mean=0.9046 n_pos=7 n_neg=7
+[rank0] sim_mean=0.9111 sim_std=0.0768 Loss: 3.856755018234253
+[rank2] sim_mean=0.9277 sim_std=0.0806 Loss: 3.377642869949341
+[rank1] sim_mean=0.9440 sim_std=0.0529 Loss: 2.981532573699951
+[rank3] sim_mean=0.9266 sim_std=0.0699 Loss: 3.7595014572143555
+[rank1] sim_mean=0.9266 sim_std=0.0667 Loss: 2.43829607963562
+[rank0] pos_mean=0.9438 neg_mean=0.9170 n_pos=5 n_neg=9
+[rank0] sim_mean=0.9355 sim_std=0.0576 Loss: 3.046260356903076
+[rank3] sim_mean=0.9102 sim_std=0.0796 Loss: 3.470632791519165
+[rank2] sim_mean=0.9686 sim_std=0.0200 Loss: 2.9026384353637695
+[rank2] sim_mean=0.9328 sim_std=0.0536 Loss: 3.4602816104888916[rank1] sim_mean=0.9366 sim_std=0.0586 Loss: 3.171747922897339
+
+[rank0] pos_mean=0.9473 neg_mean=0.9489 n_pos=7 n_neg=9
+[rank0] sim_mean=0.9514 sim_std=0.0548 Loss: 3.2169525623321533
+[rank3] sim_mean=0.9217 sim_std=0.0668 Loss: 3.711339235305786
+[rank0] pos_mean=0.9322 neg_mean=0.9258 n_pos=5 n_neg=7
+[rank0] sim_mean=0.9347 sim_std=0.0700 Loss: 3.1423306465148926
+[rank1] sim_mean=0.9407 sim_std=0.0565 Loss: 3.1141180992126465
+[rank3] sim_mean=0.9408 sim_std=0.0636 Loss: 3.4148411750793457
+[rank2] sim_mean=0.9457 sim_std=0.0476 Loss: 3.4876983165740967
+[rank1] sim_mean=0.9374 sim_std=0.0603 Loss: 2.734565019607544
+[rank0] pos_mean=0.9481 neg_mean=0.9562 n_pos=4 n_neg=7
+[rank0] sim_mean=0.9565 sim_std=0.0323 Loss: 2.675652265548706
+[rank3] sim_mean=0.9121 sim_std=0.0799 Loss: 3.847933769226074
+[rank2] sim_mean=0.9372 sim_std=0.0650 Loss: 3.6017820835113525
+[rank0] pos_mean=0.9480 neg_mean=0.9439 n_pos=7 n_neg=5
+[rank0] sim_mean=0.9503 sim_std=0.0389 Loss: 2.7744140625
+[rank2] sim_mean=0.9229 sim_std=0.0703 Loss: 3.647728204727173
+[rank1] sim_mean=0.9321 sim_std=0.0612 Loss: 3.6178605556488037
+[rank3] sim_mean=0.9349 sim_std=0.0575 Loss: 3.508199453353882
+[rank1] sim_mean=0.9461 sim_std=0.0513 Loss: 2.917815685272217
+[rank2] sim_mean=0.9454 sim_std=0.0577 Loss: 3.2804512977600098
+[rank0] pos_mean=0.9330 neg_mean=0.9267 n_pos=7 n_neg=9
+[rank0] sim_mean=0.9341 sim_std=0.0627 Loss: 3.478235960006714
+[rank3] sim_mean=0.9222 sim_std=0.0712 Loss: 3.69061279296875
+[rank1] sim_mean=0.9424 sim_std=0.0519 Loss: 2.8359012603759766
+[rank0] pos_mean=0.9293 neg_mean=0.9173 n_pos=5 n_neg=8
+[rank0] sim_mean=0.9291 sim_std=0.0660 Loss: 3.3122706413269043
+[rank3] sim_mean=0.9304 sim_std=0.0543 Loss: 3.4936904907226562
+[rank2] sim_mean=0.9246 sim_std=0.0761 Loss: 3.7301783561706543
+[rank1] sim_mean=0.9130 sim_std=0.0763 Loss: 3.9565725326538086
+[rank3] sim_mean=0.9425 sim_std=0.0699 Loss: 3.295639991760254
+[rank0] pos_mean=0.9330 neg_mean=0.9362 n_pos=9 n_neg=7
+[rank0] sim_mean=0.9388 sim_std=0.0558 Loss: 3.6437578201293945
+[rank2] sim_mean=0.9567 sim_std=0.0386 Loss: 3.1462533473968506
+[rank1] sim_mean=0.9669 sim_std=0.0209 Loss: 2.193333625793457
+[rank2] sim_mean=0.9582 sim_std=0.0284 Loss: 2.5215041637420654
+[rank3] sim_mean=0.9323 sim_std=0.0597 Loss: 3.2827939987182617
+[rank0] pos_mean=0.9471 neg_mean=0.9499 n_pos=9 n_neg=8
+[rank0] sim_mean=0.9516 sim_std=0.0555 Loss: 3.2281200885772705
+[rank0] pos_mean=0.9429 neg_mean=0.9140 n_pos=5 n_neg=10[rank1] sim_mean=0.9487 sim_std=0.0406 Loss: 3.1431758403778076
+
+[rank0] sim_mean=0.9338 sim_std=0.0642 Loss: 3.160104990005493
+[rank3] sim_mean=0.9240 sim_std=0.0787 Loss: 3.329735517501831
+[rank2] sim_mean=0.9203 sim_std=0.0749 Loss: 3.508953809738159
+[rank2] sim_mean=0.9277 sim_std=0.0448 Loss: 3.2020092010498047
+[rank0] pos_mean=0.9297 neg_mean=0.9326 n_pos=7 n_neg=6
+[rank3] sim_mean=0.8983 sim_std=0.0843 Loss: 3.801788091659546
+[rank0] sim_mean=0.9366 sim_std=0.0586 Loss: 3.3293099403381348
+[rank1] sim_mean=0.8988 sim_std=0.0882 Loss: 4.2634968757629395
+/home/jsudan/wav2vec_contr_loss/asvspoof_windowed_loader.py:20: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, _ = librosa.load(audio_path, sr=target_sample_rate, mono=True)
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[epoch 006] alpha=0.00 | train_loss=3.4072 | dev_loss=3.6567
+[epoch 006] time=66.92 min | ETA=6262.77 min
+[epoch 006] alpha=0.00 | train_loss=3.4072 | dev_loss=3.6521
+[epoch 006] time=66.92 min | ETA=6261.70 min
+[epoch 006] alpha=0.00 | train_loss=3.4072 | dev_loss=3.6591
+[epoch 006] time=66.88 min | ETA=6263.02 min
+[epoch 006] alpha=0.00 | train_loss=3.4072 | dev_loss=3.6431
+[epoch 006] time=66.92 min | ETA=6263.02 min
+[rank1] sim_mean=0.9405 sim_std=0.0423 Loss: 3.3023197650909424
+[rank0] pos_mean=0.9367 neg_mean=0.9438 n_pos=6 n_neg=9
+[rank0] sim_mean=0.9444 sim_std=0.0507 Loss: 3.39178204536438
+[rank2] sim_mean=0.9298 sim_std=0.0580 Loss: 3.44630765914917
+[rank3] sim_mean=0.9614 sim_std=0.0251 Loss: 2.9203453063964844
+[rank1] sim_mean=0.9362 sim_std=0.0571 Loss: 3.3941564559936523
+[rank3] sim_mean=0.8968 sim_std=0.0846 Loss: 3.3519957065582275
+[rank2] sim_mean=0.9420 sim_std=0.0594 Loss: 3.5165390968322754
+[rank0] pos_mean=0.9367 neg_mean=0.9402 n_pos=9 n_neg=10
+[rank0] sim_mean=0.9417 sim_std=0.0506 Loss: 3.6713509559631348
+[rank2] sim_mean=0.9300 sim_std=0.0684 Loss: 3.3017358779907227
+[rank0] pos_mean=0.9445 neg_mean=0.9316 n_pos=6 n_neg=9
+[rank0] sim_mean=0.9420 sim_std=0.0537 Loss: 3.295764446258545
+[rank3] sim_mean=0.9256 sim_std=0.0714 Loss: 3.492088556289673
+[rank1] sim_mean=0.9078 sim_std=0.0751 Loss: 4.074292182922363
+[rank0] pos_mean=0.9510 neg_mean=0.9315 n_pos=7 n_neg=8
+[rank0] sim_mean=0.9446 sim_std=0.0501 Loss: 2.940352201461792
+[rank3] sim_mean=0.9550 sim_std=0.0325 Loss: 2.3792686462402344
+[rank1] sim_mean=0.9157 sim_std=0.0777 Loss: 4.071465015411377
+[rank2] sim_mean=0.9392 sim_std=0.0582 Loss: 3.6249091625213623
+[rank0] pos_mean=0.9390 neg_mean=0.9410 n_pos=7 n_neg=6
+[rank0] sim_mean=0.9447 sim_std=0.0454 Loss: 3.2262818813323975
+[rank2] sim_mean=0.9288 sim_std=0.0625 Loss: 3.714329957962036
+[rank1] sim_mean=0.9506 sim_std=0.0419 Loss: 3.221811056137085
+[rank3] sim_mean=0.9533 sim_std=0.0312 Loss: 3.130438804626465
+[rank2] sim_mean=0.9439 sim_std=0.0588 Loss: 3.251544237136841
+[rank1] sim_mean=0.9327 sim_std=0.0766 Loss: 3.4765472412109375
+[rank0] pos_mean=0.9176 neg_mean=0.9160 n_pos=8 n_neg=10
+[rank0] sim_mean=0.9214 sim_std=0.0621 Loss: 3.646361827850342
+[rank3] sim_mean=0.9460 sim_std=0.0375 Loss: 3.1259467601776123
+[rank2] sim_mean=0.9082 sim_std=0.0844 Loss: 3.937808036804199
+[rank3] sim_mean=0.9464 sim_std=0.0476 Loss: 3.3545782566070557
+[rank1] sim_mean=0.9417 sim_std=0.0551 Loss: 3.1923444271087646
+[rank0] pos_mean=0.9193 neg_mean=0.9208 n_pos=9 n_neg=9
+[rank0] sim_mean=0.9245 sim_std=0.0715 Loss: 3.8089218139648438
+[rank1] sim_mean=0.9380 sim_std=0.0512 Loss: 3.328880786895752
+[rank0] pos_mean=0.9418 neg_mean=0.9228 n_pos=5 n_neg=9
+[rank0] sim_mean=0.9373 sim_std=0.0473 Loss: 2.88810658454895
+[rank3] sim_mean=0.9239 sim_std=0.0665 Loss: 3.296823263168335
+[rank2] sim_mean=0.9668 sim_std=0.0239 Loss: 3.105799436569214
+[rank2] sim_mean=0.9085 sim_std=0.0806 Loss: 3.9713363647460938
+[rank1] sim_mean=0.9429 sim_std=0.0529 Loss: 3.182323932647705
+[rank0] pos_mean=0.9444 neg_mean=0.9471 n_pos=8 n_neg=7
+[rank0] sim_mean=0.9494 sim_std=0.0538 Loss: 3.0846426486968994
+[rank3] sim_mean=0.9160 sim_std=0.0686 Loss: 3.9051036834716797
+[rank1] sim_mean=0.9506 sim_std=0.0436 Loss: 3.0377111434936523
+[rank3] sim_mean=0.9440 sim_std=0.0487 Loss: 3.2954070568084717
+[rank0] pos_mean=0.9137 neg_mean=0.9205 n_pos=8 n_neg=9
+[rank0] sim_mean=0.9222 sim_std=0.0667 Loss: 3.7327728271484375
+[rank2] sim_mean=0.9165 sim_std=0.0743 Loss: 3.8553853034973145
+[rank1] sim_mean=0.9281 sim_std=0.0631 Loss: 2.644548177719116
+[rank0] pos_mean=0.9140 neg_mean=0.9271 n_pos=5 n_neg=6
+[rank0] sim_mean=0.9283 sim_std=0.0722 Loss: 3.4802932739257812
+[rank2] sim_mean=0.9122 sim_std=0.0787 Loss: 3.9909920692443848
+[rank3] sim_mean=0.9330 sim_std=0.0633 Loss: 3.084873914718628
+[rank1] sim_mean=0.9271 sim_std=0.0610 Loss: 3.3964712619781494[rank0] pos_mean=0.9031 neg_mean=0.9086 n_pos=8 n_neg=7
+
+[rank0] sim_mean=0.9123 sim_std=0.0722 Loss: 3.923125982284546
+[rank3] sim_mean=0.9373 sim_std=0.0458 Loss: 3.103787660598755
+[rank2] sim_mean=0.9257 sim_std=0.0574 Loss: 3.704862117767334
+/home/jsudan/wav2vec_contr_loss/asvspoof_windowed_loader.py:20: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, _ = librosa.load(audio_path, sr=target_sample_rate, mono=True)
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[rank1] sim_mean=0.9415 sim_std=0.0489 Loss: 3.035299301147461
+[rank2] sim_mean=0.9274 sim_std=0.0680 Loss: 3.4395978450775146
+[rank0] pos_mean=0.9521 neg_mean=0.9380 n_pos=6 n_neg=9
+[rank0] sim_mean=0.9485 sim_std=0.0471 Loss: 3.0077953338623047
+[rank3] sim_mean=0.9531 sim_std=0.0479 Loss: 3.190216064453125
+[rank1] sim_mean=0.9237 sim_std=0.0613 Loss: 3.5082850456237793
+[rank0] pos_mean=0.9450 neg_mean=0.9483 n_pos=7 n_neg=8
+[rank0] sim_mean=0.9503 sim_std=0.0421 Loss: 3.048523187637329
+[rank3] sim_mean=0.9163 sim_std=0.0681 Loss: 3.9443087577819824
+[rank2] sim_mean=0.9216 sim_std=0.0808 Loss: 3.1252050399780273
+[rank1] sim_mean=0.9397 sim_std=0.0507 Loss: 2.741288900375366
+[rank3] sim_mean=0.9268 sim_std=0.0615 Loss: 3.4193084239959717
+[rank0] pos_mean=0.9417 neg_mean=0.9422 n_pos=7 n_neg=7
+[rank0] sim_mean=0.9462 sim_std=0.0395 Loss: 3.0782995223999023
+[rank2] sim_mean=0.9287 sim_std=0.0652 Loss: 3.7064638137817383
+[rank0] pos_mean=0.9390 neg_mean=0.9189 n_pos=6 n_neg=5
+[rank0] sim_mean=0.9346 sim_std=0.0727 Loss: 2.6835057735443115
+[rank1] sim_mean=0.9349 sim_std=0.0630 Loss: 3.204241991043091
+[rank3] sim_mean=0.9078 sim_std=0.0818 Loss: 4.087064743041992
+[rank2] sim_mean=0.9369 sim_std=0.0500 Loss: 3.529210090637207
+/home/jsudan/wav2vec_contr_loss/asvspoof_windowed_loader.py:20: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, _ = librosa.load(audio_path, sr=target_sample_rate, mono=True)
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[epoch 007] alpha=0.00 | train_loss=3.4071 | dev_loss=3.6441
+[epoch 007] time=66.77 min | ETA=6197.12 min
+[epoch 007] alpha=0.00 | train_loss=3.4071 | dev_loss=3.6567
+[epoch 007] time=66.77 min | ETA=6198.30 min
+[epoch 007] alpha=0.00 | train_loss=3.4071 | dev_loss=3.6419
+[epoch 007] time=66.80 min | ETA=6198.43 min
+[epoch 007] alpha=0.00 | train_loss=3.4071 | dev_loss=3.6549
+[epoch 007] time=66.79 min | ETA=6198.54 min
+[rank0] pos_mean=0.9291 neg_mean=0.9288 n_pos=9 n_neg=8
+[rank0] sim_mean=0.9331 sim_std=0.0609 Loss: 3.485470771789551
+[rank3] sim_mean=0.9501 sim_std=0.0530 Loss: 2.9386813640594482
+[rank1] sim_mean=0.9271 sim_std=0.0606 Loss: 3.3228390216827393
+[rank2] sim_mean=0.9438 sim_std=0.0465 Loss: 3.2553279399871826
+[rank1] sim_mean=0.9508 sim_std=0.0426 Loss: 2.932570219039917
+[rank3] sim_mean=0.9201 sim_std=0.0782 Loss: 3.373744010925293
+[rank0] pos_mean=0.9200 neg_mean=0.9163 n_pos=9 n_neg=8
+[rank0] sim_mean=0.9229 sim_std=0.0640 Loss: 3.9959025382995605
+[rank2] sim_mean=0.9477 sim_std=0.0515 Loss: 3.321876287460327
+[rank2] sim_mean=0.9347 sim_std=0.0634 Loss: 3.2347779273986816
+[rank0] pos_mean=0.9658 neg_mean=0.9637 n_pos=9 n_neg=7
+[rank0] sim_mean=0.9669 sim_std=0.0255 Loss: 2.897894859313965
+[rank1] sim_mean=0.9414 sim_std=0.0544 Loss: 2.9770452976226807
+[rank3] sim_mean=0.9600 sim_std=0.0308 Loss: 3.1539418697357178
+[rank0] pos_mean=0.9274 neg_mean=0.9329 n_pos=7 n_neg=8
+[rank0] sim_mean=0.9350 sim_std=0.0556 Loss: 3.5042858123779297
+[rank1] sim_mean=0.9225 sim_std=0.0642 Loss: 3.5405216217041016
+[rank3] sim_mean=0.9427 sim_std=0.0577 Loss: 3.3313679695129395
+[rank2] sim_mean=0.9065 sim_std=0.0800 Loss: 3.9779505729675293
+[rank0] pos_mean=0.9099 neg_mean=0.9169 n_pos=6 n_neg=6
+[rank0] sim_mean=0.9209 sim_std=0.0717 Loss: 3.5004804134368896
+[rank2] sim_mean=0.9260 sim_std=0.0701 Loss: 3.4519550800323486
+[rank3] sim_mean=0.9225 sim_std=0.0695 Loss: 2.8924102783203125
+[rank1] sim_mean=0.9430 sim_std=0.0546 Loss: 3.4063303470611572
+[rank0] pos_mean=0.9472 neg_mean=0.9320 n_pos=6 n_neg=9
+[rank0] sim_mean=0.9434 sim_std=0.0587 Loss: 3.183063507080078
+[rank3] sim_mean=0.9455 sim_std=0.0536 Loss: 3.1187527179718018
+[rank1] sim_mean=0.9321 sim_std=0.0547 Loss: 3.5389022827148438
+[rank2] sim_mean=0.9344 sim_std=0.0665 Loss: 3.5544819831848145
+[rank0] pos_mean=0.9606 neg_mean=0.9617 n_pos=7 n_neg=5
+[rank0] sim_mean=0.9644 sim_std=0.0256 Loss: 2.730757713317871
+[rank3] sim_mean=0.9257 sim_std=0.0748 Loss: 3.549257516860962
+[rank1] sim_mean=0.9466 sim_std=0.0467 Loss: 3.1341755390167236
+[rank2] sim_mean=0.9489 sim_std=0.0507 Loss: 3.170804738998413
+[rank3] sim_mean=0.9164 sim_std=0.0737 Loss: 3.2852160930633545
+[rank1] sim_mean=0.9034 sim_std=0.0764 Loss: 3.8268120288848877
+[rank2] sim_mean=0.9470 sim_std=0.0503 Loss: 3.3177688121795654
+[rank0] pos_mean=0.9208 neg_mean=0.9249 n_pos=9 n_neg=8
+[rank0] sim_mean=0.9275 sim_std=0.0662 Loss: 3.626528024673462
+[rank0] pos_mean=0.9090 neg_mean=0.8692 n_pos=6 n_neg=7
+[rank0] sim_mean=0.8962 sim_std=0.0753 Loss: 3.3833978176116943
+[rank1] sim_mean=0.9410 sim_std=0.0524 Loss: 3.251666784286499
+[rank3] sim_mean=0.9254 sim_std=0.0663 Loss: 3.4968323707580566
+[rank2] sim_mean=0.9221 sim_std=0.0753 Loss: 3.978780746459961
+/home/jsudan/wav2vec_contr_loss/asvspoof_windowed_loader.py:20: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, _ = librosa.load(audio_path, sr=target_sample_rate, mono=True)
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[rank1] sim_mean=0.9768 sim_std=0.0102 Loss: 2.1833417415618896
+[rank2] sim_mean=0.9270 sim_std=0.0649 Loss: 3.3535001277923584
+[rank0] pos_mean=0.9322 neg_mean=0.9359 n_pos=7 n_neg=8
+[rank0] sim_mean=0.9386 sim_std=0.0668 Loss: 3.4644858837127686
+[rank3] sim_mean=0.9258 sim_std=0.0654 Loss: 3.631373882293701
+[rank2] sim_mean=0.9039 sim_std=0.0784 Loss: 3.839003562927246[rank3] sim_mean=0.9415 sim_std=0.0597 Loss: 3.096827745437622
+
+[rank1] sim_mean=0.9241 sim_std=0.0678 Loss: 3.7565011978149414
+[rank0] pos_mean=0.9003 neg_mean=0.9056 n_pos=8 n_neg=9
+[rank0] sim_mean=0.9088 sim_std=0.0817 Loss: 4.206140995025635
+[rank1] sim_mean=0.9264 sim_std=0.0537 Loss: 3.380599021911621
+[rank2] sim_mean=0.9333 sim_std=0.0495 Loss: 3.355726480484009
+[rank0] pos_mean=0.9005 neg_mean=0.8987 n_pos=8 n_neg=7
+[rank0] sim_mean=0.9062 sim_std=0.0832 Loss: 3.9098055362701416
+[rank3] sim_mean=0.9421 sim_std=0.0587 Loss: 3.379570960998535
+[rank1] sim_mean=0.9369 sim_std=0.0668 Loss: 3.073509931564331
+[rank2] sim_mean=0.9029 sim_std=0.0824 Loss: 2.8879928588867188
+[rank0] pos_mean=0.9037 neg_mean=0.9093 n_pos=9 n_neg=7
+[rank0] sim_mean=0.9125 sim_std=0.0682 Loss: 3.9980320930480957
+[rank3] sim_mean=0.9617 sim_std=0.0346 Loss: 2.9023795127868652
+[rank0] pos_mean=0.9545 neg_mean=0.9403 n_pos=5 n_neg=7
+[rank0] sim_mean=0.9514 sim_std=0.0359 Loss: 2.6668710708618164
+[rank2] sim_mean=0.9514 sim_std=0.0449 Loss: 2.818373203277588
+[rank3] sim_mean=0.9223 sim_std=0.0665 Loss: 3.649376392364502
+[rank1] sim_mean=0.9377 sim_std=0.0657 Loss: 3.6821160316467285
+[rank1] sim_mean=0.9426 sim_std=0.0555 Loss: 3.049325942993164
+[rank0] pos_mean=0.9344 neg_mean=0.9257 n_pos=7 n_neg=7
+[rank0] sim_mean=0.9347 sim_std=0.0751 Loss: 3.3400590419769287
+[rank2] sim_mean=0.9126 sim_std=0.0789 Loss: 3.73933482170105
+[rank3] sim_mean=0.9455 sim_std=0.0528 Loss: 3.509800672531128
+[rank1] sim_mean=0.9413 sim_std=0.0484 Loss: 3.2486257553100586[rank3] sim_mean=0.9449 sim_std=0.0528 Loss: 3.0284223556518555
+
+[rank0] pos_mean=0.9343 neg_mean=0.9397 n_pos=6 n_neg=9
+[rank0] sim_mean=0.9413 sim_std=0.0516 Loss: 3.389279842376709
+[rank2] sim_mean=0.9382 sim_std=0.0475 Loss: 3.428118944168091
+/home/jsudan/wav2vec_contr_loss/asvspoof_windowed_loader.py:20: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, _ = librosa.load(audio_path, sr=target_sample_rate, mono=True)
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[epoch 008] alpha=0.00 | train_loss=3.4084 | dev_loss=3.6460
+[epoch 008] time=66.76 min | ETA=6133.15 min
+[epoch 008] alpha=0.00 | train_loss=3.4084 | dev_loss=3.6459
+[epoch 008] time=66.79 min | ETA=6132.22 min
+[epoch 008] alpha=0.00 | train_loss=3.4084 | dev_loss=3.6448
+[epoch 008] time=66.77 min | ETA=6133.20 min
+[epoch 008] alpha=0.00 | train_loss=3.4084 | dev_loss=3.6579
+[epoch 008] time=66.79 min | ETA=6133.31 min
+[rank2] sim_mean=0.9565 sim_std=0.0420 Loss: 2.8515472412109375
+[rank0] pos_mean=0.9556 neg_mean=0.9569 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9590 sim_std=0.0327 Loss: 3.0887551307678223
+[rank1] sim_mean=0.9524 sim_std=0.0438 Loss: 2.9805855751037598
+[rank3] sim_mean=0.9315 sim_std=0.0535 Loss: 3.771596670150757
+[rank2] sim_mean=0.9197 sim_std=0.0699 Loss: 3.5543172359466553
+[rank3] sim_mean=0.9422 sim_std=0.0471 Loss: 3.2398297786712646
+[rank0] pos_mean=0.9577 neg_mean=0.9611 n_pos=8 n_neg=5
+[rank0] sim_mean=0.9625 sim_std=0.0254 Loss: 2.7866909503936768
+[rank1] sim_mean=0.9294 sim_std=0.0650 Loss: 3.39894962310791
+[rank3] sim_mean=0.9355 sim_std=0.0587 Loss: 2.963986396789551
+[rank0] pos_mean=0.9199 neg_mean=0.9274 n_pos=7 n_neg=9
+[rank0] sim_mean=0.9286 sim_std=0.0692 Loss: 3.38008975982666
+[rank2] sim_mean=0.9417 sim_std=0.0584 Loss: 3.1451416015625
+[rank1] sim_mean=0.9318 sim_std=0.0716 Loss: 3.768249988555908
+[rank0] pos_mean=0.9274 neg_mean=0.9304 n_pos=6 n_neg=6
+[rank0] sim_mean=0.9349 sim_std=0.0656 Loss: 3.0945558547973633
+[rank3] sim_mean=0.9216 sim_std=0.0578 Loss: 3.4000890254974365
+[rank1] sim_mean=0.9314 sim_std=0.0716 Loss: 3.553683280944824
+[rank2] sim_mean=0.9433 sim_std=0.0608 Loss: 3.266930341720581
+[rank0] pos_mean=0.9232 neg_mean=0.9329 n_pos=5 n_neg=9
+[rank0] sim_mean=0.9332 sim_std=0.0638 Loss: 3.4330036640167236
+[rank2] sim_mean=0.9418 sim_std=0.0529 Loss: 3.094108819961548
+[rank1] sim_mean=0.9303 sim_std=0.0747 Loss: 3.5982227325439453
+[rank3] sim_mean=0.9243 sim_std=0.0645 Loss: 3.7742116451263428
+[rank2] sim_mean=0.9464 sim_std=0.0342 Loss: 2.8980729579925537
+[rank0] pos_mean=0.9247 neg_mean=0.9325 n_pos=6 n_neg=8
+[rank0] sim_mean=0.9339 sim_std=0.0586 Loss: 3.1869513988494873
+[rank1] sim_mean=0.9442 sim_std=0.0414 Loss: 3.0649280548095703
+[rank3] sim_mean=0.9348 sim_std=0.0653 Loss: 3.516389846801758
+[rank1] sim_mean=0.9136 sim_std=0.0802 Loss: 3.9843037128448486[rank2] sim_mean=0.9455 sim_std=0.0493 Loss: 3.208690881729126
+
+[rank3] sim_mean=0.9352 sim_std=0.0629 Loss: 3.5849387645721436
+[rank0] pos_mean=0.9198 neg_mean=0.9125 n_pos=9 n_neg=9
+[rank0] sim_mean=0.9206 sim_std=0.0760 Loss: 3.916489601135254
+[rank1] sim_mean=0.9430 sim_std=0.0557 Loss: 2.9493610858917236
+[rank0] pos_mean=0.9254 neg_mean=0.9045 n_pos=7 n_neg=7
+[rank0] sim_mean=0.9202 sim_std=0.0706 Loss: 3.254027843475342
+[rank3] sim_mean=0.9216 sim_std=0.0639 Loss: 3.742021322250366
+[rank2] sim_mean=0.9252 sim_std=0.0831 Loss: 3.9422171115875244
+[rank2] sim_mean=0.9306 sim_std=0.0567 Loss: 3.5333690643310547
+[rank0] pos_mean=0.9135 neg_mean=0.9077 n_pos=7 n_neg=8
+[rank0] sim_mean=0.9164 sim_std=0.0731 Loss: 3.708080768585205
+[rank1] sim_mean=0.9304 sim_std=0.0708 Loss: 3.4246160984039307
+[rank3] sim_mean=0.9468 sim_std=0.0473 Loss: 3.3081769943237305
+[rank1] sim_mean=0.9373 sim_std=0.0586 Loss: 3.130098342895508
+[rank0] pos_mean=0.9014 neg_mean=0.9123 n_pos=6 n_neg=7
+[rank0] sim_mean=0.9144 sim_std=0.0721 Loss: 3.9683916568756104
+[rank3] sim_mean=0.9481 sim_std=0.0486 Loss: 3.160804271697998[rank2] sim_mean=0.9098 sim_std=0.0731 Loss: 3.8306212425231934
+
+[rank3] sim_mean=0.9406 sim_std=0.0636 Loss: 3.250425100326538
+[rank2] sim_mean=0.9087 sim_std=0.0805 Loss: 4.16042423248291
+[rank1] sim_mean=0.9174 sim_std=0.0790 Loss: 3.8161776065826416
+[rank0] pos_mean=0.9393 neg_mean=0.9346 n_pos=9 n_neg=9
+[rank0] sim_mean=0.9403 sim_std=0.0524 Loss: 3.496190309524536
+/home/jsudan/wav2vec_contr_loss/asvspoof_windowed_loader.py:20: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, _ = librosa.load(audio_path, sr=target_sample_rate, mono=True)
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[rank2] sim_mean=0.9466 sim_std=0.0481 Loss: 3.2474381923675537
+[rank0] pos_mean=0.9247 neg_mean=0.9309 n_pos=8 n_neg=7
+[rank0] sim_mean=0.9328 sim_std=0.0635 Loss: 3.585585832595825
+[rank1] sim_mean=0.9181 sim_std=0.0696 Loss: 3.837599039077759
+[rank3] sim_mean=0.9346 sim_std=0.0601 Loss: 3.771183967590332
+[rank2] sim_mean=0.9070 sim_std=0.0705 Loss: 3.9507102966308594
+[rank0] pos_mean=0.9177 neg_mean=0.9248 n_pos=8 n_neg=7
+[rank0] sim_mean=0.9267 sim_std=0.0649 Loss: 3.6564159393310547
+[rank1] sim_mean=0.9431 sim_std=0.0677 Loss: 3.335404634475708
+[rank3] sim_mean=0.9317 sim_std=0.0778 Loss: 3.542494535446167
+[rank0] pos_mean=0.9099 neg_mean=0.9204 n_pos=6 n_neg=5
+[rank0] sim_mean=0.9233 sim_std=0.0799 Loss: 2.9939422607421875
+[rank1] sim_mean=0.9006 sim_std=0.0791 Loss: 3.9427192211151123
+[rank3] sim_mean=0.9328 sim_std=0.0502 Loss: 3.468196153640747
+[rank2] sim_mean=0.9138 sim_std=0.0823 Loss: 3.881532669067383
+[rank2] sim_mean=0.9459 sim_std=0.0426 Loss: 3.07295560836792
+[rank3] sim_mean=0.9015 sim_std=0.0751 Loss: 3.584568738937378
+[rank0] pos_mean=0.9192 neg_mean=0.9322 n_pos=6 n_neg=11
+[rank0] sim_mean=0.9299 sim_std=0.0744 Loss: 3.524667739868164
+[rank1] sim_mean=0.9285 sim_std=0.0647 Loss: 3.8860421180725098
+[rank2] sim_mean=0.9485 sim_std=0.0413 Loss: 3.0250651836395264
+[rank3] sim_mean=0.9212 sim_std=0.0715 Loss: 3.43815016746521
+[rank0] pos_mean=0.9115 neg_mean=0.9136 n_pos=8 n_neg=6
+[rank0] sim_mean=0.9189 sim_std=0.0764 Loss: 3.675626754760742
+[rank1] sim_mean=0.9332 sim_std=0.0607 Loss: 3.793994665145874
+[2026-01-19T13:11:38.234] error: *** JOB 40315340 ON gl1507 CANCELLED AT 2026-01-19T13:11:38 DUE to SIGNAL Terminated ***
+W0119 13:11:38.234530 69970 torch/distributed/elastic/agent/server/api.py:723] Received Signals.SIGTERM death signal, shutting down workers
+W0119 13:11:38.258948 69970 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 69983 closing signal SIGTERM
+W0119 13:11:38.260085 69970 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 69984 closing signal SIGTERM
+W0119 13:11:38.260290 69970 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 69985 closing signal SIGTERM
+W0119 13:11:38.260436 69970 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 69986 closing signal SIGTERM

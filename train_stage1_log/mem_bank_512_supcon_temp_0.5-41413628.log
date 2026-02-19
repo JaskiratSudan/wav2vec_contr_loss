@@ -1,0 +1,102 @@
+Setting up the environment...
+Job started on gl1502.arc-ts.umich.edu at Fri Jan 30 20:51:27 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_bank_512_supcon_temp_0.5
+USE_QUEUE=1
+QUEUE_SIZE=512
+ACCUM_STEPS=1
+CENTER_BEFORE_NORM=1
+GLOBAL_CENTER=1
+Detected NUM_GPUS=2
+Using BATCH_SIZE=32
+Using device: cuda
+Loading Stage-1 checkpoint from: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_512_supcon_temp_0.5/wav2vec2-xls-r-300m_stage1_head_best.pt
+[OK] Loaded finetuned encoder weights from checkpoint.
+[INFO] Using ASVspoof2019 dataset for embedding extraction.
+==> Building ASV dataset for split: train
+[ASV] Extracting train:   0%|          | 0/100 [00:00<?, ?it/s][ASV] Extracting train:   1%|          | 1/100 [00:07<11:53,  7.20s/it][ASV] Extracting train:   2%|▏         | 2/100 [00:11<09:21,  5.73s/it][ASV] Extracting train:   2%|▏         | 2/100 [00:12<10:29,  6.43s/it]
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 401, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 389, in main
+    extract_asv_split(train_root, train_protocol, "train", backbone, device, dataset_cls=dataset_cls)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 225, in extract_asv_split
+    z = backbone(waveforms, attn_mask)  # (B, D)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 163, in forward
+    hs_4d = self.encoder(waveforms, attention_mask=attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 55, in forward
+    hidden_states = self._forward_frozen(waveforms, attention_mask)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 34, in _forward_frozen
+    out = self.model(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1453, in forward
+    extract_features = self.feature_extractor(input_values)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 431, in forward
+    hidden_states = conv_layer(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/modeling_layers.py", line 93, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 309, in forward
+    hidden_states = self.layer_norm(hidden_states)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/normalization.py", line 217, in forward
+    return F.layer_norm(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/functional.py", line 2905, in layer_norm
+    return torch.layer_norm(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 12.20 GiB. GPU 0 has a total capacity of 44.42 GiB of which 10.50 GiB is free. Including non-PyTorch memory, this process has 33.91 GiB memory in use. Of the allocated memory 25.94 GiB is allocated by PyTorch, and 7.65 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Using device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier.py", line 66, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier.py", line 34, in main
+    X_train = np.load(train_emb_path).astype("float32")
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 427, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/mem_bank_512_supcon_temp_0.5/train_embeddings.npy'
+/home/jsudan/wav2vec_contr_loss/evaluation.py:13: UserWarning: genfromtxt: Empty input file: "/home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt"
+  cm_data = np.genfromtxt(cm_scores_file, dtype=str)
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Found existing score file for 'itw': /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 15.435124038374173
+[INFO] Found existing score file for 'asv19': /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 650, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 643, in main
+    eer = calculate_EER(score_path)
+  File "/home/jsudan/wav2vec_contr_loss/evaluation.py", line 14, in calculate_EER
+    cm_utt_id = cm_data[:, 0]
+IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+----------------------------------------------------------------
+ASV19 pipeline finished at: Fri Jan 30 20:52:36 EST 2026

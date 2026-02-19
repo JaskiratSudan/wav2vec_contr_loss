@@ -1,0 +1,57 @@
+Setting up the environment...
+Job started on gl1513.arc-ts.umich.edu at Mon Feb  2 16:04:33 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: hbm_256_mem_bank_16384_supcon_geodesic_temp_0.5
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 660, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 581, in main
+    spec_map = dataset_specs(args)
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 445, in dataset_specs
+    "include_speakers": ff_speakers if ff_speakers else None,
+NameError: name 'ff_speakers' is not defined
+----------------------------------------------------------------
+EXPERIMENT NAME: hbm_256_alp_ramp_2_alp_end_1_mem_bank_16384_supcon_geodesic_temp_0.5
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 660, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 581, in main
+    spec_map = dataset_specs(args)
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 445, in dataset_specs
+    "include_speakers": ff_speakers if ff_speakers else None,
+NameError: name 'ff_speakers' is not defined
+----------------------------------------------------------------
+EXPERIMENT NAME: hbm_256_mem_bank_32768_supcon_geodesic_temp_0.5
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 660, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 581, in main
+    spec_map = dataset_specs(args)
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 445, in dataset_specs
+    "include_speakers": ff_speakers if ff_speakers else None,
+NameError: name 'ff_speakers' is not defined
+----------------------------------------------------------------
+EXPERIMENT NAME: hbm_256_alp_ramp_2_alp_end_1_mem_bank_32768_supcon_geodesic_temp_0.5
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 660, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 581, in main
+    spec_map = dataset_specs(args)
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 445, in dataset_specs
+    "include_speakers": ff_speakers if ff_speakers else None,
+NameError: name 'ff_speakers' is not defined
+----------------------------------------------------------------
+Evaluation finished at: Mon Feb  2 16:05:30 EST 2026

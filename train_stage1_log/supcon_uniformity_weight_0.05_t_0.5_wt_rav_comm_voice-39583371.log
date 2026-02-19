@@ -1,0 +1,103 @@
+Setting up the environment...
+Job started on gl1504.arc-ts.umich.edu at Fri Jan  9 18:59:45 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_uniformity_weight_0.05_t_0.5_wt_rav_comm_voice
+Using BATCH_SIZE=32
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_0.5_wt_rav_comm_voice/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.2
+NUM_WORKERS=2
+SEED=1337
+UNIFORMITY_WEIGHT=0.05
+UNIFORMITY_T=0.5
+SUPCON_SIMILARITY=cosine
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+USE_RAVDESS=True
+USE_COMMONVOICE=True
+DISTRIBUTED=False | WORLD_SIZE=1 | RANK=0
+=============
+Using device: cuda | RawBoost=True (p=0.7)
+CUDA device count: 1
+[INFO] Added RAVDESS samples: 2452
+[INFO] Added Common Voice samples: 3000
+[INFO] Train samples loaded: bonafide=8032, spoof=22800
+[epoch 001] alpha=0.00 | train_loss=2.8802 | dev_loss=2.8854
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_0.5_wt_rav_comm_voice/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.8854)
+[epoch 002] alpha=0.00 | train_loss=2.7428 | dev_loss=2.7347
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_0.5_wt_rav_comm_voice/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7347)
+[epoch 003] alpha=0.00 | train_loss=2.7320 | dev_loss=2.6973
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_0.5_wt_rav_comm_voice/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6973)
+[epoch 004] alpha=0.00 | train_loss=2.7151 | dev_loss=2.6981
+[epoch 005] alpha=0.00 | train_loss=2.7124 | dev_loss=2.7178
+[epoch 006] alpha=0.00 | train_loss=2.7146 | dev_loss=2.6958
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_0.5_wt_rav_comm_voice/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6958)
+[epoch 007] alpha=0.00 | train_loss=2.7034 | dev_loss=2.6890
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_0.5_wt_rav_comm_voice/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6890)
+[epoch 008] alpha=0.00 | train_loss=2.7024 | dev_loss=2.6927
+[epoch 009] alpha=0.00 | train_loss=2.7019 | dev_loss=2.6937
+[epoch 010] alpha=0.00 | train_loss=2.7015 | dev_loss=2.6876
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_0.5_wt_rav_comm_voice/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6876)
+[epoch 011] alpha=0.00 | train_loss=2.6941 | dev_loss=2.6947
+[epoch 012] alpha=0.00 | train_loss=2.7001 | dev_loss=2.6984
+[epoch 013] alpha=0.00 | train_loss=2.6998 | dev_loss=2.6920
+[epoch 014] alpha=0.00 | train_loss=2.6966 | dev_loss=2.6929
+[epoch 015] alpha=0.00 | train_loss=2.6903 | dev_loss=2.6894
+[epoch 016] alpha=0.00 | train_loss=2.6949 | dev_loss=2.7003
+[epoch 017] alpha=0.00 | train_loss=2.6909 | dev_loss=2.6896
+[epoch 018] alpha=0.00 | train_loss=2.6927 | dev_loss=2.6901
+[epoch 019] alpha=0.00 | train_loss=2.6883 | dev_loss=2.6867
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_0.5_wt_rav_comm_voice/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6867)
+[epoch 020] alpha=0.00 | train_loss=2.6955 | dev_loss=2.6895
+[epoch 021] alpha=0.00 | train_loss=2.6909 | dev_loss=2.6861
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_0.5_wt_rav_comm_voice/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6861)
+[epoch 022] alpha=0.00 | train_loss=2.6928 | dev_loss=2.6948
+[epoch 023] alpha=0.00 | train_loss=2.6950 | dev_loss=2.6917
+[epoch 024] alpha=0.00 | train_loss=2.6838 | dev_loss=2.9814
+[epoch 025] alpha=0.00 | train_loss=2.6922 | dev_loss=2.6849
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_0.5_wt_rav_comm_voice/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6849)
+[epoch 026] alpha=0.00 | train_loss=2.6913 | dev_loss=2.6833
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_0.5_wt_rav_comm_voice/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6833)
+[epoch 027] alpha=0.00 | train_loss=2.6884 | dev_loss=2.6850
+[epoch 028] alpha=0.00 | train_loss=2.6823 | dev_loss=2.6872
+[epoch 029] alpha=0.00 | train_loss=2.6953 | dev_loss=2.6871
+[epoch 030] alpha=0.00 | train_loss=2.6877 | dev_loss=2.6810
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.05_t_0.5_wt_rav_comm_voice/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6810)
+[epoch 031] alpha=0.00 | train_loss=2.6836 | dev_loss=2.8387
+[epoch 032] alpha=0.00 | train_loss=2.6936 | dev_loss=2.6857
+[epoch 033] alpha=0.00 | train_loss=2.6851 | dev_loss=2.6902
+[epoch 034] alpha=0.00 | train_loss=2.6930 | dev_loss=2.6816
+[epoch 035] alpha=0.00 | train_loss=2.6891 | dev_loss=2.6844
+[epoch 036] alpha=0.00 | train_loss=2.6879 | dev_loss=2.7168
+[epoch 037] alpha=0.00 | train_loss=2.6888 | dev_loss=2.6870
+[epoch 038] alpha=0.00 | train_loss=2.6847 | dev_loss=2.6869
+[epoch 039] alpha=0.00 | train_loss=2.6877 | dev_loss=2.6874
+[epoch 040] alpha=0.00 | train_loss=2.6878 | dev_loss=2.6875
+[2026-01-10T09:59:58.316] error: *** JOB 39583371 ON gl1504 CANCELLED AT 2026-01-10T09:59:58 DUE TO TIME LIMIT ***

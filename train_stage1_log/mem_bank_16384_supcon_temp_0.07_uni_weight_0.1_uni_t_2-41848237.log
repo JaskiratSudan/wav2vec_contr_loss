@@ -1,0 +1,170 @@
+Setting up the environment...
+Job started on gl1506.arc-ts.umich.edu at Thu Feb  5 18:47:44 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_bank_16384_supcon_temp_0.07_uni_weight_0.1_uni_t_2
+USE_QUEUE=1
+QUEUE_SIZE=16384
+ACCUM_STEPS=1
+CENTER_BEFORE_NORM=0
+GLOBAL_CENTER=0
+Detected NUM_GPUS=2
+Using BATCH_SIZE=32
+W0205 18:47:52.111453 1105218 torch/distributed/run.py:774] 
+W0205 18:47:52.111453 1105218 torch/distributed/run.py:774] *****************************************
+W0205 18:47:52.111453 1105218 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0205 18:47:52.111453 1105218 torch/distributed/run.py:774] *****************************************
+[W205 18:47:52.062010878 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29737 (errno: 97 - Address family not supported by protocol).
+[W205 18:47:52.063028961 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29737 (errno: 97 - Address family not supported by protocol).
+[W205 18:47:52.064025634 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29737 (errno: 97 - Address family not supported by protocol).
+[W205 18:48:01.541765414 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29737 (errno: 97 - Address family not supported by protocol).
+[W205 18:48:01.541937637 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29737 (errno: 97 - Address family not supported by protocol).
+[W205 18:48:01.542702078 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29737 (errno: 97 - Address family not supported by protocol).
+[W205 18:48:01.543006689 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29737 (errno: 97 - Address family not supported by protocol).
+[W205 18:48:01.543716805 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29737 (errno: 97 - Address family not supported by protocol).
+[W205 18:48:01.544048800 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29737 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+MODEL_ID=wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_16384_supcon_temp_0.07_uni_weight_0.1_uni_t_2
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=10
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+ACCUM_STEPS=1
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.07
+NUM_WORKERS=4
+SEED=1337
+UNIFORMITY_WEIGHT=0.1
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=cosine
+TOPK_NEG=256
+WARMUP_EPOCHS=100
+ALPHA_END=0.9
+ALPHA_RAMP_EPOCHS=20
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=10
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Global batch size=32 | Per-GPU batch size=16
+[INFO] Queue size=16384 (per-rank)
+[rank1] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.9103 std=0.0555 min=0.7103 max=0.9808 var_mean=8.213928e-05
+[rank1] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9499 std=0.0330 min=0.8289 max=0.9900 var_mean=1.833660e-04
+[rank1] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9499 std=0.0330 min=0.8289 max=0.9900 var_mean=1.833660e-04
+[rank1] sim_mean=0.9531 sim_std=0.0342 Loss: 2.7689871788024902
+[rank0] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.8784 std=0.0849 min=0.5629 max=0.9687 var_mean=1.112925e-04
+[rank0] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9352 std=0.0473 min=0.7372 max=0.9851 var_mean=2.374078e-04
+[rank0] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9352 std=0.0473 min=0.7372 max=0.9851 var_mean=2.374078e-04
+[rank0] pos_mean=0.9359 neg_mean=0.9345 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9392 sim_std=0.0484 Loss: 2.8073654174804688
+[epoch 001] alpha=0.00 | train_loss=4.5686 | dev_loss=2.7080
+[epoch 001] alpha=0.00 | train_loss=4.5686 | dev_loss=2.7080
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_16384_supcon_temp_0.07_uni_weight_0.1_uni_t_2/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7080)
+[rank1] sim_mean=0.9999 sim_std=0.0001 Loss: 5.473160266876221
+[rank0] pos_mean=0.9999 neg_mean=0.9999 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9999 sim_std=0.0001 Loss: 5.468765735626221
+[epoch 002] alpha=0.00 | train_loss=5.0603 | dev_loss=2.7080
+[epoch 002] alpha=0.00 | train_loss=5.0603 | dev_loss=2.7080
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 5.132476806640625
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 5.133817672729492
+[epoch 003] alpha=0.00 | train_loss=4.9532 | dev_loss=2.7080
+[epoch 003] alpha=0.00 | train_loss=4.9532 | dev_loss=2.7080
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 5.075496673583984
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 5.0751495361328125
+[epoch 004] alpha=0.00 | train_loss=5.0984 | dev_loss=2.7080
+[epoch 004] alpha=0.00 | train_loss=5.0984 | dev_loss=2.7080
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 5.320581912994385
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 5.323350429534912
+[epoch 005] alpha=0.00 | train_loss=5.4672 | dev_loss=2.7080
+[epoch 005] alpha=0.00 | train_loss=5.4672 | dev_loss=2.7080
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0001 Loss: 4.965874671936035
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 4.955458164215088
+[epoch 006] alpha=0.00 | train_loss=4.4349 | dev_loss=2.7080
+[epoch 006] alpha=0.00 | train_loss=4.4349 | dev_loss=2.7080
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 5.193263530731201
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 5.190608978271484
+[epoch 007] alpha=0.00 | train_loss=5.4995 | dev_loss=2.7076
+[epoch 007] alpha=0.00 | train_loss=5.4995 | dev_loss=2.7077
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_16384_supcon_temp_0.07_uni_weight_0.1_uni_t_2/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7076)
+[rank1] sim_mean=0.9992 sim_std=0.0008 Loss: 4.565219402313232
+[rank0] pos_mean=0.9994 neg_mean=0.9994 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9994 sim_std=0.0004 Loss: 4.56815767288208
+[epoch 008] alpha=0.00 | train_loss=4.5080 | dev_loss=2.7079
+[epoch 008] alpha=0.00 | train_loss=4.5080 | dev_loss=2.7079
+[rank1] sim_mean=0.9997 sim_std=0.0004 Loss: 4.733090400695801
+[rank0] pos_mean=0.9998 neg_mean=0.9998 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9998 sim_std=0.0003 Loss: 4.731782913208008
+[epoch 009] alpha=0.00 | train_loss=5.2938 | dev_loss=2.7080
+[epoch 009] alpha=0.00 | train_loss=5.2938 | dev_loss=2.7080
+[rank0] pos_mean=0.9998 neg_mean=0.9998 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9999 sim_std=0.0001 Loss: 4.166952610015869
+[rank1] sim_mean=0.9998 sim_std=0.0001 Loss: 4.159653186798096
+[epoch 010] alpha=0.00 | train_loss=4.3816 | dev_loss=2.7080
+[epoch 010] alpha=0.00 | train_loss=4.3816 | dev_loss=2.7080
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 4.781538009643555
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 4.777052879333496
+[epoch 011] alpha=0.00 | train_loss=4.8676 | dev_loss=2.7080
+[epoch 011] alpha=0.00 | train_loss=4.8676 | dev_loss=2.7080
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 4.721245288848877
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 4.718785285949707
+[epoch 012] alpha=0.00 | train_loss=4.4067 | dev_loss=2.7080
+[epoch 012] alpha=0.00 | train_loss=4.4067 | dev_loss=2.7080
+[rank1] sim_mean=0.9999 sim_std=0.0001 Loss: 4.16646671295166
+[rank0] pos_mean=0.9998 neg_mean=0.9998 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9998 sim_std=0.0002 Loss: 4.167386054992676
+[epoch 013] alpha=0.00 | train_loss=5.1226 | dev_loss=2.7080
+[epoch 013] alpha=0.00 | train_loss=5.1226 | dev_loss=2.7080
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 5.527642726898193
+[rank1] sim_mean=0.9999 sim_std=0.0001 Loss: 5.5334014892578125
+[epoch 014] alpha=0.00 | train_loss=4.4782 | dev_loss=2.7080
+[epoch 014] alpha=0.00 | train_loss=4.4782 | dev_loss=2.7080
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 4.707818508148193
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 4.708895206451416
+[epoch 015] alpha=0.00 | train_loss=4.7423 | dev_loss=2.7080
+[epoch 015] alpha=0.00 | train_loss=4.7423 | dev_loss=2.7080
+[rank0] pos_mean=0.9999 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 4.827963829040527
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 4.827549457550049
+[epoch 016] alpha=0.00 | train_loss=4.6951 | dev_loss=2.7080
+[epoch 016] alpha=0.00 | train_loss=4.6951 | dev_loss=2.7080
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 4.846599578857422
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 4.845663070678711
+[2026-02-05T20:22:14.135] error: *** JOB 41848237 ON gl1506 CANCELLED AT 2026-02-05T20:22:14 DUE to SIGNAL Terminated ***
+W0205 20:22:14.137296 1105218 torch/distributed/elastic/agent/server/api.py:723] Received Signals.SIGTERM death signal, shutting down workers
+W0205 20:22:14.141420 1105218 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 1105232 closing signal SIGTERM
+W0205 20:22:14.142333 1105218 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 1105233 closing signal SIGTERM

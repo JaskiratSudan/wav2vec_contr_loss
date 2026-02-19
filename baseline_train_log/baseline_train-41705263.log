@@ -1,0 +1,29 @@
+Setting up the environment...
+Job started on gl1513.arc-ts.umich.edu at Tue Feb  3 11:27:23 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+Starting the Python training script...
+Device: cuda
+[INFO] Scoring dataset 'itw' -> /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 15.343493579235329
+[INFO] Scoring dataset 'asv19' -> /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+EER (asv19): 0.6365012386557123
+[INFO] Scoring dataset 'asv5' -> /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+EER (asv5): 18.705222722256217
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_baseline_datasets.py", line 393, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_baseline_datasets.py", line 335, in main
+    ds = spec["cls"](**spec["kwargs"])
+  File "/home/jsudan/wav2vec_contr_loss/data_loader.py", line 154, in __init__
+    raise RuntimeError("FamousFiguresDataset: No audio after filtering.")
+RuntimeError: FamousFiguresDataset: No audio after filtering.
+----------------------------------------------------------------
+Training script finished.
+Job finished at: Tue Feb  3 14:20:34 EST 2026

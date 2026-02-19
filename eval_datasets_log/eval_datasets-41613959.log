@@ -1,0 +1,63 @@
+Setting up the environment...
+Job started on gl1513.arc-ts.umich.edu at Mon Feb  2 19:12:25 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: hbm_256_mem_bank_16384_supcon_geodesic_temp_0.5
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> scores/hbm_256_mem_bank_16384_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: scores/hbm_256_mem_bank_16384_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 14.616408373432623
+[INFO] Scoring dataset 'fakexpose' -> scores/hbm_256_mem_bank_16384_supcon_geodesic_temp_0.5/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote: scores/hbm_256_mem_bank_16384_supcon_geodesic_temp_0.5/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 64.47547474622306
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> scores/hbm_256_mem_bank_16384_supcon_geodesic_temp_0.5/famous_figures/score_cm_ff.txt
+[OK] Wrote: scores/hbm_256_mem_bank_16384_supcon_geodesic_temp_0.5/famous_figures/score_cm_ff.txt
+EER (famous_figures): 42.066272719360285
+[INFO] Scoring dataset 'asv5' -> scores/hbm_256_mem_bank_16384_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[OK] Wrote: scores/hbm_256_mem_bank_16384_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+EER (asv5): 16.38710504867666
+[INFO] Scoring dataset 'mlaad' -> scores/hbm_256_mem_bank_16384_supcon_geodesic_temp_0.5/mlaad/score_cm_mlaad.txt
+[OK] Wrote: scores/hbm_256_mem_bank_16384_supcon_geodesic_temp_0.5/mlaad/score_cm_mlaad.txt
+EER (mlaad): 11.289683699720843
+----------------------------------------------------------------
+EXPERIMENT NAME: hbm_256_alp_ramp_2_alp_end_1_mem_bank_16384_supcon_geodesic_temp_0.5
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> scores/hbm_256_alp_ramp_2_alp_end_1_mem_bank_16384_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: scores/hbm_256_alp_ramp_2_alp_end_1_mem_bank_16384_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 13.269845422562549
+[INFO] Scoring dataset 'fakexpose' -> scores/hbm_256_alp_ramp_2_alp_end_1_mem_bank_16384_supcon_geodesic_temp_0.5/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote: scores/hbm_256_alp_ramp_2_alp_end_1_mem_bank_16384_supcon_geodesic_temp_0.5/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 60.781050982909534
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> scores/hbm_256_alp_ramp_2_alp_end_1_mem_bank_16384_supcon_geodesic_temp_0.5/famous_figures/score_cm_ff.txt
+[OK] Wrote: scores/hbm_256_alp_ramp_2_alp_end_1_mem_bank_16384_supcon_geodesic_temp_0.5/famous_figures/score_cm_ff.txt
+EER (famous_figures): 49.83518857707679
+[INFO] Scoring dataset 'asv5' -> scores/hbm_256_alp_ramp_2_alp_end_1_mem_bank_16384_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[OK] Wrote: scores/hbm_256_alp_ramp_2_alp_end_1_mem_bank_16384_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+EER (asv5): 17.910666386174146
+[INFO] Scoring dataset 'mlaad' -> scores/hbm_256_alp_ramp_2_alp_end_1_mem_bank_16384_supcon_geodesic_temp_0.5/mlaad/score_cm_mlaad.txt
+[OK] Wrote: scores/hbm_256_alp_ramp_2_alp_end_1_mem_bank_16384_supcon_geodesic_temp_0.5/mlaad/score_cm_mlaad.txt
+EER (mlaad): 8.213689699630102
+----------------------------------------------------------------
+EXPERIMENT NAME: hbm_256_mem_bank_32768_supcon_geodesic_temp_0.5
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> scores/hbm_256_mem_bank_32768_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: scores/hbm_256_mem_bank_32768_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 14.286072090510299
+[INFO] Scoring dataset 'fakexpose' -> scores/hbm_256_mem_bank_32768_supcon_geodesic_temp_0.5/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote: scores/hbm_256_mem_bank_32768_supcon_geodesic_temp_0.5/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 56.664964917127634
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> scores/hbm_256_mem_bank_32768_supcon_geodesic_temp_0.5/famous_figures/score_cm_ff.txt
+[OK] Wrote: scores/hbm_256_mem_bank_32768_supcon_geodesic_temp_0.5/famous_figures/score_cm_ff.txt
+EER (famous_figures): 49.186275454305125
+[INFO] Scoring dataset 'asv5' -> scores/hbm_256_mem_bank_32768_supcon_geodesic_temp_0.5/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[2026-02-03T19:12:45.008] error: *** JOB 41613959 ON gl1513 CANCELLED AT 2026-02-03T19:12:45 DUE TO TIME LIMIT ***

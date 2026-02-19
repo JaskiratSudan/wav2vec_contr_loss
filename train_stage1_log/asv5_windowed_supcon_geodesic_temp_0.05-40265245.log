@@ -1,0 +1,132 @@
+Setting up the environment...
+Job started on gl1511.arc-ts.umich.edu at Sun Jan 18 15:11:20 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+ASV5_TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_train/flac
+ASV5_TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5_train_protocol.txt
+ASV5_DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_dev/flac
+ASV5_DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5.dev.metadata.txt
+ASV5_EVAL_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_eval/flac
+ASV5_EVAL_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5_eval_metadata.txt
+EXPERIMENT NAME: asv5_windowed_supcon_geodesic_temp_0.05
+Using BATCH_SIZE=32
+W0118 15:11:28.242284 2536820 torch/distributed/run.py:774] 
+W0118 15:11:28.242284 2536820 torch/distributed/run.py:774] *****************************************
+W0118 15:11:28.242284 2536820 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0118 15:11:28.242284 2536820 torch/distributed/run.py:774] *****************************************
+[W118 15:11:28.190265233 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29745 (errno: 97 - Address family not supported by protocol).
+[W118 15:11:28.191289705 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29745 (errno: 97 - Address family not supported by protocol).
+[W118 15:11:28.192251256 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29745 (errno: 97 - Address family not supported by protocol).
+[W118 15:11:37.722866483 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29745 (errno: 97 - Address family not supported by protocol).
+[W118 15:11:37.722985681 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29745 (errno: 97 - Address family not supported by protocol).
+[W118 15:11:37.723020002 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29745 (errno: 97 - Address family not supported by protocol).
+[W118 15:11:37.723082023 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29745 (errno: 97 - Address family not supported by protocol).
+[W118 15:11:37.723828752 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29745 (errno: 97 - Address family not supported by protocol).
+[W118 15:11:37.724040616 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29745 (errno: 97 - Address family not supported by protocol).
+[W118 15:11:37.724064015 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29745 (errno: 97 - Address family not supported by protocol).
+[W118 15:11:37.724174240 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29745 (errno: 97 - Address family not supported by protocol).
+[W118 15:11:37.724900135 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29745 (errno: 97 - Address family not supported by protocol).
+[W118 15:11:37.725062522 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29745 (errno: 97 - Address family not supported by protocol).
+[W118 15:11:37.725147691 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29745 (errno: 97 - Address family not supported by protocol).
+[W118 15:11:37.725246572 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29745 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_windowed_supcon_geodesic_temp_0.05/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.05
+NUM_WORKERS=6
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=False
+RAWBOOST_PROB=0.0
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=10
+DISTRIBUTED=True | WORLD_SIZE=4 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=False (p=0.0)
+CUDA device count: 4
+[INFO] Train samples loaded: bonafide=18797, spoof=163560
+[INFO] Train samples loaded: bonafide=18797, spoof=163560
+[INFO] Train samples loaded: bonafide=18797, spoof=163560
+[INFO] Train samples loaded: bonafide=18797, spoof=163560
+[INFO] Global batch size=32 | Per-GPU batch size=8
+[rank3] sim_mean=0.9549 sim_std=0.0487 Loss: 3.6441640853881836
+[rank0] pos_mean=0.9527 neg_mean=0.9487 n_pos=13 n_neg=9
+[rank2] sim_mean=0.9463 sim_std=0.0576 Loss: 3.9067163467407227
+[rank1] sim_mean=0.9679 sim_std=0.0423 Loss: 3.399623394012451
+[rank0] sim_mean=0.9529 sim_std=0.0486 Loss: 3.4148478507995605
+[rank2] sim_mean=0.9603 sim_std=0.0416 Loss: 2.3843204975128174
+[rank3] sim_mean=0.9596 sim_std=0.0412 Loss: 2.3757128715515137
+[rank0] pos_mean=0.9949 neg_mean=0.9238 n_pos=14 n_neg=12
+[rank1] sim_mean=0.9592 sim_std=0.0418 Loss: 2.48869252204895
+[rank0] sim_mean=0.9598 sim_std=0.0404 Loss: 2.776698589324951
+[rank1] sim_mean=0.9501 sim_std=0.0516 Loss: 2.3047385215759277
+[rank0] pos_mean=0.9996 neg_mean=0.8916 n_pos=13 n_neg=10
+[rank2] sim_mean=0.9484 sim_std=0.0533 Loss: 2.3242247104644775
+[rank3] sim_mean=0.9479 sim_std=0.0522 Loss: 2.361807107925415
+[rank0] sim_mean=0.9465 sim_std=0.0544 Loss: 2.3730435371398926
+[epoch 001] alpha=0.00 | train_loss=2.4754 | dev_loss=2.5524
+[epoch 001] alpha=0.00 | train_loss=2.4754 | dev_loss=2.5489
+[epoch 001] alpha=0.00 | train_loss=2.4754 | dev_loss=2.5393
+[epoch 001] alpha=0.00 | train_loss=2.4754 | dev_loss=2.5444
+[rank2] sim_mean=0.9612 sim_std=0.0398 Loss: 2.4925897121429443
+[rank3] sim_mean=0.9614 sim_std=0.0389 Loss: 2.317713737487793
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_windowed_supcon_geodesic_temp_0.05/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.5444)
+[rank1] sim_mean=0.9601 sim_std=0.0399 Loss: 2.4527337551116943
+[rank0] pos_mean=0.9999 neg_mean=0.9171 n_pos=15 n_neg=9
+[rank0] sim_mean=0.9611 sim_std=0.0414 Loss: 2.437436103820801
+[rank3] sim_mean=0.9599 sim_std=0.0418 Loss: 2.2251574993133545
+[rank2] sim_mean=0.9609 sim_std=0.0421 Loss: 2.3478217124938965
+[rank0] pos_mean=0.9998 neg_mean=0.9182 n_pos=14 n_neg=10
+[rank0] sim_mean=0.9601 sim_std=0.0410 Loss: 2.422431230545044
+[rank1] sim_mean=0.9606 sim_std=0.0400 Loss: 2.4651002883911133
+[rank0] pos_mean=0.9996 neg_mean=0.9208 n_pos=12 n_neg=11
+[rank0] sim_mean=0.9603 sim_std=0.0399 Loss: 2.3731868267059326
+[rank1] sim_mean=0.9598 sim_std=0.0409 Loss: 2.3690173625946045
+[rank2] sim_mean=0.9605 sim_std=0.0421 Loss: 2.4368815422058105
+[rank3] sim_mean=0.9587 sim_std=0.0413 Loss: 2.406269073486328
+[epoch 002] alpha=0.00 | train_loss=2.4159 | dev_loss=3.0672
+[epoch 002] alpha=0.00 | train_loss=2.4159 | dev_loss=3.0736
+[rank2] sim_mean=0.9348 sim_std=0.0683 Loss: 2.376840353012085
+[epoch 002] alpha=0.00 | train_loss=2.4159 | dev_loss=3.0716
+[epoch 002] alpha=0.00 | train_loss=2.4159 | dev_loss=3.0671
+[rank3] sim_mean=0.9348 sim_std=0.0671 Loss: 2.416083574295044
+[rank0] pos_mean=0.9999 neg_mean=0.8636 n_pos=14 n_neg=9
+[rank0] sim_mean=0.9350 sim_std=0.0682 Loss: 2.377199649810791
+[rank1] sim_mean=0.9329 sim_std=0.0672 Loss: 2.3055198192596436
+[rank3] sim_mean=0.9435 sim_std=0.0581 Loss: 2.4156174659729004
+[rank2] sim_mean=0.9404 sim_std=0.0596 Loss: 2.4015724658966064
+[rank1] sim_mean=0.9401 sim_std=0.0599 Loss: 2.4007134437561035
+[rank0] pos_mean=0.9999 neg_mean=0.8800 n_pos=16 n_neg=12
+[rank0] sim_mean=0.9412 sim_std=0.0600 Loss: 2.5781056880950928
+[2026-01-18T16:19:10.320] error: *** JOB 40265245 ON gl1511 CANCELLED AT 2026-01-18T16:19:10 DUE to SIGNAL Terminated ***

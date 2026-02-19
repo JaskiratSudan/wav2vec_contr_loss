@@ -1,0 +1,162 @@
+Setting up the environment...
+Job started on gl1519.arc-ts.umich.edu at Tue Jan  6 21:21:35 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_uniformity_weight_0.01_t_4
+Using BATCH_SIZE=32
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.2
+NUM_WORKERS=2
+SEED=1337
+UNIFORMITY_WEIGHT=0.01
+UNIFORMITY_T=4.0
+SUPCON_SIMILARITY=cosine
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+DISTRIBUTED=False | WORLD_SIZE=1 | RANK=0
+=============
+Using device: cuda | RawBoost=True (p=0.7)
+CUDA device count: 1
+[epoch 001] alpha=0.00 | train_loss=3.0566 | dev_loss=3.0444
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=3.0444)
+[epoch 002] alpha=0.00 | train_loss=2.8039 | dev_loss=3.0916
+[epoch 003] alpha=0.00 | train_loss=2.7779 | dev_loss=2.9782
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.9782)
+[epoch 004] alpha=0.00 | train_loss=2.7593 | dev_loss=2.9249
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.9249)
+[epoch 005] alpha=0.00 | train_loss=2.7568 | dev_loss=2.7972
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7972)
+[epoch 006] alpha=0.00 | train_loss=2.7493 | dev_loss=2.8426
+[epoch 007] alpha=0.00 | train_loss=2.7419 | dev_loss=2.9799
+[epoch 008] alpha=0.00 | train_loss=2.7406 | dev_loss=2.7585
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7585)
+[epoch 009] alpha=0.00 | train_loss=2.7442 | dev_loss=2.9267
+[epoch 010] alpha=0.00 | train_loss=2.7252 | dev_loss=2.7286
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7286)
+[epoch 011] alpha=0.00 | train_loss=2.7237 | dev_loss=2.7854
+[epoch 012] alpha=0.00 | train_loss=2.7275 | dev_loss=2.7107
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7107)
+[epoch 013] alpha=0.00 | train_loss=2.7286 | dev_loss=2.9146
+[epoch 014] alpha=0.00 | train_loss=2.7340 | dev_loss=2.7337
+[epoch 015] alpha=0.00 | train_loss=2.7205 | dev_loss=2.7251
+[epoch 016] alpha=0.00 | train_loss=2.7243 | dev_loss=2.7086
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7086)
+[epoch 017] alpha=0.00 | train_loss=2.7167 | dev_loss=2.7139
+[epoch 018] alpha=0.00 | train_loss=2.7329 | dev_loss=2.7130
+[epoch 019] alpha=0.00 | train_loss=2.7214 | dev_loss=2.7097
+[epoch 020] alpha=0.00 | train_loss=2.7176 | dev_loss=2.7524
+[epoch 021] alpha=0.00 | train_loss=2.7196 | dev_loss=2.7084
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7084)
+[epoch 022] alpha=0.00 | train_loss=2.7172 | dev_loss=2.7438
+[epoch 023] alpha=0.00 | train_loss=2.7151 | dev_loss=2.7217
+[epoch 024] alpha=0.00 | train_loss=2.7083 | dev_loss=2.7159
+[epoch 025] alpha=0.00 | train_loss=2.7130 | dev_loss=2.7296
+[epoch 026] alpha=0.00 | train_loss=2.7220 | dev_loss=2.7064
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7064)
+[epoch 027] alpha=0.00 | train_loss=2.7143 | dev_loss=2.7056
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7056)
+[epoch 028] alpha=0.00 | train_loss=2.7136 | dev_loss=2.7157
+[epoch 029] alpha=0.00 | train_loss=2.7102 | dev_loss=2.7043
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7043)
+[epoch 030] alpha=0.00 | train_loss=2.7147 | dev_loss=2.7081
+[epoch 031] alpha=0.00 | train_loss=2.7127 | dev_loss=2.7053
+[epoch 032] alpha=0.00 | train_loss=2.7160 | dev_loss=2.7365
+[epoch 033] alpha=0.00 | train_loss=2.7141 | dev_loss=2.7234
+[epoch 034] alpha=0.00 | train_loss=2.7083 | dev_loss=2.7032
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7032)
+[epoch 035] alpha=0.00 | train_loss=2.7248 | dev_loss=2.7345
+[epoch 036] alpha=0.00 | train_loss=2.7085 | dev_loss=2.7066
+[epoch 037] alpha=0.00 | train_loss=2.7070 | dev_loss=2.7045
+[epoch 038] alpha=0.00 | train_loss=2.7022 | dev_loss=2.7053
+[epoch 039] alpha=0.00 | train_loss=2.7068 | dev_loss=2.7035
+[epoch 040] alpha=0.00 | train_loss=2.7077 | dev_loss=2.7151
+[epoch 041] alpha=0.00 | train_loss=2.7248 | dev_loss=2.7106
+[epoch 042] alpha=0.00 | train_loss=2.7076 | dev_loss=2.7039
+[epoch 043] alpha=0.00 | train_loss=2.7230 | dev_loss=2.7080
+[epoch 044] alpha=0.00 | train_loss=2.7156 | dev_loss=2.7110
+[epoch 045] alpha=0.00 | train_loss=2.7154 | dev_loss=2.7114
+[epoch 046] alpha=0.00 | train_loss=2.7118 | dev_loss=2.7090
+[epoch 047] alpha=0.00 | train_loss=2.7094 | dev_loss=2.7108
+[epoch 048] alpha=0.00 | train_loss=2.7135 | dev_loss=2.7113
+[epoch 049] alpha=0.00 | train_loss=2.7128 | dev_loss=2.7054
+[epoch 050] alpha=0.00 | train_loss=2.7093 | dev_loss=2.7118
+[epoch 051] alpha=0.00 | train_loss=2.7174 | dev_loss=2.7090
+[epoch 052] alpha=0.00 | train_loss=2.7095 | dev_loss=2.7074
+[epoch 053] alpha=0.00 | train_loss=2.7108 | dev_loss=2.7077
+[epoch 054] alpha=0.00 | train_loss=2.7047 | dev_loss=2.7052
+[epoch 055] alpha=0.00 | train_loss=2.7026 | dev_loss=2.7038
+[epoch 056] alpha=0.00 | train_loss=2.7011 | dev_loss=2.7041
+[epoch 057] alpha=0.00 | train_loss=2.7157 | dev_loss=2.7085
+[epoch 058] alpha=0.00 | train_loss=2.7139 | dev_loss=2.7200
+[epoch 059] alpha=0.00 | train_loss=2.7109 | dev_loss=2.7135
+[epoch 060] alpha=0.00 | train_loss=2.7085 | dev_loss=2.7083
+[epoch 061] alpha=0.00 | train_loss=2.7046 | dev_loss=2.7068
+[epoch 062] alpha=0.00 | train_loss=2.7108 | dev_loss=2.7064
+[epoch 063] alpha=0.00 | train_loss=2.7089 | dev_loss=2.7104
+[epoch 064] alpha=0.00 | train_loss=2.7097 | dev_loss=2.7033
+[epoch 065] alpha=0.00 | train_loss=2.7127 | dev_loss=2.7051
+[epoch 066] alpha=0.00 | train_loss=2.7112 | dev_loss=2.7038
+[epoch 067] alpha=0.00 | train_loss=2.7056 | dev_loss=2.7026
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7026)
+[epoch 068] alpha=0.00 | train_loss=2.7017 | dev_loss=2.7030
+[epoch 069] alpha=0.00 | train_loss=2.7017 | dev_loss=2.7093
+[epoch 070] alpha=0.00 | train_loss=2.7160 | dev_loss=2.7097
+[epoch 071] alpha=0.00 | train_loss=2.7039 | dev_loss=2.7054
+[epoch 072] alpha=0.00 | train_loss=2.7062 | dev_loss=2.7080
+[epoch 073] alpha=0.00 | train_loss=2.7049 | dev_loss=2.7069
+[epoch 074] alpha=0.00 | train_loss=2.7118 | dev_loss=2.7105
+[epoch 075] alpha=0.00 | train_loss=2.7120 | dev_loss=2.7019
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7019)
+[epoch 076] alpha=0.00 | train_loss=2.7022 | dev_loss=2.7013
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7013)
+[epoch 077] alpha=0.00 | train_loss=2.7106 | dev_loss=2.7042
+[epoch 078] alpha=0.00 | train_loss=2.7075 | dev_loss=2.7036
+[epoch 079] alpha=0.00 | train_loss=2.7023 | dev_loss=2.7028
+[epoch 080] alpha=0.00 | train_loss=2.7010 | dev_loss=2.7030
+[epoch 081] alpha=0.00 | train_loss=2.7125 | dev_loss=2.7024
+[epoch 082] alpha=0.00 | train_loss=2.7118 | dev_loss=2.7118
+[epoch 083] alpha=0.00 | train_loss=2.7055 | dev_loss=2.7045
+[epoch 084] alpha=0.00 | train_loss=2.7094 | dev_loss=2.7046
+[epoch 085] alpha=0.00 | train_loss=2.7041 | dev_loss=2.7037
+[epoch 086] alpha=0.00 | train_loss=2.7092 | dev_loss=2.7023
+[epoch 087] alpha=0.00 | train_loss=2.7084 | dev_loss=2.7026
+[epoch 088] alpha=0.00 | train_loss=2.7070 | dev_loss=2.7100
+[epoch 089] alpha=0.00 | train_loss=2.7058 | dev_loss=2.7046
+[epoch 090] alpha=0.00 | train_loss=2.7093 | dev_loss=2.7072
+[epoch 091] alpha=0.00 | train_loss=2.7076 | dev_loss=2.7049
+[epoch 092] alpha=0.00 | train_loss=2.7049 | dev_loss=2.7072
+[epoch 093] alpha=0.00 | train_loss=2.7012 | dev_loss=2.7073
+[epoch 094] alpha=0.00 | train_loss=2.7007 | dev_loss=2.7072
+[epoch 095] alpha=0.00 | train_loss=2.7092 | dev_loss=2.7036
+[epoch 096] alpha=0.00 | train_loss=2.7059 | dev_loss=2.7060
+[epoch 097] alpha=0.00 | train_loss=2.7009 | dev_loss=2.7047
+[epoch 098] alpha=0.00 | train_loss=2.7058 | dev_loss=2.7079
+[epoch 099] alpha=0.00 | train_loss=2.7113 | dev_loss=2.7102
+[epoch 100] alpha=0.00 | train_loss=2.7010 | dev_loss=2.7082
+Best checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7013)
+[ERROR] Stage-1 checkpoint not found: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_uniformity_weight_0.01_t_4/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt

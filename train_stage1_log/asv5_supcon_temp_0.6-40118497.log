@@ -1,0 +1,67 @@
+Setting up the environment...
+Job started on gl1517.arc-ts.umich.edu at Thu Jan 15 18:16:37 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: asv5_supcon_temp_0.6
+Using BATCH_SIZE=64
+W0115 18:16:48.766185 185808 torch/distributed/run.py:774] 
+W0115 18:16:48.766185 185808 torch/distributed/run.py:774] *****************************************
+W0115 18:16:48.766185 185808 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0115 18:16:48.766185 185808 torch/distributed/run.py:774] *****************************************
+[W115 18:16:48.729398775 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29997 (errno: 97 - Address family not supported by protocol).
+[W115 18:17:00.225692415 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29997 (errno: 97 - Address family not supported by protocol).
+[W115 18:17:00.225692939 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29997 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_supcon_temp_0.6/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5_train_protocol.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5.dev.metadata.txt
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=64
+NUM_SAMPLES=None
+HEAD_LR=0.05
+ENC_LR=0.0001
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.6
+NUM_WORKERS=10
+SEED=1337
+SUPCON_SIMILARITY=cosine
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=0.5
+TOPK_NEG=7
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+PATIENCE=10
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[INFO] Global batch size=64 | Per-GPU batch size=32
+[rank1] step=0 B=32 n_pos=2 n_neg=30 loss=3.434447 z_nan=False
+[rank0] step=0 B=32 n_pos=3 n_neg=29 loss=3.434124 z_nan=False
+[rank0] step=50 B=32 n_pos=2 n_neg=30 loss=3.432660 z_nan=False
+[rank1] step=50 B=32 n_pos=2 n_neg=30 loss=3.432957 z_nan=False
+[rank0] step=100 B=32 n_pos=3 n_neg=29 loss=3.433986 z_nan=False
+[rank1] step=100 B=32 n_pos=6 n_neg=26 loss=3.433986 z_nan=False
+[rank0] step=150 B=32 n_pos=2 n_neg=30 loss=3.433987 z_nan=False
+[rank1] step=150 B=32 n_pos=3 n_neg=29 loss=3.433986 z_nan=False
+[rank1] step=200 B=32 n_pos=9 n_neg=23 loss=3.433980 z_nan=False
+[rank0] step=200 B=32 n_pos=5 n_neg=27 loss=3.433986 z_nan=False
+[rank0] step=250 B=32 n_pos=2 n_neg=30 loss=3.433987 z_nan=False
+[rank1] step=250 B=32 n_pos=1 n_neg=31 loss=nan z_nan=False
+[rank0] step=300 B=32 n_pos=0 n_neg=32 loss=nan z_nan=False
+[rank1] step=300 B=32 n_pos=4 n_neg=28 loss=3.433989 z_nan=False
+[2026-01-15T18:32:56.131] error: *** JOB 40118497 ON gl1517 CANCELLED AT 2026-01-15T18:32:56 DUE to SIGNAL Terminated ***

@@ -1,0 +1,95 @@
+Setting up the environment...
+Job started on gl1511.arc-ts.umich.edu at Sun Jan 18 16:33:16 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+MLAAD_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/multilingual
+MLAAD_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/multilingual/protocol_MLAAD_MAILabs_total_balanced.txt
+EXPERIMENT NAME: mlaad_windowed_supcon_geodesic_temp_0.05
+Using BATCH_SIZE=32
+W0118 16:33:22.539137 2597240 torch/distributed/run.py:774] 
+W0118 16:33:22.539137 2597240 torch/distributed/run.py:774] *****************************************
+W0118 16:33:22.539137 2597240 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0118 16:33:22.539137 2597240 torch/distributed/run.py:774] *****************************************
+[W118 16:33:22.486565382 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29645 (errno: 97 - Address family not supported by protocol).
+[W118 16:33:22.487620783 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29645 (errno: 97 - Address family not supported by protocol).
+[W118 16:33:22.488673932 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29645 (errno: 97 - Address family not supported by protocol).
+[W118 16:33:28.500158371 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29645 (errno: 97 - Address family not supported by protocol).
+[W118 16:33:28.500188564 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29645 (errno: 97 - Address family not supported by protocol).
+[W118 16:33:28.501120391 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29645 (errno: 97 - Address family not supported by protocol).
+[W118 16:33:28.501173577 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29645 (errno: 97 - Address family not supported by protocol).
+[W118 16:33:28.502054069 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29645 (errno: 97 - Address family not supported by protocol).
+[W118 16:33:28.502117753 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29645 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mlaad_windowed_supcon_geodesic_temp_0.05/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+NUM_SAMPLES=20000
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.05
+NUM_WORKERS=6
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=False
+RAWBOOST_PROB=0.0
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=10
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=False (p=0.0)
+CUDA device count: 2
+[INFO] Train samples loaded: bonafide=7906, spoof=8094
+[INFO] Dev samples loaded: bonafide=2037, spoof=1963
+[INFO] Global batch size=32 | Per-GPU batch size=16
+[rank0] pos_mean=0.9249 neg_mean=0.9293 n_pos=16 n_neg=19
+[rank0] sim_mean=0.9292 sim_std=0.0667 Loss: 4.5142340660095215
+[rank1] sim_mean=0.9084 sim_std=0.0764 Loss: 4.575238227844238
+[epoch 001] alpha=0.00 | train_loss=2.8489 | dev_loss=2.7218
+[epoch 001] alpha=0.00 | train_loss=2.8489 | dev_loss=2.7789
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mlaad_windowed_supcon_geodesic_temp_0.05/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7218)
+[rank1] sim_mean=0.9726 sim_std=0.0274 Loss: 2.827840805053711
+[rank0] pos_mean=0.9997 neg_mean=0.9429 n_pos=11 n_neg=15
+[rank0] sim_mean=0.9720 sim_std=0.0287 Loss: 2.5194478034973145
+[epoch 002] alpha=0.00 | train_loss=2.7132 | dev_loss=2.7898
+[epoch 002] alpha=0.00 | train_loss=2.7132 | dev_loss=2.8149
+[rank0] pos_mean=0.9998 neg_mean=0.9299 n_pos=16 n_neg=22
+[rank0] sim_mean=0.9657 sim_std=0.0351 Loss: 2.9166839122772217
+[rank1] sim_mean=0.9650 sim_std=0.0349 Loss: 2.4565718173980713
+[epoch 003] alpha=0.00 | train_loss=2.7001 | dev_loss=2.7174
+[epoch 003] alpha=0.00 | train_loss=2.7001 | dev_loss=2.7556
+[rank1] sim_mean=0.9476 sim_std=0.0532 Loss: 2.7245559692382812
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mlaad_windowed_supcon_geodesic_temp_0.05/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7174)
+[rank0] pos_mean=0.9996 neg_mean=0.8904 n_pos=17 n_neg=18
+[rank0] sim_mean=0.9451 sim_std=0.0549 Loss: 2.813255548477173
+[epoch 004] alpha=0.00 | train_loss=2.6891 | dev_loss=2.6889
+[epoch 004] alpha=0.00 | train_loss=2.6891 | dev_loss=2.7020
+[rank1] sim_mean=0.9537 sim_std=0.0463 Loss: 2.571300506591797
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mlaad_windowed_supcon_geodesic_temp_0.05/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.6889)
+[rank0] pos_mean=0.9969 neg_mean=0.9145 n_pos=17 n_neg=18
+[rank0] sim_mean=0.9558 sim_std=0.0447 Loss: 2.959872007369995
+[2026-01-18T17:33:38.007] error: *** JOB 40270145 ON gl1511 CANCELLED AT 2026-01-18T17:33:38 DUE TO TIME LIMIT ***

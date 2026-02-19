@@ -1,0 +1,82 @@
+Setting up the environment...
+Job started on gl1524.arc-ts.umich.edu at Wed Feb 11 00:11:44 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_temp_0.07
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 659, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 592, in main
+    ds = spec["cls"](**spec["kwargs"])
+  File "/home/jsudan/wav2vec_contr_loss/data_loader.py", line 470, in __init__
+    raise RuntimeError(
+RuntimeError: No audio files found from protocol /nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof2021_complete/DF/ASVspoof2021_DF_eval/ASVspoof2021.DF.cm.eval.trl.txt after applying subset='all'.
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_temp_0.1
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 659, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 592, in main
+    ds = spec["cls"](**spec["kwargs"])
+  File "/home/jsudan/wav2vec_contr_loss/data_loader.py", line 470, in __init__
+    raise RuntimeError(
+RuntimeError: No audio files found from protocol /nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof2021_complete/DF/ASVspoof2021_DF_eval/ASVspoof2021.DF.cm.eval.trl.txt after applying subset='all'.
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_temp_0.3
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 659, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 592, in main
+    ds = spec["cls"](**spec["kwargs"])
+  File "/home/jsudan/wav2vec_contr_loss/data_loader.py", line 470, in __init__
+    raise RuntimeError(
+RuntimeError: No audio files found from protocol /nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof2021_complete/DF/ASVspoof2021_DF_eval/ASVspoof2021.DF.cm.eval.trl.txt after applying subset='all'.
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_temp_0.6
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 659, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 592, in main
+    ds = spec["cls"](**spec["kwargs"])
+  File "/home/jsudan/wav2vec_contr_loss/data_loader.py", line 470, in __init__
+    raise RuntimeError(
+RuntimeError: No audio files found from protocol /nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof2021_complete/DF/ASVspoof2021_DF_eval/ASVspoof2021.DF.cm.eval.trl.txt after applying subset='all'.
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.07
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 659, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 592, in main
+    ds = spec["cls"](**spec["kwargs"])
+  File "/home/jsudan/wav2vec_contr_loss/data_loader.py", line 470, in __init__
+    raise RuntimeError(
+RuntimeError: No audio files found from protocol /nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof2021_complete/DF/ASVspoof2021_DF_eval/ASVspoof2021.DF.cm.eval.trl.txt after applying subset='all'.
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.1
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 659, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 592, in main
+    ds = spec["cls"](**spec["kwargs"])
+  File "/home/jsudan/wav2vec_contr_loss/data_loader.py", line 470, in __init__
+    raise RuntimeError(
+RuntimeError: No audio files found from protocol /nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof2021_complete/DF/ASVspoof2021_DF_eval/ASVspoof2021.DF.cm.eval.trl.txt after applying subset='all'.
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.3
+[2026-02-11T00:29:06.716] error: *** JOB 42305657 ON gl1524 CANCELLED AT 2026-02-11T00:29:06 DUE to SIGNAL Terminated ***

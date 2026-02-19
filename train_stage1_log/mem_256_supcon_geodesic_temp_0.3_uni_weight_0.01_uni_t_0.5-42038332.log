@@ -1,0 +1,107 @@
+Setting up the environment...
+Job started on gl1516.arc-ts.umich.edu at Mon Feb  9 02:10:05 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_256_supcon_geodesic_temp_0.3_uni_weight_0.1_uni_t_2
+USE_QUEUE=1
+QUEUE_SIZE=256
+ACCUM_STEPS=1
+CENTER_BEFORE_NORM=0
+GLOBAL_CENTER=0
+Detected NUM_GPUS=2
+Using BATCH_SIZE=32
+W0209 02:10:12.011260 3826251 torch/distributed/run.py:774] 
+W0209 02:10:12.011260 3826251 torch/distributed/run.py:774] *****************************************
+W0209 02:10:12.011260 3826251 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0209 02:10:12.011260 3826251 torch/distributed/run.py:774] *****************************************
+[W209 02:10:12.957287384 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29832 (errno: 97 - Address family not supported by protocol).
+[W209 02:10:12.958313512 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29832 (errno: 97 - Address family not supported by protocol).
+[W209 02:10:12.959321726 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29832 (errno: 97 - Address family not supported by protocol).
+[W209 02:10:18.986982663 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29832 (errno: 97 - Address family not supported by protocol).
+[W209 02:10:18.987043782 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29832 (errno: 97 - Address family not supported by protocol).
+[W209 02:10:18.988057049 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29832 (errno: 97 - Address family not supported by protocol).
+[W209 02:10:18.988120873 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29832 (errno: 97 - Address family not supported by protocol).
+[W209 02:10:18.989084431 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29832 (errno: 97 - Address family not supported by protocol).
+[W209 02:10:18.989189878 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29832 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+MODEL_ID=wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_supcon_geodesic_temp_0.3_uni_weight_0.1_uni_t_2
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=10
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+ACCUM_STEPS=1
+NUM_SAMPLES=None
+HEAD_LR=0.0005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.3
+NUM_WORKERS=4
+SEED=1337
+UNIFORMITY_WEIGHT=0.1
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=256
+WARMUP_EPOCHS=100
+ALPHA_END=0.9
+ALPHA_RAMP_EPOCHS=20
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=10
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Global batch size=32 | Per-GPU batch size=16
+[INFO] Queue size=256 (per-rank)
+[rank1] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.9103 std=0.0555 min=0.7103 max=0.9808 var_mean=8.213928e-05
+[rank1] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9499 std=0.0330 min=0.8289 max=0.9900 var_mean=1.833660e-04
+[rank1] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9499 std=0.0330 min=0.8289 max=0.9900 var_mean=1.833660e-04
+[rank1] sim_mean=0.9531 sim_std=0.0342 Loss: 2.706800699234009
+[rank0] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.8784 std=0.0849 min=0.5629 max=0.9687 var_mean=1.112925e-04
+[rank0] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9352 std=0.0473 min=0.7372 max=0.9851 var_mean=2.374078e-04
+[rank0] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9352 std=0.0473 min=0.7372 max=0.9851 var_mean=2.374078e-04
+[rank0] pos_mean=0.9359 neg_mean=0.9345 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9392 sim_std=0.0484 Loss: 2.6929969787597656
+[epoch 001] alpha=0.00 | train_loss=4.4933 | dev_loss=2.7078
+[epoch 001] alpha=0.00 | train_loss=4.4933 | dev_loss=2.7078
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_supcon_geodesic_temp_0.3_uni_weight_0.1_uni_t_2/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7078)
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 4.664913177490234
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 4.662063121795654
+[epoch 002] alpha=0.00 | train_loss=4.3928 | dev_loss=2.7083
+[epoch 002] alpha=0.00 | train_loss=4.3928 | dev_loss=2.7117
+[rank1] sim_mean=0.9983 sim_std=0.0015 Loss: 3.0359742641448975
+[rank0] pos_mean=0.9989 neg_mean=0.9989 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9990 sim_std=0.0008 Loss: 3.026900291442871
+[epoch 003] alpha=0.00 | train_loss=4.3411 | dev_loss=2.7039
+[epoch 003] alpha=0.00 | train_loss=4.3411 | dev_loss=2.7048
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_supcon_geodesic_temp_0.3_uni_weight_0.1_uni_t_2/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7048)
+[rank1] sim_mean=0.9991 sim_std=0.0008 Loss: 4.370311737060547
+[rank0] pos_mean=0.9988 neg_mean=0.9988 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9989 sim_std=0.0011 Loss: 4.353551864624023
+[epoch 004] alpha=0.00 | train_loss=4.4905 | dev_loss=2.7078
+[epoch 004] alpha=0.00 | train_loss=4.4905 | dev_loss=2.7078
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 4.667394161224365
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 4.669693946838379
+[2026-02-09T02:35:45.563] error: *** JOB 42038332 ON gl1516 CANCELLED AT 2026-02-09T02:35:45 DUE to SIGNAL Terminated ***

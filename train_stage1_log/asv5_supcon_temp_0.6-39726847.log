@@ -1,0 +1,59 @@
+Setting up the environment...
+Job started on gl1507.arc-ts.umich.edu at Sun Jan 11 21:54:09 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: asv5_supcon_temp_0.6
+Using BATCH_SIZE=32
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_supcon_temp_0.6/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5_train_protocol.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5.dev.metadata.txt
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+NUM_SAMPLES=None
+HEAD_LR=0.006
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.6
+NUM_WORKERS=16
+SEED=1337
+SUPCON_SIMILARITY=cosine
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+PATIENCE=10
+Using device: cuda | RawBoost=True (p=0.7)
+CUDA device count: 1
+[epoch 001] alpha=0.00 | train_loss=2.9411 | dev_loss=3.4367
+[timing] train=3074.8s (2.62s/step, 1174 steps) | dev=855.6s (1958 steps) | est_remaining=108.09h
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_supcon_temp_0.6/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=3.4367)
+[epoch 002] alpha=0.00 | train_loss=2.8070 | dev_loss=3.4742
+[timing] train=3068.5s (2.61s/step, 1174 steps) | dev=863.4s (1958 steps) | est_remaining=107.04h
+[epoch 003] alpha=0.00 | train_loss=2.7863 | dev_loss=3.5788
+[timing] train=3072.6s (2.62s/step, 1174 steps) | dev=857.3s (1958 steps) | est_remaining=105.89h
+[epoch 004] alpha=0.00 | train_loss=2.7760 | dev_loss=3.4792
+[timing] train=3075.1s (2.62s/step, 1174 steps) | dev=868.0s (1958 steps) | est_remaining=105.15h
+[epoch 005] alpha=0.00 | train_loss=2.7702 | dev_loss=3.4952
+[timing] train=3064.2s (2.61s/step, 1174 steps) | dev=861.2s (1958 steps) | est_remaining=103.59h
+[epoch 006] alpha=0.00 | train_loss=2.7664 | dev_loss=3.5875
+[timing] train=3061.8s (2.61s/step, 1174 steps) | dev=864.2s (1958 steps) | est_remaining=102.51h
+[epoch 007] alpha=0.00 | train_loss=2.7586 | dev_loss=3.5624
+[timing] train=3057.7s (2.60s/step, 1174 steps) | dev=864.8s (1958 steps) | est_remaining=101.33h
+[2026-01-12T05:54:28.005] error: *** JOB 39726847 ON gl1507 CANCELLED AT 2026-01-12T05:54:28 DUE TO TIME LIMIT ***

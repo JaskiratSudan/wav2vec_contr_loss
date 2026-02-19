@@ -1,0 +1,86 @@
+Setting up the environment...
+Job started on gl1509.arc-ts.umich.edu at Tue Jan 20 23:53:16 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: asv5_supcon_geodesic_temp_0.05_uni_weight_0.01_uni_t_0.5
+Device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 413, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 370, in main
+    stage1_ckpt, stage2_ckpt = resolve_ckpts(
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 225, in resolve_ckpts
+    raise FileNotFoundError(f"Stage-1 checkpoint not found: {stage1_ckpt}")
+FileNotFoundError: Stage-1 checkpoint not found: checkpoints_stage1/asv5_supcon_geodesic_temp_0.05_uni_weight_0.01_uni_t_0.5/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+----------------------------------------------------------------
+EXPERIMENT NAME: asv5_supcon_geodesic_temp_0.2
+Device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 413, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 370, in main
+    stage1_ckpt, stage2_ckpt = resolve_ckpts(
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 225, in resolve_ckpts
+    raise FileNotFoundError(f"Stage-1 checkpoint not found: {stage1_ckpt}")
+FileNotFoundError: Stage-1 checkpoint not found: checkpoints_stage1/asv5_supcon_geodesic_temp_0.2/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+----------------------------------------------------------------
+EXPERIMENT NAME: asv5_supcon_temp_0.2
+Device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 413, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 370, in main
+    stage1_ckpt, stage2_ckpt = resolve_ckpts(
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 225, in resolve_ckpts
+    raise FileNotFoundError(f"Stage-1 checkpoint not found: {stage1_ckpt}")
+FileNotFoundError: Stage-1 checkpoint not found: checkpoints_stage1/asv5_supcon_temp_0.2/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+----------------------------------------------------------------
+EXPERIMENT NAME: asv5_windowed_supcon_geodesic_temp_0.05
+Device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 413, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 370, in main
+    stage1_ckpt, stage2_ckpt = resolve_ckpts(
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 225, in resolve_ckpts
+    raise FileNotFoundError(f"Stage-1 checkpoint not found: {stage1_ckpt}")
+FileNotFoundError: Stage-1 checkpoint not found: checkpoints_stage1/asv5_windowed_supcon_geodesic_temp_0.05/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+----------------------------------------------------------------
+EXPERIMENT NAME: mlaad_windowed_supcon_geodesic_temp_0.05
+Device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 413, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 370, in main
+    stage1_ckpt, stage2_ckpt = resolve_ckpts(
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 225, in resolve_ckpts
+    raise FileNotFoundError(f"Stage-1 checkpoint not found: {stage1_ckpt}")
+FileNotFoundError: Stage-1 checkpoint not found: checkpoints_stage1/mlaad_windowed_supcon_geodesic_temp_0.05/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+----------------------------------------------------------------
+EXPERIMENT NAME: name=mlaad_windowed_supcon_geodesic_temp_0.05
+Device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 413, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 370, in main
+    stage1_ckpt, stage2_ckpt = resolve_ckpts(
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 225, in resolve_ckpts
+    raise FileNotFoundError(f"Stage-1 checkpoint not found: {stage1_ckpt}")
+FileNotFoundError: Stage-1 checkpoint not found: checkpoints_stage1/name=mlaad_windowed_supcon_geodesic_temp_0.05/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+----------------------------------------------------------------
+EXPERIMENT NAME: windowed_loader_supcon_geodesic_temp_0.05
+Device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 413, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 370, in main
+    stage1_ckpt, stage2_ckpt = resolve_ckpts(
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 225, in resolve_ckpts
+    raise FileNotFoundError(f"Stage-1 checkpoint not found: {stage1_ckpt}")
+FileNotFoundError: Stage-1 checkpoint not found: checkpoints_stage1/windowed_loader_supcon_geodesic_temp_0.05/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+----------------------------------------------------------------
+Evaluation finished at: Tue Jan 20 23:54:08 EST 2026

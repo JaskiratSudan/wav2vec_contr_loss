@@ -1,0 +1,26 @@
+Setting up the environment...
+Job started on gl1520.arc-ts.umich.edu at Fri Feb 13 21:29:54 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.07
+USE_QUEUE=0
+QUEUE_SIZE=256
+ACCUM_STEPS=1
+CENTER_BEFORE_NORM=0
+GLOBAL_CENTER=0
+Detected NUM_GPUS=1
+Using BATCH_SIZE=32
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'fakexpose' -> /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 50.796366728760844
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07/famous_figures/score_cm_ff.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07/famous_figures/score_cm_ff.txt
+EER (famous_figures): 48.780749827842726
+----------------------------------------------------------------
+ASV19 pipeline finished at: Sat Feb 14 00:11:04 EST 2026

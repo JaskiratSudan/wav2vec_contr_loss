@@ -1,0 +1,42 @@
+Setting up the environment...
+Job started on gl1523.arc-ts.umich.edu at Fri Jan 30 20:42:14 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_bank_0_supcon_geodesic_temp_0.5
+USE_QUEUE=0
+QUEUE_SIZE=512
+ACCUM_STEPS=1
+CENTER_BEFORE_NORM=1
+GLOBAL_CENTER=1
+Detected NUM_GPUS=2
+Using BATCH_SIZE=32
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 401, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 352, in main
+    default=MAX_DURATION_SECONDS,
+UnboundLocalError: local variable 'MAX_DURATION_SECONDS' referenced before assignment
+Using device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier.py", line 66, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier.py", line 34, in main
+    X_train = np.load(train_emb_path).astype("float32")
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 427, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/mem_bank_0_supcon_geodesic_temp_0.5/train_embeddings.npy'
+Device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 650, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 549, in main
+    stage1_ckpt, stage2_ckpt = resolve_ckpts(
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 377, in resolve_ckpts
+    raise FileNotFoundError(f"Stage-2 checkpoint not found: {stage2_ckpt}")
+FileNotFoundError: Stage-2 checkpoint not found: checkpoints_stage2/mem_bank_0_supcon_geodesic_temp_0.5/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+----------------------------------------------------------------
+ASV19 pipeline finished at: Fri Jan 30 20:42:44 EST 2026

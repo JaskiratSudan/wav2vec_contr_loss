@@ -1,0 +1,16 @@
+Setting up the environment...
+Job started on gl1526.arc-ts.umich.edu at Sat Jan 10 21:01:05 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+Device: cuda
+[OK] Loaded baseline checkpoint: /home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_baseline_bce_best.pt
+Chunked eval: chunk_seconds=5.0, hop_seconds=5.0, agg=mean, repeat_short=True
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_fakexpose.txt
+EER: 57.87227813181166
+EER threshold: 14.021505
+Accuracy@EERth: 42.11%
+----------------------------------------------------------------
+Evaluation finished at: Sat Jan 10 21:09:37 EST 2026

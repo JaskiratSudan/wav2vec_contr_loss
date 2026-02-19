@@ -1,0 +1,73 @@
+Setting up the environment...
+Job started on gl1524.arc-ts.umich.edu at Wed Feb 11 01:08:12 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_temp_0.07
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/supcon_temp_0.07/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/supcon_temp_0.07/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 7.883430443615495
+[INFO] Scoring dataset 'asv21_la' -> scores/supcon_temp_0.07/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/supcon_temp_0.07/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 6.438384147318846
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_temp_0.1
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/supcon_temp_0.1/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/supcon_temp_0.1/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 9.387438214977426
+[INFO] Scoring dataset 'asv21_la' -> scores/supcon_temp_0.1/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/supcon_temp_0.1/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 6.958459450322901
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_temp_0.3
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/supcon_temp_0.3/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/supcon_temp_0.3/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 6.583201585950596
+[INFO] Scoring dataset 'asv21_la' -> scores/supcon_temp_0.3/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/supcon_temp_0.3/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 6.188977041909097
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_temp_0.6
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/supcon_temp_0.6/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/supcon_temp_0.6/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 9.001456548200771
+[INFO] Scoring dataset 'asv21_la' -> scores/supcon_temp_0.6/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/supcon_temp_0.6/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 6.741863585431365
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.07
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/supcon_geodesic_temp_0.07/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/supcon_geodesic_temp_0.07/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 6.168337096268801
+[INFO] Scoring dataset 'asv21_la' -> scores/supcon_geodesic_temp_0.07/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/supcon_geodesic_temp_0.07/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 6.117886020786304
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.1
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/supcon_geodesic_temp_0.1/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/supcon_geodesic_temp_0.1/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 6.721573144995811
+[INFO] Scoring dataset 'asv21_la' -> scores/supcon_geodesic_temp_0.1/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/supcon_geodesic_temp_0.1/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 5.995174939604414
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.3
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/supcon_geodesic_temp_0.3/asv21_df/score_cm_asv21_df.txt
+[2026-02-12T01:08:14.011] error: *** JOB 42309601 ON gl1524 CANCELLED AT 2026-02-12T01:08:14 DUE TO TIME LIMIT ***

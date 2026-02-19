@@ -1,0 +1,36 @@
+Setting up the environment...
+Job started on gl1523.arc-ts.umich.edu at Sat Jan 10 19:40:22 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_temp_0.6
+Device: cuda
+Fakexpose samples: real=3376, fake=2333
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_temp_0.6/fakexpose/score_cm_fakexpose.txt
+EER: 59.67584274056754
+EER threshold: 0.565018
+Accuracy@EERth: 40.30%
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.05
+Device: cuda
+Fakexpose samples: real=3376, fake=2333
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.05/fakexpose/score_cm_fakexpose.txt
+EER: 55.17433643194796
+EER threshold: 0.062732
+Accuracy@EERth: 44.81%
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_uniformity_weight_0.05_t_0.5
+Device: cuda
+Fakexpose samples: real=3376, fake=2333
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_uniformity_weight_0.05_t_0.5/fakexpose/score_cm_fakexpose.txt
+EER: 52.425342245913264
+EER threshold: 0.468645
+Accuracy@EERth: 47.56%
+----------------------------------------------------------------
+Evaluation finished at: Sat Jan 10 19:44:57 EST 2026

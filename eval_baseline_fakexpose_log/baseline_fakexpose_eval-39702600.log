@@ -1,0 +1,21 @@
+Setting up the environment...
+Job started on gl1526.arc-ts.umich.edu at Sat Jan 10 19:16:24 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+Device: cuda
+[OK] Loaded baseline checkpoint: /home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_baseline_bce_best.pt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_baseline_fakexpose_score_file.py", line 132, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_baseline_fakexpose_score_file.py", line 112, in main
+    ds = FakeXposeDataset(
+  File "/home/jsudan/wav2vec_contr_loss/data_loader.py", line 616, in __init__
+    items = load_fakexpose_items(root_dir, allowed_exts=allowed_exts)
+  File "/home/jsudan/wav2vec_contr_loss/data_loader.py", line 38, in load_fakexpose_items
+    raise FileNotFoundError(f"Missing Fakexpose directories: {missing}")
+FileNotFoundError: Missing Fakexpose directories: ['/nfs/turbo/umd-hafiz/issf_server_data/fakexpose/11 labs', '/nfs/turbo/umd-hafiz/issf_server_data/fakexpose/original']
+----------------------------------------------------------------
+Evaluation finished at: Sat Jan 10 19:16:48 EST 2026

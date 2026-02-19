@@ -1,0 +1,308 @@
+Setting up the environment...
+Job started on gl1527.arc-ts.umich.edu at Sat Jan 24 02:16:36 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_bank_1024_supcon_geodesic_temp_0.5
+USE_QUEUE=1
+QUEUE_SIZE=1024
+ACCUM_STEPS=1
+CENTER_BEFORE_NORM=1
+GLOBAL_CENTER=0
+Detected NUM_GPUS=2
+Using BATCH_SIZE=32
+W0124 02:16:42.827843 1964069 torch/distributed/run.py:774] 
+W0124 02:16:42.827843 1964069 torch/distributed/run.py:774] *****************************************
+W0124 02:16:42.827843 1964069 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0124 02:16:42.827843 1964069 torch/distributed/run.py:774] *****************************************
+[W124 02:16:42.201979484 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30320 (errno: 97 - Address family not supported by protocol).
+[W124 02:16:42.202912052 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30320 (errno: 97 - Address family not supported by protocol).
+[W124 02:16:42.203834706 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30320 (errno: 97 - Address family not supported by protocol).
+[W124 02:16:48.102920847 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30320 (errno: 97 - Address family not supported by protocol).
+[W124 02:16:48.103023888 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30320 (errno: 97 - Address family not supported by protocol).
+[W124 02:16:48.103877923 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30320 (errno: 97 - Address family not supported by protocol).
+[W124 02:16:48.103887131 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30320 (errno: 97 - Address family not supported by protocol).
+[W124 02:16:48.104728981 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30320 (errno: 97 - Address family not supported by protocol).
+[W124 02:16:48.104843473 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30320 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_1024_supcon_geodesic_temp_0.5/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+ACCUM_STEPS=1
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.5
+NUM_WORKERS=4
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=0.5
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=10
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Global batch size=32 | Per-GPU batch size=16
+[INFO] Queue size=1024 (per-rank)
+[rank1] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.9103 std=0.0555 min=0.7103 max=0.9808 var_mean=8.213928e-05
+[rank1] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9499 std=0.0330 min=0.8289 max=0.9900 var_mean=1.833660e-04
+[rank1] head_post: z_norm_mean=1.0000 offdiag_cos mean=-0.0605 std=0.4237 min=-0.7764 max=0.7484 var_mean=3.883521e-03
+[rank1] sim_mean=0.0058 sim_std=0.4842 Loss: 2.883085250854492
+[rank0] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.8771 std=0.0911 min=0.5035 max=0.9733 var_mean=1.124898e-04
+[rank0] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9342 std=0.0515 min=0.6933 max=0.9849 var_mean=2.411204e-04
+[rank0] head_post: z_norm_mean=1.0000 offdiag_cos mean=-0.0588 std=0.4402 min=-0.7768 max=0.7874 var_mean=3.877519e-03
+[rank0] pos_mean=-0.0578 neg_mean=-0.0597 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0074 sim_std=0.4975 Loss: 2.886291980743408
+[epoch 001] alpha=0.00 | train_loss=4.4501 | dev_loss=2.0080
+[epoch 001] alpha=0.00 | train_loss=4.4501 | dev_loss=2.0346
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_1024_supcon_geodesic_temp_0.5/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.0346)
+[rank1] sim_mean=0.0082 sim_std=0.9125 Loss: 4.48966646194458
+[rank0] pos_mean=0.9900 neg_mean=-0.9907 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0003 sim_std=0.9930 Loss: 3.564002513885498
+[epoch 002] alpha=0.00 | train_loss=3.7211 | dev_loss=2.0250
+[epoch 002] alpha=0.00 | train_loss=3.7211 | dev_loss=2.0070
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_1024_supcon_geodesic_temp_0.5/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.0250)
+[rank0] pos_mean=0.5820 neg_mean=-0.6225 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0059 sim_std=0.9378 Loss: 4.431720733642578
+[rank1] sim_mean=0.0155 sim_std=0.9991 Loss: 3.911581039428711
+[epoch 003] alpha=0.00 | train_loss=3.4922 | dev_loss=2.0446
+[epoch 003] alpha=0.00 | train_loss=3.4922 | dev_loss=2.0362
+[rank0] pos_mean=0.9994 neg_mean=-0.9994 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0014 Loss: 3.231736660003662
+[rank1] sim_mean=0.0000 sim_std=1.0018 Loss: 3.085909843444824
+[epoch 004] alpha=0.00 | train_loss=3.4688 | dev_loss=2.0403
+[epoch 004] alpha=0.00 | train_loss=3.4688 | dev_loss=2.0707
+[rank0] pos_mean=0.9975 neg_mean=-0.9975 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0002 sim_std=0.9996 Loss: 3.178403377532959
+[rank1] sim_mean=0.0000 sim_std=1.0016 Loss: 3.1669821739196777
+[epoch 005] alpha=0.00 | train_loss=3.2867 | dev_loss=2.0231
+[epoch 005] alpha=0.00 | train_loss=3.2867 | dev_loss=2.0596
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_1024_supcon_geodesic_temp_0.5/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.0231)
+[rank0] pos_mean=0.8346 neg_mean=-0.8345 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0103 sim_std=0.9477 Loss: 3.6490988731384277
+[rank1] sim_mean=0.0000 sim_std=1.0018 Loss: 3.2366960048675537
+[epoch 006] alpha=0.00 | train_loss=3.4163 | dev_loss=2.0045
+[epoch 006] alpha=0.00 | train_loss=3.4163 | dev_loss=1.9990
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_1024_supcon_geodesic_temp_0.5/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9990)
+[rank1] sim_mean=0.0000 sim_std=1.0018 Loss: 3.0757758617401123
+[rank0] pos_mean=0.9997 neg_mean=-0.9997 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0017 Loss: 3.1687166690826416
+[epoch 007] alpha=0.00 | train_loss=3.1398 | dev_loss=1.9852
+[epoch 007] alpha=0.00 | train_loss=3.1398 | dev_loss=1.9843
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_1024_supcon_geodesic_temp_0.5/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9852)
+[rank0] pos_mean=0.9999 neg_mean=-0.9999 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 2.974815845489502
+[rank1] sim_mean=0.0000 sim_std=1.0019 Loss: 3.1233954429626465
+[epoch 008] alpha=0.00 | train_loss=3.4770 | dev_loss=2.0587
+[epoch 008] alpha=0.00 | train_loss=3.4770 | dev_loss=2.0532
+[rank0] pos_mean=0.7556 neg_mean=-0.7558 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0152 sim_std=0.9962 Loss: 3.7293484210968018
+[rank1] sim_mean=0.0000 sim_std=1.0018 Loss: 3.246438503265381
+[epoch 009] alpha=0.00 | train_loss=3.3052 | dev_loss=1.9978
+[epoch 009] alpha=0.00 | train_loss=3.3052 | dev_loss=1.9729
+[rank0] pos_mean=0.9999 neg_mean=-0.9999 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 3.0862293243408203
+[rank1] sim_mean=0.0000 sim_std=1.0017 Loss: 3.0820910930633545
+[epoch 010] alpha=0.00 | train_loss=3.3002 | dev_loss=2.0168
+[epoch 010] alpha=0.00 | train_loss=3.3002 | dev_loss=2.0175
+[rank1] sim_mean=0.0000 sim_std=1.0019 Loss: 3.2179951667785645
+[rank0] pos_mean=0.7506 neg_mean=-0.7506 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0156 sim_std=1.0009 Loss: 3.81447696685791
+[epoch 011] alpha=0.00 | train_loss=3.3320 | dev_loss=1.9763
+[epoch 011] alpha=0.00 | train_loss=3.3320 | dev_loss=1.9733
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_1024_supcon_geodesic_temp_0.5/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9763)
+[rank0] pos_mean=0.9996 neg_mean=-0.9996 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0016 Loss: 3.012052059173584
+[rank1] sim_mean=0.0156 sim_std=1.0017 Loss: 3.920140504837036
+[epoch 012] alpha=0.00 | train_loss=3.1574 | dev_loss=1.9738
+[epoch 012] alpha=0.00 | train_loss=3.1574 | dev_loss=1.9837
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_1024_supcon_geodesic_temp_0.5/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9738)
+[rank0] pos_mean=0.9998 neg_mean=-0.9998 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0018 Loss: 2.9740755558013916
+[rank1] sim_mean=0.0000 sim_std=1.0010 Loss: 2.959380626678467
+[epoch 013] alpha=0.00 | train_loss=3.1189 | dev_loss=1.9774
+[epoch 013] alpha=0.00 | train_loss=3.1189 | dev_loss=1.9755
+[rank1] sim_mean=0.0000 sim_std=1.0019 Loss: 2.9796009063720703
+[rank0] pos_mean=0.9999 neg_mean=-0.9999 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 2.8983311653137207
+[epoch 014] alpha=0.00 | train_loss=3.1514 | dev_loss=1.9942
+[epoch 014] alpha=0.00 | train_loss=3.1514 | dev_loss=1.9848
+[rank1] sim_mean=0.0001 sim_std=0.9998 Loss: 3.2046499252319336
+[rank0] pos_mean=0.9997 neg_mean=-0.9998 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0017 Loss: 3.1325631141662598
+[epoch 015] alpha=0.00 | train_loss=3.0311 | dev_loss=1.9746
+[epoch 015] alpha=0.00 | train_loss=3.0311 | dev_loss=1.9730
+[rank1] sim_mean=0.0000 sim_std=1.0019 Loss: 2.8881919384002686
+[rank0] pos_mean=0.9999 neg_mean=-0.9999 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 2.9261908531188965
+[epoch 016] alpha=0.00 | train_loss=3.1983 | dev_loss=1.9848
+[epoch 016] alpha=0.00 | train_loss=3.1983 | dev_loss=1.9917
+[rank1] sim_mean=0.0000 sim_std=1.0018 Loss: 3.085981845855713
+[rank0] pos_mean=0.9989 neg_mean=-0.9988 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0001 sim_std=1.0009 Loss: 3.2496867179870605
+[epoch 017] alpha=0.00 | train_loss=3.0872 | dev_loss=2.0028
+[epoch 017] alpha=0.00 | train_loss=3.0872 | dev_loss=1.9964
+[rank1] sim_mean=0.0000 sim_std=1.0019 Loss: 2.9674203395843506
+[rank0] pos_mean=1.0000 neg_mean=-1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 2.9496564865112305
+[epoch 018] alpha=0.00 | train_loss=3.0030 | dev_loss=2.0025
+[epoch 018] alpha=0.00 | train_loss=3.0030 | dev_loss=1.9857
+[rank0] pos_mean=1.0000 neg_mean=-1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 2.951303243637085
+[rank1] sim_mean=0.0156 sim_std=1.0016 Loss: 3.573822021484375
+[epoch 019] alpha=0.00 | train_loss=2.9884 | dev_loss=1.9733
+[epoch 019] alpha=0.00 | train_loss=2.9884 | dev_loss=1.9727
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_1024_supcon_geodesic_temp_0.5/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9727)
+[rank0] pos_mean=1.0000 neg_mean=-1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 2.9637317657470703
+[rank1] sim_mean=0.0000 sim_std=1.0019 Loss: 2.936771869659424
+[epoch 020] alpha=0.00 | train_loss=2.9927 | dev_loss=1.9919
+[epoch 020] alpha=0.00 | train_loss=2.9927 | dev_loss=1.9824
+[rank0] pos_mean=1.0000 neg_mean=-1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0020 Loss: 2.8374550342559814
+[rank1] sim_mean=0.0000 sim_std=1.0020 Loss: 2.8374710083007812
+[epoch 021] alpha=0.00 | train_loss=3.1058 | dev_loss=1.9841
+[epoch 021] alpha=0.00 | train_loss=3.1058 | dev_loss=1.9831
+[rank0] pos_mean=0.9994 neg_mean=-0.9995 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0015 Loss: 3.153970241546631
+[rank1] sim_mean=0.0000 sim_std=1.0012 Loss: 3.251696825027466
+[epoch 022] alpha=0.00 | train_loss=3.2920 | dev_loss=1.9704
+[epoch 022] alpha=0.00 | train_loss=3.2920 | dev_loss=1.9851
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_1024_supcon_geodesic_temp_0.5/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9704)
+[rank1] sim_mean=0.0000 sim_std=1.0019 Loss: 3.131516456604004
+[rank0] pos_mean=0.7502 neg_mean=-0.7502 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0156 sim_std=1.0016 Loss: 3.6945297718048096
+[epoch 023] alpha=0.00 | train_loss=3.1101 | dev_loss=1.9737
+[epoch 023] alpha=0.00 | train_loss=3.1101 | dev_loss=1.9737
+[rank1] sim_mean=0.0156 sim_std=1.0015 Loss: 3.7113161087036133
+[rank0] pos_mean=0.5721 neg_mean=-0.5010 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0623 sim_std=0.9988 Loss: 4.243145942687988
+[epoch 024] alpha=0.00 | train_loss=3.0993 | dev_loss=1.9756
+[epoch 024] alpha=0.00 | train_loss=3.0993 | dev_loss=1.9733
+[rank1] sim_mean=0.0002 sim_std=0.9992 Loss: 3.013416290283203
+[rank0] pos_mean=1.0000 neg_mean=-1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 3.0922908782958984
+[epoch 025] alpha=0.00 | train_loss=3.0069 | dev_loss=1.9669
+[epoch 025] alpha=0.00 | train_loss=3.0069 | dev_loss=1.9760
+[rank1] sim_mean=0.0000 sim_std=1.0019 Loss: 3.0472664833068848
+[rank0] pos_mean=1.0000 neg_mean=-1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 2.960327625274658
+[epoch 026] alpha=0.00 | train_loss=3.0952 | dev_loss=1.9793
+[epoch 026] alpha=0.00 | train_loss=3.0952 | dev_loss=1.9767
+[rank0] pos_mean=0.9998 neg_mean=-0.9998 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0018 Loss: 3.015402317047119
+[rank1] sim_mean=0.0000 sim_std=1.0018 Loss: 3.069425106048584
+[epoch 027] alpha=0.00 | train_loss=3.0691 | dev_loss=1.9763
+[epoch 027] alpha=0.00 | train_loss=3.0691 | dev_loss=1.9700
+[rank0] pos_mean=1.0000 neg_mean=-1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 2.9881019592285156
+[rank1] sim_mean=0.0000 sim_std=1.0020 Loss: 2.857313871383667
+[epoch 028] alpha=0.00 | train_loss=3.0323 | dev_loss=1.9763
+[epoch 028] alpha=0.00 | train_loss=3.0323 | dev_loss=1.9669
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_1024_supcon_geodesic_temp_0.5/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9669)
+[rank0] pos_mean=1.0000 neg_mean=-1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 3.1780433654785156
+[rank1] sim_mean=0.0000 sim_std=1.0019 Loss: 3.0375871658325195
+[epoch 029] alpha=0.00 | train_loss=3.0972 | dev_loss=1.9762
+[epoch 029] alpha=0.00 | train_loss=3.0972 | dev_loss=1.9711
+[rank0] pos_mean=0.9998 neg_mean=-0.9998 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0018 Loss: 3.1032774448394775
+[rank1] sim_mean=0.0000 sim_std=1.0018 Loss: 3.031890630722046
+[epoch 030] alpha=0.00 | train_loss=3.0858 | dev_loss=1.9757
+[epoch 030] alpha=0.00 | train_loss=3.0858 | dev_loss=1.9764
+[rank0] pos_mean=1.0000 neg_mean=-1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 2.92032527923584
+[rank1] sim_mean=0.0000 sim_std=1.0019 Loss: 2.93369722366333
+[epoch 031] alpha=0.00 | train_loss=3.2222 | dev_loss=1.9731
+[epoch 031] alpha=0.00 | train_loss=3.2222 | dev_loss=1.9789
+[rank0] pos_mean=1.0000 neg_mean=-1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 3.081791877746582
+[rank1] sim_mean=0.0000 sim_std=1.0019 Loss: 2.917003631591797
+[epoch 032] alpha=0.00 | train_loss=2.9795 | dev_loss=1.9668
+[epoch 032] alpha=0.00 | train_loss=2.9795 | dev_loss=1.9701
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_1024_supcon_geodesic_temp_0.5/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9668)
+[rank0] pos_mean=1.0000 neg_mean=-1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 2.919370651245117
+[rank1] sim_mean=0.0000 sim_std=1.0020 Loss: 2.867125988006592
+[epoch 033] alpha=0.00 | train_loss=3.1524 | dev_loss=1.9697
+[epoch 033] alpha=0.00 | train_loss=3.1524 | dev_loss=1.9669
+[rank1] sim_mean=0.0000 sim_std=1.0019 Loss: 3.235053777694702
+[rank0] pos_mean=0.9999 neg_mean=-0.9999 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 3.0672340393066406
+[epoch 034] alpha=0.00 | train_loss=2.9692 | dev_loss=1.9732
+[epoch 034] alpha=0.00 | train_loss=2.9692 | dev_loss=1.9669
+[rank0] pos_mean=1.0000 neg_mean=-1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 2.9184603691101074
+[rank1] sim_mean=0.0000 sim_std=1.0019 Loss: 2.9546267986297607
+[epoch 035] alpha=0.00 | train_loss=3.0832 | dev_loss=1.9669
+[epoch 035] alpha=0.00 | train_loss=3.0832 | dev_loss=1.9702
+[rank0] pos_mean=0.9753 neg_mean=-0.9752 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0016 sim_std=0.9808 Loss: 3.222555637359619
+[rank1] sim_mean=0.0000 sim_std=1.0018 Loss: 3.225701093673706
+[epoch 036] alpha=0.00 | train_loss=3.0608 | dev_loss=1.9700
+[epoch 036] alpha=0.00 | train_loss=3.0608 | dev_loss=1.9763
+[rank0] pos_mean=1.0000 neg_mean=-1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 3.0159759521484375
+[rank1] sim_mean=0.0001 sim_std=1.0004 Loss: 3.003006935119629
+[epoch 037] alpha=0.00 | train_loss=3.1504 | dev_loss=1.9760
+[epoch 037] alpha=0.00 | train_loss=3.1504 | dev_loss=1.9792
+[rank0] pos_mean=1.0000 neg_mean=-1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 3.030569314956665
+[rank1] sim_mean=0.0000 sim_std=1.0019 Loss: 3.0820376873016357
+[epoch 038] alpha=0.00 | train_loss=3.1134 | dev_loss=1.9731
+[epoch 038] alpha=0.00 | train_loss=3.1134 | dev_loss=1.9726
+[rank0] pos_mean=1.0000 neg_mean=-1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0019 Loss: 3.10412335395813
+[rank1] sim_mean=0.0000 sim_std=1.0013 Loss: 3.007510185241699
+[epoch 039] alpha=0.00 | train_loss=2.9892 | dev_loss=1.9734
+[epoch 039] alpha=0.00 | train_loss=2.9892 | dev_loss=1.9700
+[rank1] sim_mean=0.0000 sim_std=1.0019 Loss: 2.9219682216644287
+[rank0] pos_mean=0.7500 neg_mean=-0.7500 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0156 sim_std=1.0018 Loss: 3.6721701622009277
+[epoch 040] alpha=0.00 | train_loss=2.9762 | dev_loss=1.9731
+[epoch 040] alpha=0.00 | train_loss=2.9762 | dev_loss=1.9762
+[rank0] pos_mean=1.0000 neg_mean=-1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0020 Loss: 2.862755298614502
+[rank1] sim_mean=0.0000 sim_std=1.0012 Loss: 2.923367500305176
+[epoch 041] alpha=0.00 | train_loss=2.9131 | dev_loss=1.9762
+[epoch 041] alpha=0.00 | train_loss=2.9131 | dev_loss=1.9731
+[rank1] sim_mean=0.0000 sim_std=1.0019 Loss: 2.9290170669555664
+[rank0] pos_mean=1.0000 neg_mean=-1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0000 sim_std=1.0020 Loss: 2.8508877754211426
+[epoch 042] alpha=0.00 | train_loss=3.0539 | dev_loss=2.0304
+Early stopping at epoch 042 (no improvement for 10 epochs).
+Best checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_1024_supcon_geodesic_temp_0.5/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9668)
+/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/distributed_c10d.py:4807: UserWarning: No device id is provided via `init_process_group` or `barrier `. Using the current device set by the user. 
+  warnings.warn(  # warn only once
+[epoch 042] alpha=0.00 | train_loss=3.0539 | dev_loss=2.0467
+/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/distributed_c10d.py:4807: UserWarning: No device id is provided via `init_process_group` or `barrier `. Using the current device set by the user. 
+  warnings.warn(  # warn only once
+[ERROR] Stage-1 checkpoint not found: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_1024_supcon_geodesic_temp_0.5/wav2vec2-xls-r-300m_stage1_head_best.pt

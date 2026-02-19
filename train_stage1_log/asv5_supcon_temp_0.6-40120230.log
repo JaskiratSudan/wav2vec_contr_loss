@@ -1,0 +1,105 @@
+Setting up the environment...
+Job started on gl1517.arc-ts.umich.edu at Thu Jan 15 18:33:12 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: asv5_supcon_temp_0.6
+Using BATCH_SIZE=64
+W0115 18:33:19.377692 190415 torch/distributed/run.py:774] 
+W0115 18:33:19.377692 190415 torch/distributed/run.py:774] *****************************************
+W0115 18:33:19.377692 190415 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0115 18:33:19.377692 190415 torch/distributed/run.py:774] *****************************************
+[W115 18:33:19.324008672 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29730 (errno: 97 - Address family not supported by protocol).
+[W115 18:33:25.617514780 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29730 (errno: 97 - Address family not supported by protocol).
+[W115 18:33:25.617984650 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29730 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_supcon_temp_0.6/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5_train_protocol.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5.dev.metadata.txt
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=64
+NUM_SAMPLES=None
+HEAD_LR=0.05
+ENC_LR=0.0001
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.6
+NUM_WORKERS=10
+SEED=1337
+SUPCON_SIMILARITY=cosine
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=0.5
+TOPK_NEG=7
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+PATIENCE=10
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[INFO] Global batch size=64 | Per-GPU batch size=32
+[rank1] sim_mean=0.9773 sim_std=0.0082
+[rank0] sim_mean=0.9788 sim_std=0.0076
+[rank0] sim_mean=0.9999 sim_std=0.0001
+[rank1] sim_mean=0.9999 sim_std=0.0001
+[rank0] sim_mean=0.9999 sim_std=0.0001
+[rank1] sim_mean=0.9999 sim_std=0.0001
+[rank0] sim_mean=0.9999 sim_std=0.0001
+[rank1] sim_mean=0.9998 sim_std=0.0002
+[rank1] sim_mean=0.9999 sim_std=0.0001
+[rank0] sim_mean=1.0000 sim_std=0.0000
+[rank0] sim_mean=1.0000 sim_std=0.0000
+[rank1] sim_mean=1.0000 sim_std=0.0001
+[rank0] sim_mean=0.9999 sim_std=0.0001
+[rank1] sim_mean=0.9999 sim_std=0.0001
+[rank1] sim_mean=0.9996 sim_std=0.0005
+[rank0] sim_mean=0.9991 sim_std=0.0016
+[rank0] sim_mean=0.9996 sim_std=0.0006
+[rank1] sim_mean=0.9994 sim_std=0.0007
+[rank1] sim_mean=0.9102 sim_std=0.1088
+[rank0] sim_mean=0.9291 sim_std=0.0937
+[rank0] sim_mean=0.9011 sim_std=0.2611
+[rank1] sim_mean=0.8494 sim_std=0.3017
+[rank1] sim_mean=0.7682 sim_std=0.3465
+[rank0] sim_mean=0.6870 sim_std=0.4097
+[rank1] sim_mean=0.9999 sim_std=0.0003
+[rank0] sim_mean=0.9031 sim_std=0.3815
+[rank0] sim_mean=1.0000 sim_std=0.0000
+[rank1] sim_mean=1.0000 sim_std=0.0000
+[rank0] sim_mean=1.0000 sim_std=0.0000
+[rank1] sim_mean=1.0000 sim_std=0.0000
+[rank1] sim_mean=1.0000 sim_std=0.0000
+[rank0] sim_mean=1.0000 sim_std=0.0000
+[rank0] sim_mean=1.0000 sim_std=0.0000
+[rank1] sim_mean=1.0000 sim_std=0.0000
+[rank1] sim_mean=1.0000 sim_std=0.0000
+[rank0] sim_mean=1.0000 sim_std=0.0000
+[rank1] sim_mean=1.0000 sim_std=0.0000
+[rank0] sim_mean=1.0000 sim_std=0.0000
+[rank0] sim_mean=1.0000 sim_std=0.0000
+[rank1] sim_mean=1.0000 sim_std=0.0000
+[rank1] sim_mean=1.0000 sim_std=0.0000
+[rank0] sim_mean=1.0000 sim_std=0.0000
+[rank1] sim_mean=1.0000 sim_std=0.0000
+[rank0] sim_mean=1.0000 sim_std=0.0000
+[rank0] sim_mean=1.0000 sim_std=0.0000
+[rank1] sim_mean=1.0000 sim_std=0.0000
+[rank0] sim_mean=1.0000 sim_std=0.0000
+[rank1] sim_mean=1.0000 sim_std=0.0000
+[rank0] sim_mean=1.0000 sim_std=0.0000
+[rank1] sim_mean=1.0000 sim_std=0.0000
+[rank0] sim_mean=1.0000 sim_std=0.0000
+[rank1] sim_mean=1.0000 sim_std=0.0000
+[2026-01-15T19:33:17.011] error: *** JOB 40120230 ON gl1517 CANCELLED AT 2026-01-15T19:33:17 DUE TO TIME LIMIT ***

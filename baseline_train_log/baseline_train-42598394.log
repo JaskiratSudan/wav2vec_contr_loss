@@ -1,0 +1,17 @@
+Setting up the environment...
+Job started on gl1502.arc-ts.umich.edu at Fri Feb 13 18:55:31 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+Starting the Python training script...
+Device: cuda
+[INFO] Found existing score file for 'itw': /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[INFO] Found existing score file for 'asv19': /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+[INFO] Found existing score file for 'asv21_la': /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/asv21_la/score_cm_asv21_la.txt
+[INFO] Found existing score file for 'asv21_df': /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/asv21_df/score_cm_asv21_df.txt
+/var/spool/slurmd.spool/job42598394/slurm_script: line 97: --print_eer: command not found
+----------------------------------------------------------------
+Training script finished.
+Job finished at: Fri Feb 13 19:00:34 EST 2026

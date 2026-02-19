@@ -1,0 +1,20 @@
+Setting up the environment...
+Job started on gl1513.arc-ts.umich.edu at Tue Feb  3 11:26:22 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+Starting the Python training script...
+Device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_baseline_datasets.py", line 393, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_baseline_datasets.py", line 322, in main
+    spec_map = dataset_specs(args)
+  File "/home/jsudan/wav2vec_contr_loss/eval_baseline_datasets.py", line 212, in dataset_specs
+    "include_speakers": ff_speakers if args.ff_speakers else None,
+NameError: name 'ff_speakers' is not defined
+----------------------------------------------------------------
+Training script finished.
+Job finished at: Tue Feb  3 11:26:40 EST 2026

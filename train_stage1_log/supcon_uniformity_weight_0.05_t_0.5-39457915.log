@@ -1,0 +1,44 @@
+Setting up the environment...
+Job started on gl3036.arc-ts.umich.edu at Wed Jan  7 16:25:46 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: False
+/var/spool/slurmd.spool/job39457915/slurm_script: line 33: nvidia-smi: command not found
+Current GPU: 
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_uniformity_weight_0.05_t_0.5
+Using BATCH_SIZE=32
+Using device: cpu
+Loading Stage-2 checkpoint from: checkpoints_stage2/supcon_uniformity_weight_0.05_t_0.5/facebook/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 299, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 265, in main
+    clf = load_stage2_head(STAGE2_CKPT, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 98, in load_stage2_head
+    ckpt = safe_load(ckpt_path, map_location=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 59, in safe_load
+    return torch.load(ckpt_path, map_location=map_location, weights_only=False)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1484, in load
+    with _open_file_like(f, "rb") as opened_file:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 759, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 740, in __init__
+    super().__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: 'checkpoints_stage2/supcon_uniformity_weight_0.05_t_0.5/facebook/wav2vec2-xls-r-300m/stage2_binary_head_best.pt'
+----------------------------------------------------------------
+EER summary:
+Traceback (most recent call last):
+  File "<stdin>", line 6, in <module>
+  File "/home/jsudan/wav2vec_contr_loss/evaluation.py", line 13, in calculate_EER
+    cm_data = np.genfromtxt(cm_scores_file, dtype=str)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 1980, in genfromtxt
+    fid = np.lib._datasource.open(fname, 'rt', encoding=encoding)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 193, in open
+    return ds.open(path, mode, encoding=encoding, newline=newline)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 533, in open
+    raise FileNotFoundError(f"{path} not found.")
+FileNotFoundError: ${SCORE_ASV} not found.
+----------------------------------------------------------------
+Training script finished.
+Job finished at: Wed Jan  7 16:25:55 EST 2026

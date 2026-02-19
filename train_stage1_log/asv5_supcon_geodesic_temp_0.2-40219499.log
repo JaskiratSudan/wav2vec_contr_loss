@@ -1,0 +1,363 @@
+Setting up the environment...
+Job started on gl1512.arc-ts.umich.edu at Sat Jan 17 16:33:23 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: asv5_supcon_geodesic_temp_0.2
+Using BATCH_SIZE=64
+W0117 16:33:35.795566 3901084 torch/distributed/run.py:774] 
+W0117 16:33:35.795566 3901084 torch/distributed/run.py:774] *****************************************
+W0117 16:33:35.795566 3901084 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0117 16:33:35.795566 3901084 torch/distributed/run.py:774] *****************************************
+[W117 16:33:35.763907909 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29999 (errno: 97 - Address family not supported by protocol).
+[W117 16:33:47.217680274 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29999 (errno: 97 - Address family not supported by protocol).
+[W117 16:33:47.217857115 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29999 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_supcon_geodesic_temp_0.2/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5_train_protocol.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5.dev.metadata.txt
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=64
+NUM_SAMPLES=None
+HEAD_LR=5e-05
+ENC_LR=0.0001
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.2
+NUM_WORKERS=10
+SEED=1337
+SUPCON_SIMILARITY=geodesic
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=0.5
+TOPK_NEG=7
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.0
+FINETUNE_ENCODER=True
+PATIENCE=10
+Using device: cuda:0 | RawBoost=True (p=0.0)
+CUDA device count: 2
+[INFO] Global batch size=64 | Per-GPU batch size=32
+[rank0] pos_mean=0.9834 neg_mean=0.9826 n_pos=16 n_neg=16
+[rank1] sim_mean=0.9835 sim_std=0.0052 Loss: 3.4273581504821777
+[rank0] sim_mean=0.9835 sim_std=0.0053 Loss: 3.4295387268066406
+[rank0] pos_mean=0.9956 neg_mean=0.1021 n_pos=16 n_neg=16
+[rank1] sim_mean=0.5611 sim_std=0.4365 Loss: 2.9197733402252197
+[rank0] sim_mean=0.5490 sim_std=0.4478 Loss: 2.7223050594329834
+[epoch 001] alpha=0.00 | train_loss=2.8532 | dev_loss=3.4793
+[timing] train=791.4s (1.35s/step, 587 steps) | dev=428.1s (979 steps) | est_remaining=33.53h
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_supcon_geodesic_temp_0.2/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=3.4793)
+[rank1] sim_mean=0.4172 sim_std=0.5797 Loss: 2.7145190238952637
+[rank0] pos_mean=0.9883 neg_mean=-0.1340 n_pos=16 n_neg=16
+[rank0] sim_mean=0.4275 sim_std=0.5687 Loss: 2.736813545227051
+[rank0] pos_mean=0.9941 neg_mean=-0.2280 n_pos=16 n_neg=16
+[rank1] sim_mean=0.3798 sim_std=0.6168 Loss: 2.7145378589630127
+[rank0] sim_mean=0.3832 sim_std=0.6128 Loss: 2.715581178665161
+[epoch 002] alpha=0.00 | train_loss=2.7587 | dev_loss=3.4933
+[timing] train=787.3s (1.34s/step, 587 steps) | dev=428.0s (979 steps) | est_remaining=33.08h
+[rank1] sim_mean=0.3736 sim_std=0.6230 Loss: 2.7139892578125
+[rank0] pos_mean=0.9948 neg_mean=-0.2481 n_pos=16 n_neg=16
+[rank0] sim_mean=0.3735 sim_std=0.6229 Loss: 2.7156429290771484
+[rank0] pos_mean=0.9963 neg_mean=-0.2598 n_pos=16 n_neg=16
+[rank1] sim_mean=0.3671 sim_std=0.6303 Loss: 2.7130699157714844
+[rank0] sim_mean=0.3684 sim_std=0.6292 Loss: 2.7136435508728027
+[epoch 003] alpha=0.00 | train_loss=2.7472 | dev_loss=3.4454
+[timing] train=789.0s (1.34s/step, 587 steps) | dev=427.6s (979 steps) | est_remaining=32.78h
+[rank1] sim_mean=0.3421 sim_std=0.6559 Loss: 2.711705207824707
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_supcon_geodesic_temp_0.2/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=3.4454)
+[rank0] pos_mean=0.9967 neg_mean=-0.2994 n_pos=16 n_neg=16
+[rank0] sim_mean=0.3487 sim_std=0.6487 Loss: 2.712306499481201
+[rank0] pos_mean=0.9981 neg_mean=-0.4884 n_pos=16 n_neg=16
+[rank1] sim_mean=0.2575 sim_std=0.7408 Loss: 2.710510730743408
+[rank0] sim_mean=0.2549 sim_std=0.7438 Loss: 2.7101240158081055
+[epoch 004] alpha=0.00 | train_loss=2.7417 | dev_loss=3.5974
+[timing] train=787.6s (1.34s/step, 587 steps) | dev=428.9s (979 steps) | est_remaining=32.44h
+[rank1] sim_mean=0.4409 sim_std=0.5569 Loss: 2.7212045192718506
+[rank0] pos_mean=0.9792 neg_mean=-0.0459 n_pos=16 n_neg=16
+[rank0] sim_mean=0.4673 sim_std=0.5301 Loss: 2.76781964302063
+[rank0] pos_mean=0.9973 neg_mean=-0.4197 n_pos=16 n_neg=16
+[rank1] sim_mean=0.3153 sim_std=0.6817 Loss: 2.958934783935547
+[rank0] sim_mean=0.2889 sim_std=0.7094 Loss: 2.711470603942871
+[epoch 005] alpha=0.00 | train_loss=2.7386 | dev_loss=3.4843
+[timing] train=790.0s (1.35s/step, 587 steps) | dev=428.6s (979 steps) | est_remaining=32.16h
+[rank1] sim_mean=0.3349 sim_std=0.6636 Loss: 2.7118992805480957
+[rank0] pos_mean=0.9933 neg_mean=-0.3135 n_pos=16 n_neg=16
+[rank0] sim_mean=0.3401 sim_std=0.6574 Loss: 2.724186897277832
+[rank0] pos_mean=0.9977 neg_mean=-0.3167 n_pos=16 n_neg=16
+[rank1] sim_mean=0.3438 sim_std=0.6550 Loss: 2.71156644821167
+[rank0] sim_mean=0.3406 sim_std=0.6579 Loss: 2.712216854095459
+[epoch 006] alpha=0.00 | train_loss=2.7359 | dev_loss=3.6573
+[timing] train=790.6s (1.35s/step, 587 steps) | dev=428.1s (979 steps) | est_remaining=31.82h
+[rank1] sim_mean=0.3491 sim_std=0.6493 Loss: 2.712106227874756
+[rank0] pos_mean=0.9966 neg_mean=-0.2843 n_pos=16 n_neg=16
+[rank0] sim_mean=0.3562 sim_std=0.6418 Loss: 2.7144970893859863
+[rank0] pos_mean=0.9981 neg_mean=-0.3838 n_pos=16 n_neg=16
+[rank1] sim_mean=0.3114 sim_std=0.6870 Loss: 2.710981845855713
+[rank0] sim_mean=0.3072 sim_std=0.6914 Loss: 2.710737466812134
+[epoch 007] alpha=0.00 | train_loss=2.7291 | dev_loss=3.4630
+[timing] train=789.1s (1.34s/step, 587 steps) | dev=428.4s (979 steps) | est_remaining=31.45h
+[rank0] pos_mean=0.9977 neg_mean=-0.2989 n_pos=16 n_neg=16
+[rank0] sim_mean=0.3495 sim_std=0.6490 Loss: 2.7120227813720703
+[rank1] sim_mean=0.3477 sim_std=0.6508 Loss: 2.711728811264038
+[rank0] pos_mean=0.9925 neg_mean=-0.2320 n_pos=16 n_neg=16
+[rank1] sim_mean=0.3789 sim_std=0.6194 Loss: 2.715193271636963
+[rank0] sim_mean=0.3805 sim_std=0.6172 Loss: 2.727694034576416
+[epoch 008] alpha=0.00 | train_loss=2.7311 | dev_loss=3.6368
+[timing] train=789.2s (1.34s/step, 587 steps) | dev=428.0s (979 steps) | est_remaining=31.11h
+[rank1] sim_mean=0.2908 sim_std=0.7070 Loss: 2.71820330619812
+[rank0] pos_mean=0.9984 neg_mean=-0.4473 n_pos=16 n_neg=16
+[rank0] sim_mean=0.2756 sim_std=0.7233 Loss: 2.7102484703063965
+[rank0] pos_mean=0.9983 neg_mean=-0.4902 n_pos=16 n_neg=16
+[rank1] sim_mean=0.2547 sim_std=0.7441 Loss: 2.710012197494507
+[rank0] sim_mean=0.2541 sim_std=0.7448 Loss: 2.7100517749786377
+[epoch 009] alpha=0.00 | train_loss=2.7263 | dev_loss=3.4516
+[timing] train=789.2s (1.34s/step, 587 steps) | dev=427.4s (979 steps) | est_remaining=30.75h
+[rank1] sim_mean=0.4072 sim_std=0.5916 Loss: 2.713007926940918
+[rank0] pos_mean=0.9978 neg_mean=-0.1586 n_pos=16 n_neg=16
+[rank0] sim_mean=0.4196 sim_std=0.5788 Loss: 2.7138538360595703
+[rank0] pos_mean=0.9984 neg_mean=-0.4337 n_pos=16 n_neg=16
+[rank1] sim_mean=0.2868 sim_std=0.7113 Loss: 2.714594841003418
+[rank0] sim_mean=0.2824 sim_std=0.7165 Loss: 2.710331439971924
+[epoch 010] alpha=0.00 | train_loss=2.7292 | dev_loss=3.4376
+[timing] train=788.8s (1.34s/step, 587 steps) | dev=428.3s (979 steps) | est_remaining=30.43h
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 967, in save
+[rank0]:     _save(
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1268, in _save
+[rank0]:     zip_file.write_record(name, storage, num_bytes)
+[rank0]: RuntimeError: [enforce fail at inline_container.cc:858] . PytorchStreamWriter failed writing file data/420: file write failed
+
+[rank0]: During handling of the above exception, another exception occurred:
+
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1_asv5.py", line 217, in <module>
+[rank0]:     main()
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1_asv5.py", line 195, in main
+[rank0]:     torch.save(ckpt, best_path)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 974, in save
+[rank0]:     return
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 798, in __exit__
+[rank0]:     self.file_like.write_end_of_file()
+[rank0]: RuntimeError: [enforce fail at inline_container.cc:664] . unexpected pos 1246158528 vs 1246158416
+[rank1] sim_mean=0.3932 sim_std=0.6055 Loss: 2.7135138511657715
+[rank0]:[W117 20:00:33.795813368 ProcessGroupNCCL.cpp:1538] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+W0117 20:00:35.530405 3901084 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 3901098 closing signal SIGTERM
+E0117 20:00:35.648785 3901084 torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: 1) local_rank: 0 (pid: 3901097) of binary: /home/jsudan/myenv/bin/python
+Traceback (most recent call last):
+  File "/home/jsudan/myenv/bin/torchrun", line 7, in <module>
+    sys.exit(main())
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 901, in main
+    run(args)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+train_stage1_asv5.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-01-17_20:00:35
+  host      : gl1512.arc-ts.umich.edu
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 3901097)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+Using device: cuda
+Model: facebook/wav2vec2-xls-r-300m
+Checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_supcon_geodesic_temp_0.2/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+Saving to: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV5/asv5_supcon_geodesic_temp_0.2/facebook__wav2vec2-xls-r-300m
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_asv5.py", line 374, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_asv5.py", line 302, in main
+    ckpt = torch.load(ckpt_path, map_location=DEVICE)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1491, in load
+    with _open_zipfile_reader(opened_file) as opened_zipfile:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 771, in __init__
+    super().__init__(torch._C.PyTorchFileReader(name_or_buffer))
+RuntimeError: PytorchStreamReader failed reading zip archive: failed finding central directory
+Using device: cuda
+Loading Stage-1 checkpoint from: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_supcon_geodesic_temp_0.2/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_asv5.py", line 224, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_asv5.py", line 194, in main
+    backbone = Stage1Backbone(STAGE1_CKPT, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_asv5.py", line 88, in __init__
+    ckpt = torch.load(ckpt_path, map_location=device)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1491, in load
+    with _open_zipfile_reader(opened_file) as opened_zipfile:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 771, in __init__
+    super().__init__(torch._C.PyTorchFileReader(name_or_buffer))
+RuntimeError: PytorchStreamReader failed reading zip archive: failed finding central directory
+Using device: cuda
+Loading Stage-1 checkpoint from: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_supcon_geodesic_temp_0.2/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 364, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 352, in main
+    backbone = Stage1Backbone(STAGE1_CKPT, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings.py", line 121, in __init__
+    ckpt = torch.load(ckpt_path, map_location=device)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1491, in load
+    with _open_zipfile_reader(opened_file) as opened_zipfile:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 771, in __init__
+    super().__init__(torch._C.PyTorchFileReader(name_or_buffer))
+RuntimeError: PytorchStreamReader failed reading zip archive: failed finding central directory
+W0117 20:01:19.691990 4148683 torch/distributed/run.py:774] 
+W0117 20:01:19.691990 4148683 torch/distributed/run.py:774] *****************************************
+W0117 20:01:19.691990 4148683 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0117 20:01:19.691990 4148683 torch/distributed/run.py:774] *****************************************
+[W117 20:01:19.648114298 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29999 (errno: 97 - Address family not supported by protocol).
+Using device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier_asv5.py", line 67, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier_asv5.py", line 35, in main
+    X_train = np.load(train_emb_path).astype("float32")
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 427, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV5/facebook__wav2vec2-xls-r-300m/asv5_supcon_geodesic_temp_0.2/train_embeddings.npy'
+Using device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier_asv5.py", line 67, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/train_stage2_classifier_asv5.py", line 35, in main
+    X_train = np.load(train_emb_path).astype("float32")
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 427, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV5/facebook__wav2vec2-xls-r-300m/asv5_supcon_geodesic_temp_0.2/train_embeddings.npy'
+W0117 20:01:22.647211 4148683 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 4148700 closing signal SIGTERM
+E0117 20:01:22.654918 4148683 torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: 1) local_rank: 1 (pid: 4148701) of binary: /home/jsudan/myenv/bin/python
+Traceback (most recent call last):
+  File "/home/jsudan/myenv/bin/torchrun", line 7, in <module>
+    sys.exit(main())
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 901, in main
+    run(args)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+train_stage2_classifier_asv5.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-01-17_20:01:22
+  host      : gl1512.arc-ts.umich.edu
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 4148701)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+Using device: cuda
+Loading Stage-2 checkpoint from: checkpoints_stage2/asv5_supcon_geodesic_temp_0.2/facebook/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file_asv5.py", line 174, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file_asv5.py", line 155, in main
+    clf = load_stage2_head(STAGE2_CKPT, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file_asv5.py", line 69, in load_stage2_head
+    ckpt = safe_load(ckpt_path, map_location=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file_asv5.py", line 33, in safe_load
+    return torch.load(ckpt_path, map_location=map_location, weights_only=False)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1484, in load
+    with _open_file_like(f, "rb") as opened_file:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 759, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 740, in __init__
+    super().__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: 'checkpoints_stage2/asv5_supcon_geodesic_temp_0.2/facebook/wav2vec2-xls-r-300m/stage2_binary_head_best.pt'
+Using device: cuda
+Loading Stage-2 checkpoint from: checkpoints_stage2/asv5_supcon_geodesic_temp_0.2/facebook/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 293, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 265, in main
+    clf = load_stage2_head(STAGE2_CKPT, device=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 98, in load_stage2_head
+    ckpt = safe_load(ckpt_path, map_location=device)
+  File "/home/jsudan/wav2vec_contr_loss/generate_eval_score_file.py", line 59, in safe_load
+    return torch.load(ckpt_path, map_location=map_location, weights_only=False)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1484, in load
+    with _open_file_like(f, "rb") as opened_file:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 759, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 740, in __init__
+    super().__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: 'checkpoints_stage2/asv5_supcon_geodesic_temp_0.2/facebook/wav2vec2-xls-r-300m/stage2_binary_head_best.pt'
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_file_asv5.py", line 21, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_file_asv5.py", line 16, in main
+    eer = calculate_EER(args.score_path)
+  File "/home/jsudan/wav2vec_contr_loss/evaluation.py", line 13, in calculate_EER
+    cm_data = np.genfromtxt(cm_scores_file, dtype=str)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 1980, in genfromtxt
+    fid = np.lib._datasource.open(fname, 'rt', encoding=encoding)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 193, in open
+    return ds.open(path, mode, encoding=encoding, newline=newline)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 533, in open
+    raise FileNotFoundError(f"{path} not found.")
+FileNotFoundError: /home/jsudan/wav2vec_contr_loss/scores/asv5_supcon_geodesic_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt not found.
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_file_asv5.py", line 21, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_file_asv5.py", line 16, in main
+    eer = calculate_EER(args.score_path)
+  File "/home/jsudan/wav2vec_contr_loss/evaluation.py", line 13, in calculate_EER
+    cm_data = np.genfromtxt(cm_scores_file, dtype=str)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 1980, in genfromtxt
+    fid = np.lib._datasource.open(fname, 'rt', encoding=encoding)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 193, in open
+    return ds.open(path, mode, encoding=encoding, newline=newline)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 533, in open
+    raise FileNotFoundError(f"{path} not found.")
+FileNotFoundError: /home/jsudan/wav2vec_contr_loss/scores/asv5_supcon_geodesic_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt not found.
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_file_asv5.py", line 21, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_score_file_asv5.py", line 16, in main
+    eer = calculate_EER(args.score_path)
+  File "/home/jsudan/wav2vec_contr_loss/evaluation.py", line 13, in calculate_EER
+    cm_data = np.genfromtxt(cm_scores_file, dtype=str)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/npyio.py", line 1980, in genfromtxt
+    fid = np.lib._datasource.open(fname, 'rt', encoding=encoding)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 193, in open
+    return ds.open(path, mode, encoding=encoding, newline=newline)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/numpy/lib/_datasource.py", line 533, in open
+    raise FileNotFoundError(f"{path} not found.")
+FileNotFoundError: /home/jsudan/wav2vec_contr_loss/scores/asv5_supcon_geodesic_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt not found.
+----------------------------------------------------------------
+ASV5 pipeline finished.
+Job finished at: Sat Jan 17 20:01:27 EST 2026

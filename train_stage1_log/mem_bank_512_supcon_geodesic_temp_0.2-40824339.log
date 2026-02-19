@@ -1,0 +1,2161 @@
+Setting up the environment...
+Job started on gl1522.arc-ts.umich.edu at Sun Jan 25 03:10:51 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_bank_512_supcon_geodesic_temp_0.2
+USE_QUEUE=1
+QUEUE_SIZE=512
+ACCUM_STEPS=1
+CENTER_BEFORE_NORM=1
+GLOBAL_CENTER=1
+Detected NUM_GPUS=2
+Using BATCH_SIZE=32
+W0125 03:10:58.086878 2099451 torch/distributed/run.py:774] 
+W0125 03:10:58.086878 2099451 torch/distributed/run.py:774] *****************************************
+W0125 03:10:58.086878 2099451 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0125 03:10:58.086878 2099451 torch/distributed/run.py:774] *****************************************
+[W125 03:10:58.952393266 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29839 (errno: 97 - Address family not supported by protocol).
+[W125 03:10:58.953295896 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29839 (errno: 97 - Address family not supported by protocol).
+[W125 03:10:58.954198805 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29839 (errno: 97 - Address family not supported by protocol).
+[W125 03:11:03.849348288 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29839 (errno: 97 - Address family not supported by protocol).
+[W125 03:11:03.849554090 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29839 (errno: 97 - Address family not supported by protocol).
+[W125 03:11:03.850333724 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29839 (errno: 97 - Address family not supported by protocol).
+[W125 03:11:03.850654686 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29839 (errno: 97 - Address family not supported by protocol).
+[W125 03:11:03.851276779 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29839 (errno: 97 - Address family not supported by protocol).
+[W125 03:11:03.851716660 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29839 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+MODEL_ID=wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_512_supcon_geodesic_temp_0.2
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+ACCUM_STEPS=1
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.2
+NUM_WORKERS=4
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=0.5
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=10
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Global batch size=32 | Per-GPU batch size=16
+[INFO] Queue size=512 (per-rank)
+[rank1] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.9103 std=0.0555 min=0.7103 max=0.9808 var_mean=8.213928e-05
+[rank0] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.8771 std=0.0911 min=0.5035 max=0.9733 var_mean=1.124898e-04
+[rank1] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9499 std=0.0330 min=0.8289 max=0.9900 var_mean=1.833660e-04
+[rank0] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9342 std=0.0515 min=0.6933 max=0.9849 var_mean=2.411204e-04
+[rank1] head_post: z_norm_mean=1.0000 offdiag_cos mean=-0.0363 std=0.4004 min=-0.7817 max=0.7753 var_mean=3.795144e-03
+[rank0] head_post: z_norm_mean=1.0000 offdiag_cos mean=-0.0302 std=0.4272 min=-0.7704 max=0.8015 var_mean=3.772543e-03
+[rank1] sim_mean=0.0284 sim_std=0.4620 Loss: 3.5512795448303223
+[rank0] pos_mean=-0.0271 neg_mean=-0.0328 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0342 sim_std=0.4832 Loss: 3.593212127685547
+[epoch 001] alpha=0.00 | train_loss=4.7920 | dev_loss=2.1463[epoch 001] alpha=0.00 | train_loss=4.7920 | dev_loss=2.1376
+
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.1376)
+[rank1] sim_mean=0.0057 sim_std=0.9435 Loss: 2.8218207359313965
+[rank0] pos_mean=0.6746 neg_mean=-0.6579 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0287 sim_std=0.9081 Loss: 3.8590052127838135
+[epoch 002] alpha=0.00 | train_loss=3.1866 | dev_loss=2.0807
+[epoch 002] alpha=0.00 | train_loss=3.1866 | dev_loss=2.0270
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.0807)
+[rank0] pos_mean=0.4647 neg_mean=-0.5170 n_pos=8 n_neg=8
+[rank1] sim_mean=0.0011 sim_std=0.9834 Loss: 2.1755435466766357
+[rank0] sim_mean=0.0073 sim_std=0.9228 Loss: 4.780858993530273
+[epoch 003] alpha=0.00 | train_loss=2.5557 | dev_loss=2.0653
+[epoch 003] alpha=0.00 | train_loss=2.5557 | dev_loss=2.0683
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.0653)
+[rank0] pos_mean=0.9935 neg_mean=-0.9939 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0002 sim_std=0.9961 Loss: 2.2050399780273438
+[rank1] sim_mean=0.0002 sim_std=0.9985 Loss: 2.029087543487549
+[epoch 004] alpha=0.00 | train_loss=2.5541 | dev_loss=1.9824
+[epoch 004] alpha=0.00 | train_loss=2.5541 | dev_loss=1.9976
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9824)
+[rank1] sim_mean=0.0062 sim_std=0.9399 Loss: 2.6128807067871094
+[rank0] pos_mean=0.9731 neg_mean=-0.9732 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0016 sim_std=0.9783 Loss: 2.169098377227783
+[epoch 005] alpha=0.00 | train_loss=2.3426 | dev_loss=1.9794
+[epoch 005] alpha=0.00 | train_loss=2.3426 | dev_loss=1.9884
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9794)
+[rank0] pos_mean=0.9884 neg_mean=-0.9889 n_pos=8 n_neg=8
+[rank1] sim_mean=0.0001 sim_std=0.9986 Loss: 2.0495941638946533
+[rank0] sim_mean=0.0005 sim_std=0.9914 Loss: 1.988257646560669
+[epoch 006] alpha=0.00 | train_loss=2.2142 | dev_loss=1.9854
+[epoch 006] alpha=0.00 | train_loss=2.2142 | dev_loss=1.9843
+[rank0] pos_mean=0.9945 neg_mean=-0.9948 n_pos=8 n_neg=8
+[rank1] sim_mean=0.0001 sim_std=0.9987 Loss: 2.0326719284057617
+[rank0] sim_mean=0.0002 sim_std=0.9970 Loss: 2.016894578933716
+[epoch 007] alpha=0.00 | train_loss=2.1836 | dev_loss=2.0502
+[epoch 007] alpha=0.00 | train_loss=2.1836 | dev_loss=2.0904
+[rank1] sim_mean=0.0002 sim_std=0.9986 Loss: 1.9700629711151123
+[rank0] pos_mean=0.9951 neg_mean=-0.9955 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0001 sim_std=0.9976 Loss: 1.998896598815918
+[epoch 008] alpha=0.00 | train_loss=2.2241 | dev_loss=1.9942
+[epoch 008] alpha=0.00 | train_loss=2.2241 | dev_loss=2.0182
+[rank1] sim_mean=0.0003 sim_std=0.9958 Loss: 1.9971466064453125
+[rank0] pos_mean=0.9872 neg_mean=-0.9882 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0003 sim_std=0.9906 Loss: 2.027559757232666
+[epoch 009] alpha=0.00 | train_loss=2.2350 | dev_loss=1.9783
+[epoch 009] alpha=0.00 | train_loss=2.2350 | dev_loss=1.9694
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9783)
+[rank0] pos_mean=0.9945 neg_mean=-0.9947 n_pos=8 n_neg=8
+[rank1] sim_mean=0.0029 sim_std=0.9568 Loss: 2.109498977661133
+[rank0] sim_mean=0.0002 sim_std=0.9969 Loss: 2.1511669158935547
+[epoch 010] alpha=0.00 | train_loss=2.1326 | dev_loss=1.9653
+[epoch 010] alpha=0.00 | train_loss=2.1326 | dev_loss=1.9685
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9685)
+[rank0] pos_mean=0.7479 neg_mean=-0.7488 n_pos=8 n_neg=8
+[rank1] sim_mean=0.0001 sim_std=1.0000 Loss: 1.9499332904815674
+[rank0] sim_mean=0.0153 sim_std=0.9967 Loss: 3.300619125366211
+[epoch 011] alpha=0.00 | train_loss=2.1862 | dev_loss=2.0458
+[epoch 011] alpha=0.00 | train_loss=2.1862 | dev_loss=2.0421
+[rank0] pos_mean=0.5076 neg_mean=-0.5684 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0004 sim_std=0.9888 Loss: 4.581467151641846
+[rank1] sim_mean=0.0005 sim_std=0.9886 Loss: 2.1534664630889893
+[epoch 012] alpha=0.00 | train_loss=2.2281 | dev_loss=2.0305
+[epoch 012] alpha=0.00 | train_loss=2.2281 | dev_loss=2.0406
+[rank1] sim_mean=0.0059 sim_std=0.9505 Loss: 2.3314285278320312
+[rank0] pos_mean=0.9951 neg_mean=-0.9954 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0001 sim_std=0.9975 Loss: 2.0078940391540527
+[epoch 013] alpha=0.00 | train_loss=2.1164 | dev_loss=2.0067
+[epoch 013] alpha=0.00 | train_loss=2.1164 | dev_loss=2.0205
+[rank0] pos_mean=0.9978 neg_mean=-0.9979 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0001 sim_std=1.0000 Loss: 2.0704383850097656
+[rank1] sim_mean=0.0001 sim_std=0.9984 Loss: 1.9650793075561523
+[epoch 014] alpha=0.00 | train_loss=2.0714 | dev_loss=1.9713
+[epoch 014] alpha=0.00 | train_loss=2.0714 | dev_loss=1.9845
+[rank0] pos_mean=0.9963 neg_mean=-0.9966 n_pos=8 n_neg=8
+[rank1] sim_mean=0.0001 sim_std=0.9992 Loss: 2.055426836013794
+[rank0] sim_mean=0.0001 sim_std=0.9986 Loss: 2.0082523822784424
+[epoch 015] alpha=0.00 | train_loss=2.1108 | dev_loss=1.9684
+[epoch 015] alpha=0.00 | train_loss=2.1108 | dev_loss=1.9681
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9684)
+[rank0] pos_mean=0.9958 neg_mean=-0.9958 n_pos=8 n_neg=8[rank1] sim_mean=0.0002 sim_std=0.9987 Loss: 1.9613887071609497
+
+[rank0] sim_mean=0.0003 sim_std=0.9980 Loss: 2.0403940677642822
+[epoch 016] alpha=0.00 | train_loss=2.0922 | dev_loss=1.9839
+[epoch 016] alpha=0.00 | train_loss=2.0922 | dev_loss=1.9722
+[rank1] sim_mean=0.0001 sim_std=0.9952 Loss: 1.9642304182052612
+[rank0] pos_mean=0.9947 neg_mean=-0.9949 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0003 sim_std=0.9971 Loss: 2.00791072845459
+[epoch 017] alpha=0.00 | train_loss=2.1261 | dev_loss=1.9797
+[epoch 017] alpha=0.00 | train_loss=2.1261 | dev_loss=1.9765
+[rank0] pos_mean=0.9938 neg_mean=-0.9940 n_pos=8 n_neg=8
+[rank1] sim_mean=0.0003 sim_std=0.9963 Loss: 1.95784330368042
+[rank0] sim_mean=0.0003 sim_std=0.9962 Loss: 2.006699562072754
+[epoch 018] alpha=0.00 | train_loss=2.0622 | dev_loss=1.9665
+[epoch 018] alpha=0.00 | train_loss=2.0622 | dev_loss=1.9571
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9571)
+[rank0] pos_mean=0.9983 neg_mean=-0.9983 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0001 sim_std=1.0003 Loss: 1.958775281906128
+[rank1] sim_mean=0.0002 sim_std=0.9987 Loss: 1.9503982067108154
+[epoch 019] alpha=0.00 | train_loss=2.0554 | dev_loss=1.9556
+[epoch 019] alpha=0.00 | train_loss=2.0554 | dev_loss=1.9589
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9556)
+[rank0] pos_mean=0.9980 neg_mean=-0.9982 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0001 sim_std=1.0002 Loss: 2.0102477073669434
+[rank1] sim_mean=0.0000 sim_std=0.9996 Loss: 1.9617807865142822
+[epoch 020] alpha=0.00 | train_loss=2.0744 | dev_loss=1.9549
+[epoch 020] alpha=0.00 | train_loss=2.0744 | dev_loss=1.9702
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9549)
+[rank1] sim_mean=0.0002 sim_std=0.9972 Loss: 1.9701638221740723
+[rank0] pos_mean=0.9911 neg_mean=-0.9919 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0002 sim_std=0.9941 Loss: 1.9627054929733276
+[epoch 021] alpha=0.00 | train_loss=2.0614 | dev_loss=1.9510
+[epoch 021] alpha=0.00 | train_loss=2.0614 | dev_loss=1.9663
+[rank0] pos_mean=0.9975 neg_mean=-0.9976 n_pos=8 n_neg=8
+[rank1] sim_mean=0.0002 sim_std=0.9988 Loss: 1.9509027004241943
+[rank0] sim_mean=0.0001 sim_std=0.9996 Loss: 1.9542760848999023
+[epoch 022] alpha=0.00 | train_loss=2.0282 | dev_loss=2.0166
+[epoch 022] alpha=0.00 | train_loss=2.0282 | dev_loss=1.9802
+[rank0] pos_mean=0.9980 neg_mean=-0.9982 n_pos=8 n_neg=8
+[rank1] sim_mean=0.0001 sim_std=1.0004 Loss: 1.9508309364318848
+[rank0] sim_mean=0.0000 sim_std=1.0002 Loss: 1.9900938272476196
+[epoch 023] alpha=0.00 | train_loss=2.0528 | dev_loss=1.9785
+[epoch 023] alpha=0.00 | train_loss=2.0528 | dev_loss=1.9732
+[rank1] sim_mean=0.0151 sim_std=0.9936 Loss: 3.3161685466766357[rank0] pos_mean=0.9955 neg_mean=-0.9958 n_pos=8 n_neg=8
+
+[rank0] sim_mean=0.0001 sim_std=0.9979 Loss: 1.9735431671142578
+[epoch 024] alpha=0.00 | train_loss=2.0300 | dev_loss=1.9568
+[epoch 024] alpha=0.00 | train_loss=2.0300 | dev_loss=1.9514
+[rank0] pos_mean=0.9977 neg_mean=-0.9977 n_pos=8 n_neg=8
+[rank1] sim_mean=0.0002 sim_std=0.9968 Loss: 2.0028328895568848[rank0] sim_mean=0.0001 sim_std=0.9998 Loss: 2.0008926391601562
+
+[epoch 025] alpha=0.00 | train_loss=2.0456 | dev_loss=1.9671
+[epoch 025] alpha=0.00 | train_loss=2.0456 | dev_loss=1.9562
+[rank1] sim_mean=0.0000 sim_std=1.0004 Loss: 1.9534275531768799
+[rank0] pos_mean=0.9897 neg_mean=-0.9899 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0006 sim_std=0.9926 Loss: 2.014077663421631
+[epoch 026] alpha=0.00 | train_loss=2.0569 | dev_loss=1.9663
+[epoch 026] alpha=0.00 | train_loss=2.0569 | dev_loss=1.9954
+[rank1] sim_mean=0.0002 sim_std=0.9984 Loss: 1.9878712892532349
+[rank0] pos_mean=0.9923 neg_mean=-0.9918 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0008 sim_std=0.9945 Loss: 1.9550602436065674
+[epoch 027] alpha=0.00 | train_loss=2.0282 | dev_loss=2.0161
+[epoch 027] alpha=0.00 | train_loss=2.0282 | dev_loss=2.0009
+[rank0] pos_mean=0.9948 neg_mean=-0.9953 n_pos=8 n_neg=8[rank1] sim_mean=0.0002 sim_std=0.9981 Loss: 1.9537352323532104
+
+[rank0] sim_mean=0.0001 sim_std=0.9973 Loss: 1.9533495903015137
+[epoch 028] alpha=0.00 | train_loss=1.9974 | dev_loss=1.9747
+[epoch 028] alpha=0.00 | train_loss=1.9974 | dev_loss=1.9652
+[rank0] pos_mean=0.9896 neg_mean=-0.9900 n_pos=8 n_neg=8
+[rank0] sim_mean=0.0005 sim_std=0.9926 Loss: 2.0019240379333496
+[rank1] sim_mean=0.0002 sim_std=0.9978 Loss: 1.9534506797790527
+[epoch 029] alpha=0.00 | train_loss=2.0167 | dev_loss=1.9668
+[epoch 029] alpha=0.00 | train_loss=2.0167 | dev_loss=1.9752
+[rank0] pos_mean=0.8419 neg_mean=-0.8455 n_pos=8 n_neg=8
+[rank1] sim_mean=0.0002 sim_std=0.9985 Loss: 2.0521976947784424
+[rank0] sim_mean=0.0081 sim_std=0.9235 Loss: 2.648332118988037
+[epoch 030] alpha=0.00 | train_loss=2.1133 | dev_loss=1.9640
+[epoch 030] alpha=0.00 | train_loss=2.1133 | dev_loss=1.9632
+Early stopping at epoch 030 (no improvement for 10 epochs).
+Best checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9549)
+/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/distributed_c10d.py:4807: UserWarning: No device id is provided via `init_process_group` or `barrier `. Using the current device set by the user. 
+  warnings.warn(  # warn only once
+/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/distributed_c10d.py:4807: UserWarning: No device id is provided via `init_process_group` or `barrier `. Using the current device set by the user. 
+  warnings.warn(  # warn only once
+Using device: cuda
+Model: facebook/wav2vec2-xls-r-300m
+Checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m_stage1_head_best.pt
+Saving to: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/mem_bank_512_supcon_geodesic_temp_0.2/facebook__wav2vec2-xls-r-300m
+Loaded finetuned encoder weights from checkpoint.
+Collecting embeddings on eval set...
+/home/jsudan/myenv/lib/python3.9/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+/home/jsudan/myenv/lib/python3.9/site-packages/numba/np/ufunc/parallel.py:371: NumbaWarning: The TBB threading layer requires TBB version 2021 update 6 or later i.e., TBB_INTERFACE_VERSION >= 12060. Found TBB_INTERFACE_VERSION = 12040. The TBB threading layer is disabled.
+  warnings.warn(problem)
+Invalid MIT-MAGIC-COOKIE-1 key  Processed 1280 samples...
+  Processed 2560 samples...
+  Processed 3840 samples...
+  Processed 5120 samples...
+  Processed 6400 samples...
+  Processed 7680 samples...
+  Processed 8960 samples...
+  Processed 10240 samples...
+  Processed 11520 samples...
+  Processed 12800 samples...
+  Processed 14080 samples...
+  Processed 15360 samples...
+  Processed 16640 samples...
+  Processed 17920 samples...
+  Processed 19200 samples...
+  Processed 20480 samples...
+  Processed 21760 samples...
+  Processed 23040 samples...
+  Processed 24320 samples...
+  Processed 25600 samples...
+  Processed 26880 samples...
+  Processed 28160 samples...
+  Processed 29440 samples...
+  Processed 30720 samples...
+  Processed 32000 samples...
+  Processed 33280 samples...
+  Processed 34560 samples...
+  Processed 35840 samples...
+  Processed 37120 samples...
+  Processed 38400 samples...
+  Processed 39680 samples...
+  Processed 40960 samples...
+  Processed 42240 samples...
+  Processed 43520 samples...
+  Processed 44800 samples...
+  Processed 46080 samples...
+  Processed 47360 samples...
+  Processed 48640 samples...
+  Processed 49920 samples...
+  Processed 51200 samples...
+  Processed 52480 samples...
+  Processed 53760 samples...
+  Processed 55040 samples...
+  Processed 56320 samples...
+  Processed 57600 samples...
+  Processed 58880 samples...
+  Processed 60160 samples...
+  Processed 61440 samples...
+  Processed 62720 samples...
+  Processed 64000 samples...
+  Processed 65280 samples...
+  Processed 66560 samples...
+  Processed 67840 samples...
+  Processed 69120 samples...
+  Processed 70400 samples...
+Total eval embeddings: 71237 (dim=256)
+Running UMAP...
+Saving PNG plot...
+Saved PNG: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/mem_bank_512_supcon_geodesic_temp_0.2/facebook__wav2vec2-xls-r-300m/stage1_umap_eval_by_attack.png
+Saving interactive HTML plot...
+Saved HTML: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/mem_bank_512_supcon_geodesic_temp_0.2/facebook__wav2vec2-xls-r-300m/stage1_umap_eval_by_attack.html
+Done.
+Using device: cuda
+Model: facebook/wav2vec2-xls-r-300m
+Checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m_stage1_head_best.pt
+Saving to: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/mem_bank_512_supcon_geodesic_temp_0.2/facebook__wav2vec2-xls-r-300m
+Loaded finetuned encoder weights from checkpoint.
+Collecting embeddings on ITW set...
+/home/jsudan/myenv/lib/python3.9/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+/home/jsudan/myenv/lib/python3.9/site-packages/numba/np/ufunc/parallel.py:371: NumbaWarning: The TBB threading layer requires TBB version 2021 update 6 or later i.e., TBB_INTERFACE_VERSION >= 12060. Found TBB_INTERFACE_VERSION = 12040. The TBB threading layer is disabled.
+  warnings.warn(problem)
+Invalid MIT-MAGIC-COOKIE-1 key  Processed 1280 samples...
+  Processed 2560 samples...
+  Processed 3840 samples...
+  Processed 5120 samples...
+  Processed 6400 samples...
+  Processed 7680 samples...
+  Processed 8960 samples...
+  Processed 10240 samples...
+  Processed 11520 samples...
+  Processed 12800 samples...
+  Processed 14080 samples...
+  Processed 15360 samples...
+  Processed 16640 samples...
+  Processed 17920 samples...
+  Processed 19200 samples...
+  Processed 20480 samples...
+  Processed 21760 samples...
+  Processed 23040 samples...
+  Processed 24320 samples...
+  Processed 25600 samples...
+  Processed 26880 samples...
+  Processed 28160 samples...
+  Processed 29440 samples...
+  Processed 30720 samples...
+Total ITW embeddings: 31779 (dim=256)
+Running UMAP...
+Saving PNG plot...
+Saved PNG: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/mem_bank_512_supcon_geodesic_temp_0.2/facebook__wav2vec2-xls-r-300m/stage1_umap_itw_real_vs_spoof.png
+Saving interactive HTML plot...
+Saved HTML: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/mem_bank_512_supcon_geodesic_temp_0.2/facebook__wav2vec2-xls-r-300m/stage1_umap_itw_real_vs_spoof.html
+Done.
+Using device: cuda
+Loading Stage-1 checkpoint from: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m_stage1_head_best.pt
+[OK] Loaded finetuned encoder weights from checkpoint.
+[INFO] Using ASVspoof2019 dataset for embedding extraction.
+==> Building ASV dataset for split: train
+
+[ASV] Extracting train:   0%|          | 0/100 [00:00<?, ?it/s]
+[ASV] Extracting train:   1%|          | 1/100 [00:06<10:09,  6.16s/it]
+[ASV] Extracting train:   2%|▏         | 2/100 [00:09<07:09,  4.39s/it]
+[ASV] Extracting train:   3%|▎         | 3/100 [00:12<06:10,  3.82s/it]
+[ASV] Extracting train:   4%|▍         | 4/100 [00:15<05:41,  3.56s/it]
+[ASV] Extracting train:   5%|▌         | 5/100 [00:18<05:23,  3.41s/it]
+[ASV] Extracting train:   6%|▌         | 6/100 [00:21<05:12,  3.32s/it]
+[ASV] Extracting train:   7%|▋         | 7/100 [00:25<05:03,  3.27s/it]
+[ASV] Extracting train:   8%|▊         | 8/100 [00:28<04:57,  3.23s/it]
+[ASV] Extracting train:   9%|▉         | 9/100 [00:31<04:51,  3.21s/it]
+[ASV] Extracting train:  10%|█         | 10/100 [00:34<04:47,  3.19s/it]
+[ASV] Extracting train:  11%|█         | 11/100 [00:37<04:43,  3.19s/it]
+[ASV] Extracting train:  12%|█▏        | 12/100 [00:40<04:40,  3.18s/it]
+[ASV] Extracting train:  13%|█▎        | 13/100 [00:44<04:36,  3.18s/it]
+[ASV] Extracting train:  14%|█▍        | 14/100 [00:47<04:33,  3.18s/it]
+[ASV] Extracting train:  15%|█▌        | 15/100 [00:50<04:30,  3.18s/it]
+[ASV] Extracting train:  16%|█▌        | 16/100 [00:53<04:26,  3.18s/it]
+[ASV] Extracting train:  17%|█▋        | 17/100 [00:56<04:23,  3.18s/it]
+[ASV] Extracting train:  18%|█▊        | 18/100 [00:59<04:20,  3.18s/it]
+[ASV] Extracting train:  19%|█▉        | 19/100 [01:03<04:17,  3.18s/it]
+[ASV] Extracting train:  20%|██        | 20/100 [01:06<04:14,  3.18s/it]
+[ASV] Extracting train:  21%|██        | 21/100 [01:09<04:11,  3.18s/it]
+[ASV] Extracting train:  22%|██▏       | 22/100 [01:12<04:08,  3.18s/it]
+[ASV] Extracting train:  23%|██▎       | 23/100 [01:15<04:05,  3.18s/it]
+[ASV] Extracting train:  24%|██▍       | 24/100 [01:19<04:01,  3.18s/it]
+[ASV] Extracting train:  25%|██▌       | 25/100 [01:22<03:59,  3.19s/it]
+[ASV] Extracting train:  26%|██▌       | 26/100 [01:25<03:56,  3.19s/it]
+[ASV] Extracting train:  27%|██▋       | 27/100 [01:28<03:53,  3.20s/it]
+[ASV] Extracting train:  28%|██▊       | 28/100 [01:31<03:50,  3.20s/it]
+[ASV] Extracting train:  29%|██▉       | 29/100 [01:35<03:47,  3.20s/it]
+[ASV] Extracting train:  30%|███       | 30/100 [01:38<03:44,  3.21s/it]
+[ASV] Extracting train:  31%|███       | 31/100 [01:41<03:41,  3.21s/it]
+[ASV] Extracting train:  32%|███▏      | 32/100 [01:44<03:38,  3.21s/it]
+[ASV] Extracting train:  33%|███▎      | 33/100 [01:47<03:35,  3.21s/it]
+[ASV] Extracting train:  34%|███▍      | 34/100 [01:51<03:32,  3.21s/it]
+[ASV] Extracting train:  35%|███▌      | 35/100 [01:54<03:28,  3.21s/it]
+[ASV] Extracting train:  36%|███▌      | 36/100 [01:57<03:25,  3.21s/it]
+[ASV] Extracting train:  37%|███▋      | 37/100 [02:00<03:22,  3.21s/it]
+[ASV] Extracting train:  38%|███▊      | 38/100 [02:03<03:19,  3.21s/it]
+[ASV] Extracting train:  39%|███▉      | 39/100 [02:07<03:16,  3.22s/it]
+[ASV] Extracting train:  40%|████      | 40/100 [02:10<03:13,  3.22s/it]
+[ASV] Extracting train:  41%|████      | 41/100 [02:13<03:09,  3.21s/it]
+[ASV] Extracting train:  42%|████▏     | 42/100 [02:16<03:06,  3.21s/it]
+[ASV] Extracting train:  43%|████▎     | 43/100 [02:20<03:03,  3.21s/it]
+[ASV] Extracting train:  44%|████▍     | 44/100 [02:23<02:59,  3.21s/it]
+[ASV] Extracting train:  45%|████▌     | 45/100 [02:26<02:56,  3.21s/it]
+[ASV] Extracting train:  46%|████▌     | 46/100 [02:29<02:53,  3.21s/it]
+[ASV] Extracting train:  47%|████▋     | 47/100 [02:32<02:50,  3.21s/it]
+[ASV] Extracting train:  48%|████▊     | 48/100 [02:36<02:47,  3.21s/it]
+[ASV] Extracting train:  49%|████▉     | 49/100 [02:39<02:43,  3.21s/it]
+[ASV] Extracting train:  50%|█████     | 50/100 [02:42<02:40,  3.21s/it]
+[ASV] Extracting train:  51%|█████     | 51/100 [02:45<02:37,  3.21s/it]
+[ASV] Extracting train:  52%|█████▏    | 52/100 [02:48<02:33,  3.21s/it]
+[ASV] Extracting train:  53%|█████▎    | 53/100 [02:52<02:30,  3.21s/it]
+[ASV] Extracting train:  54%|█████▍    | 54/100 [02:55<02:27,  3.21s/it]
+[ASV] Extracting train:  55%|█████▌    | 55/100 [02:58<02:24,  3.21s/it]
+[ASV] Extracting train:  56%|█████▌    | 56/100 [03:01<02:21,  3.21s/it]
+[ASV] Extracting train:  57%|█████▋    | 57/100 [03:05<02:18,  3.21s/it]
+[ASV] Extracting train:  58%|█████▊    | 58/100 [03:08<02:14,  3.21s/it]
+[ASV] Extracting train:  59%|█████▉    | 59/100 [03:11<02:11,  3.21s/it]
+[ASV] Extracting train:  60%|██████    | 60/100 [03:14<02:08,  3.21s/it]
+[ASV] Extracting train:  61%|██████    | 61/100 [03:17<02:05,  3.21s/it]
+[ASV] Extracting train:  62%|██████▏   | 62/100 [03:21<02:02,  3.21s/it]
+[ASV] Extracting train:  63%|██████▎   | 63/100 [03:24<01:58,  3.21s/it]
+[ASV] Extracting train:  64%|██████▍   | 64/100 [03:27<01:55,  3.21s/it]
+[ASV] Extracting train:  65%|██████▌   | 65/100 [03:30<01:52,  3.21s/it]
+[ASV] Extracting train:  66%|██████▌   | 66/100 [03:33<01:49,  3.21s/it]
+[ASV] Extracting train:  67%|██████▋   | 67/100 [03:37<01:45,  3.21s/it]
+[ASV] Extracting train:  68%|██████▊   | 68/100 [03:40<01:42,  3.21s/it]
+[ASV] Extracting train:  69%|██████▉   | 69/100 [03:43<01:39,  3.21s/it]
+[ASV] Extracting train:  70%|███████   | 70/100 [03:46<01:36,  3.21s/it]
+[ASV] Extracting train:  71%|███████   | 71/100 [03:49<01:33,  3.21s/it]
+[ASV] Extracting train:  72%|███████▏  | 72/100 [03:53<01:29,  3.21s/it]
+[ASV] Extracting train:  73%|███████▎  | 73/100 [03:56<01:26,  3.21s/it]
+[ASV] Extracting train:  74%|███████▍  | 74/100 [03:59<01:23,  3.21s/it]
+[ASV] Extracting train:  75%|███████▌  | 75/100 [04:02<01:20,  3.22s/it]
+[ASV] Extracting train:  76%|███████▌  | 76/100 [04:06<01:17,  3.22s/it]
+[ASV] Extracting train:  77%|███████▋  | 77/100 [04:09<01:14,  3.22s/it]
+[ASV] Extracting train:  78%|███████▊  | 78/100 [04:12<01:10,  3.22s/it]
+[ASV] Extracting train:  79%|███████▉  | 79/100 [04:15<01:07,  3.22s/it]
+[ASV] Extracting train:  80%|████████  | 80/100 [04:18<01:04,  3.22s/it]
+[ASV] Extracting train:  81%|████████  | 81/100 [04:22<01:01,  3.22s/it]
+[ASV] Extracting train:  82%|████████▏ | 82/100 [04:25<00:57,  3.21s/it]
+[ASV] Extracting train:  83%|████████▎ | 83/100 [04:28<00:54,  3.21s/it]
+[ASV] Extracting train:  84%|████████▍ | 84/100 [04:31<00:51,  3.22s/it]
+[ASV] Extracting train:  85%|████████▌ | 85/100 [04:34<00:48,  3.22s/it]
+[ASV] Extracting train:  86%|████████▌ | 86/100 [04:38<00:45,  3.22s/it]
+[ASV] Extracting train:  87%|████████▋ | 87/100 [04:41<00:41,  3.22s/it]
+[ASV] Extracting train:  88%|████████▊ | 88/100 [04:44<00:38,  3.22s/it]
+[ASV] Extracting train:  89%|████████▉ | 89/100 [04:47<00:35,  3.22s/it]
+[ASV] Extracting train:  90%|█████████ | 90/100 [04:51<00:32,  3.22s/it]
+[ASV] Extracting train:  91%|█████████ | 91/100 [04:54<00:28,  3.22s/it]
+[ASV] Extracting train:  92%|█████████▏| 92/100 [04:57<00:25,  3.22s/it]
+[ASV] Extracting train:  93%|█████████▎| 93/100 [05:00<00:22,  3.22s/it]
+[ASV] Extracting train:  94%|█████████▍| 94/100 [05:03<00:19,  3.22s/it]
+[ASV] Extracting train:  95%|█████████▌| 95/100 [05:07<00:16,  3.22s/it]
+[ASV] Extracting train:  96%|█████████▌| 96/100 [05:10<00:12,  3.22s/it]
+[ASV] Extracting train:  97%|█████████▋| 97/100 [05:13<00:09,  3.22s/it]
+[ASV] Extracting train:  98%|█████████▊| 98/100 [05:16<00:06,  3.22s/it]
+[ASV] Extracting train:  99%|█████████▉| 99/100 [05:20<00:03,  3.22s/it]
+[ASV] Extracting train: 100%|██████████| 100/100 [05:20<00:00,  2.40s/it]
+[ASV] Extracting train: 100%|██████████| 100/100 [05:20<00:00,  3.21s/it]
+[OK][ASV] Saved train: embeddings (25380, 256), labels (25380,)
+     -> /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/mem_bank_512_supcon_geodesic_temp_0.2/train_embeddings.npy
+     -> /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/mem_bank_512_supcon_geodesic_temp_0.2/train_labels.npy
+==> Building ASV dataset for split: dev
+
+[ASV] Extracting dev:   0%|          | 0/98 [00:00<?, ?it/s]
+[ASV] Extracting dev:   1%|          | 1/98 [00:05<09:24,  5.82s/it]
+[ASV] Extracting dev:   2%|▏         | 2/98 [00:09<06:51,  4.28s/it]
+[ASV] Extracting dev:   3%|▎         | 3/98 [00:12<06:00,  3.79s/it]
+[ASV] Extracting dev:   4%|▍         | 4/98 [00:15<05:35,  3.57s/it]
+[ASV] Extracting dev:   5%|▌         | 5/98 [00:18<05:19,  3.44s/it]
+[ASV] Extracting dev:   6%|▌         | 6/98 [00:21<05:09,  3.36s/it]
+[ASV] Extracting dev:   7%|▋         | 7/98 [00:25<05:01,  3.31s/it]
+[ASV] Extracting dev:   8%|▊         | 8/98 [00:28<04:55,  3.28s/it]
+[ASV] Extracting dev:   9%|▉         | 9/98 [00:31<04:50,  3.26s/it]
+[ASV] Extracting dev:  10%|█         | 10/98 [00:34<04:46,  3.25s/it]
+[ASV] Extracting dev:  11%|█         | 11/98 [00:37<04:41,  3.24s/it]
+[ASV] Extracting dev:  12%|█▏        | 12/98 [00:41<04:37,  3.23s/it]
+[ASV] Extracting dev:  13%|█▎        | 13/98 [00:44<04:33,  3.22s/it]
+[ASV] Extracting dev:  14%|█▍        | 14/98 [00:47<04:30,  3.22s/it]
+[ASV] Extracting dev:  15%|█▌        | 15/98 [00:50<04:26,  3.22s/it]
+[ASV] Extracting dev:  16%|█▋        | 16/98 [00:54<04:23,  3.22s/it]
+[ASV] Extracting dev:  17%|█▋        | 17/98 [00:57<04:20,  3.21s/it]
+[ASV] Extracting dev:  18%|█▊        | 18/98 [01:00<04:17,  3.21s/it]
+[ASV] Extracting dev:  19%|█▉        | 19/98 [01:03<04:13,  3.21s/it]
+[ASV] Extracting dev:  20%|██        | 20/98 [01:06<04:10,  3.21s/it]
+[ASV] Extracting dev:  21%|██▏       | 21/98 [01:10<04:07,  3.21s/it]
+[ASV] Extracting dev:  22%|██▏       | 22/98 [01:13<04:04,  3.21s/it]
+[ASV] Extracting dev:  23%|██▎       | 23/98 [01:16<04:01,  3.21s/it]
+[ASV] Extracting dev:  24%|██▍       | 24/98 [01:19<03:57,  3.21s/it]
+[ASV] Extracting dev:  26%|██▌       | 25/98 [01:22<03:54,  3.22s/it]
+[ASV] Extracting dev:  27%|██▋       | 26/98 [01:26<03:51,  3.22s/it]
+[ASV] Extracting dev:  28%|██▊       | 27/98 [01:29<03:48,  3.22s/it]
+[ASV] Extracting dev:  29%|██▊       | 28/98 [01:32<03:45,  3.22s/it]
+[ASV] Extracting dev:  30%|██▉       | 29/98 [01:35<03:42,  3.22s/it]
+[ASV] Extracting dev:  31%|███       | 30/98 [01:39<03:39,  3.23s/it]
+[ASV] Extracting dev:  32%|███▏      | 31/98 [01:42<03:36,  3.23s/it]
+[ASV] Extracting dev:  33%|███▎      | 32/98 [01:45<03:33,  3.23s/it]
+[ASV] Extracting dev:  34%|███▎      | 33/98 [01:48<03:29,  3.23s/it]
+[ASV] Extracting dev:  35%|███▍      | 34/98 [01:52<03:26,  3.23s/it]
+[ASV] Extracting dev:  36%|███▌      | 35/98 [01:55<03:23,  3.23s/it]
+[ASV] Extracting dev:  37%|███▋      | 36/98 [01:58<03:20,  3.23s/it]
+[ASV] Extracting dev:  38%|███▊      | 37/98 [02:01<03:16,  3.23s/it]
+[ASV] Extracting dev:  39%|███▉      | 38/98 [02:04<03:13,  3.23s/it]
+[ASV] Extracting dev:  40%|███▉      | 39/98 [02:08<03:10,  3.23s/it]
+[ASV] Extracting dev:  41%|████      | 40/98 [02:11<03:07,  3.23s/it]
+[ASV] Extracting dev:  42%|████▏     | 41/98 [02:14<03:03,  3.23s/it]
+[ASV] Extracting dev:  43%|████▎     | 42/98 [02:17<03:00,  3.22s/it]
+[ASV] Extracting dev:  44%|████▍     | 43/98 [02:21<02:57,  3.22s/it]
+[ASV] Extracting dev:  45%|████▍     | 44/98 [02:24<02:53,  3.22s/it]
+[ASV] Extracting dev:  46%|████▌     | 45/98 [02:27<02:50,  3.22s/it]
+[ASV] Extracting dev:  47%|████▋     | 46/98 [02:30<02:47,  3.22s/it]
+[ASV] Extracting dev:  48%|████▊     | 47/98 [02:33<02:44,  3.22s/it]
+[ASV] Extracting dev:  49%|████▉     | 48/98 [02:37<02:41,  3.22s/it]
+[ASV] Extracting dev:  50%|█████     | 49/98 [02:40<02:37,  3.22s/it]
+[ASV] Extracting dev:  51%|█████     | 50/98 [02:43<02:34,  3.22s/it]
+[ASV] Extracting dev:  52%|█████▏    | 51/98 [02:46<02:31,  3.22s/it]
+[ASV] Extracting dev:  53%|█████▎    | 52/98 [02:50<02:28,  3.22s/it]
+[ASV] Extracting dev:  54%|█████▍    | 53/98 [02:53<02:24,  3.22s/it]
+[ASV] Extracting dev:  55%|█████▌    | 54/98 [02:56<02:21,  3.22s/it]
+[ASV] Extracting dev:  56%|█████▌    | 55/98 [02:59<02:18,  3.22s/it]
+[ASV] Extracting dev:  57%|█████▋    | 56/98 [03:02<02:15,  3.22s/it]
+[ASV] Extracting dev:  58%|█████▊    | 57/98 [03:06<02:11,  3.22s/it]
+[ASV] Extracting dev:  59%|█████▉    | 58/98 [03:09<02:08,  3.22s/it]
+[ASV] Extracting dev:  60%|██████    | 59/98 [03:12<02:05,  3.22s/it]
+[ASV] Extracting dev:  61%|██████    | 60/98 [03:15<02:02,  3.22s/it]
+[ASV] Extracting dev:  62%|██████▏   | 61/98 [03:18<01:59,  3.22s/it]
+[ASV] Extracting dev:  63%|██████▎   | 62/98 [03:22<01:55,  3.22s/it]
+[ASV] Extracting dev:  64%|██████▍   | 63/98 [03:25<01:52,  3.22s/it]
+[ASV] Extracting dev:  65%|██████▌   | 64/98 [03:28<01:49,  3.22s/it]
+[ASV] Extracting dev:  66%|██████▋   | 65/98 [03:31<01:46,  3.22s/it]
+[ASV] Extracting dev:  67%|██████▋   | 66/98 [03:35<01:42,  3.22s/it]
+[ASV] Extracting dev:  68%|██████▊   | 67/98 [03:38<01:39,  3.22s/it]
+[ASV] Extracting dev:  69%|██████▉   | 68/98 [03:41<01:36,  3.22s/it]
+[ASV] Extracting dev:  70%|███████   | 69/98 [03:44<01:33,  3.22s/it]
+[ASV] Extracting dev:  71%|███████▏  | 70/98 [03:47<01:30,  3.22s/it]
+[ASV] Extracting dev:  72%|███████▏  | 71/98 [03:51<01:27,  3.22s/it]
+[ASV] Extracting dev:  73%|███████▎  | 72/98 [03:54<01:23,  3.22s/it]
+[ASV] Extracting dev:  74%|███████▍  | 73/98 [03:57<01:20,  3.23s/it]
+[ASV] Extracting dev:  76%|███████▌  | 74/98 [04:00<01:17,  3.22s/it]
+[ASV] Extracting dev:  77%|███████▋  | 75/98 [04:04<01:14,  3.22s/it]
+[ASV] Extracting dev:  78%|███████▊  | 76/98 [04:07<01:10,  3.23s/it]
+[ASV] Extracting dev:  79%|███████▊  | 77/98 [04:10<01:07,  3.23s/it]
+[ASV] Extracting dev:  80%|███████▉  | 78/98 [04:13<01:04,  3.23s/it]
+[ASV] Extracting dev:  81%|████████  | 79/98 [04:17<01:01,  3.23s/it]
+[ASV] Extracting dev:  82%|████████▏ | 80/98 [04:20<00:58,  3.23s/it]
+[ASV] Extracting dev:  83%|████████▎ | 81/98 [04:23<00:54,  3.23s/it]
+[ASV] Extracting dev:  84%|████████▎ | 82/98 [04:26<00:51,  3.23s/it]
+[ASV] Extracting dev:  85%|████████▍ | 83/98 [04:29<00:48,  3.23s/it]
+[ASV] Extracting dev:  86%|████████▌ | 84/98 [04:33<00:45,  3.23s/it]
+[ASV] Extracting dev:  87%|████████▋ | 85/98 [04:36<00:41,  3.22s/it]
+[ASV] Extracting dev:  88%|████████▊ | 86/98 [04:39<00:38,  3.22s/it]
+[ASV] Extracting dev:  89%|████████▉ | 87/98 [04:42<00:35,  3.22s/it]
+[ASV] Extracting dev:  90%|████████▉ | 88/98 [04:46<00:32,  3.22s/it]
+[ASV] Extracting dev:  91%|█████████ | 89/98 [04:49<00:28,  3.22s/it]
+[ASV] Extracting dev:  92%|█████████▏| 90/98 [04:52<00:25,  3.22s/it]
+[ASV] Extracting dev:  93%|█████████▎| 91/98 [04:55<00:22,  3.22s/it]
+[ASV] Extracting dev:  94%|█████████▍| 92/98 [04:58<00:19,  3.22s/it]
+[ASV] Extracting dev:  95%|█████████▍| 93/98 [05:02<00:16,  3.22s/it]
+[ASV] Extracting dev:  96%|█████████▌| 94/98 [05:05<00:12,  3.22s/it]
+[ASV] Extracting dev:  97%|█████████▋| 95/98 [05:08<00:09,  3.22s/it]
+[ASV] Extracting dev:  98%|█████████▊| 96/98 [05:11<00:06,  3.22s/it]
+[ASV] Extracting dev:  99%|█████████▉| 97/98 [05:14<00:03,  3.22s/it]
+[ASV] Extracting dev: 100%|██████████| 98/98 [05:15<00:00,  2.31s/it]
+[ASV] Extracting dev: 100%|██████████| 98/98 [05:15<00:00,  3.22s/it]
+[OK][ASV] Saved dev: embeddings (24844, 256), labels (24844,)
+     -> /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/mem_bank_512_supcon_geodesic_temp_0.2/dev_embeddings.npy
+     -> /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/mem_bank_512_supcon_geodesic_temp_0.2/dev_labels.npy
+==> Building ASV dataset for split: eval
+
+[ASV] Extracting eval:   0%|          | 0/279 [00:00<?, ?it/s]
+[ASV] Extracting eval:   0%|          | 1/279 [00:05<26:11,  5.65s/it]
+[ASV] Extracting eval:   1%|          | 2/279 [00:08<19:26,  4.21s/it]
+[ASV] Extracting eval:   1%|          | 3/279 [00:12<17:15,  3.75s/it]
+[ASV] Extracting eval:   1%|▏         | 4/279 [00:15<16:11,  3.53s/it]
+[ASV] Extracting eval:   2%|▏         | 5/279 [00:18<15:35,  3.41s/it]
+[ASV] Extracting eval:   2%|▏         | 6/279 [00:21<15:12,  3.34s/it]
+[ASV] Extracting eval:   3%|▎         | 7/279 [00:24<14:57,  3.30s/it]
+[ASV] Extracting eval:   3%|▎         | 8/279 [00:28<14:45,  3.27s/it]
+[ASV] Extracting eval:   3%|▎         | 9/279 [00:31<14:37,  3.25s/it]
+[ASV] Extracting eval:   4%|▎         | 10/279 [00:34<14:29,  3.23s/it]
+[ASV] Extracting eval:   4%|▍         | 11/279 [00:37<14:24,  3.23s/it]
+[ASV] Extracting eval:   4%|▍         | 12/279 [00:40<14:19,  3.22s/it]
+[ASV] Extracting eval:   5%|▍         | 13/279 [00:44<14:15,  3.22s/it]
+[ASV] Extracting eval:   5%|▌         | 14/279 [00:47<14:11,  3.21s/it]
+[ASV] Extracting eval:   5%|▌         | 15/279 [00:50<14:08,  3.21s/it]
+[ASV] Extracting eval:   6%|▌         | 16/279 [00:53<14:04,  3.21s/it]
+[ASV] Extracting eval:   6%|▌         | 17/279 [00:56<14:01,  3.21s/it]
+[ASV] Extracting eval:   6%|▋         | 18/279 [01:00<13:57,  3.21s/it]
+[ASV] Extracting eval:   7%|▋         | 19/279 [01:03<13:54,  3.21s/it]
+[ASV] Extracting eval:   7%|▋         | 20/279 [01:06<13:51,  3.21s/it]
+[ASV] Extracting eval:   8%|▊         | 21/279 [01:09<13:48,  3.21s/it]
+[ASV] Extracting eval:   8%|▊         | 22/279 [01:12<13:44,  3.21s/it]
+[ASV] Extracting eval:   8%|▊         | 23/279 [01:16<13:41,  3.21s/it]
+[ASV] Extracting eval:   9%|▊         | 24/279 [01:19<13:38,  3.21s/it]
+[ASV] Extracting eval:   9%|▉         | 25/279 [01:22<13:35,  3.21s/it]
+[ASV] Extracting eval:   9%|▉         | 26/279 [01:25<13:31,  3.21s/it]
+[ASV] Extracting eval:  10%|▉         | 27/279 [01:29<13:28,  3.21s/it]
+[ASV] Extracting eval:  10%|█         | 28/279 [01:32<13:25,  3.21s/it]
+[ASV] Extracting eval:  10%|█         | 29/279 [01:35<13:22,  3.21s/it]
+[ASV] Extracting eval:  11%|█         | 30/279 [01:38<13:19,  3.21s/it]
+[ASV] Extracting eval:  11%|█         | 31/279 [01:41<13:16,  3.21s/it]
+[ASV] Extracting eval:  11%|█▏        | 32/279 [01:45<13:12,  3.21s/it]
+[ASV] Extracting eval:  12%|█▏        | 33/279 [01:48<13:09,  3.21s/it]
+[ASV] Extracting eval:  12%|█▏        | 34/279 [01:51<13:06,  3.21s/it]
+[ASV] Extracting eval:  13%|█▎        | 35/279 [01:54<13:03,  3.21s/it]
+[ASV] Extracting eval:  13%|█▎        | 36/279 [01:57<13:00,  3.21s/it]
+[ASV] Extracting eval:  13%|█▎        | 37/279 [02:01<12:57,  3.21s/it]
+[ASV] Extracting eval:  14%|█▎        | 38/279 [02:04<12:53,  3.21s/it]
+[ASV] Extracting eval:  14%|█▍        | 39/279 [02:07<12:50,  3.21s/it]
+[ASV] Extracting eval:  14%|█▍        | 40/279 [02:10<12:47,  3.21s/it]
+[ASV] Extracting eval:  15%|█▍        | 41/279 [02:13<12:44,  3.21s/it]
+[ASV] Extracting eval:  15%|█▌        | 42/279 [02:17<12:40,  3.21s/it]
+[ASV] Extracting eval:  15%|█▌        | 43/279 [02:20<12:37,  3.21s/it]
+[ASV] Extracting eval:  16%|█▌        | 44/279 [02:23<12:34,  3.21s/it]
+[ASV] Extracting eval:  16%|█▌        | 45/279 [02:26<12:31,  3.21s/it]
+[ASV] Extracting eval:  16%|█▋        | 46/279 [02:30<12:28,  3.21s/it]
+[ASV] Extracting eval:  17%|█▋        | 47/279 [02:33<12:25,  3.21s/it]
+[ASV] Extracting eval:  17%|█▋        | 48/279 [02:36<12:21,  3.21s/it]
+[ASV] Extracting eval:  18%|█▊        | 49/279 [02:39<12:18,  3.21s/it]
+[ASV] Extracting eval:  18%|█▊        | 50/279 [02:42<12:15,  3.21s/it]
+[ASV] Extracting eval:  18%|█▊        | 51/279 [02:46<12:12,  3.21s/it]
+[ASV] Extracting eval:  19%|█▊        | 52/279 [02:49<12:09,  3.21s/it]
+[ASV] Extracting eval:  19%|█▉        | 53/279 [02:52<12:05,  3.21s/it]
+[ASV] Extracting eval:  19%|█▉        | 54/279 [02:55<12:02,  3.21s/it]
+[ASV] Extracting eval:  20%|█▉        | 55/279 [02:58<11:59,  3.21s/it]
+[ASV] Extracting eval:  20%|██        | 56/279 [03:02<11:56,  3.21s/it]
+[ASV] Extracting eval:  20%|██        | 57/279 [03:05<11:53,  3.21s/it]
+[ASV] Extracting eval:  21%|██        | 58/279 [03:08<11:49,  3.21s/it]
+[ASV] Extracting eval:  21%|██        | 59/279 [03:11<11:46,  3.21s/it]
+[ASV] Extracting eval:  22%|██▏       | 60/279 [03:15<11:43,  3.21s/it]
+[ASV] Extracting eval:  22%|██▏       | 61/279 [03:18<11:40,  3.21s/it]
+[ASV] Extracting eval:  22%|██▏       | 62/279 [03:21<11:37,  3.21s/it]
+[ASV] Extracting eval:  23%|██▎       | 63/279 [03:24<11:33,  3.21s/it]
+[ASV] Extracting eval:  23%|██▎       | 64/279 [03:27<11:30,  3.21s/it]
+[ASV] Extracting eval:  23%|██▎       | 65/279 [03:31<11:27,  3.21s/it]
+[ASV] Extracting eval:  24%|██▎       | 66/279 [03:34<11:24,  3.21s/it]
+[ASV] Extracting eval:  24%|██▍       | 67/279 [03:37<11:21,  3.21s/it]
+[ASV] Extracting eval:  24%|██▍       | 68/279 [03:40<11:17,  3.21s/it]
+[ASV] Extracting eval:  25%|██▍       | 69/279 [03:43<11:14,  3.21s/it]
+[ASV] Extracting eval:  25%|██▌       | 70/279 [03:47<11:11,  3.21s/it]
+[ASV] Extracting eval:  25%|██▌       | 71/279 [03:50<11:08,  3.21s/it]
+[ASV] Extracting eval:  26%|██▌       | 72/279 [03:53<11:04,  3.21s/it]
+[ASV] Extracting eval:  26%|██▌       | 73/279 [03:56<11:01,  3.21s/it]
+[ASV] Extracting eval:  27%|██▋       | 74/279 [03:59<10:58,  3.21s/it]
+[ASV] Extracting eval:  27%|██▋       | 75/279 [04:03<10:55,  3.21s/it]
+[ASV] Extracting eval:  27%|██▋       | 76/279 [04:06<10:52,  3.22s/it]
+[ASV] Extracting eval:  28%|██▊       | 77/279 [04:09<10:49,  3.22s/it]
+[ASV] Extracting eval:  28%|██▊       | 78/279 [04:12<10:46,  3.22s/it]
+[ASV] Extracting eval:  28%|██▊       | 79/279 [04:16<10:43,  3.22s/it]
+[ASV] Extracting eval:  29%|██▊       | 80/279 [04:19<10:39,  3.21s/it]
+[ASV] Extracting eval:  29%|██▉       | 81/279 [04:22<10:36,  3.21s/it]
+[ASV] Extracting eval:  29%|██▉       | 82/279 [04:25<10:33,  3.21s/it]
+[ASV] Extracting eval:  30%|██▉       | 83/279 [04:28<10:30,  3.21s/it]
+[ASV] Extracting eval:  30%|███       | 84/279 [04:32<10:26,  3.21s/it]
+[ASV] Extracting eval:  30%|███       | 85/279 [04:35<10:23,  3.21s/it]
+[ASV] Extracting eval:  31%|███       | 86/279 [04:38<10:20,  3.21s/it]
+[ASV] Extracting eval:  31%|███       | 87/279 [04:41<10:17,  3.21s/it]
+[ASV] Extracting eval:  32%|███▏      | 88/279 [04:44<10:13,  3.21s/it]
+[ASV] Extracting eval:  32%|███▏      | 89/279 [04:48<10:10,  3.21s/it]
+[ASV] Extracting eval:  32%|███▏      | 90/279 [04:51<10:07,  3.21s/it]
+[ASV] Extracting eval:  33%|███▎      | 91/279 [04:54<10:04,  3.21s/it]
+[ASV] Extracting eval:  33%|███▎      | 92/279 [04:57<10:00,  3.21s/it]
+[ASV] Extracting eval:  33%|███▎      | 93/279 [05:01<09:57,  3.21s/it]
+[ASV] Extracting eval:  34%|███▎      | 94/279 [05:04<09:54,  3.21s/it]
+[ASV] Extracting eval:  34%|███▍      | 95/279 [05:07<09:51,  3.21s/it]
+[ASV] Extracting eval:  34%|███▍      | 96/279 [05:10<09:48,  3.21s/it]
+[ASV] Extracting eval:  35%|███▍      | 97/279 [05:13<09:45,  3.22s/it]
+[ASV] Extracting eval:  35%|███▌      | 98/279 [05:17<09:41,  3.22s/it]
+[ASV] Extracting eval:  35%|███▌      | 99/279 [05:20<09:38,  3.22s/it]
+[ASV] Extracting eval:  36%|███▌      | 100/279 [05:23<09:35,  3.22s/it]
+[ASV] Extracting eval:  36%|███▌      | 101/279 [05:26<09:32,  3.22s/it]
+[ASV] Extracting eval:  37%|███▋      | 102/279 [05:30<09:29,  3.22s/it]
+[ASV] Extracting eval:  37%|███▋      | 103/279 [05:33<09:26,  3.22s/it]
+[ASV] Extracting eval:  37%|███▋      | 104/279 [05:36<09:22,  3.22s/it]
+[ASV] Extracting eval:  38%|███▊      | 105/279 [05:39<09:19,  3.22s/it]
+[ASV] Extracting eval:  38%|███▊      | 106/279 [05:42<09:16,  3.22s/it]
+[ASV] Extracting eval:  38%|███▊      | 107/279 [05:46<09:13,  3.22s/it]
+[ASV] Extracting eval:  39%|███▊      | 108/279 [05:49<09:10,  3.22s/it]
+[ASV] Extracting eval:  39%|███▉      | 109/279 [05:52<09:06,  3.22s/it]
+[ASV] Extracting eval:  39%|███▉      | 110/279 [05:55<09:03,  3.22s/it]
+[ASV] Extracting eval:  40%|███▉      | 111/279 [05:58<09:00,  3.22s/it]
+[ASV] Extracting eval:  40%|████      | 112/279 [06:02<08:57,  3.22s/it]
+[ASV] Extracting eval:  41%|████      | 113/279 [06:05<08:54,  3.22s/it]
+[ASV] Extracting eval:  41%|████      | 114/279 [06:08<08:50,  3.22s/it]
+[ASV] Extracting eval:  41%|████      | 115/279 [06:11<08:47,  3.22s/it]
+[ASV] Extracting eval:  42%|████▏     | 116/279 [06:15<08:44,  3.22s/it]
+[ASV] Extracting eval:  42%|████▏     | 117/279 [06:18<08:41,  3.22s/it]
+[ASV] Extracting eval:  42%|████▏     | 118/279 [06:21<08:37,  3.22s/it]
+[ASV] Extracting eval:  43%|████▎     | 119/279 [06:24<08:34,  3.22s/it]
+[ASV] Extracting eval:  43%|████▎     | 120/279 [06:27<08:31,  3.22s/it]
+[ASV] Extracting eval:  43%|████▎     | 121/279 [06:31<08:28,  3.22s/it]
+[ASV] Extracting eval:  44%|████▎     | 122/279 [06:34<08:25,  3.22s/it]
+[ASV] Extracting eval:  44%|████▍     | 123/279 [06:37<08:22,  3.22s/it]
+[ASV] Extracting eval:  44%|████▍     | 124/279 [06:40<08:18,  3.22s/it]
+[ASV] Extracting eval:  45%|████▍     | 125/279 [06:44<08:15,  3.22s/it]
+[ASV] Extracting eval:  45%|████▌     | 126/279 [06:47<08:12,  3.22s/it]
+[ASV] Extracting eval:  46%|████▌     | 127/279 [06:50<08:08,  3.22s/it]
+[ASV] Extracting eval:  46%|████▌     | 128/279 [06:53<08:05,  3.22s/it]
+[ASV] Extracting eval:  46%|████▌     | 129/279 [06:56<08:02,  3.22s/it]
+[ASV] Extracting eval:  47%|████▋     | 130/279 [07:00<07:59,  3.22s/it]
+[ASV] Extracting eval:  47%|████▋     | 131/279 [07:03<07:55,  3.22s/it]
+[ASV] Extracting eval:  47%|████▋     | 132/279 [07:06<07:52,  3.22s/it]
+[ASV] Extracting eval:  48%|████▊     | 133/279 [07:09<07:49,  3.22s/it]
+[ASV] Extracting eval:  48%|████▊     | 134/279 [07:12<07:46,  3.22s/it]
+[ASV] Extracting eval:  48%|████▊     | 135/279 [07:16<07:43,  3.22s/it]
+[ASV] Extracting eval:  49%|████▊     | 136/279 [07:19<07:39,  3.21s/it]
+[ASV] Extracting eval:  49%|████▉     | 137/279 [07:22<07:36,  3.22s/it]
+[ASV] Extracting eval:  49%|████▉     | 138/279 [07:25<07:33,  3.21s/it]
+[ASV] Extracting eval:  50%|████▉     | 139/279 [07:29<07:30,  3.21s/it]
+[ASV] Extracting eval:  50%|█████     | 140/279 [07:32<07:26,  3.21s/it]
+[ASV] Extracting eval:  51%|█████     | 141/279 [07:35<07:23,  3.21s/it]
+[ASV] Extracting eval:  51%|█████     | 142/279 [07:38<07:20,  3.21s/it]
+[ASV] Extracting eval:  51%|█████▏    | 143/279 [07:41<07:17,  3.22s/it]
+[ASV] Extracting eval:  52%|█████▏    | 144/279 [07:45<07:13,  3.21s/it]
+[ASV] Extracting eval:  52%|█████▏    | 145/279 [07:48<07:10,  3.21s/it]
+[ASV] Extracting eval:  52%|█████▏    | 146/279 [07:51<07:07,  3.21s/it]
+[ASV] Extracting eval:  53%|█████▎    | 147/279 [07:54<07:04,  3.21s/it]
+[ASV] Extracting eval:  53%|█████▎    | 148/279 [07:57<07:01,  3.21s/it]
+[ASV] Extracting eval:  53%|█████▎    | 149/279 [08:01<06:57,  3.21s/it]
+[ASV] Extracting eval:  54%|█████▍    | 150/279 [08:04<06:54,  3.21s/it]
+[ASV] Extracting eval:  54%|█████▍    | 151/279 [08:07<06:51,  3.22s/it]
+[ASV] Extracting eval:  54%|█████▍    | 152/279 [08:10<06:48,  3.22s/it]
+[ASV] Extracting eval:  55%|█████▍    | 153/279 [08:14<06:45,  3.22s/it]
+[ASV] Extracting eval:  55%|█████▌    | 154/279 [08:17<06:41,  3.21s/it]
+[ASV] Extracting eval:  56%|█████▌    | 155/279 [08:20<06:38,  3.22s/it]
+[ASV] Extracting eval:  56%|█████▌    | 156/279 [08:23<06:35,  3.21s/it]
+[ASV] Extracting eval:  56%|█████▋    | 157/279 [08:26<06:32,  3.21s/it]
+[ASV] Extracting eval:  57%|█████▋    | 158/279 [08:30<06:28,  3.21s/it]
+[ASV] Extracting eval:  57%|█████▋    | 159/279 [08:33<06:25,  3.21s/it]
+[ASV] Extracting eval:  57%|█████▋    | 160/279 [08:36<06:22,  3.21s/it]
+[ASV] Extracting eval:  58%|█████▊    | 161/279 [08:39<06:19,  3.21s/it]
+[ASV] Extracting eval:  58%|█████▊    | 162/279 [08:42<06:15,  3.21s/it]
+[ASV] Extracting eval:  58%|█████▊    | 163/279 [08:46<06:12,  3.21s/it]
+[ASV] Extracting eval:  59%|█████▉    | 164/279 [08:49<06:09,  3.21s/it]
+[ASV] Extracting eval:  59%|█████▉    | 165/279 [08:52<06:06,  3.21s/it]
+[ASV] Extracting eval:  59%|█████▉    | 166/279 [08:55<06:03,  3.21s/it]
+[ASV] Extracting eval:  60%|█████▉    | 167/279 [08:59<05:59,  3.21s/it]
+[ASV] Extracting eval:  60%|██████    | 168/279 [09:02<05:56,  3.21s/it]
+[ASV] Extracting eval:  61%|██████    | 169/279 [09:05<05:53,  3.21s/it]
+[ASV] Extracting eval:  61%|██████    | 170/279 [09:08<05:50,  3.21s/it]
+[ASV] Extracting eval:  61%|██████▏   | 171/279 [09:11<05:47,  3.21s/it]
+[ASV] Extracting eval:  62%|██████▏   | 172/279 [09:15<05:43,  3.21s/it]
+[ASV] Extracting eval:  62%|██████▏   | 173/279 [09:18<05:40,  3.21s/it]
+[ASV] Extracting eval:  62%|██████▏   | 174/279 [09:21<05:37,  3.21s/it]
+[ASV] Extracting eval:  63%|██████▎   | 175/279 [09:24<05:33,  3.21s/it]
+[ASV] Extracting eval:  63%|██████▎   | 176/279 [09:27<05:30,  3.21s/it]
+[ASV] Extracting eval:  63%|██████▎   | 177/279 [09:31<05:27,  3.21s/it]
+[ASV] Extracting eval:  64%|██████▍   | 178/279 [09:34<05:24,  3.21s/it]
+[ASV] Extracting eval:  64%|██████▍   | 179/279 [09:37<05:20,  3.21s/it]
+[ASV] Extracting eval:  65%|██████▍   | 180/279 [09:40<05:17,  3.21s/it]
+[ASV] Extracting eval:  65%|██████▍   | 181/279 [09:43<05:14,  3.21s/it]
+[ASV] Extracting eval:  65%|██████▌   | 182/279 [09:47<05:11,  3.21s/it]
+[ASV] Extracting eval:  66%|██████▌   | 183/279 [09:50<05:07,  3.21s/it]
+[ASV] Extracting eval:  66%|██████▌   | 184/279 [09:53<05:04,  3.21s/it]
+[ASV] Extracting eval:  66%|██████▋   | 185/279 [09:56<05:01,  3.21s/it]
+[ASV] Extracting eval:  67%|██████▋   | 186/279 [09:59<04:58,  3.21s/it]
+[ASV] Extracting eval:  67%|██████▋   | 187/279 [10:03<04:55,  3.21s/it]
+[ASV] Extracting eval:  67%|██████▋   | 188/279 [10:06<04:51,  3.21s/it]
+[ASV] Extracting eval:  68%|██████▊   | 189/279 [10:09<04:48,  3.21s/it]
+[ASV] Extracting eval:  68%|██████▊   | 190/279 [10:12<04:45,  3.21s/it]
+[ASV] Extracting eval:  68%|██████▊   | 191/279 [10:16<04:42,  3.21s/it]
+[ASV] Extracting eval:  69%|██████▉   | 192/279 [10:19<04:38,  3.21s/it]
+[ASV] Extracting eval:  69%|██████▉   | 193/279 [10:22<04:35,  3.21s/it]
+[ASV] Extracting eval:  70%|██████▉   | 194/279 [10:25<04:32,  3.21s/it]
+[ASV] Extracting eval:  70%|██████▉   | 195/279 [10:28<04:29,  3.21s/it]
+[ASV] Extracting eval:  70%|███████   | 196/279 [10:32<04:26,  3.21s/it]
+[ASV] Extracting eval:  71%|███████   | 197/279 [10:35<04:22,  3.21s/it]
+[ASV] Extracting eval:  71%|███████   | 198/279 [10:38<04:19,  3.21s/it]
+[ASV] Extracting eval:  71%|███████▏  | 199/279 [10:41<04:16,  3.21s/it]
+[ASV] Extracting eval:  72%|███████▏  | 200/279 [10:44<04:13,  3.21s/it]
+[ASV] Extracting eval:  72%|███████▏  | 201/279 [10:48<04:10,  3.21s/it]
+[ASV] Extracting eval:  72%|███████▏  | 202/279 [10:51<04:06,  3.21s/it]
+[ASV] Extracting eval:  73%|███████▎  | 203/279 [10:54<04:03,  3.21s/it]
+[ASV] Extracting eval:  73%|███████▎  | 204/279 [10:57<04:00,  3.21s/it]
+[ASV] Extracting eval:  73%|███████▎  | 205/279 [11:00<03:57,  3.21s/it]
+[ASV] Extracting eval:  74%|███████▍  | 206/279 [11:04<03:53,  3.21s/it]
+[ASV] Extracting eval:  74%|███████▍  | 207/279 [11:07<03:50,  3.21s/it]
+[ASV] Extracting eval:  75%|███████▍  | 208/279 [11:10<03:47,  3.21s/it]
+[ASV] Extracting eval:  75%|███████▍  | 209/279 [11:13<03:44,  3.20s/it]
+[ASV] Extracting eval:  75%|███████▌  | 210/279 [11:16<03:41,  3.20s/it]
+[ASV] Extracting eval:  76%|███████▌  | 211/279 [11:20<03:38,  3.21s/it]
+[ASV] Extracting eval:  76%|███████▌  | 212/279 [11:23<03:34,  3.21s/it]
+[ASV] Extracting eval:  76%|███████▋  | 213/279 [11:26<03:31,  3.21s/it]
+[ASV] Extracting eval:  77%|███████▋  | 214/279 [11:29<03:28,  3.21s/it]
+[ASV] Extracting eval:  77%|███████▋  | 215/279 [11:32<03:25,  3.21s/it]
+[ASV] Extracting eval:  77%|███████▋  | 216/279 [11:36<03:21,  3.21s/it]
+[ASV] Extracting eval:  78%|███████▊  | 217/279 [11:39<03:18,  3.21s/it]
+[ASV] Extracting eval:  78%|███████▊  | 218/279 [11:42<03:15,  3.21s/it]
+[ASV] Extracting eval:  78%|███████▊  | 219/279 [11:45<03:12,  3.21s/it]
+[ASV] Extracting eval:  79%|███████▉  | 220/279 [11:48<03:09,  3.21s/it]
+[ASV] Extracting eval:  79%|███████▉  | 221/279 [11:52<03:05,  3.21s/it]
+[ASV] Extracting eval:  80%|███████▉  | 222/279 [11:55<03:02,  3.21s/it]
+[ASV] Extracting eval:  80%|███████▉  | 223/279 [11:58<02:59,  3.21s/it]
+[ASV] Extracting eval:  80%|████████  | 224/279 [12:01<02:56,  3.21s/it]
+[ASV] Extracting eval:  81%|████████  | 225/279 [12:05<02:53,  3.21s/it]
+[ASV] Extracting eval:  81%|████████  | 226/279 [12:08<02:49,  3.21s/it]
+[ASV] Extracting eval:  81%|████████▏ | 227/279 [12:11<02:46,  3.21s/it]
+[ASV] Extracting eval:  82%|████████▏ | 228/279 [12:14<02:43,  3.20s/it]
+[ASV] Extracting eval:  82%|████████▏ | 229/279 [12:17<02:40,  3.21s/it]
+[ASV] Extracting eval:  82%|████████▏ | 230/279 [12:21<02:37,  3.21s/it]
+[ASV] Extracting eval:  83%|████████▎ | 231/279 [12:24<02:33,  3.21s/it]
+[ASV] Extracting eval:  83%|████████▎ | 232/279 [12:27<02:30,  3.21s/it]
+[ASV] Extracting eval:  84%|████████▎ | 233/279 [12:30<02:27,  3.21s/it]
+[ASV] Extracting eval:  84%|████████▍ | 234/279 [12:33<02:24,  3.21s/it]
+[ASV] Extracting eval:  84%|████████▍ | 235/279 [12:37<02:21,  3.21s/it]
+[ASV] Extracting eval:  85%|████████▍ | 236/279 [12:40<02:17,  3.21s/it]
+[ASV] Extracting eval:  85%|████████▍ | 237/279 [12:43<02:14,  3.21s/it]
+[ASV] Extracting eval:  85%|████████▌ | 238/279 [12:46<02:11,  3.21s/it]
+[ASV] Extracting eval:  86%|████████▌ | 239/279 [12:49<02:08,  3.21s/it]
+[ASV] Extracting eval:  86%|████████▌ | 240/279 [12:53<02:05,  3.21s/it]
+[ASV] Extracting eval:  86%|████████▋ | 241/279 [12:56<02:01,  3.21s/it]
+[ASV] Extracting eval:  87%|████████▋ | 242/279 [12:59<01:58,  3.21s/it]
+[ASV] Extracting eval:  87%|████████▋ | 243/279 [13:02<01:55,  3.21s/it]
+[ASV] Extracting eval:  87%|████████▋ | 244/279 [13:05<01:52,  3.20s/it]
+[ASV] Extracting eval:  88%|████████▊ | 245/279 [13:09<01:48,  3.20s/it]
+[ASV] Extracting eval:  88%|████████▊ | 246/279 [13:12<01:45,  3.21s/it]
+[ASV] Extracting eval:  89%|████████▊ | 247/279 [13:15<01:42,  3.21s/it]
+[ASV] Extracting eval:  89%|████████▉ | 248/279 [13:18<01:39,  3.21s/it]
+[ASV] Extracting eval:  89%|████████▉ | 249/279 [13:21<01:36,  3.21s/it]
+[ASV] Extracting eval:  90%|████████▉ | 250/279 [13:25<01:32,  3.20s/it]
+[ASV] Extracting eval:  90%|████████▉ | 251/279 [13:28<01:29,  3.21s/it]
+[ASV] Extracting eval:  90%|█████████ | 252/279 [13:31<01:26,  3.20s/it]
+[ASV] Extracting eval:  91%|█████████ | 253/279 [13:34<01:23,  3.21s/it]
+[ASV] Extracting eval:  91%|█████████ | 254/279 [13:37<01:20,  3.21s/it]
+[ASV] Extracting eval:  91%|█████████▏| 255/279 [13:41<01:16,  3.21s/it]
+[ASV] Extracting eval:  92%|█████████▏| 256/279 [13:44<01:13,  3.20s/it]
+[ASV] Extracting eval:  92%|█████████▏| 257/279 [13:47<01:10,  3.21s/it]
+[ASV] Extracting eval:  92%|█████████▏| 258/279 [13:50<01:07,  3.21s/it]
+[ASV] Extracting eval:  93%|█████████▎| 259/279 [13:54<01:04,  3.21s/it]
+[ASV] Extracting eval:  93%|█████████▎| 260/279 [13:57<01:00,  3.21s/it]
+[ASV] Extracting eval:  94%|█████████▎| 261/279 [14:00<00:57,  3.21s/it]
+[ASV] Extracting eval:  94%|█████████▍| 262/279 [14:03<00:54,  3.21s/it]
+[ASV] Extracting eval:  94%|█████████▍| 263/279 [14:06<00:51,  3.21s/it]
+[ASV] Extracting eval:  95%|█████████▍| 264/279 [14:10<00:48,  3.21s/it]
+[ASV] Extracting eval:  95%|█████████▍| 265/279 [14:13<00:44,  3.21s/it]
+[ASV] Extracting eval:  95%|█████████▌| 266/279 [14:16<00:41,  3.21s/it]
+[ASV] Extracting eval:  96%|█████████▌| 267/279 [14:19<00:38,  3.21s/it]
+[ASV] Extracting eval:  96%|█████████▌| 268/279 [14:22<00:35,  3.21s/it]
+[ASV] Extracting eval:  96%|█████████▋| 269/279 [14:26<00:32,  3.21s/it]
+[ASV] Extracting eval:  97%|█████████▋| 270/279 [14:29<00:28,  3.21s/it]
+[ASV] Extracting eval:  97%|█████████▋| 271/279 [14:32<00:25,  3.21s/it]
+[ASV] Extracting eval:  97%|█████████▋| 272/279 [14:35<00:22,  3.21s/it]
+[ASV] Extracting eval:  98%|█████████▊| 273/279 [14:38<00:19,  3.21s/it]
+[ASV] Extracting eval:  98%|█████████▊| 274/279 [14:42<00:16,  3.21s/it]
+[ASV] Extracting eval:  99%|█████████▊| 275/279 [14:45<00:12,  3.21s/it]
+[ASV] Extracting eval:  99%|█████████▉| 276/279 [14:48<00:09,  3.21s/it]
+[ASV] Extracting eval:  99%|█████████▉| 277/279 [14:51<00:06,  3.21s/it]
+[ASV] Extracting eval: 100%|█████████▉| 278/279 [14:54<00:03,  3.21s/it]
+[ASV] Extracting eval: 100%|██████████| 279/279 [14:55<00:00,  2.51s/it]
+[ASV] Extracting eval: 100%|██████████| 279/279 [14:55<00:00,  3.21s/it]
+[OK][ASV] Saved eval: embeddings (71237, 256), labels (71237,)
+     -> /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/mem_bank_512_supcon_geodesic_temp_0.2/eval_embeddings.npy
+     -> /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/mem_bank_512_supcon_geodesic_temp_0.2/eval_labels.npy
+[INFO] SKIP_ITW=1 set; skipping ITW embedding extraction.
+Using device: cuda
+Train embeddings: (25380, 256), Dev embeddings: (24844, 256)
+Class balance: pos_weight=8.837
+[epoch 001 | step 0010] train_loss=1.1248
+[epoch 001 | step 0020] train_loss=1.4506
+[epoch 001 | step 0030] train_loss=1.5321
+[epoch 001 | step 0040] train_loss=1.0420
+[epoch 001 | step 0050] train_loss=1.4501
+[epoch 001 | step 0060] train_loss=0.8786
+[epoch 001 | step 0070] train_loss=1.1227
+[epoch 001 | step 0080] train_loss=1.1218
+[epoch 001 | step 0090] train_loss=1.1215
+[epoch 001 | step 0100] train_loss=1.0389
+[epoch 001 | step 0110] train_loss=0.9569
+[epoch 001 | step 0120] train_loss=1.2026
+[epoch 001 | step 0130] train_loss=1.2020
+[epoch 001 | step 0140] train_loss=1.3665
+[epoch 001 | step 0150] train_loss=1.1184
+[epoch 001 | step 0160] train_loss=1.2834
+[epoch 001 | step 0170] train_loss=1.0344
+[epoch 001 | step 0180] train_loss=1.2833
+[epoch 001 | step 0190] train_loss=1.0332
+[epoch 001 | step 0200] train_loss=1.1160
+[epoch 001 | step 0210] train_loss=1.1158
+[epoch 001 | step 0220] train_loss=1.2825
+[epoch 001 | step 0230] train_loss=1.1984
+[epoch 001 | step 0240] train_loss=1.1976
+[epoch 001 | step 0250] train_loss=1.2813
+[epoch 001 | step 0260] train_loss=1.1975
+[epoch 001 | step 0270] train_loss=1.4492
+[epoch 001 | step 0280] train_loss=1.2809
+[epoch 001 | step 0290] train_loss=1.0284
+[epoch 001 | step 0300] train_loss=1.3646
+[epoch 001 | step 0310] train_loss=1.1116
+[epoch 001 | step 0320] train_loss=1.1963
+[epoch 001 | step 0330] train_loss=1.1110
+[epoch 001 | step 0340] train_loss=1.1949
+[epoch 001 | step 0350] train_loss=1.6154
+[epoch 001 | step 0360] train_loss=1.1948
+[epoch 001 | step 0370] train_loss=1.0250
+[epoch 001 | step 0380] train_loss=1.5315
+[epoch 001 | step 0390] train_loss=1.6156
+[epoch 001] train_loss=1.2417 | dev_loss=1.2409 | dev_acc=99.01% | dev_auc=0.9999 | dev_eer=0.47%
+[epoch 001] ✓ New best EER=0.47% -> checkpoints_stage2/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 002 | step 0010] train_loss=1.6166
+[epoch 002 | step 0020] train_loss=1.1927
+[epoch 002 | step 0030] train_loss=1.5316
+[epoch 002 | step 0040] train_loss=1.3615
+[epoch 002 | step 0050] train_loss=1.1915
+[epoch 002 | step 0060] train_loss=1.1906
+[epoch 002 | step 0070] train_loss=1.1921
+[epoch 002 | step 0080] train_loss=1.4448
+[epoch 002 | step 0090] train_loss=1.2751
+[epoch 002 | step 0100] train_loss=1.1047
+[epoch 002 | step 0110] train_loss=0.9383
+[epoch 002 | step 0120] train_loss=1.2736
+[epoch 002 | step 0130] train_loss=1.0204
+[epoch 002 | step 0140] train_loss=1.1049
+[epoch 002 | step 0150] train_loss=1.1880
+[epoch 002 | step 0160] train_loss=1.1055
+[epoch 002 | step 0170] train_loss=1.0195
+[epoch 002 | step 0180] train_loss=0.9330
+[epoch 002 | step 0190] train_loss=1.3570
+[epoch 002 | step 0200] train_loss=1.3573
+[epoch 002 | step 0210] train_loss=1.3554
+[epoch 002 | step 0220] train_loss=1.4402
+[epoch 002 | step 0230] train_loss=1.6063
+[epoch 002 | step 0240] train_loss=1.4373
+[epoch 002 | step 0250] train_loss=0.8496
+[epoch 002 | step 0260] train_loss=0.9352
+[epoch 002 | step 0270] train_loss=1.4387
+[epoch 002 | step 0280] train_loss=1.0178
+[epoch 002 | step 0290] train_loss=0.8504
+[epoch 002 | step 0300] train_loss=1.1858
+[epoch 002 | step 0310] train_loss=1.1004
+[epoch 002 | step 0320] train_loss=1.4364
+[epoch 002 | step 0330] train_loss=1.1018
+[epoch 002 | step 0340] train_loss=1.5188
+[epoch 002 | step 0350] train_loss=1.0996
+[epoch 002 | step 0360] train_loss=1.1835
+[epoch 002 | step 0370] train_loss=1.1828
+[epoch 002 | step 0380] train_loss=1.0125
+[epoch 002 | step 0390] train_loss=1.2658
+[epoch 002] train_loss=1.2303 | dev_loss=1.2299 | dev_acc=99.61% | dev_auc=0.9999 | dev_eer=0.36%
+[epoch 002] ✓ New best EER=0.36% -> checkpoints_stage2/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 003 | step 0010] train_loss=1.2669
+[epoch 003 | step 0020] train_loss=1.1804
+[epoch 003 | step 0030] train_loss=1.0104
+[epoch 003 | step 0040] train_loss=1.1794
+[epoch 003 | step 0050] train_loss=1.0108
+[epoch 003 | step 0060] train_loss=1.0936
+[epoch 003 | step 0070] train_loss=1.0946
+[epoch 003 | step 0080] train_loss=1.1776
+[epoch 003 | step 0090] train_loss=1.2633
+[epoch 003 | step 0100] train_loss=1.2629
+[epoch 003 | step 0110] train_loss=1.2644
+[epoch 003 | step 0120] train_loss=1.2632
+[epoch 003 | step 0130] train_loss=1.0091
+[epoch 003 | step 0140] train_loss=0.8392
+[epoch 003 | step 0150] train_loss=1.2620
+[epoch 003 | step 0160] train_loss=0.8386
+[epoch 003 | step 0170] train_loss=1.0909
+[epoch 003 | step 0180] train_loss=1.0916
+[epoch 003 | step 0190] train_loss=1.1756
+[epoch 003 | step 0200] train_loss=1.0048
+[epoch 003 | step 0210] train_loss=1.2599
+[epoch 003 | step 0220] train_loss=1.0041
+[epoch 003 | step 0230] train_loss=1.0903
+[epoch 003 | step 0240] train_loss=1.3475
+[epoch 003 | step 0250] train_loss=1.3483
+[epoch 003 | step 0260] train_loss=1.1706
+[epoch 003 | step 0270] train_loss=1.0903
+[epoch 003 | step 0280] train_loss=1.0918
+[epoch 003 | step 0290] train_loss=1.5114
+[epoch 003 | step 0300] train_loss=1.2563
+[epoch 003 | step 0310] train_loss=1.0867
+[epoch 003 | step 0320] train_loss=1.3442
+[epoch 003 | step 0330] train_loss=2.0246
+[epoch 003 | step 0340] train_loss=1.0045
+[epoch 003 | step 0350] train_loss=1.5115
+[epoch 003 | step 0360] train_loss=1.3395
+[epoch 003 | step 0370] train_loss=1.5067
+[epoch 003 | step 0380] train_loss=1.2545
+[epoch 003 | step 0390] train_loss=1.5903
+[epoch 003] train_loss=1.2192 | dev_loss=1.2192 | dev_acc=99.88% | dev_auc=0.9999 | dev_eer=0.33%
+[epoch 003] ✓ New best EER=0.33% -> checkpoints_stage2/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 004 | step 0010] train_loss=1.4191
+[epoch 004 | step 0020] train_loss=1.3368
+[epoch 004 | step 0030] train_loss=0.8364
+[epoch 004 | step 0040] train_loss=1.3361
+[epoch 004 | step 0050] train_loss=1.4188
+[epoch 004 | step 0060] train_loss=1.2527
+[epoch 004 | step 0070] train_loss=1.3420
+[epoch 004 | step 0080] train_loss=0.9982
+[epoch 004 | step 0090] train_loss=0.9155
+[epoch 004 | step 0100] train_loss=1.1686
+[epoch 004 | step 0110] train_loss=1.4197
+[epoch 004 | step 0120] train_loss=1.4230
+[epoch 004 | step 0130] train_loss=1.2523
+[epoch 004 | step 0140] train_loss=1.3347
+[epoch 004 | step 0150] train_loss=1.3332
+[epoch 004 | step 0160] train_loss=0.9121
+[epoch 004 | step 0170] train_loss=1.1675
+[epoch 004 | step 0180] train_loss=1.0818
+[epoch 004 | step 0190] train_loss=1.0818
+[epoch 004 | step 0200] train_loss=1.0805
+[epoch 004 | step 0210] train_loss=1.1657
+[epoch 004 | step 0220] train_loss=1.0805
+[epoch 004 | step 0230] train_loss=1.2498
+[epoch 004 | step 0240] train_loss=0.8285
+[epoch 004 | step 0250] train_loss=0.9923
+[epoch 004 | step 0260] train_loss=1.1666
+[epoch 004 | step 0270] train_loss=1.5849
+[epoch 004 | step 0280] train_loss=1.4984
+[epoch 004 | step 0290] train_loss=1.4181
+[epoch 004 | step 0300] train_loss=1.2457
+[epoch 004 | step 0310] train_loss=1.0823
+[epoch 004 | step 0320] train_loss=1.0789
+[epoch 004 | step 0330] train_loss=1.2461
+[epoch 004 | step 0340] train_loss=1.4970
+[epoch 004 | step 0350] train_loss=0.9960
+[epoch 004 | step 0360] train_loss=1.2450
+[epoch 004 | step 0370] train_loss=0.9979
+[epoch 004 | step 0380] train_loss=1.3265
+[epoch 004 | step 0390] train_loss=1.1596
+[epoch 004] train_loss=1.2084 | dev_loss=1.2086 | dev_acc=99.70% | dev_auc=0.9999 | dev_eer=0.32%
+[epoch 004] ✓ New best EER=0.32% -> checkpoints_stage2/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 005 | step 0010] train_loss=0.8295
+[epoch 005 | step 0020] train_loss=1.2421
+[epoch 005 | step 0030] train_loss=1.1591
+[epoch 005 | step 0040] train_loss=1.5748
+[epoch 005 | step 0050] train_loss=1.1625
+[epoch 005 | step 0060] train_loss=1.0792
+[epoch 005 | step 0070] train_loss=1.2419
+[epoch 005 | step 0080] train_loss=1.4085
+[epoch 005 | step 0090] train_loss=1.2412
+[epoch 005 | step 0100] train_loss=1.2408
+[epoch 005 | step 0110] train_loss=1.5727
+[epoch 005 | step 0120] train_loss=1.0773
+[epoch 005 | step 0130] train_loss=1.0738
+[epoch 005 | step 0140] train_loss=1.2430
+[epoch 005 | step 0150] train_loss=1.2384
+[epoch 005 | step 0160] train_loss=1.4869
+[epoch 005 | step 0170] train_loss=1.2365
+[epoch 005 | step 0180] train_loss=0.9085
+[epoch 005 | step 0190] train_loss=1.3210
+[epoch 005 | step 0200] train_loss=1.3223
+[epoch 005 | step 0210] train_loss=1.2349
+[epoch 005 | step 0220] train_loss=1.2413
+[epoch 005 | step 0230] train_loss=1.2384
+[epoch 005 | step 0240] train_loss=0.8255
+[epoch 005 | step 0250] train_loss=1.3206
+[epoch 005 | step 0260] train_loss=1.1571
+[epoch 005 | step 0270] train_loss=1.5673
+[epoch 005 | step 0280] train_loss=1.2379
+[epoch 005 | step 0290] train_loss=1.3145
+[epoch 005 | step 0300] train_loss=1.6444
+[epoch 005 | step 0310] train_loss=1.3180
+[epoch 005 | step 0320] train_loss=1.3168
+[epoch 005 | step 0330] train_loss=1.1524
+[epoch 005 | step 0340] train_loss=1.1533
+[epoch 005 | step 0350] train_loss=1.2359
+[epoch 005 | step 0360] train_loss=1.1519
+[epoch 005 | step 0370] train_loss=1.2352
+[epoch 005 | step 0380] train_loss=1.0679
+[epoch 005 | step 0390] train_loss=0.9066
+[epoch 005] train_loss=1.1976 | dev_loss=1.1981 | dev_acc=99.84% | dev_auc=0.9999 | dev_eer=0.32%
+[epoch 005] No EER improvement for 1 epoch(s) (best=0.32%)
+[epoch 006 | step 0010] train_loss=1.0665
+[epoch 006 | step 0020] train_loss=1.0690
+[epoch 006 | step 0030] train_loss=1.3127
+[epoch 006 | step 0040] train_loss=1.4783
+[epoch 006 | step 0050] train_loss=1.6349
+[epoch 006 | step 0060] train_loss=0.8206
+[epoch 006 | step 0070] train_loss=1.0715
+[epoch 006 | step 0080] train_loss=1.1469
+[epoch 006 | step 0090] train_loss=1.0693
+[epoch 006 | step 0100] train_loss=0.9815
+[epoch 006 | step 0110] train_loss=1.2271
+[epoch 006 | step 0120] train_loss=1.1465
+[epoch 006 | step 0130] train_loss=1.3079
+[epoch 006 | step 0140] train_loss=1.1444
+[epoch 006 | step 0150] train_loss=1.2313
+[epoch 006 | step 0160] train_loss=1.2309
+[epoch 006 | step 0170] train_loss=1.5559
+[epoch 006 | step 0180] train_loss=1.1450
+[epoch 006 | step 0190] train_loss=0.9762
+[epoch 006 | step 0200] train_loss=1.2287
+[epoch 006 | step 0210] train_loss=1.2306
+[epoch 006 | step 0220] train_loss=1.1427
+[epoch 006 | step 0230] train_loss=1.3133
+[epoch 006 | step 0240] train_loss=1.1415
+[epoch 006 | step 0250] train_loss=1.4800
+[epoch 006 | step 0260] train_loss=1.1402
+[epoch 006 | step 0270] train_loss=1.5645
+[epoch 006 | step 0280] train_loss=1.8006
+[epoch 006 | step 0290] train_loss=0.9803
+[epoch 006 | step 0300] train_loss=1.0585
+[epoch 006 | step 0310] train_loss=1.7156
+[epoch 006 | step 0320] train_loss=1.2167
+[epoch 006 | step 0330] train_loss=1.3081
+[epoch 006 | step 0340] train_loss=1.2223
+[epoch 006 | step 0350] train_loss=0.9775
+[epoch 006 | step 0360] train_loss=1.1464
+[epoch 006 | step 0370] train_loss=1.0574
+[epoch 006 | step 0380] train_loss=0.8948
+[epoch 006 | step 0390] train_loss=1.1420
+[epoch 006] train_loss=1.1870 | dev_loss=1.1877 | dev_acc=99.82% | dev_auc=0.9999 | dev_eer=0.31%
+[epoch 006] ✓ New best EER=0.31% -> checkpoints_stage2/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 007 | step 0010] train_loss=0.9754
+[epoch 007 | step 0020] train_loss=1.1401
+[epoch 007 | step 0030] train_loss=1.4704
+[epoch 007 | step 0040] train_loss=1.3897
+[epoch 007 | step 0050] train_loss=1.0582
+[epoch 007 | step 0060] train_loss=1.2177
+[epoch 007 | step 0070] train_loss=1.1396
+[epoch 007 | step 0080] train_loss=1.7854
+[epoch 007 | step 0090] train_loss=1.3031
+[epoch 007 | step 0100] train_loss=0.9793
+[epoch 007 | step 0110] train_loss=1.2967
+[epoch 007 | step 0120] train_loss=1.2167
+[epoch 007 | step 0130] train_loss=1.0465
+[epoch 007 | step 0140] train_loss=0.9803
+[epoch 007 | step 0150] train_loss=1.0600
+[epoch 007 | step 0160] train_loss=1.0488
+[epoch 007 | step 0170] train_loss=0.8098
+[epoch 007 | step 0180] train_loss=1.6253
+[epoch 007 | step 0190] train_loss=0.9714
+[epoch 007 | step 0200] train_loss=1.3028
+[epoch 007 | step 0210] train_loss=0.8107
+[epoch 007 | step 0220] train_loss=1.3781
+[epoch 007 | step 0230] train_loss=1.4638
+[epoch 007 | step 0240] train_loss=1.3778
+[epoch 007 | step 0250] train_loss=0.8053
+[epoch 007 | step 0260] train_loss=1.3764
+[epoch 007 | step 0270] train_loss=1.4636
+[epoch 007 | step 0280] train_loss=0.8035
+[epoch 007 | step 0290] train_loss=0.8038
+[epoch 007 | step 0300] train_loss=0.9679
+[epoch 007 | step 0310] train_loss=0.9658
+[epoch 007 | step 0320] train_loss=1.2984
+[epoch 007 | step 0330] train_loss=1.1311
+[epoch 007 | step 0340] train_loss=1.4636
+[epoch 007 | step 0350] train_loss=1.2934
+[epoch 007 | step 0360] train_loss=1.2996
+[epoch 007 | step 0370] train_loss=1.0519
+[epoch 007 | step 0380] train_loss=1.4513
+[epoch 007 | step 0390] train_loss=1.1288
+[epoch 007] train_loss=1.1765 | dev_loss=1.1774 | dev_acc=99.81% | dev_auc=0.9999 | dev_eer=0.31%
+[epoch 007] No EER improvement for 1 epoch(s) (best=0.31%)
+[epoch 008 | step 0010] train_loss=1.0505
+[epoch 008 | step 0020] train_loss=1.3671
+[epoch 008 | step 0030] train_loss=1.5366
+[epoch 008 | step 0040] train_loss=1.3722
+[epoch 008 | step 0050] train_loss=1.3703
+[epoch 008 | step 0060] train_loss=1.0525
+[epoch 008 | step 0070] train_loss=1.2882
+[epoch 008 | step 0080] train_loss=1.2144
+[epoch 008 | step 0090] train_loss=1.1230
+[epoch 008 | step 0100] train_loss=1.0533
+[epoch 008 | step 0110] train_loss=0.9652
+[epoch 008 | step 0120] train_loss=0.9613
+[epoch 008 | step 0130] train_loss=1.2874
+[epoch 008 | step 0140] train_loss=0.7297
+[epoch 008 | step 0150] train_loss=1.1257
+[epoch 008 | step 0160] train_loss=0.9668
+[epoch 008 | step 0170] train_loss=1.1240
+[epoch 008 | step 0180] train_loss=1.2868
+[epoch 008 | step 0190] train_loss=1.3631
+[epoch 008 | step 0200] train_loss=1.2082
+[epoch 008 | step 0210] train_loss=1.1940
+[epoch 008 | step 0220] train_loss=0.8849
+[epoch 008 | step 0230] train_loss=0.9715
+[epoch 008 | step 0240] train_loss=1.0421
+[epoch 008 | step 0250] train_loss=1.1233
+[epoch 008 | step 0260] train_loss=1.1989
+[epoch 008 | step 0270] train_loss=1.0512
+[epoch 008 | step 0280] train_loss=1.0456
+[epoch 008 | step 0290] train_loss=1.3654
+[epoch 008 | step 0300] train_loss=1.4426
+[epoch 008 | step 0310] train_loss=1.2127
+[epoch 008 | step 0320] train_loss=1.1231
+[epoch 008 | step 0330] train_loss=1.1215
+[epoch 008 | step 0340] train_loss=1.2030
+[epoch 008 | step 0350] train_loss=1.3652
+[epoch 008 | step 0360] train_loss=1.1308
+[epoch 008 | step 0370] train_loss=1.1152
+[epoch 008 | step 0380] train_loss=1.1233
+[epoch 008 | step 0390] train_loss=1.1248
+[epoch 008] train_loss=1.1660 | dev_loss=1.1673 | dev_acc=99.88% | dev_auc=0.9999 | dev_eer=0.28%
+[epoch 008] ✓ New best EER=0.28% -> checkpoints_stage2/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 009 | step 0010] train_loss=1.0399
+[epoch 009 | step 0020] train_loss=0.8730
+[epoch 009 | step 0030] train_loss=0.9570
+[epoch 009 | step 0040] train_loss=1.4402
+[epoch 009 | step 0050] train_loss=0.7965
+[epoch 009 | step 0060] train_loss=0.8783
+[epoch 009 | step 0070] train_loss=1.1958
+[epoch 009 | step 0080] train_loss=1.5240
+[epoch 009 | step 0090] train_loss=0.7894
+[epoch 009 | step 0100] train_loss=1.2791
+[epoch 009 | step 0110] train_loss=0.8705
+[epoch 009 | step 0120] train_loss=1.2004
+[epoch 009 | step 0130] train_loss=0.7946
+[epoch 009 | step 0140] train_loss=1.4389
+[epoch 009 | step 0150] train_loss=1.1101
+[epoch 009 | step 0160] train_loss=1.4438
+[epoch 009 | step 0170] train_loss=1.3576
+[epoch 009 | step 0180] train_loss=1.1953
+[epoch 009 | step 0190] train_loss=0.9537
+[epoch 009 | step 0200] train_loss=1.0347
+[epoch 009 | step 0210] train_loss=1.2824
+[epoch 009 | step 0220] train_loss=0.8677
+[epoch 009 | step 0230] train_loss=1.1121
+[epoch 009 | step 0240] train_loss=1.0225
+[epoch 009 | step 0250] train_loss=1.2831
+[epoch 009 | step 0260] train_loss=1.2728
+[epoch 009 | step 0270] train_loss=1.1071
+[epoch 009 | step 0280] train_loss=1.4379
+[epoch 009 | step 0290] train_loss=1.3612
+[epoch 009 | step 0300] train_loss=1.2653
+[epoch 009 | step 0310] train_loss=1.1102
+[epoch 009 | step 0320] train_loss=1.2809
+[epoch 009 | step 0330] train_loss=1.1988
+[epoch 009 | step 0340] train_loss=1.3540
+[epoch 009 | step 0350] train_loss=1.2001
+[epoch 009 | step 0360] train_loss=1.1939
+[epoch 009 | step 0370] train_loss=0.9549
+[epoch 009 | step 0380] train_loss=1.1166
+[epoch 009 | step 0390] train_loss=0.7132
+[epoch 009] train_loss=1.1557 | dev_loss=1.1571 | dev_acc=99.73% | dev_auc=0.9999 | dev_eer=0.28%
+[epoch 009] No EER improvement for 1 epoch(s) (best=0.28%)
+[epoch 010 | step 0010] train_loss=0.9634
+[epoch 010 | step 0020] train_loss=1.1945
+[epoch 010 | step 0030] train_loss=1.2707
+[epoch 010 | step 0040] train_loss=1.1069
+[epoch 010 | step 0050] train_loss=1.1835
+[epoch 010 | step 0060] train_loss=0.9463
+[epoch 010 | step 0070] train_loss=0.9533
+[epoch 010 | step 0080] train_loss=1.1877
+[epoch 010 | step 0090] train_loss=1.1142
+[epoch 010 | step 0100] train_loss=1.4154
+[epoch 010 | step 0110] train_loss=1.1050
+[epoch 010 | step 0120] train_loss=1.0272
+[epoch 010 | step 0130] train_loss=1.1728
+[epoch 010 | step 0140] train_loss=0.8746
+[epoch 010 | step 0150] train_loss=1.4178
+[epoch 010 | step 0160] train_loss=1.3395
+[epoch 010 | step 0170] train_loss=1.1818
+[epoch 010 | step 0180] train_loss=0.9457
+[epoch 010 | step 0190] train_loss=1.2691
+[epoch 010 | step 0200] train_loss=0.9547
+[epoch 010 | step 0210] train_loss=1.1089
+[epoch 010 | step 0220] train_loss=1.3414
+[epoch 010 | step 0230] train_loss=1.1182
+[epoch 010 | step 0240] train_loss=1.0329
+[epoch 010 | step 0250] train_loss=1.4997
+[epoch 010 | step 0260] train_loss=1.1740
+[epoch 010 | step 0270] train_loss=1.1815
+[epoch 010 | step 0280] train_loss=1.4112
+[epoch 010 | step 0290] train_loss=1.1842
+[epoch 010 | step 0300] train_loss=1.0248
+[epoch 010 | step 0310] train_loss=1.2601
+[epoch 010 | step 0320] train_loss=1.1790
+[epoch 010 | step 0330] train_loss=1.0249
+[epoch 010 | step 0340] train_loss=1.2645
+[epoch 010 | step 0350] train_loss=0.9430
+[epoch 010 | step 0360] train_loss=0.9414
+[epoch 010 | step 0370] train_loss=1.1080
+[epoch 010 | step 0380] train_loss=1.3414
+[epoch 010 | step 0390] train_loss=1.2528
+[epoch 010] train_loss=1.1455 | dev_loss=1.1471 | dev_acc=99.83% | dev_auc=0.9999 | dev_eer=0.27%
+[epoch 010] ✓ New best EER=0.27% -> checkpoints_stage2/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 011 | step 0010] train_loss=1.2524
+[epoch 011 | step 0020] train_loss=1.0248
+[epoch 011 | step 0030] train_loss=1.1678
+[epoch 011 | step 0040] train_loss=1.1774
+[epoch 011 | step 0050] train_loss=1.0112
+[epoch 011 | step 0060] train_loss=1.4229
+[epoch 011 | step 0070] train_loss=1.4053
+[epoch 011 | step 0080] train_loss=1.3393
+[epoch 011 | step 0090] train_loss=1.0181
+[epoch 011 | step 0100] train_loss=1.0246
+[epoch 011 | step 0110] train_loss=1.4858
+[epoch 011 | step 0120] train_loss=0.9340
+[epoch 011 | step 0130] train_loss=0.9383
+[epoch 011 | step 0140] train_loss=1.0255
+[epoch 011 | step 0150] train_loss=1.1741
+[epoch 011 | step 0160] train_loss=1.0135
+[epoch 011 | step 0170] train_loss=1.1666
+[epoch 011 | step 0180] train_loss=1.2514
+[epoch 011 | step 0190] train_loss=0.9446
+[epoch 011 | step 0200] train_loss=1.4074
+[epoch 011 | step 0210] train_loss=1.1653
+[epoch 011 | step 0220] train_loss=1.8025
+[epoch 011 | step 0230] train_loss=1.1787
+[epoch 011 | step 0240] train_loss=1.2516
+[epoch 011 | step 0250] train_loss=1.0104
+[epoch 011 | step 0260] train_loss=1.0856
+[epoch 011 | step 0270] train_loss=1.2505
+[epoch 011 | step 0280] train_loss=0.8601
+[epoch 011 | step 0290] train_loss=1.0093
+[epoch 011 | step 0300] train_loss=1.4892
+[epoch 011 | step 0310] train_loss=1.2453
+[epoch 011 | step 0320] train_loss=1.1007
+[epoch 011 | step 0330] train_loss=0.9351
+[epoch 011 | step 0340] train_loss=1.1697
+[epoch 011 | step 0350] train_loss=0.7730
+[epoch 011 | step 0360] train_loss=1.0915
+[epoch 011 | step 0370] train_loss=1.0126
+[epoch 011 | step 0380] train_loss=1.0834
+[epoch 011 | step 0390] train_loss=1.0923
+[epoch 011] train_loss=1.1353 | dev_loss=1.1373 | dev_acc=99.84% | dev_auc=0.9999 | dev_eer=0.27%
+[epoch 011] No EER improvement for 1 epoch(s) (best=0.27%)
+[epoch 012 | step 0010] train_loss=1.2459
+[epoch 012 | step 0020] train_loss=0.8496
+[epoch 012 | step 0030] train_loss=0.8538
+[epoch 012 | step 0040] train_loss=1.0089
+[epoch 012 | step 0050] train_loss=0.9314
+[epoch 012 | step 0060] train_loss=0.8538
+[epoch 012 | step 0070] train_loss=1.0058
+[epoch 012 | step 0080] train_loss=0.8513
+[epoch 012 | step 0090] train_loss=1.0879
+[epoch 012 | step 0100] train_loss=1.0757
+[epoch 012 | step 0110] train_loss=0.8405
+[epoch 012 | step 0120] train_loss=1.4010
+[epoch 012 | step 0130] train_loss=0.7596
+[epoch 012 | step 0140] train_loss=1.3252
+[epoch 012 | step 0150] train_loss=1.0938
+[epoch 012 | step 0160] train_loss=1.1682
+[epoch 012 | step 0170] train_loss=1.0065
+[epoch 012 | step 0180] train_loss=1.0061
+[epoch 012 | step 0190] train_loss=0.7744
+[epoch 012 | step 0200] train_loss=1.0822
+[epoch 012 | step 0210] train_loss=0.9999
+[epoch 012 | step 0220] train_loss=1.3164
+[epoch 012 | step 0230] train_loss=0.6878
+[epoch 012 | step 0240] train_loss=1.0919
+[epoch 012 | step 0250] train_loss=1.4018
+[epoch 012 | step 0260] train_loss=1.3176
+[epoch 012 | step 0270] train_loss=1.0867
+[epoch 012 | step 0280] train_loss=1.1679
+[epoch 012 | step 0290] train_loss=0.9320
+[epoch 012 | step 0300] train_loss=1.4670
+[epoch 012 | step 0310] train_loss=0.9958
+[epoch 012 | step 0320] train_loss=1.0919
+[epoch 012 | step 0330] train_loss=0.8391
+[epoch 012 | step 0340] train_loss=1.2385
+[epoch 012 | step 0350] train_loss=1.1588
+[epoch 012 | step 0360] train_loss=1.0086
+[epoch 012 | step 0370] train_loss=1.0174
+[epoch 012 | step 0380] train_loss=1.2461
+[epoch 012 | step 0390] train_loss=1.0805
+[epoch 012] train_loss=1.1253 | dev_loss=1.1273 | dev_acc=99.66% | dev_auc=0.9999 | dev_eer=0.27%
+[epoch 012] No EER improvement for 2 epoch(s) (best=0.27%)
+[epoch 013 | step 0010] train_loss=1.0908
+[epoch 013 | step 0020] train_loss=1.2280
+[epoch 013 | step 0030] train_loss=0.9302
+[epoch 013 | step 0040] train_loss=1.1582
+[epoch 013 | step 0050] train_loss=1.0062
+[epoch 013 | step 0060] train_loss=0.9253
+[epoch 013 | step 0070] train_loss=1.5519
+[epoch 013 | step 0080] train_loss=1.3829
+[epoch 013 | step 0090] train_loss=1.3937
+[epoch 013 | step 0100] train_loss=0.9176
+[epoch 013 | step 0110] train_loss=1.1559
+[epoch 013 | step 0120] train_loss=1.0750
+[epoch 013 | step 0130] train_loss=1.1550
+[epoch 013 | step 0140] train_loss=0.9221
+[epoch 013 | step 0150] train_loss=1.0062
+[epoch 013 | step 0160] train_loss=0.9290
+[epoch 013 | step 0170] train_loss=1.3821
+[epoch 013 | step 0180] train_loss=1.1397
+[epoch 013 | step 0190] train_loss=1.2322
+[epoch 013 | step 0200] train_loss=1.2397
+[epoch 013 | step 0210] train_loss=1.0711
+[epoch 013 | step 0220] train_loss=0.9926
+[epoch 013 | step 0230] train_loss=0.9270
+[epoch 013 | step 0240] train_loss=1.1475
+[epoch 013 | step 0250] train_loss=1.1501
+[epoch 013 | step 0260] train_loss=1.0675
+[epoch 013 | step 0270] train_loss=0.8474
+[epoch 013 | step 0280] train_loss=1.2181
+[epoch 013 | step 0290] train_loss=1.1431
+[epoch 013 | step 0300] train_loss=0.9176
+[epoch 013 | step 0310] train_loss=1.0662
+[epoch 013 | step 0320] train_loss=0.9164
+[epoch 013 | step 0330] train_loss=1.0871
+[epoch 013 | step 0340] train_loss=1.2317
+[epoch 013 | step 0350] train_loss=1.3029
+[epoch 013 | step 0360] train_loss=1.0631
+[epoch 013 | step 0370] train_loss=1.0792
+[epoch 013 | step 0380] train_loss=1.1434
+[epoch 013 | step 0390] train_loss=1.1452
+[epoch 013] train_loss=1.1153 | dev_loss=1.1176 | dev_acc=99.70% | dev_auc=0.9999 | dev_eer=0.27%
+[epoch 013] No EER improvement for 3 epoch(s) (best=0.27%)
+[epoch 014 | step 0010] train_loss=1.0631
+[epoch 014 | step 0020] train_loss=0.9045
+[epoch 014 | step 0030] train_loss=1.1375
+[epoch 014 | step 0040] train_loss=0.9963
+[epoch 014 | step 0050] train_loss=0.9230
+[epoch 014 | step 0060] train_loss=0.9127
+[epoch 014 | step 0070] train_loss=0.5982
+[epoch 014 | step 0080] train_loss=1.4585
+[epoch 014 | step 0090] train_loss=0.7617
+[epoch 014 | step 0100] train_loss=1.2082
+[epoch 014 | step 0110] train_loss=1.0745
+[epoch 014 | step 0120] train_loss=0.9950
+[epoch 014 | step 0130] train_loss=1.5274
+[epoch 014 | step 0140] train_loss=1.0732
+[epoch 014 | step 0150] train_loss=0.9934
+[epoch 014 | step 0160] train_loss=1.1395
+[epoch 014 | step 0170] train_loss=1.0552
+[epoch 014 | step 0180] train_loss=1.3801
+[epoch 014 | step 0190] train_loss=1.3725
+[epoch 014 | step 0200] train_loss=0.8360
+[epoch 014 | step 0210] train_loss=1.1461
+[epoch 014 | step 0220] train_loss=1.2960
+[epoch 014 | step 0230] train_loss=1.1502
+[epoch 014 | step 0240] train_loss=1.0700
+[epoch 014 | step 0250] train_loss=0.9880
+[epoch 014 | step 0260] train_loss=0.7503
+[epoch 014 | step 0270] train_loss=1.5293
+[epoch 014 | step 0280] train_loss=1.2979
+[epoch 014 | step 0290] train_loss=0.8326
+[epoch 014 | step 0300] train_loss=1.2904
+[epoch 014 | step 0310] train_loss=0.9838
+[epoch 014 | step 0320] train_loss=0.8981
+[epoch 014 | step 0330] train_loss=1.3665
+[epoch 014 | step 0340] train_loss=1.0628
+[epoch 014 | step 0350] train_loss=1.4342
+[epoch 014 | step 0360] train_loss=0.9951
+[epoch 014 | step 0370] train_loss=0.8975
+[epoch 014 | step 0380] train_loss=0.8265
+[epoch 014 | step 0390] train_loss=0.6825
+[epoch 014] train_loss=1.1054 | dev_loss=1.1079 | dev_acc=99.67% | dev_auc=0.9999 | dev_eer=0.27%
+[epoch 014] No EER improvement for 4 epoch(s) (best=0.27%)
+[epoch 015 | step 0010] train_loss=0.9808
+[epoch 015 | step 0020] train_loss=0.9760
+[epoch 015 | step 0030] train_loss=1.1996
+[epoch 015 | step 0040] train_loss=1.1456
+[epoch 015 | step 0050] train_loss=0.9120
+[epoch 015 | step 0060] train_loss=0.9647
+[epoch 015 | step 0070] train_loss=1.2945
+[epoch 015 | step 0080] train_loss=1.5905
+[epoch 015 | step 0090] train_loss=1.2879
+[epoch 015 | step 0100] train_loss=0.9043
+[epoch 015 | step 0110] train_loss=1.2862
+[epoch 015 | step 0120] train_loss=0.8333
+[epoch 015 | step 0130] train_loss=1.1873
+[epoch 015 | step 0140] train_loss=0.9010
+[epoch 015 | step 0150] train_loss=1.5799
+[epoch 015 | step 0160] train_loss=0.9901
+[epoch 015 | step 0170] train_loss=1.2015
+[epoch 015 | step 0180] train_loss=1.1313
+[epoch 015 | step 0190] train_loss=1.2865
+[epoch 015 | step 0200] train_loss=0.9781
+[epoch 015 | step 0210] train_loss=1.3531
+[epoch 015 | step 0220] train_loss=0.8935
+[epoch 015 | step 0230] train_loss=1.1995
+[epoch 015 | step 0240] train_loss=0.8165
+[epoch 015 | step 0250] train_loss=1.3893
+[epoch 015 | step 0260] train_loss=1.3677
+[epoch 015 | step 0270] train_loss=1.4188
+[epoch 015 | step 0280] train_loss=1.0555
+[epoch 015 | step 0290] train_loss=1.1233
+[epoch 015 | step 0300] train_loss=0.8285
+[epoch 015 | step 0310] train_loss=1.0441
+[epoch 015 | step 0320] train_loss=0.7531
+[epoch 015 | step 0330] train_loss=0.8281
+[epoch 015 | step 0340] train_loss=1.2688
+[epoch 015 | step 0350] train_loss=1.1353
+[epoch 015 | step 0360] train_loss=1.1329
+[epoch 015 | step 0370] train_loss=1.2752
+[epoch 015 | step 0380] train_loss=1.1966
+[epoch 015 | step 0390] train_loss=0.8284
+[epoch 015] train_loss=1.0956 | dev_loss=1.0983 | dev_acc=99.61% | dev_auc=0.9999 | dev_eer=0.27%
+[epoch 015] ✓ New best EER=0.27% -> checkpoints_stage2/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 016 | step 0010] train_loss=0.8288
+[epoch 016 | step 0020] train_loss=1.1329
+[epoch 016 | step 0030] train_loss=1.1208
+[epoch 016 | step 0040] train_loss=0.9771
+[epoch 016 | step 0050] train_loss=1.1219
+[epoch 016 | step 0060] train_loss=1.0612
+[epoch 016 | step 0070] train_loss=0.8947
+[epoch 016 | step 0080] train_loss=0.8968
+[epoch 016 | step 0090] train_loss=1.0469
+[epoch 016 | step 0100] train_loss=1.4294
+[epoch 016 | step 0110] train_loss=1.0331
+[epoch 016 | step 0120] train_loss=0.9585
+[epoch 016 | step 0130] train_loss=1.1220
+[epoch 016 | step 0140] train_loss=0.9036
+[epoch 016 | step 0150] train_loss=1.1126
+[epoch 016 | step 0160] train_loss=0.9063
+[epoch 016 | step 0170] train_loss=0.9722
+[epoch 016 | step 0180] train_loss=1.3459
+[epoch 016 | step 0190] train_loss=1.1267
+[epoch 016 | step 0200] train_loss=1.1212
+[epoch 016 | step 0210] train_loss=0.9120
+[epoch 016 | step 0220] train_loss=0.9727
+[epoch 016 | step 0230] train_loss=0.6805
+[epoch 016 | step 0240] train_loss=0.7412
+[epoch 016 | step 0250] train_loss=0.8298
+[epoch 016 | step 0260] train_loss=1.0613
+[epoch 016 | step 0270] train_loss=1.1317
+[epoch 016 | step 0280] train_loss=1.1212
+[epoch 016 | step 0290] train_loss=0.8989
+[epoch 016 | step 0300] train_loss=1.2009
+[epoch 016 | step 0310] train_loss=1.0380
+[epoch 016 | step 0320] train_loss=1.3505
+[epoch 016 | step 0330] train_loss=0.8094
+[epoch 016 | step 0340] train_loss=1.1909
+[epoch 016 | step 0350] train_loss=1.0341
+[epoch 016 | step 0360] train_loss=1.3553
+[epoch 016 | step 0370] train_loss=1.0447
+[epoch 016 | step 0380] train_loss=0.7372
+[epoch 016 | step 0390] train_loss=0.9758
+[epoch 016] train_loss=1.0859 | dev_loss=1.0888 | dev_acc=99.67% | dev_auc=0.9999 | dev_eer=0.26%
+[epoch 016] ✓ New best EER=0.26% -> checkpoints_stage2/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 017 | step 0010] train_loss=1.0570
+[epoch 017 | step 0020] train_loss=1.4218
+[epoch 017 | step 0030] train_loss=1.4171
+[epoch 017 | step 0040] train_loss=1.0399
+[epoch 017 | step 0050] train_loss=1.6359
+[epoch 017 | step 0060] train_loss=0.9639
+[epoch 017 | step 0070] train_loss=0.9570
+[epoch 017 | step 0080] train_loss=0.8143
+[epoch 017 | step 0090] train_loss=1.0538
+[epoch 017 | step 0100] train_loss=0.8942
+[epoch 017 | step 0110] train_loss=1.0529
+[epoch 017 | step 0120] train_loss=1.0297
+[epoch 017 | step 0130] train_loss=1.1953
+[epoch 017 | step 0140] train_loss=0.7363
+[epoch 017 | step 0150] train_loss=1.2709
+[epoch 017 | step 0160] train_loss=1.3335
+[epoch 017 | step 0170] train_loss=0.8934
+[epoch 017 | step 0180] train_loss=1.2590
+[epoch 017 | step 0190] train_loss=1.0408
+[epoch 017 | step 0200] train_loss=1.6652
+[epoch 017 | step 0210] train_loss=1.4199
+[epoch 017 | step 0220] train_loss=1.2425
+[epoch 017 | step 0230] train_loss=0.9532
+[epoch 017 | step 0240] train_loss=1.2524
+[epoch 017 | step 0250] train_loss=1.1173
+[epoch 017 | step 0260] train_loss=0.8731
+[epoch 017 | step 0270] train_loss=1.2047
+[epoch 017 | step 0280] train_loss=1.0997
+[epoch 017 | step 0290] train_loss=1.2735
+[epoch 017 | step 0300] train_loss=1.0275
+[epoch 017 | step 0310] train_loss=0.8165
+[epoch 017 | step 0320] train_loss=1.1912
+[epoch 017 | step 0330] train_loss=0.9634
+[epoch 017 | step 0340] train_loss=0.8088
+[epoch 017 | step 0350] train_loss=1.1771
+[epoch 017 | step 0360] train_loss=1.1827
+[epoch 017 | step 0370] train_loss=1.4190
+[epoch 017 | step 0380] train_loss=1.2537
+[epoch 017 | step 0390] train_loss=0.8784
+[epoch 017] train_loss=1.0763 | dev_loss=1.0793 | dev_acc=99.53% | dev_auc=0.9999 | dev_eer=0.29%
+[epoch 017] No EER improvement for 1 epoch(s) (best=0.26%)
+[epoch 018 | step 0010] train_loss=1.4785
+[epoch 018 | step 0020] train_loss=0.6645
+[epoch 018 | step 0030] train_loss=1.1003
+[epoch 018 | step 0040] train_loss=1.0450
+[epoch 018 | step 0050] train_loss=0.9620
+[epoch 018 | step 0060] train_loss=1.1028
+[epoch 018 | step 0070] train_loss=1.0309
+[epoch 018 | step 0080] train_loss=1.1757
+[epoch 018 | step 0090] train_loss=0.9653
+[epoch 018 | step 0100] train_loss=1.3900
+[epoch 018 | step 0110] train_loss=1.2625
+[epoch 018 | step 0120] train_loss=1.2482
+[epoch 018 | step 0130] train_loss=0.8783
+[epoch 018 | step 0140] train_loss=0.9419
+[epoch 018 | step 0150] train_loss=1.2585
+[epoch 018 | step 0160] train_loss=0.7427
+[epoch 018 | step 0170] train_loss=1.1827
+[epoch 018 | step 0180] train_loss=1.1747
+[epoch 018 | step 0190] train_loss=0.9408
+[epoch 018 | step 0200] train_loss=0.7846
+[epoch 018 | step 0210] train_loss=0.7996
+[epoch 018 | step 0220] train_loss=1.2594
+[epoch 018 | step 0230] train_loss=1.0197
+[epoch 018 | step 0240] train_loss=1.3225
+[epoch 018 | step 0250] train_loss=1.1976
+[epoch 018 | step 0260] train_loss=1.1213
+[epoch 018 | step 0270] train_loss=1.1007
+[epoch 018 | step 0280] train_loss=0.9503
+[epoch 018 | step 0290] train_loss=1.0467
+[epoch 018 | step 0300] train_loss=0.9578
+[epoch 018 | step 0310] train_loss=0.9556
+[epoch 018 | step 0320] train_loss=1.4079
+[epoch 018 | step 0330] train_loss=0.8836
+[epoch 018 | step 0340] train_loss=0.8913
+[epoch 018 | step 0350] train_loss=1.2426
+[epoch 018 | step 0360] train_loss=1.4673
+[epoch 018 | step 0370] train_loss=1.4070
+[epoch 018 | step 0380] train_loss=1.5412
+[epoch 018 | step 0390] train_loss=1.0262
+[epoch 018] train_loss=1.0666 | dev_loss=1.0699 | dev_acc=99.31% | dev_auc=0.9999 | dev_eer=0.29%
+[epoch 018] No EER improvement for 2 epoch(s) (best=0.26%)
+[epoch 019 | step 0010] train_loss=1.3074
+[epoch 019 | step 0020] train_loss=0.8915
+[epoch 019 | step 0030] train_loss=0.7324
+[epoch 019 | step 0040] train_loss=0.8072
+[epoch 019 | step 0050] train_loss=1.1123
+[epoch 019 | step 0060] train_loss=1.3826
+[epoch 019 | step 0070] train_loss=0.9457
+[epoch 019 | step 0080] train_loss=0.9560
+[epoch 019 | step 0090] train_loss=1.0737
+[epoch 019 | step 0100] train_loss=1.1637
+[epoch 019 | step 0110] train_loss=1.3864
+[epoch 019 | step 0120] train_loss=0.9487
+[epoch 019 | step 0130] train_loss=0.8822
+[epoch 019 | step 0140] train_loss=1.2418
+[epoch 019 | step 0150] train_loss=0.8704
+[epoch 019 | step 0160] train_loss=1.2282
+[epoch 019 | step 0170] train_loss=1.1601
+[epoch 019 | step 0180] train_loss=1.2343
+[epoch 019 | step 0190] train_loss=0.8020
+[epoch 019 | step 0200] train_loss=0.7929
+[epoch 019 | step 0210] train_loss=0.9473
+[epoch 019 | step 0220] train_loss=0.9580
+[epoch 019 | step 0230] train_loss=0.8659
+[epoch 019 | step 0240] train_loss=1.0801
+[epoch 019 | step 0250] train_loss=0.9964
+[epoch 019 | step 0260] train_loss=0.9576
+[epoch 019 | step 0270] train_loss=1.1041
+[epoch 019 | step 0280] train_loss=1.2340
+[epoch 019 | step 0290] train_loss=1.3020
+[epoch 019 | step 0300] train_loss=1.1403
+[epoch 019 | step 0310] train_loss=1.0140
+[epoch 019 | step 0320] train_loss=1.0246
+[epoch 019 | step 0330] train_loss=0.9524
+[epoch 019 | step 0340] train_loss=1.1636
+[epoch 019 | step 0350] train_loss=1.2327
+[epoch 019 | step 0360] train_loss=1.1003
+[epoch 019 | step 0370] train_loss=1.0798
+[epoch 019 | step 0380] train_loss=0.8880
+[epoch 019 | step 0390] train_loss=0.7147
+[epoch 019] train_loss=1.0572 | dev_loss=1.0605 | dev_acc=99.42% | dev_auc=0.9999 | dev_eer=0.29%
+[epoch 019] No EER improvement for 3 epoch(s) (best=0.26%)
+[epoch 020 | step 0010] train_loss=1.0175
+[epoch 020 | step 0020] train_loss=1.0087
+[epoch 020 | step 0030] train_loss=1.1003
+[epoch 020 | step 0040] train_loss=1.0074
+[epoch 020 | step 0050] train_loss=0.8731
+[epoch 020 | step 0060] train_loss=0.8667
+[epoch 020 | step 0070] train_loss=0.8619
+[epoch 020 | step 0080] train_loss=1.0163
+[epoch 020 | step 0090] train_loss=0.9356
+[epoch 020 | step 0100] train_loss=0.9438
+[epoch 020 | step 0110] train_loss=0.8002
+[epoch 020 | step 0120] train_loss=0.8611
+[epoch 020 | step 0130] train_loss=1.2244
+[epoch 020 | step 0140] train_loss=0.7088
+[epoch 020 | step 0150] train_loss=0.9280
+[epoch 020 | step 0160] train_loss=1.0827
+[epoch 020 | step 0170] train_loss=1.1579
+[epoch 020 | step 0180] train_loss=0.9925
+[epoch 020 | step 0190] train_loss=0.7961
+[epoch 020 | step 0200] train_loss=0.7113
+[epoch 020 | step 0210] train_loss=1.0167
+[epoch 020 | step 0220] train_loss=0.8484
+[epoch 020 | step 0230] train_loss=0.7939
+[epoch 020 | step 0240] train_loss=1.0166
+[epoch 020 | step 0250] train_loss=0.8532
+[epoch 020 | step 0260] train_loss=1.2963
+[epoch 020 | step 0270] train_loss=0.7059
+[epoch 020 | step 0280] train_loss=1.0076
+[epoch 020 | step 0290] train_loss=0.8652
+[epoch 020 | step 0300] train_loss=1.0848
+[epoch 020 | step 0310] train_loss=0.8611
+[epoch 020 | step 0320] train_loss=1.0871
+[epoch 020 | step 0330] train_loss=0.9256
+[epoch 020 | step 0340] train_loss=0.6498
+[epoch 020 | step 0350] train_loss=1.1607
+[epoch 020 | step 0360] train_loss=1.0796
+[epoch 020 | step 0370] train_loss=1.2352
+[epoch 020 | step 0380] train_loss=1.2799
+[epoch 020 | step 0390] train_loss=0.9325
+[epoch 020] train_loss=1.0477 | dev_loss=1.0513 | dev_acc=99.22% | dev_auc=0.9999 | dev_eer=0.29%
+[epoch 020] No EER improvement for 4 epoch(s) (best=0.26%)
+[epoch 021 | step 0010] train_loss=1.1530
+[epoch 021 | step 0020] train_loss=1.0059
+[epoch 021 | step 0030] train_loss=0.7145
+[epoch 021 | step 0040] train_loss=0.7905
+[epoch 021 | step 0050] train_loss=1.2359
+[epoch 021 | step 0060] train_loss=0.8582
+[epoch 021 | step 0070] train_loss=1.2875
+[epoch 021 | step 0080] train_loss=1.0743
+[epoch 021 | step 0090] train_loss=0.9304
+[epoch 021 | step 0100] train_loss=1.3437
+[epoch 021 | step 0110] train_loss=0.9262
+[epoch 021 | step 0120] train_loss=0.7848
+[epoch 021 | step 0130] train_loss=1.0708
+[epoch 021 | step 0140] train_loss=0.9330
+[epoch 021 | step 0150] train_loss=0.9208
+[epoch 021 | step 0160] train_loss=0.9309
+[epoch 021 | step 0170] train_loss=1.0068
+[epoch 021 | step 0180] train_loss=0.9431
+[epoch 021 | step 0190] train_loss=0.9790
+[epoch 021 | step 0200] train_loss=1.4383
+[epoch 021 | step 0210] train_loss=0.8606
+[epoch 021 | step 0220] train_loss=0.6979
+[epoch 021 | step 0230] train_loss=1.2316
+[epoch 021 | step 0240] train_loss=0.8549
+[epoch 021 | step 0250] train_loss=1.1423
+[epoch 021 | step 0260] train_loss=1.1368
+[epoch 021 | step 0270] train_loss=1.0929
+[epoch 021 | step 0280] train_loss=1.0056
+[epoch 021 | step 0290] train_loss=0.9998
+[epoch 021 | step 0300] train_loss=0.9992
+[epoch 021 | step 0310] train_loss=1.0633
+[epoch 021 | step 0320] train_loss=0.9065
+[epoch 021 | step 0330] train_loss=0.8693
+[epoch 021 | step 0340] train_loss=1.0114
+[epoch 021 | step 0350] train_loss=0.7714
+[epoch 021 | step 0360] train_loss=1.2857
+[epoch 021 | step 0370] train_loss=1.2028
+[epoch 021 | step 0380] train_loss=1.2024
+[epoch 021 | step 0390] train_loss=1.0037
+[epoch 021] train_loss=1.0384 | dev_loss=1.0421 | dev_acc=99.22% | dev_auc=0.9999 | dev_eer=0.28%
+[epoch 021] No EER improvement for 5 epoch(s) (best=0.26%)
+[epoch 022 | step 0010] train_loss=0.8478
+[epoch 022 | step 0020] train_loss=1.1493
+[epoch 022 | step 0030] train_loss=1.0644
+[epoch 022 | step 0040] train_loss=1.2121
+[epoch 022 | step 0050] train_loss=1.0821
+[epoch 022 | step 0060] train_loss=1.4319
+[epoch 022 | step 0070] train_loss=0.9165
+[epoch 022 | step 0080] train_loss=1.0730
+[epoch 022 | step 0090] train_loss=1.1326
+[epoch 022 | step 0100] train_loss=1.0429
+[epoch 022 | step 0110] train_loss=0.5644
+[epoch 022 | step 0120] train_loss=0.9208
+[epoch 022 | step 0130] train_loss=1.0138
+[epoch 022 | step 0140] train_loss=1.3650
+[epoch 022 | step 0150] train_loss=1.0046
+[epoch 022 | step 0160] train_loss=0.7946
+[epoch 022 | step 0170] train_loss=1.1375
+[epoch 022 | step 0180] train_loss=0.8581
+[epoch 022 | step 0190] train_loss=1.3480
+[epoch 022 | step 0200] train_loss=0.9442
+[epoch 022 | step 0210] train_loss=1.1304
+[epoch 022 | step 0220] train_loss=1.5515
+[epoch 022 | step 0230] train_loss=0.9866
+[epoch 022 | step 0240] train_loss=0.7841
+[epoch 022 | step 0250] train_loss=0.9956
+[epoch 022 | step 0260] train_loss=0.9893
+[epoch 022 | step 0270] train_loss=0.8401
+[epoch 022 | step 0280] train_loss=1.2577
+[epoch 022 | step 0290] train_loss=1.0038
+[epoch 022 | step 0300] train_loss=0.9853
+[epoch 022 | step 0310] train_loss=0.9206
+[epoch 022 | step 0320] train_loss=0.9145
+[epoch 022 | step 0330] train_loss=1.3388
+[epoch 022 | step 0340] train_loss=1.3300
+[epoch 022 | step 0350] train_loss=1.2063
+[epoch 022 | step 0360] train_loss=0.8589
+[epoch 022 | step 0370] train_loss=0.9345
+[epoch 022 | step 0380] train_loss=0.9242
+[epoch 022 | step 0390] train_loss=0.9143
+[epoch 022] train_loss=1.0291 | dev_loss=1.0331 | dev_acc=99.42% | dev_auc=0.9999 | dev_eer=0.28%
+[epoch 022] No EER improvement for 6 epoch(s) (best=0.26%)
+[epoch 023 | step 0010] train_loss=0.9745
+[epoch 023 | step 0020] train_loss=1.1314
+[epoch 023 | step 0030] train_loss=0.9863
+[epoch 023 | step 0040] train_loss=0.9303
+[epoch 023 | step 0050] train_loss=1.1395
+[epoch 023 | step 0060] train_loss=0.8431
+[epoch 023 | step 0070] train_loss=1.4603
+[epoch 023 | step 0080] train_loss=0.8609
+[epoch 023 | step 0090] train_loss=0.9925
+[epoch 023 | step 0100] train_loss=0.7229
+[epoch 023 | step 0110] train_loss=1.1369
+[epoch 023 | step 0120] train_loss=0.9052
+[epoch 023 | step 0130] train_loss=0.6393
+[epoch 023 | step 0140] train_loss=0.9129
+[epoch 023 | step 0150] train_loss=0.8378
+[epoch 023 | step 0160] train_loss=0.7730
+[epoch 023 | step 0170] train_loss=1.0425
+[epoch 023 | step 0180] train_loss=0.9789
+[epoch 023 | step 0190] train_loss=0.9754
+[epoch 023 | step 0200] train_loss=0.9573
+[epoch 023 | step 0210] train_loss=1.0321
+[epoch 023 | step 0220] train_loss=0.9133
+[epoch 023 | step 0230] train_loss=0.7593
+[epoch 023 | step 0240] train_loss=0.7691
+[epoch 023 | step 0250] train_loss=1.0544
+[epoch 023 | step 0260] train_loss=0.9128
+[epoch 023 | step 0270] train_loss=0.9200
+[epoch 023 | step 0280] train_loss=1.0596
+[epoch 023 | step 0290] train_loss=1.2498
+[epoch 023 | step 0300] train_loss=0.9145
+[epoch 023 | step 0310] train_loss=1.0420
+[epoch 023 | step 0320] train_loss=1.1675
+[epoch 023 | step 0330] train_loss=1.1991
+[epoch 023 | step 0340] train_loss=0.9787
+[epoch 023 | step 0350] train_loss=0.6876
+[epoch 023 | step 0360] train_loss=0.8511
+[epoch 023 | step 0370] train_loss=0.9832
+[epoch 023 | step 0380] train_loss=0.9279
+[epoch 023 | step 0390] train_loss=0.7657
+[epoch 023] train_loss=1.0199 | dev_loss=1.0241 | dev_acc=99.30% | dev_auc=0.9999 | dev_eer=0.28%
+[epoch 023] No EER improvement for 7 epoch(s) (best=0.26%)
+[epoch 024 | step 0010] train_loss=0.9648
+[epoch 024 | step 0020] train_loss=1.3517
+[epoch 024 | step 0030] train_loss=0.9029
+[epoch 024 | step 0040] train_loss=0.9714
+[epoch 024 | step 0050] train_loss=1.1034
+[epoch 024 | step 0060] train_loss=1.4593
+[epoch 024 | step 0070] train_loss=0.9053
+[epoch 024 | step 0080] train_loss=0.9802
+[epoch 024 | step 0090] train_loss=1.4730
+[epoch 024 | step 0100] train_loss=0.6255
+[epoch 024 | step 0110] train_loss=1.1172
+[epoch 024 | step 0120] train_loss=0.9748
+[epoch 024 | step 0130] train_loss=0.9064
+[epoch 024 | step 0140] train_loss=1.2430
+[epoch 024 | step 0150] train_loss=0.7109
+[epoch 024 | step 0160] train_loss=0.9738
+[epoch 024 | step 0170] train_loss=1.0986
+[epoch 024 | step 0180] train_loss=1.1324
+[epoch 024 | step 0190] train_loss=0.9093
+[epoch 024 | step 0200] train_loss=0.9133
+[epoch 024 | step 0210] train_loss=0.7759
+[epoch 024 | step 0220] train_loss=0.9832
+[epoch 024 | step 0230] train_loss=0.8366
+[epoch 024 | step 0240] train_loss=0.9726
+[epoch 024 | step 0250] train_loss=0.7358
+[epoch 024 | step 0260] train_loss=0.8290
+[epoch 024 | step 0270] train_loss=0.9668
+[epoch 024 | step 0280] train_loss=1.1301
+[epoch 024 | step 0290] train_loss=0.7542
+[epoch 024 | step 0300] train_loss=0.6164
+[epoch 024 | step 0310] train_loss=0.8298
+[epoch 024 | step 0320] train_loss=0.9024
+[epoch 024 | step 0330] train_loss=0.8172
+[epoch 024 | step 0340] train_loss=1.0307
+[epoch 024 | step 0350] train_loss=0.9038
+[epoch 024 | step 0360] train_loss=0.6897
+[epoch 024 | step 0370] train_loss=1.1152
+[epoch 024 | step 0380] train_loss=1.3204
+[epoch 024 | step 0390] train_loss=0.9219
+[epoch 024] train_loss=1.0109 | dev_loss=1.0154 | dev_acc=99.59% | dev_auc=0.9999 | dev_eer=0.28%
+[epoch 024] No EER improvement for 8 epoch(s) (best=0.26%)
+[epoch 025 | step 0010] train_loss=1.1804
+[epoch 025 | step 0020] train_loss=1.3830
+[epoch 025 | step 0030] train_loss=1.0511
+[epoch 025 | step 0040] train_loss=1.3937
+[epoch 025 | step 0050] train_loss=1.1733
+[epoch 025 | step 0060] train_loss=0.8221
+[epoch 025 | step 0070] train_loss=0.9627
+[epoch 025 | step 0080] train_loss=1.2371
+[epoch 025 | step 0090] train_loss=1.1717
+[epoch 025 | step 0100] train_loss=0.9640
+[epoch 025 | step 0110] train_loss=1.2191
+[epoch 025 | step 0120] train_loss=0.8153
+[epoch 025 | step 0130] train_loss=1.1685
+[epoch 025 | step 0140] train_loss=0.8610
+[epoch 025 | step 0150] train_loss=0.9863
+[epoch 025 | step 0160] train_loss=0.9050
+[epoch 025 | step 0170] train_loss=0.8181
+[epoch 025 | step 0180] train_loss=1.1786
+[epoch 025 | step 0190] train_loss=1.0834
+[epoch 025 | step 0200] train_loss=0.9721
+[epoch 025 | step 0210] train_loss=0.9671
+[epoch 025 | step 0220] train_loss=1.1188
+[epoch 025 | step 0230] train_loss=0.8272
+[epoch 025 | step 0240] train_loss=0.6911
+[epoch 025 | step 0250] train_loss=0.8341
+[epoch 025 | step 0260] train_loss=1.0977
+[epoch 025 | step 0270] train_loss=1.1708
+[epoch 025 | step 0280] train_loss=1.1822
+[epoch 025 | step 0290] train_loss=1.1221
+[epoch 025 | step 0300] train_loss=1.0360
+[epoch 025 | step 0310] train_loss=0.9738
+[epoch 025 | step 0320] train_loss=1.0974
+[epoch 025 | step 0330] train_loss=1.0466
+[epoch 025 | step 0340] train_loss=0.9131
+[epoch 025 | step 0350] train_loss=1.0370
+[epoch 025 | step 0360] train_loss=1.0879
+[epoch 025 | step 0370] train_loss=0.8935
+[epoch 025 | step 0380] train_loss=1.0336
+[epoch 025 | step 0390] train_loss=0.8923
+[epoch 025] train_loss=1.0020 | dev_loss=1.0066 | dev_acc=99.52% | dev_auc=0.9999 | dev_eer=0.28%
+[epoch 025] No EER improvement for 9 epoch(s) (best=0.26%)
+[epoch 026 | step 0010] train_loss=0.9620
+[epoch 026 | step 0020] train_loss=0.8277
+[epoch 026 | step 0030] train_loss=1.3117
+[epoch 026 | step 0040] train_loss=0.8157
+[epoch 026 | step 0050] train_loss=0.8101
+[epoch 026 | step 0060] train_loss=1.0410
+[epoch 026 | step 0070] train_loss=1.1766
+[epoch 026 | step 0080] train_loss=1.0331
+[epoch 026 | step 0090] train_loss=1.0252
+[epoch 026 | step 0100] train_loss=1.1756
+[epoch 026 | step 0110] train_loss=1.0335
+[epoch 026 | step 0120] train_loss=0.8145
+[epoch 026 | step 0130] train_loss=1.2424
+[epoch 026 | step 0140] train_loss=1.4429
+[epoch 026 | step 0150] train_loss=1.0430
+[epoch 026 | step 0160] train_loss=0.8317
+[epoch 026 | step 0170] train_loss=1.0311
+[epoch 026 | step 0180] train_loss=1.1131
+[epoch 026 | step 0190] train_loss=0.8387
+[epoch 026 | step 0200] train_loss=0.8962
+[epoch 026 | step 0210] train_loss=0.7457
+[epoch 026 | step 0220] train_loss=1.1086
+[epoch 026 | step 0230] train_loss=1.0780
+[epoch 026 | step 0240] train_loss=0.7512
+[epoch 026 | step 0250] train_loss=0.7693
+[epoch 026 | step 0260] train_loss=1.1595
+[epoch 026 | step 0270] train_loss=0.8788
+[epoch 026 | step 0280] train_loss=0.8822
+[epoch 026 | step 0290] train_loss=1.0248
+[epoch 026 | step 0300] train_loss=1.1858
+[epoch 026 | step 0310] train_loss=1.0915
+[epoch 026 | step 0320] train_loss=1.0846
+[epoch 026 | step 0330] train_loss=1.3484
+[epoch 026 | step 0340] train_loss=1.2694
+[epoch 026 | step 0350] train_loss=1.2690
+[epoch 026 | step 0360] train_loss=1.1085
+[epoch 026 | step 0370] train_loss=0.6960
+[epoch 026 | step 0380] train_loss=0.9511
+[epoch 026 | step 0390] train_loss=1.0870
+[epoch 026] train_loss=0.9931 | dev_loss=0.9977 | dev_acc=99.25% | dev_auc=0.9999 | dev_eer=0.28%
+[epoch 026] No EER improvement for 10 epoch(s) (best=0.26%)
+[epoch 027 | step 0010] train_loss=0.6858
+[epoch 027 | step 0020] train_loss=0.9503
+[epoch 027 | step 0030] train_loss=0.8869
+[epoch 027 | step 0040] train_loss=0.9349
+[epoch 027 | step 0050] train_loss=1.2264
+[epoch 027 | step 0060] train_loss=0.9492
+[epoch 027 | step 0070] train_loss=1.0869
+[epoch 027 | step 0080] train_loss=1.0187
+[epoch 027 | step 0090] train_loss=0.9096
+[epoch 027 | step 0100] train_loss=0.9626
+[epoch 027 | step 0110] train_loss=1.0195
+[epoch 027 | step 0120] train_loss=1.0756
+[epoch 027 | step 0130] train_loss=1.0303
+[epoch 027 | step 0140] train_loss=0.6944
+[epoch 027 | step 0150] train_loss=0.7987
+[epoch 027 | step 0160] train_loss=1.0234
+[epoch 027 | step 0170] train_loss=1.0173
+[epoch 027 | step 0180] train_loss=1.0697
+[epoch 027 | step 0190] train_loss=1.0117
+[epoch 027 | step 0200] train_loss=1.0550
+[epoch 027 | step 0210] train_loss=0.9470
+[epoch 027 | step 0220] train_loss=1.2848
+[epoch 027 | step 0230] train_loss=0.8251
+[epoch 027 | step 0240] train_loss=0.8222
+[epoch 027 | step 0250] train_loss=1.0136
+[epoch 027 | step 0260] train_loss=0.8854
+[epoch 027 | step 0270] train_loss=0.6807
+[epoch 027 | step 0280] train_loss=1.2452
+[epoch 027 | step 0290] train_loss=0.9943
+[epoch 027 | step 0300] train_loss=1.0376
+[epoch 027 | step 0310] train_loss=0.8023
+[epoch 027 | step 0320] train_loss=1.1539
+[epoch 027 | step 0330] train_loss=0.9584
+[epoch 027 | step 0340] train_loss=1.2074
+[epoch 027 | step 0350] train_loss=0.6616
+[epoch 027 | step 0360] train_loss=1.0011
+[epoch 027 | step 0370] train_loss=1.0906
+[epoch 027 | step 0380] train_loss=0.9375
+[epoch 027 | step 0390] train_loss=0.9380
+[epoch 027] train_loss=0.9843 | dev_loss=0.9891 | dev_acc=99.36% | dev_auc=0.9999 | dev_eer=0.28%
+[epoch 027] No EER improvement for 11 epoch(s) (best=0.26%)
+[epoch 028 | step 0010] train_loss=1.2275
+[epoch 028 | step 0020] train_loss=0.9305
+[epoch 028 | step 0030] train_loss=1.0066
+[epoch 028 | step 0040] train_loss=1.2311
+[epoch 028 | step 0050] train_loss=0.9069
+[epoch 028 | step 0060] train_loss=1.1220
+[epoch 028 | step 0070] train_loss=1.0208
+[epoch 028 | step 0080] train_loss=1.1489
+[epoch 028 | step 0090] train_loss=0.8721
+[epoch 028 | step 0100] train_loss=0.7478
+[epoch 028 | step 0110] train_loss=1.2761
+[epoch 028 | step 0120] train_loss=0.8628
+[epoch 028 | step 0130] train_loss=0.9535
+[epoch 028 | step 0140] train_loss=0.8737
+[epoch 028 | step 0150] train_loss=0.9542
+[epoch 028 | step 0160] train_loss=1.0910
+[epoch 028 | step 0170] train_loss=0.9434
+[epoch 028 | step 0180] train_loss=1.1408
+[epoch 028 | step 0190] train_loss=1.0231
+[epoch 028 | step 0200] train_loss=0.9772
+[epoch 028 | step 0210] train_loss=1.0637
+[epoch 028 | step 0220] train_loss=0.5992
+[epoch 028 | step 0230] train_loss=0.8305
+[epoch 028 | step 0240] train_loss=0.9111
+[epoch 028 | step 0250] train_loss=0.8049
+[epoch 028 | step 0260] train_loss=0.9401
+[epoch 028 | step 0270] train_loss=1.1523
+[epoch 028 | step 0280] train_loss=1.0256
+[epoch 028 | step 0290] train_loss=0.8775
+[epoch 028 | step 0300] train_loss=1.0107
+[epoch 028 | step 0310] train_loss=0.7876
+[epoch 028 | step 0320] train_loss=1.1289
+[epoch 028 | step 0330] train_loss=0.8023
+[epoch 028 | step 0340] train_loss=1.2180
+[epoch 028 | step 0350] train_loss=0.7332
+[epoch 028 | step 0360] train_loss=0.9355
+[epoch 028 | step 0370] train_loss=0.9820
+[epoch 028 | step 0380] train_loss=1.2070
+[epoch 028 | step 0390] train_loss=0.8681
+[epoch 028] train_loss=0.9755 | dev_loss=0.9805 | dev_acc=99.29% | dev_auc=0.9999 | dev_eer=0.28%
+[epoch 028] No EER improvement for 12 epoch(s) (best=0.26%)
+[epoch 029 | step 0010] train_loss=0.9128
+[epoch 029 | step 0020] train_loss=1.1918
+[epoch 029 | step 0030] train_loss=0.8808
+[epoch 029 | step 0040] train_loss=0.8021
+[epoch 029 | step 0050] train_loss=0.8715
+[epoch 029 | step 0060] train_loss=0.9948
+[epoch 029 | step 0070] train_loss=0.9271
+[epoch 029 | step 0080] train_loss=1.0070
+[epoch 029 | step 0090] train_loss=0.8739
+[epoch 029 | step 0100] train_loss=1.4995
+[epoch 029 | step 0110] train_loss=1.0481
+[epoch 029 | step 0120] train_loss=0.9413
+[epoch 029 | step 0130] train_loss=0.6602
+[epoch 029 | step 0140] train_loss=0.8816
+[epoch 029 | step 0150] train_loss=1.0276
+[epoch 029 | step 0160] train_loss=0.7920
+[epoch 029 | step 0170] train_loss=1.2004
+[epoch 029 | step 0180] train_loss=0.9482
+[epoch 029 | step 0190] train_loss=0.9206
+[epoch 029 | step 0200] train_loss=1.0026
+[epoch 029 | step 0210] train_loss=0.9305
+[epoch 029 | step 0220] train_loss=0.6506
+[epoch 029 | step 0230] train_loss=1.0085
+[epoch 029 | step 0240] train_loss=0.9286
+[epoch 029 | step 0250] train_loss=0.9244
+[epoch 029 | step 0260] train_loss=1.0644
+[epoch 029 | step 0270] train_loss=1.2901
+[epoch 029 | step 0280] train_loss=0.9935
+[epoch 029 | step 0290] train_loss=1.1358
+[epoch 029 | step 0300] train_loss=1.0014
+[epoch 029 | step 0310] train_loss=0.7233
+[epoch 029 | step 0320] train_loss=0.8602
+[epoch 029 | step 0330] train_loss=0.9242
+[epoch 029 | step 0340] train_loss=1.0512
+[epoch 029 | step 0350] train_loss=0.8556
+[epoch 029 | step 0360] train_loss=0.7830
+[epoch 029 | step 0370] train_loss=0.8524
+[epoch 029 | step 0380] train_loss=1.3311
+[epoch 029 | step 0390] train_loss=1.1045
+[epoch 029] train_loss=0.9668 | dev_loss=0.9723 | dev_acc=99.55% | dev_auc=0.9999 | dev_eer=0.28%
+[epoch 029] No EER improvement for 13 epoch(s) (best=0.26%)
+[epoch 030 | step 0010] train_loss=0.8632
+[epoch 030 | step 0020] train_loss=0.9378
+[epoch 030 | step 0030] train_loss=1.3187
+[epoch 030 | step 0040] train_loss=1.1227
+[epoch 030 | step 0050] train_loss=0.9184
+[epoch 030 | step 0060] train_loss=0.6664
+[epoch 030 | step 0070] train_loss=0.9869
+[epoch 030 | step 0080] train_loss=0.5920
+[epoch 030 | step 0090] train_loss=0.9967
+[epoch 030 | step 0100] train_loss=0.7789
+[epoch 030 | step 0110] train_loss=0.8758
+[epoch 030 | step 0120] train_loss=1.2672
+[epoch 030 | step 0130] train_loss=0.7205
+[epoch 030 | step 0140] train_loss=0.8498
+[epoch 030 | step 0150] train_loss=1.0604
+[epoch 030 | step 0160] train_loss=1.0488
+[epoch 030 | step 0170] train_loss=0.7875
+[epoch 030 | step 0180] train_loss=0.9379
+[epoch 030 | step 0190] train_loss=1.0543
+[epoch 030 | step 0200] train_loss=0.8700
+[epoch 030 | step 0210] train_loss=0.8634
+[epoch 030 | step 0220] train_loss=0.7884
+[epoch 030 | step 0230] train_loss=0.7654
+[epoch 030 | step 0240] train_loss=1.1291
+[epoch 030 | step 0250] train_loss=0.9181
+[epoch 030 | step 0260] train_loss=0.5192
+[epoch 030 | step 0270] train_loss=1.0673
+[epoch 030 | step 0280] train_loss=0.8564
+[epoch 030 | step 0290] train_loss=0.6467
+[epoch 030 | step 0300] train_loss=0.8563
+[epoch 030 | step 0310] train_loss=1.1154
+[epoch 030 | step 0320] train_loss=0.7108
+[epoch 030 | step 0330] train_loss=0.9906
+[epoch 030 | step 0340] train_loss=1.0516
+[epoch 030 | step 0350] train_loss=0.9379
+[epoch 030 | step 0360] train_loss=0.9289
+[epoch 030 | step 0370] train_loss=1.1970
+[epoch 030 | step 0380] train_loss=0.7074
+[epoch 030 | step 0390] train_loss=0.7349
+[epoch 030] train_loss=0.9584 | dev_loss=0.9637 | dev_acc=99.32% | dev_auc=0.9999 | dev_eer=0.28%
+[epoch 030] No EER improvement for 14 epoch(s) (best=0.26%)
+[epoch 031 | step 0010] train_loss=0.9419
+[epoch 031 | step 0020] train_loss=0.9903
+[epoch 031 | step 0030] train_loss=0.8037
+[epoch 031 | step 0040] train_loss=0.9226
+[epoch 031 | step 0050] train_loss=0.9157
+[epoch 031 | step 0060] train_loss=0.8666
+[epoch 031 | step 0070] train_loss=0.7346
+[epoch 031 | step 0080] train_loss=1.0948
+[epoch 031 | step 0090] train_loss=0.9079
+[epoch 031 | step 0100] train_loss=1.1337
+[epoch 031 | step 0110] train_loss=1.0051
+[epoch 031 | step 0120] train_loss=0.9146
+[epoch 031 | step 0130] train_loss=0.9758
+[epoch 031 | step 0140] train_loss=0.9335
+[epoch 031 | step 0150] train_loss=1.0932
+[epoch 031 | step 0160] train_loss=0.8344
+[epoch 031 | step 0170] train_loss=0.9299
+[epoch 031 | step 0180] train_loss=1.2436
+[epoch 031 | step 0190] train_loss=0.9155
+[epoch 031 | step 0200] train_loss=0.7461
+[epoch 031 | step 0210] train_loss=0.9733
+[epoch 031 | step 0220] train_loss=0.8249
+[epoch 031 | step 0230] train_loss=0.8868
+[epoch 031 | step 0240] train_loss=0.9791
+[epoch 031 | step 0250] train_loss=1.0323
+[epoch 031 | step 0260] train_loss=0.9092
+[epoch 031 | step 0270] train_loss=1.1326
+[epoch 031 | step 0280] train_loss=1.0551
+[epoch 031 | step 0290] train_loss=0.7694
+[epoch 031 | step 0300] train_loss=1.0573
+[epoch 031 | step 0310] train_loss=1.1912
+[epoch 031 | step 0320] train_loss=1.3796
+[epoch 031 | step 0330] train_loss=0.7333
+[epoch 031 | step 0340] train_loss=0.7248
+[epoch 031 | step 0350] train_loss=0.9841
+[epoch 031 | step 0360] train_loss=1.0484
+[epoch 031 | step 0370] train_loss=0.7556
+[epoch 031 | step 0380] train_loss=1.1114
+[epoch 031 | step 0390] train_loss=0.7794
+[epoch 031] train_loss=0.9500 | dev_loss=0.9554 | dev_acc=99.21% | dev_auc=0.9999 | dev_eer=0.28%
+[epoch 031] No EER improvement for 15 epoch(s) (best=0.26%)
+[EARLY STOP] Patience reached (15) with no EER improvement. Best EER = 0.26%
+==> Stage-2 training complete.
+Best classifier checkpoint: checkpoints_stage2/mem_bank_512_supcon_geodesic_temp_0.2/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_geodesic_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_geodesic_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 31.693973008834114
+[INFO] Scoring dataset 'asv19' -> /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_geodesic_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_geodesic_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+EER (asv19): 0.8971575119669037
+[INFO] Scoring dataset 'asv5' 0-> /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_geodesic_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_geodesic_temp_0.2/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+EER (asv5): 15.422331555336239
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_geodesic_temp_0.2/famous_figures/score_cm_ff.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_geodesic_temp_0.2/famous_figures/score_cm_ff.txt
+EER (famous_figures): 41.63655692735896
+[INFO] Scoring dataset 'fakexpose' -> /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_geodesic_temp_0.2/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_bank_512_supcon_geodesic_temp_0.2/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 61.042934620314746
+----------------------------------------------------------------
+ASV19 pipeline finished at: Sun Jan 25 09:40:18 EST 2026

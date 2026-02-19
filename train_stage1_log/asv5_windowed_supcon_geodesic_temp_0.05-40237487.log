@@ -1,0 +1,123 @@
+Setting up the environment...
+Job started on gl1511.arc-ts.umich.edu at Sun Jan 18 02:52:29 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: asv5_windowed_supcon_geodesic_temp_0.05
+Using BATCH_SIZE=32
+W0118 02:52:36.182920 1652997 torch/distributed/run.py:774] 
+W0118 02:52:36.182920 1652997 torch/distributed/run.py:774] *****************************************
+W0118 02:52:36.182920 1652997 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0118 02:52:36.182920 1652997 torch/distributed/run.py:774] *****************************************
+[W118 02:52:36.131268569 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29987 (errno: 97 - Address family not supported by protocol).
+[W118 02:52:36.132334027 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29987 (errno: 97 - Address family not supported by protocol).
+[W118 02:52:36.133393301 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29987 (errno: 97 - Address family not supported by protocol).
+[W118 02:52:43.454260859 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29987 (errno: 97 - Address family not supported by protocol).
+[W118 02:52:43.454417959 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29987 (errno: 97 - Address family not supported by protocol).
+[W118 02:52:43.455211912 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29987 (errno: 97 - Address family not supported by protocol).
+[W118 02:52:43.455389922 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29987 (errno: 97 - Address family not supported by protocol).
+[W118 02:52:43.456146195 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29987 (errno: 97 - Address family not supported by protocol).
+[W118 02:52:43.456449652 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29987 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_windowed_supcon_geodesic_temp_0.05/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+NUM_SAMPLES=10000
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.05
+NUM_WORKERS=6
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=10
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[INFO] Train samples loaded: bonafide=1065, spoof=8935
+[INFO] Train samples loaded: bonafide=1065, spoof=8935
+[INFO] Global batch size=32 | Per-GPU batch size=16
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1_asv5.py", line 192, in <module>
+[rank0]:     main()
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1_asv5.py", line 152, in main
+[rank0]:     train_loss, alpha = train_one_epoch(
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/stage1_utils.py", line 134, in train_one_epoch
+[rank0]:     waveforms = apply_rawboost_batch(waveforms, attn, cfg)
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/stage1_utils.py", line 75, in apply_rawboost_batch
+[rank0]:     y = LnL_convolutive_noise(
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/RawBoost.py", line 66, in LnL_convolutive_noise
+[rank0]:     y = y + filterFIR(np.power(x, (i+1)),  b)     
+[rank0]: ValueError: operands could not be broadcast together with shapes (4,) (4,80280) 
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1_asv5.py", line 192, in <module>
+[rank1]:     main()
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1_asv5.py", line 152, in main
+[rank1]:     train_loss, alpha = train_one_epoch(
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/stage1_utils.py", line 134, in train_one_epoch
+[rank1]:     waveforms = apply_rawboost_batch(waveforms, attn, cfg)
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/stage1_utils.py", line 75, in apply_rawboost_batch
+[rank1]:     y = LnL_convolutive_noise(
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/RawBoost.py", line 66, in LnL_convolutive_noise
+[rank1]:     y = y + filterFIR(np.power(x, (i+1)),  b)     
+[rank1]: ValueError: operands could not be broadcast together with shapes (4,) (4,80160) 
+[rank0]:[W118 02:52:53.218008710 ProcessGroupNCCL.cpp:1538] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+W0118 02:52:54.166476 1652997 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 1653017 closing signal SIGTERM
+E0118 02:52:54.430712 1652997 torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: 1) local_rank: 0 (pid: 1653016) of binary: /home/jsudan/myenv/bin/python
+Traceback (most recent call last):
+  File "/home/jsudan/myenv/bin/torchrun", line 7, in <module>
+    sys.exit(main())
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 901, in main
+    run(args)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+train_stage1_asv5.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-01-18_02:52:54
+  host      : gl1511.arc-ts.umich.edu
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 1653016)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+[ERROR] Stage-1 checkpoint not found: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_windowed_supcon_geodesic_temp_0.05/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt
