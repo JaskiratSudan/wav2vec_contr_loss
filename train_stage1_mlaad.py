@@ -20,6 +20,7 @@ from stage1_utils import (
     train_one_epoch,
     evaluate,
     setup_distributed,
+    EmbeddingQueue,
 )
 
 
@@ -121,12 +122,16 @@ def main():
         dev_ds, batch_size_per_gpu, seed=cfg.seed + 1, rank=rank, world_size=world_size
     )
 
+    dl_timeout = int(os.environ.get("MLAAD_DATALOADER_TIMEOUT", "300"))
+    persistent_workers = cfg.num_workers > 0
     train_loader = DataLoader(
         train_ds,
         batch_sampler=train_sampler,
         num_workers=cfg.num_workers,
         pin_memory=True,
         collate_fn=mlaad_collate,
+        persistent_workers=persistent_workers,
+        timeout=dl_timeout,
     )
     dev_loader = DataLoader(
         dev_ds,
@@ -134,6 +139,8 @@ def main():
         num_workers=cfg.num_workers,
         pin_memory=True,
         collate_fn=mlaad_collate,
+        persistent_workers=persistent_workers,
+        timeout=dl_timeout,
     )
 
     encoder = Wav2Vec2Encoder(
@@ -164,6 +171,13 @@ def main():
         uniformity_t=cfg.uniformity_t,
     )
 
+    queue_size = int(os.environ.get("QUEUE_SIZE", "0"))
+    queue = None
+    if queue_size > 0:
+        queue = EmbeddingQueue(queue_size, cfg.hidden_dim, device)
+        if rank == 0:
+            print(f"[INFO] Queue size={queue_size} (per-rank)")
+
     params = [{"params": head.parameters(), "lr": cfg.head_lr}]
     if cfg.finetune_encoder:
         params.append({"params": encoder.parameters(), "lr": cfg.enc_lr})
@@ -180,7 +194,7 @@ def main():
             dev_loader.batch_sampler.set_epoch(epoch)
 
         train_loss, alpha = train_one_epoch(
-            encoder, head, loss_fn, train_loader, optim, device, epoch, cfg
+            encoder, head, loss_fn, train_loader, optim, device, epoch, cfg, queue=queue
         )
         dev_loss = evaluate(encoder, head, loss_fn, dev_loader, device, cfg)
         print(
@@ -198,7 +212,7 @@ def main():
             best = dev_loss
             epochs_no_improve = 0
             if rank == 0:
-                best_path = os.path.join(cfg.save_dir, f"{cfg.run_tag}_stage1_head_best.pt")
+                best_path = os.path.join(cfg.save_dir, f"{cfg.model_id}_stage1_head_best.pt")
                 head_to_save = head.module if hasattr(head, "module") else head
                 encoder_to_save = encoder.module if hasattr(encoder, "module") else encoder
                 ckpt = {
