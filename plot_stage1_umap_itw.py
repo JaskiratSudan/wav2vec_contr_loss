@@ -129,12 +129,19 @@ def main():
                         help="Path to checkpoint file OR base directory containing per-model subfolders.")
     parser.add_argument("--plots_dir", type=str, default=PLOTS_DIR,
                         help="Base directory to save plots; a subfolder per model tag will be created.")
+    parser.add_argument(
+        "--exp_name",
+        type=str,
+        default=os.environ.get("EXP_NAME", "unknown"),
+        help="Experiment name to show in plot titles.",
+    )
     args = parser.parse_args()
 
     model_name = args.model_name
     run_tag = model_name.replace("/", "__")
     ckpt_path = resolve_ckpt_path(args.ckpt_path, run_tag)
     plots_dir = os.path.join(args.plots_dir, run_tag)
+    exp_name = args.exp_name
 
     set_seed(SEED)
     os.makedirs(plots_dir, exist_ok=True)
@@ -275,7 +282,7 @@ def main():
         )
 
     plt.legend(markerscale=2, fontsize=8)
-    plt.title(f"Stage-1 {run_tag} + Compression UMAP (ITW) – Real vs Spoof")
+    plt.title(f"Trained UMAP ITW EXP: {exp_name}")
     plt.xlabel("UMAP-1")
     plt.ylabel("UMAP-2")
     plt.tight_layout()
@@ -304,7 +311,7 @@ def main():
         y="UMAP-2",
         color="Class",
         hover_data=["Speaker", "Source"],
-        title=f"Stage-1 {run_tag} + Compression UMAP (ITW) – Real vs Spoof",
+        title=f"Trained UMAP ITW EXP: {exp_name}",
         labels={"UMAP-1": "UMAP-1", "UMAP-2": "UMAP-2", "Class": "Class"},
         color_discrete_map=color_map,
     )

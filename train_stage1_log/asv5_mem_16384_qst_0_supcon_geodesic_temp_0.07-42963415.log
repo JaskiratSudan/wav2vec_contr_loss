@@ -116,3 +116,6 @@ CUDA device count: 2
 [rank0] pos_mean=0.9964 neg_mean=0.9968 n_pos=8 n_neg=8
 [rank0] sim_mean=0.9968 sim_std=0.0039 Loss: 3.396477699279785
 [rank1] sim_mean=0.9971 sim_std=0.0041 Loss: 3.3894994258880615
+[rank1] sim_mean=1.0000 sim_std=0.0001 Loss: 3.7515621185302734
+[rank0] pos_mean=0.9999 neg_mean=0.9999 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9999 sim_std=0.0001 Loss: 3.760190486907959

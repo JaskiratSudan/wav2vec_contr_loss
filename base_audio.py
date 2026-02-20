@@ -4,6 +4,11 @@ import torch
 import torch.nn.functional as F
 from tqdm import tqdm
 import librosa
+import warnings
+
+warnings.filterwarnings("ignore", message="PySoundFile failed. Trying audioread instead.")
+warnings.filterwarnings("ignore", message="librosa.core.audio.__audioread_load")
+
 
 
 class BaseAudioDataset(torch.utils.data.Dataset):

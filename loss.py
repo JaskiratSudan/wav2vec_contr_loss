@@ -33,23 +33,38 @@ class SupConBinaryLoss(nn.Module):
 
     # ---------- SupCon pieces (unchanged) ----------
 
-    def _supcon_full(self, sim_row: torch.Tensor, pos_mask_row: torch.Tensor) -> torch.Tensor:
+    def _supcon_full(
+        self,
+        sim_row: torch.Tensor,
+        pos_mask_row: torch.Tensor,
+        extra_neg: torch.Tensor = None,
+    ) -> torch.Tensor:
         """
         One-anchor vanilla SupCon over all non-self samples.
         sim_row: (B,) similarity to everyone (self has been -inf).
         pos_mask_row: (B,) bool for positives (self already False).
         """
-        # logits for all non-self
-        logits_all = sim_row / self.tau                               # (B,)
+        # logits for all non-self (batch), optionally add queue negatives
+        logits_batch = sim_row / self.tau                             # (B,)
         # if no positives for this anchor, skip
         if not pos_mask_row.any():
             return None
-        pos_logits = logits_all[pos_mask_row]                         # (P,)
+        pos_logits = logits_batch[pos_mask_row]                       # (P,)
+        if extra_neg is not None and extra_neg.numel() > 0:
+            logits_all = torch.cat([logits_batch, extra_neg / self.tau], dim=0)
+        else:
+            logits_all = logits_batch
         log_prob = pos_logits - torch.logsumexp(logits_all, dim=0)    # (P,)
         return -log_prob.mean()
 
-    def _supcon_mined_topk(self, sim_row: torch.Tensor, pos_mask_row: torch.Tensor,
-                           neg_mask_row: torch.Tensor, topk_neg: int) -> torch.Tensor:
+    def _supcon_mined_topk(
+        self,
+        sim_row: torch.Tensor,
+        pos_mask_row: torch.Tensor,
+        neg_mask_row: torch.Tensor,
+        topk_neg: int,
+        extra_neg: torch.Tensor = None,
+    ) -> torch.Tensor:
         """
         One-anchor mined SupCon:
           - positives: all positives
@@ -60,6 +75,8 @@ class SupConBinaryLoss(nn.Module):
 
         pos_sims = sim_row[pos_mask_row]                              # (P,)
         neg_sims = sim_row[neg_mask_row]                              # (N,)
+        if extra_neg is not None and extra_neg.numel() > 0:
+            neg_sims = torch.cat([neg_sims, extra_neg], dim=0)
         # top-K hardest negatives
         k = min(topk_neg, neg_sims.numel())
         if k < 1:
@@ -106,12 +123,26 @@ class SupConBinaryLoss(nn.Module):
         sim = 2.0 * sim01 - 1.0               # [-1, 1] (MATCH cosine range)
         return sim
 
+    def _cross_similarity(self, z: torch.Tensor, q: torch.Tensor) -> torch.Tensor:
+        if self.similarity == "cosine":
+            return z @ q.t()
+
+        dot = z @ q.t()
+        eps = 1e-7
+        dot = dot.clamp(-1.0 + eps, 1.0 - eps)
+
+        theta = torch.acos(dot)               # [0, pi]
+        sim01 = 1.0 - theta / math.pi         # [0, 1]
+        sim = 2.0 * sim01 - 1.0               # [-1, 1]
+        return sim
 
     def forward(self,
                 z: torch.Tensor,        # (B, D) L2-normalized embeddings
                 labels: torch.Tensor,   # (B,) in {0,1}
                 topk_neg: int = 32,
-                alpha: float = 0.0) -> torch.Tensor:
+                alpha: float = 0.0,
+                queue_embs: torch.Tensor = None,
+                queue_labels: torch.Tensor = None) -> torch.Tensor:
 
         device = z.device
         B = z.size(0)
@@ -120,15 +151,31 @@ class SupConBinaryLoss(nn.Module):
         eye = torch.eye(B, device=device, dtype=torch.bool)
         sim = sim.masked_fill(eye, float("-inf"))
 
-        labels = labels.view(-1, 1)
-        pos_mask = (labels == labels.t()) & (~eye)                   # (B,B)
+        labels_col = labels.view(-1, 1)
+        pos_mask = (labels_col == labels_col.t()) & (~eye)           # (B,B)
         neg_mask = (~pos_mask) & (~eye)
+
+        sim_queue = None
+        queue_neg_mask = None
+        if queue_embs is not None and queue_labels is not None and queue_embs.numel() > 0:
+            queue_embs = queue_embs.to(device)
+            queue_labels = queue_labels.to(device).view(1, -1)
+            sim_queue = self._cross_similarity(z, queue_embs)        # (B, K)
+            queue_neg_mask = (labels_col != queue_labels)            # (B, K)
 
         losses_full = []
         losses_mined = []
         for i in range(B):
-            lf = self._supcon_full(sim[i], pos_mask[i])
-            lm = self._supcon_mined_topk(sim[i], pos_mask[i], neg_mask[i], topk_neg)
+            queue_neg = None
+            if sim_queue is not None:
+                mask = queue_neg_mask[i]
+                if mask.any():
+                    queue_neg = sim_queue[i][mask]
+
+            lf = self._supcon_full(sim[i], pos_mask[i], extra_neg=queue_neg)
+            lm = self._supcon_mined_topk(
+                sim[i], pos_mask[i], neg_mask[i], topk_neg, extra_neg=queue_neg
+            )
             if lf is not None:
                 losses_full.append(lf)
             if lm is not None:

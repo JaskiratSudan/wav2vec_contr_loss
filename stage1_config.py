@@ -30,6 +30,7 @@ NUM_WORKERS = 16
 SEED = 1337
 SAVE_DIR = "/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesic_dist"
 FINETUNE_ENCODER = False
+ACCUM_STEPS = 1
 
 UNIFORMITY_WEIGHT = 0.2
 UNIFORMITY_T = 2.0
@@ -42,7 +43,7 @@ ALPHA_RAMP_EPOCHS = 80
 
 USE_RAWBOOST = True
 RAWBOOST_PROB = 0.7
-PATIENCE = 10
+PATIENCE = 5
 
 
 def build_config():
@@ -58,7 +59,7 @@ def build_config():
         "--save_dir",
         type=str,
         default=SAVE_DIR,
-        help="Base directory for checkpoints (run_tag subfolder will be created).",
+        help="Base directory for checkpoints.",
     )
     parser.add_argument(
         "--supcon_similarity",
@@ -90,6 +91,12 @@ def build_config():
         type=int,
         default=BATCH_SIZE,
         help="Batch size (must be even for BalancedBatchSampler).",
+    )
+    parser.add_argument(
+        "--accum_steps",
+        type=int,
+        default=ACCUM_STEPS,
+        help="Gradient accumulation steps (default: 1).",
     )
     parser.add_argument(
         "--num_samples",
@@ -147,6 +154,13 @@ def build_config():
         default=TEMPERATURE,
         help="SupCon temperature.",
     )
+    parser.add_argument(
+        "--max_duration_seconds",
+        type=int,
+        default=MAX_DURATION_SECONDS,
+        help="Max audio length (seconds) for truncation/padding.",
+    )
+
     parser.add_argument(
         "--num_workers",
         type=int,
@@ -217,12 +231,12 @@ def build_config():
     else:
         num_samples_arg = int(num_samples_arg)
 
-    run_tag = args.model_name.replace("/", "__")
-    save_dir = os.path.join(args.save_dir, run_tag)
+    model_id = os.path.basename(args.model_name.rstrip("/"))
+    save_dir = args.save_dir
 
     return SimpleNamespace(
         model_name=args.model_name,
-        run_tag=run_tag,
+        model_id=model_id,
         save_dir=save_dir,
         train_root=TRAIN_ROOT,
         train_protocol=TRAIN_PROTOCOL,
@@ -231,12 +245,13 @@ def build_config():
         ravdess_root=args.ravdess_root,
         commonvoice_root=args.commonvoice_root,
         target_sample_rate=TARGET_SAMPLE_RATE,
-        max_duration_seconds=MAX_DURATION_SECONDS,
+        max_duration_seconds=args.max_duration_seconds,
         input_dim=INPUT_DIM,
         hidden_dim=HIDDEN_DIM,
         dropout=DROPOUT,
         epochs=args.epochs,
         batch_size=args.batch_size,
+        accum_steps=args.accum_steps,
         num_samples=num_samples_arg,
         head_lr=args.head_lr,
         enc_lr=args.enc_lr,
@@ -265,6 +280,7 @@ def print_config(cfg, is_distributed=False, world_size=1, rank=0):
         return
     print("=== CONFIG ===")
     print(f"MODEL_NAME={cfg.model_name}")
+    print(f"MODEL_ID={cfg.model_id}")
     print(f"SAVE_DIR={cfg.save_dir}")
     print(f"TRAIN_ROOT={cfg.train_root}")
     print(f"TRAIN_PROTOCOL={cfg.train_protocol}")
@@ -279,6 +295,7 @@ def print_config(cfg, is_distributed=False, world_size=1, rank=0):
     print(f"DROPOUT={cfg.dropout}")
     print(f"EPOCHS={cfg.epochs}")
     print(f"BATCH_SIZE={cfg.batch_size}")
+    print(f"ACCUM_STEPS={cfg.accum_steps}")
     print(f"NUM_SAMPLES={cfg.num_samples}")
     print(f"HEAD_LR={cfg.head_lr}")
     print(f"ENC_LR={cfg.enc_lr}")
@@ -306,11 +323,12 @@ def print_config(cfg, is_distributed=False, world_size=1, rank=0):
 def ckpt_config(cfg):
     return {
         "MODEL_NAME": cfg.model_name,
-        "RUN_TAG": cfg.run_tag,
+        "MODEL_ID": cfg.model_id,
         "INPUT_DIM": cfg.input_dim,
         "HIDDEN_DIM": cfg.hidden_dim,
         "DROPOUT": cfg.dropout,
         "BATCH_SIZE": cfg.batch_size,
+        "ACCUM_STEPS": cfg.accum_steps,
         "HEAD_LR": cfg.head_lr,
         "ENC_LR": cfg.enc_lr,
         "WEIGHT_DECAY": cfg.weight_decay,

@@ -306,8 +306,12 @@ class ASVspoof5Dataset(BaseAudioDataset):
 
                 speaker_id = parts[0]
                 file_name = parts[1]
-                attack_id_raw = parts[4]
-                label_str = parts[5].lower()
+                if len(parts) >= 9:
+                    attack_id_raw = parts[-3]
+                    label_str = parts[-2].lower()
+                else:
+                    attack_id_raw = parts[4]
+                    label_str = parts[5].lower()
 
                 if subset != "all" and label_str != subset:
                     continue
@@ -333,6 +337,185 @@ class ASVspoof5Dataset(BaseAudioDataset):
                         if j < sample_limit:
                             self.data[j] = row
 
+        if not self.data:
+            raise RuntimeError(
+                f"No audio files found from protocol {protocol_file} "
+                f"after applying subset='{subset}'."
+            )
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        audio_path, binary_label, multi_label, speaker_id, audio_name = self.data[idx]
+        waveform = self._process_audio(audio_path)
+        return (
+            waveform,
+            torch.tensor(binary_label, dtype=torch.long),
+            torch.tensor(multi_label, dtype=torch.long),
+            speaker_id,
+            audio_name,
+        )
+
+def _load_asv2021_trials(
+    protocol_file: str,
+    root_dir: str,
+    subset: str,
+    num_samples: int,
+    sample_seed: int,
+    file_ext: str,
+    skip_missing: bool,
+):
+    subset = (subset or "all").lower()
+    if subset not in {"all", "bonafide", "spoof"}:
+        raise ValueError(
+            f"subset must be one of 'all', 'bonafide', or 'spoof' (got: {subset})"
+        )
+
+    root = Path(root_dir)
+    existing = None
+    if skip_missing:
+        try:
+            existing = {p.stem for p in root.iterdir() if p.is_file() and p.suffix == file_ext}
+        except FileNotFoundError:
+            existing = set()
+
+    def _with_ext(name: str) -> str:
+        return name if Path(name).suffix else f"{name}{file_ext}"
+
+    data = []
+    attack_to_idx = {"bonafide": 0}
+    missing = 0
+
+    sample_limit = int(num_samples) if num_samples is not None else None
+    seen = 0
+    rng = random.Random(sample_seed)
+
+    with open(protocol_file, "r") as f:
+        for line in f:
+            parts = line.strip().split()
+            if len(parts) < 6:
+                continue
+
+            source_id = parts[0]
+            file_id = parts[1]
+            attack_id_raw = parts[4]
+            label_str = parts[5].lower().replace("bona-fide", "bonafide")
+
+            if subset != "all" and label_str != subset:
+                continue
+
+            audio_name = _with_ext(file_id)
+            if skip_missing and existing is not None:
+                stem = Path(audio_name).stem
+                if stem not in existing:
+                    missing += 1
+                    continue
+            full_path = root / audio_name
+            if skip_missing and existing is None and not full_path.exists():
+                missing += 1
+                continue
+
+            binary_label = 1 if label_str == "bonafide" else 0
+            key = "bonafide" if label_str == "bonafide" else attack_id_raw
+            if key not in attack_to_idx:
+                attack_to_idx[key] = len(attack_to_idx)
+            multi_label = attack_to_idx[key]
+
+            row = (full_path, binary_label, multi_label, source_id, audio_name)
+            if sample_limit is None:
+                data.append(row)
+            else:
+                seen += 1
+                if len(data) < sample_limit:
+                    data.append(row)
+                else:
+                    j = rng.randint(0, seen - 1)
+                    if j < sample_limit:
+                        data[j] = row
+
+    return data, attack_to_idx, missing
+
+
+class ASVspoof2021DFDataset(BaseAudioDataset):
+    """
+    ASVspoof2021 DF eval using trial_metadata.txt (whitespace-separated).
+    Uses column 2 as file ID and column 6 as label.
+    Returns (waveform, binary_label, multi_label, speaker_id, audio_name).
+    """
+    def __init__(
+        self,
+        protocol_file: str,
+        root_dir: str,
+        num_samples: int = None,
+        subset: str = "all",
+        sample_seed: int = 1337,
+        file_ext: str = ".flac",
+        skip_missing: bool = True,
+        **kwargs,
+    ):
+        super().__init__(**kwargs)
+        self.data, self.attack_to_idx, missing = _load_asv2021_trials(
+            protocol_file=protocol_file,
+            root_dir=root_dir,
+            subset=subset,
+            num_samples=num_samples,
+            sample_seed=sample_seed,
+            file_ext=file_ext,
+            skip_missing=skip_missing,
+        )
+        if skip_missing and missing > 0:
+            print(f"[INFO] ASVspoof2021 DF: skipped {missing} missing files.")
+        if not self.data:
+            raise RuntimeError(
+                f"No audio files found from protocol {protocol_file} "
+                f"after applying subset='{subset}'."
+            )
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        audio_path, binary_label, multi_label, speaker_id, audio_name = self.data[idx]
+        waveform = self._process_audio(audio_path)
+        return (
+            waveform,
+            torch.tensor(binary_label, dtype=torch.long),
+            torch.tensor(multi_label, dtype=torch.long),
+            speaker_id,
+            audio_name,
+        )
+
+
+class ASVspoof2021LADataset(BaseAudioDataset):
+    """
+    ASVspoof2021 LA eval using trial_metadata.txt (whitespace-separated).
+    Uses column 2 as file ID and column 6 as label.
+    Returns (waveform, binary_label, multi_label, speaker_id, audio_name).
+    """
+    def __init__(
+        self,
+        protocol_file: str,
+        root_dir: str,
+        num_samples: int = None,
+        subset: str = "all",
+        sample_seed: int = 1337,
+        file_ext: str = ".flac",
+        skip_missing: bool = True,
+        **kwargs,
+    ):
+        super().__init__(**kwargs)
+        self.data, self.attack_to_idx, missing = _load_asv2021_trials(
+            protocol_file=protocol_file,
+            root_dir=root_dir,
+            subset=subset,
+            num_samples=num_samples,
+            sample_seed=sample_seed,
+            file_ext=file_ext,
+            skip_missing=skip_missing,
+        )
+        if skip_missing and missing > 0:
+            print(f"[INFO] ASVspoof2021 LA: skipped {missing} missing files.")
         if not self.data:
             raise RuntimeError(
                 f"No audio files found from protocol {protocol_file} "
@@ -393,6 +576,8 @@ class MLAADMailabsDataset(BaseAudioDataset):
                     continue
 
                 rel_path = parts[0]
+                if Path(rel_path).name.startswith("._"):
+                    continue
                 source_or_attack = parts[3]
                 label_str = parts[4].lower()
 
