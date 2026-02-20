@@ -4,8 +4,8 @@
 #SBATCH --account=hafiz1               # Great Lakes account name
 #SBATCH --gpus-per-node=1              # GPU per node
 #SBATCH --mem=24G                      # CPU RAM
-#SBATCH --cpus-per-task=4             # CPU cores (matches your num_workers)
-#SBATCH --time=10:00:00                # time requested (hh:mm:ss)
+#SBATCH --cpus-per-task=4             # CPU cores (matches num_workers)
+#SBATCH --time=20:00:00                # time requested (hh:mm:ss)
 #SBATCH --output=baseline_train_log/%x-%j.log             # (%x=job_name, %j=job_id)
 
 # --- Email Notifications (Optional but Recommended) ---
@@ -21,6 +21,7 @@ echo "Job started on $(hostname) at $(date)"
 # Load necessary modules. This ensures a clean and consistent environment.
 module purge
 module load python/3.9.12
+module load ffmpeg
 module load cuda/11.8.0
 
 # Activate your Python virtual environment
@@ -53,6 +54,8 @@ SCORES_DIR=/home/jsudan/wav2vec_contr_loss/scores
 DATASET_LIST=(
   itw
   asv19
+  asv21_la
+  asv21_df
   asv5
   famous_figures
   fakexpose
@@ -83,15 +86,17 @@ python baseline_train.py \
   --enc_lr 1e-5 \
   --head_lr 5e-4
 
+rm -rf ${SCORES_DIR}
+
 python eval_baseline_datasets.py \
   --datasets "${DATASETS}" \
   --model_name "${MODEL}" \
   --ckpt "${CKPT}" \
   --scores_dir "${SCORES_DIR}" \
   --batch_size 32 --num_workers 4 --subset all \
-  --ff_speakers "${FF_SPEAKERS}" \
   --print_eer \
   --force_rescore
+  # --ff_speakers "${FF_SPEAKERS}" \
 
 echo "----------------------------------------------------------------"
 echo "Training script finished."

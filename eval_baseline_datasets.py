@@ -3,6 +3,7 @@ import os
 import shutil
 
 import torch
+import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.distributed as dist
@@ -11,14 +12,17 @@ from torch.utils.data import DataLoader, DistributedSampler
 from data_loader import (
     ASVspoof2019Dataset,
     ASVspoof5Dataset,
+    ASVspoof2021DFDataset,
+    ASVspoof2021LADataset,
     InTheWildDataset,
     FamousFiguresDataset,
     FakeXposeDataset,
     MLAADMailabsDataset,
 )
+
 from encoder import Wav2Vec2Encoder
 from compression_module import CompressionModule
-from evaluation import calculate_EER
+from evaluation import calculate_EER, compute_eer
 
 
 DEFAULT_ASV19_EVAL_ROOT = "/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_eval/flac"
@@ -26,6 +30,12 @@ DEFAULT_ASV19_EVAL_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofDat
 
 DEFAULT_ASV5_EVAL_ROOT = "/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_eval/flac"
 DEFAULT_ASV5_EVAL_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5.eval.track_1.tsv"
+
+DEFAULT_ASV21_DF_ROOT = "/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof2021_complete/DF/ASVspoof2021_DF_eval/flac"
+DEFAULT_ASV21_DF_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof2021_complete/DF/ASVspoof2021_DF_eval/trial_metadata.txt"
+
+DEFAULT_ASV21_LA_ROOT = "/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof2021_complete/LA/ASVspoof2021_LA_eval/flac"
+DEFAULT_ASV21_LA_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof2021_complete/LA/ASVspoof2021_LA_eval/trial_metadata.txt"
 
 DEFAULT_ITW_ROOT = "/nfs/turbo/umd-hafiz/issf_server_data/ds_wild/release_in_the_wild"
 DEFAULT_ITW_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/ds_wild/protocols/meta.csv"
@@ -93,23 +103,35 @@ def setup_distributed():
 def pad_collate_fn_generic(batch):
     waveforms = [item[0] for item in batch]
     labels = [item[1] for item in batch]
+
     sources = []
     utt_ids = []
+    speakers = []
+
     for item in batch:
-        if len(item) >= 4:
-            sources.append(item[-2])
-            utt_ids.append(item[-1])
+
+        if len(item) >= 5:
+            speakers.append(item[2])
+            sources.append(item[3])
+            utt_ids.append(item[4])
+        elif len(item) == 4:
+            speakers.append("NA")
+            sources.append(item[2])
+            utt_ids.append(item[3])
         elif len(item) == 3:
+            speakers.append("NA")
             sources.append("NA")
             utt_ids.append(item[2])
         else:
+            speakers.append("NA")
             sources.append("NA")
             utt_ids.append("unknown")
+
     padded_waveforms = torch.nn.utils.rnn.pad_sequence(
         waveforms, batch_first=True, padding_value=0.0
     )
     labels = torch.stack(labels)
-    return padded_waveforms, labels, None, sources, utt_ids
+    return padded_waveforms, labels, speakers, sources, utt_ids
 
 
 @torch.no_grad()
@@ -118,14 +140,19 @@ def score_and_write(
     loader: DataLoader,
     device: torch.device,
     out_path: str,
+    speaker_out_path: str = None,
 ):
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     model.eval()
+
+    speaker_scores = {}
+    speaker_labels = {}
 
     with open(out_path, "w") as f:
         for batch in loader:
             waveforms = batch[0].to(device)
             labels = batch[1].to(device)
+            speakers = batch[2]
             sources = batch[3]
             utt_ids = batch[4]
 
@@ -137,10 +164,33 @@ def score_and_write(
             for i in range(len(scores)):
                 utt_id = str(utt_ids[i]).strip().replace(" ", "_")
                 source = str(sources[i]).strip().replace(" ", "_")
+                speaker = str(speakers[i]).strip().replace(" ", "_")
                 key = "bonafide" if labels_np[i] == 1 else "spoof"
                 f.write(f"{utt_id} {source} {key} {scores[i]:.6f}\n")
+                if speaker_out_path:
+                    speaker_scores.setdefault(speaker, []).append(float(scores[i]))
+                    speaker_labels.setdefault(speaker, []).append(int(labels_np[i]))
 
     print(f"[OK] Wrote: {out_path}")
+
+    if speaker_out_path:
+        os.makedirs(os.path.dirname(speaker_out_path), exist_ok=True)
+        with open(speaker_out_path, "w") as f:
+            f.write("speaker,n,mean_score,eer,acc\n")
+            for speaker in sorted(speaker_scores.keys()):
+                scores = speaker_scores[speaker]
+                labels = speaker_labels[speaker]
+                n = len(scores)
+                mean_score = sum(scores) / max(1, n)
+                eer = ""
+                acc = ""
+                if len(set(labels)) > 1:
+                    bona = [s for s, l in zip(scores, labels) if l == 1]
+                    spoof = [s for s, l in zip(scores, labels) if l == 0]
+                    eer = f"{compute_eer(np.array(bona), np.array(spoof))[0] * 100:.6f}"
+                acc = f"{(sum((s >= 0) == (l == 1) for s, l in zip(scores, labels)) / max(1, n)) * 100:.2f}"
+                f.write(f"{speaker},{n},{mean_score:.6f},{eer},{acc}\n")
+        print(f"[OK] Wrote speaker scores: {speaker_out_path}")
 
 
 def _merge_ranked_scores(out_path: str, world_size: int) -> None:
@@ -164,6 +214,7 @@ def resolve_ckpt(model_name: str, ckpt: str, ckpt_root: str):
 
 
 def dataset_specs(args):
+    ff_speakers = [s.strip() for s in args.ff_speakers.split(",") if s.strip()]
     return {
         "asv19": {
             "cls": ASVspoof2019Dataset,
@@ -188,6 +239,32 @@ def dataset_specs(args):
                 "target_sample_rate": args.target_sample_rate,
             },
             "score_rel": os.path.join("baseline", args.model_name, "score_cm_eval_asv5.txt"),
+        },
+        "asv21_df": {
+            "cls": ASVspoof2021DFDataset,
+            "kwargs": {
+                "root_dir": args.asv21_df_root,
+                "protocol_file": args.asv21_df_protocol,
+                "subset": args.subset,
+                "num_samples": args.num_samples,
+                "max_duration_seconds": args.max_duration_seconds,
+                "target_sample_rate": args.target_sample_rate,
+                "skip_missing": args.skip_missing,
+            },
+            "score_rel": os.path.join("baseline", args.model_name, "asv21_df", "score_cm_asv21_df.txt"),
+        },
+        "asv21_la": {
+            "cls": ASVspoof2021LADataset,
+            "kwargs": {
+                "root_dir": args.asv21_la_root,
+                "protocol_file": args.asv21_la_protocol,
+                "subset": args.subset,
+                "num_samples": args.num_samples,
+                "max_duration_seconds": args.max_duration_seconds,
+                "target_sample_rate": args.target_sample_rate,
+                "skip_missing": args.skip_missing,
+            },
+            "score_rel": os.path.join("baseline", args.model_name, "asv21_la", "score_cm_asv21_la.txt"),
         },
         "itw": {
             "cls": InTheWildDataset,
@@ -257,7 +334,7 @@ def main():
     ap.add_argument("--ckpt", type=str, default="")
     ap.add_argument("--ckpt_root", type=str, default="checkpoints_baseline/bce")
     ap.add_argument("--scores_dir", type=str, default="scores")
-    ap.add_argument("--datasets", type=str, default="asv19,asv5,itw,famous_figures,fakexpose,mlaad")
+    ap.add_argument("--datasets", type=str, default="asv19,asv5,asv21_df,asv21_la,itw,famous_figures,fakexpose,mlaad")
     ap.add_argument("--subset", type=str, default="all", choices=["all", "bonafide", "spoof"])
     ap.add_argument("--batch_size", type=int, default=64)
     ap.add_argument("--num_workers", type=int, default=4)
@@ -266,11 +343,16 @@ def main():
     ap.add_argument("--num_samples", type=int, default=None)
     ap.add_argument("--print_eer", action="store_true")
     ap.add_argument("--force_rescore", action="store_true")
+    ap.add_argument("--skip_missing", action=argparse.BooleanOptionalAction, default=True)
 
     ap.add_argument("--asv19_root", type=str, default=DEFAULT_ASV19_EVAL_ROOT)
     ap.add_argument("--asv19_protocol", type=str, default=DEFAULT_ASV19_EVAL_PROTOCOL)
     ap.add_argument("--asv5_root", type=str, default=DEFAULT_ASV5_EVAL_ROOT)
     ap.add_argument("--asv5_protocol", type=str, default=DEFAULT_ASV5_EVAL_PROTOCOL)
+    ap.add_argument("--asv21_df_root", type=str, default=DEFAULT_ASV21_DF_ROOT)
+    ap.add_argument("--asv21_df_protocol", type=str, default=DEFAULT_ASV21_DF_PROTOCOL)
+    ap.add_argument("--asv21_la_root", type=str, default=DEFAULT_ASV21_LA_ROOT)
+    ap.add_argument("--asv21_la_protocol", type=str, default=DEFAULT_ASV21_LA_PROTOCOL)
     ap.add_argument("--itw_root", type=str, default=DEFAULT_ITW_ROOT)
     ap.add_argument("--itw_protocol", type=str, default=DEFAULT_ITW_PROTOCOL)
     ap.add_argument("--ff_protocol", type=str, default=DEFAULT_FF_PROTOCOL)
@@ -373,7 +455,12 @@ def main():
             out_path = score_path
             if is_distributed:
                 out_path = f"{score_path}.rank{rank}"
-            score_and_write(model, loader, device, out_path)
+            speaker_out = None
+            if name == "famous_figures" and (not is_distributed or world_size == 1) and rank == 0:
+                speaker_out = os.path.join(
+                    args.scores_dir, "baseline", args.model_name, "score_cm_ff_speaker.csv"
+                )
+            score_and_write(model, loader, device, out_path, speaker_out_path=speaker_out)
 
         if is_distributed:
             dist.barrier()
