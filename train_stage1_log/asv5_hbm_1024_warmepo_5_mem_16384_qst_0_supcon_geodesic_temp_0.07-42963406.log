@@ -118,3 +118,14 @@ CUDA device count: 2
 [rank1] sim_mean=0.9954 sim_std=0.0063 Loss: 3.3604040145874023
 [rank0] pos_mean=0.9975 neg_mean=0.9975 n_pos=8 n_neg=8
 [rank0] sim_mean=0.9977 sim_std=0.0025 Loss: 3.2578072547912598
+[rank0] pos_mean=0.9999 neg_mean=0.9999 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9999 sim_std=0.0000 Loss: 4.338141918182373
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 4.320175647735596
+[epoch 003] alpha=0.00 | train_loss=3.6996 | dev_loss=2.7081
+[rank1] sim_mean=0.9999 sim_std=0.0001 Loss: 4.6011762619018555
+[epoch 003] alpha=0.00 | train_loss=3.6996 | dev_loss=2.7081
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 4.57164192199707
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 4.432380676269531
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 4.434200286865234

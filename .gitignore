@@ -1,7 +1,10 @@
+__pycache_
 *.pt
 *.pth
 *.npy
 *.html
-*.log
+# *.log
 debug_audio_samples
 __pycache__
+# scores
+plots

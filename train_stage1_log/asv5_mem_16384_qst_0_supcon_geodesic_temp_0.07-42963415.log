@@ -119,3 +119,15 @@ CUDA device count: 2
 [rank1] sim_mean=1.0000 sim_std=0.0001 Loss: 3.7515621185302734
 [rank0] pos_mean=0.9999 neg_mean=0.9999 n_pos=8 n_neg=8
 [rank0] sim_mean=0.9999 sim_std=0.0001 Loss: 3.760190486907959
+[rank0] pos_mean=0.9999 neg_mean=0.9999 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0001 Loss: 3.44469952583313
+[rank1] sim_mean=0.9999 sim_std=0.0001 Loss: 3.4524340629577637
+[epoch 003] alpha=0.00 | train_loss=3.9108 | dev_loss=2.7080
+[epoch 003] alpha=0.00 | train_loss=3.9108 | dev_loss=2.7080
+[rank1] sim_mean=0.9999 sim_std=0.0001 Loss: 3.593623161315918
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_mem_16384_qst_0_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7080)
+[rank0] pos_mean=0.9999 neg_mean=0.9999 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9999 sim_std=0.0001 Loss: 3.5784494876861572
+[rank1] sim_mean=0.9997 sim_std=0.0004 Loss: 4.565610408782959
+[rank0] pos_mean=0.9993 neg_mean=0.9993 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9993 sim_std=0.0009 Loss: 4.640534400939941

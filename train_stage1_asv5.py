@@ -6,7 +6,7 @@ import torch.distributed as dist
 from torch.utils.data import DataLoader
 
 from data_loader import pad_collate_fn_speaker_source_multiclass
-from asvspoof_windowed_loader import ASVspoof5WindowedDataset
+from data_loader import ASVspoof5Dataset, pad_collate_fn_speaker_source_multiclass
 from encoder import Wav2Vec2Encoder
 from compression_module import CompressionModule
 from loss import SupConBinaryLoss
@@ -17,28 +17,19 @@ from stage1_utils import (
     train_one_epoch,
     evaluate,
     setup_distributed,
+    EmbeddingQueue,   
 )
-
+from data_loader import ASVspoof2019Dataset, MLAADMailabsDataset
 
 def _env_or_default(name: str, default: str) -> str:
     val = os.environ.get(name)
     return val if val else default
 
 
-def windowed_asv5_collate(batch):
-    waveforms_list = []
-    labels_list = []
-    for waveforms, bin_label, *_ in batch:
-        if waveforms.ndim == 1:
-            waveforms = waveforms.unsqueeze(0)
-        label_val = int(bin_label.item()) if torch.is_tensor(bin_label) else int(bin_label)
-        waveforms_list.append(waveforms)
-        labels_list.append(torch.full((waveforms.shape[0],), label_val, dtype=torch.long))
-
-    waveforms = torch.cat(waveforms_list, dim=0)
-    labels = torch.cat(labels_list, dim=0)
+def asv5_collate(batch):
+    waveforms, bin_labels, *_ = pad_collate_fn_speaker_source_multiclass(batch)
     attn = (waveforms != 0.0).long()
-    return waveforms, attn, labels
+    return waveforms, attn, bin_labels
 
 
 def main():
@@ -66,27 +57,85 @@ def main():
     dev_root = _env_or_default("ASV5_DEV_ROOT", cfg.dev_root)
     dev_protocol = _env_or_default("ASV5_DEV_PROTOCOL", cfg.dev_protocol)
 
-    train_ds = ASVspoof5WindowedDataset(
+    train_ds = ASVspoof5Dataset(
         root_dir=train_root,
         protocol_file=train_protocol,
         subset="all",
         num_samples=cfg.num_samples,
+        sample_seed=cfg.seed,
         target_sample_rate=cfg.target_sample_rate,
-        window_seconds=cfg.max_duration_seconds,
-        min_tail_seconds=1.0,
+        max_duration_seconds=cfg.max_duration_seconds,
     )
-    bonafide_count = sum(1 for item in train_ds.data if item[1] == 1)
-    spoof_count = sum(1 for item in train_ds.data if item[1] == 0)
-    print(f"[INFO] Train samples loaded: bonafide={bonafide_count}, spoof={spoof_count}")
 
-    dev_ds = ASVspoof5WindowedDataset(
+    def _parse_list_env(name: str, default: str):
+        s = os.environ.get(name, default)
+        return [x.strip().lower() for x in s.split(",") if x.strip()]
+
+    train_sources = set(_parse_list_env("TRAIN_DATASETS", "asv5"))
+
+    # Optional: tag ASV5 speaker IDs so speakers never collide across datasets
+    train_ds.data = [
+        (p, b, m, f"asv5_{spk}", name)
+        for (p, b, m, spk, name) in train_ds.data
+    ]
+
+    if "asv19" in train_sources:
+        asv19_root = _env_or_default("ASV19_TRAIN_ROOT", "")
+        asv19_protocol = _env_or_default("ASV19_TRAIN_PROTOCOL", "")
+        if not asv19_root or not asv19_protocol:
+            raise ValueError("ASV19 requested in TRAIN_DATASETS but ASV19_TRAIN_ROOT/ASV19_TRAIN_PROTOCOL not set.")
+
+        asv19_ds = ASVspoof2019Dataset(
+            root_dir=asv19_root,
+            protocol_file=asv19_protocol,
+            subset="all",
+            num_samples=cfg.num_samples,
+            target_sample_rate=cfg.target_sample_rate,
+            max_duration_seconds=cfg.max_duration_seconds,
+        )
+
+        # Append rows in ASV5 row format (5 fields)
+        train_ds.data.extend([
+            (p, b, m, f"asv19_{spk}", name)
+            for (p, b, m, spk, name) in asv19_ds.data
+        ])
+
+    if "mlaad" in train_sources:
+        mlaad_root = _env_or_default("MLAAD_ROOT", "")
+        mlaad_protocol = _env_or_default("MLAAD_PROTOCOL", "")
+        if not mlaad_root or not mlaad_protocol:
+            raise ValueError("MLAAD requested in TRAIN_DATASETS but MLAAD_ROOT/MLAAD_PROTOCOL not set.")
+
+        mlaad_ds = MLAADMailabsDataset(
+            root_dir=mlaad_root,
+            protocol_file=mlaad_protocol,
+            subset="all",
+            num_samples=cfg.num_samples,
+            target_sample_rate=cfg.target_sample_rate,
+            max_duration_seconds=cfg.max_duration_seconds,
+        )
+
+        # MLAAD rows are (path, bin, multi, audio_name) → convert to 5-tuple
+        train_ds.data.extend([
+            (p, b, m, f"mlaad_{os.path.splitext(str(name))[0]}", name)
+            for (p, b, m, name) in mlaad_ds.data
+        ])
+
+    if rank == 0:
+        bonafide_count = sum(1 for item in train_ds.data if item[1] == 1)
+        spoof_count = sum(1 for item in train_ds.data if item[1] == 0)
+        print(f"[INFO] POOLED TRAIN_DATASETS={sorted(train_sources)}")
+        print(f"[INFO] Pooled train samples: bonafide={bonafide_count}, spoof={spoof_count}, total={len(train_ds.data)}")
+        print(f"[INFO] Train samples loaded: bonafide={bonafide_count}, spoof={spoof_count}")
+
+    dev_ds = ASVspoof5Dataset(
         root_dir=dev_root,
         protocol_file=dev_protocol,
         subset="all",
         num_samples=cfg.num_samples,
+        sample_seed=cfg.seed + 1,
         target_sample_rate=cfg.target_sample_rate,
-        window_seconds=cfg.max_duration_seconds,
-        min_tail_seconds=1.0,
+        max_duration_seconds=cfg.max_duration_seconds,
     )
 
     if is_distributed:
@@ -114,14 +163,14 @@ def main():
         batch_sampler=train_sampler,
         num_workers=cfg.num_workers,
         pin_memory=True,
-        collate_fn=windowed_asv5_collate,
+        collate_fn=asv5_collate,
     )
     dev_loader = DataLoader(
         dev_ds,
         batch_sampler=dev_sampler,
         num_workers=cfg.num_workers,
         pin_memory=True,
-        collate_fn=windowed_asv5_collate,
+        collate_fn=asv5_collate,
     )
 
     encoder = Wav2Vec2Encoder(
@@ -152,6 +201,22 @@ def main():
         uniformity_t=cfg.uniformity_t,
     )
 
+    use_queue = bool(int(os.environ.get("USE_QUEUE", "0")))
+    queue_size = int(os.environ.get("QUEUE_SIZE", "0")) if use_queue else 0
+    queue_start_epoch = int(os.environ.get("QUEUE_START_EPOCH", "1"))
+
+    queue = None
+    if use_queue and queue_size > 0 and queue_start_epoch <= 1:
+        queue = EmbeddingQueue(queue_size, cfg.hidden_dim, device)
+        if rank == 0:
+            print(f"[INFO] Queue size={queue_size} (per-rank) | starts at epoch {queue_start_epoch}")
+    elif use_queue and rank == 0:
+        if queue_size <= 0:
+            print("[WARN] USE_QUEUE=1 but QUEUE_SIZE <= 0; queue disabled.")
+        else:
+            print(f"[INFO] Queue will start at epoch {queue_start_epoch} (warm-start without queue)")
+            print(f"[INFO] Queue size={queue_size} (per-rank)")
+
     params = [{"params": head.parameters(), "lr": cfg.head_lr}]
     if cfg.finetune_encoder:
         params.append({"params": encoder.parameters(), "lr": cfg.enc_lr})
@@ -165,9 +230,15 @@ def main():
         if hasattr(dev_loader.batch_sampler, "set_epoch"):
             dev_loader.batch_sampler.set_epoch(epoch)
 
+        if use_queue and queue is None and queue_size > 0 and epoch >= queue_start_epoch:
+            queue = EmbeddingQueue(queue_size, cfg.hidden_dim, device)
+            if rank == 0:
+                print(f"[INFO] Enabling queue at epoch {epoch} | size={queue_size} (per-rank)")
+
         train_loss, alpha = train_one_epoch(
-            encoder, head, loss_fn, train_loader, optim, device, epoch, cfg
+            encoder, head, loss_fn, train_loader, optim, device, epoch, cfg, queue=queue
         )
+
         dev_loss = evaluate(encoder, head, loss_fn, dev_loader, device, cfg)
         print(
             f"[epoch {epoch:03d}] alpha={alpha:.2f} | "
@@ -178,7 +249,7 @@ def main():
             best = dev_loss
             epochs_no_improve = 0
             if rank == 0:
-                best_path = os.path.join(cfg.save_dir, f"{cfg.run_tag}_stage1_head_best.pt")
+                best_path = os.path.join(cfg.save_dir, f"{cfg.model_id}_stage1_head_best.pt")
                 head_to_save = head.module if hasattr(head, "module") else head
                 encoder_to_save = encoder.module if hasattr(encoder, "module") else encoder
                 ckpt = {
