@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=asv5_hbm_1024_warmepo_5_mem_16384_qst_2_supcon_geodesic_temp_0.07
+#SBATCH --job-name=asv5_mem_16384_qst_0_supcon_geodesic_temp_0.07
 #SBATCH --partition=spgpu
 #SBATCH --account=hafiz1
-#SBATCH --gpus-per-node=1
+#SBATCH --gpus-per-node=2
 #SBATCH --mem=36G
 #SBATCH --cpus-per-task=6
-#SBATCH --time=17:00:00
+#SBATCH --time=100:00:00
 #SBATCH --output=train_stage1_log/%x-%j.log
 
 #SBATCH --mail-user=jsudan@umich.edu
@@ -42,7 +42,9 @@ TRAIN_DATASET_LIST=(
 )
 export TRAIN_DATASETS=$(IFS=,; echo "${TRAIN_DATASET_LIST[*]}")
 
-EXP_NAME=asv5_hbm_1024_warmepo_5_mem_16384_qst_2_supcon_geodesic_temp_0.07
+export DEV_PER_DATASET=5000   # it is using ASV 5 and ASV 19 dev set
+
+EXP_NAME=asv5_mem_16384_qst_0_supcon_geodesic_temp_0.07
 MODEL=facebook/wav2vec2-xls-r-300m
 
 SUPCON_SIMILARITY=geodesic
@@ -59,7 +61,7 @@ NUM_WORKERS=6
 # ----- QUEUE / MEMORY BANK -----
 USE_QUEUE=1
 QUEUE_SIZE=16384
-QUEUE_START_EPOCH=2
+QUEUE_START_EPOCH=0
 
 ACCUM_STEPS=1
 CENTER_BEFORE_NORM=0
@@ -67,7 +69,7 @@ GLOBAL_CENTER=0
 
 # ----- HARD BATCH MINING -----
 TOPK_NEG=1024
-WARMUP_EPOCHS=5
+WARMUP_EPOCHS=100
 ALPHA_END=0.9
 ALPHA_RAMP_EPOCHS=20
 
@@ -130,6 +132,8 @@ export ASV19_DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/tr
 export ASV19_DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
 export ASV19_TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
 export ASV19_TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+export ASV19_DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+export ASV19_DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
 
 export MLAAD_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/multilingual
 export MLAAD_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/multilingual/protocol_MLAAD_MAILabs_total_balanced.txt
@@ -168,17 +172,17 @@ export QUEUE_START_EPOCH=${QUEUE_START_EPOCH}
 export CENTER_BEFORE_NORM=${CENTER_BEFORE_NORM}
 export GLOBAL_CENTER=${GLOBAL_CENTER}
 
-# ${LAUNCHER} train_stage1_asv5.py \
-#   --model_name ${MODEL} \
-#   --finetune_encoder ${FINETUNE_ENCODER} \
-#   --max_duration_seconds ${MAX_DURATION_SECONDS} \
-#   --save_dir ${CKPT_ROOT} \
-#   --epochs ${EPOCHS} --batch_size ${BATCH_SIZE} --num_samples ${NUM_SAMPLES} \
-#   --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight ${UNIFORMITY_WEIGHT} --uniformity_t ${UNIFORMITY_T} \
-#   --enc_lr ${ENC_LR} --head_lr ${HEAD_LR} --weight_decay ${WEIGHT_DECAY} --temperature ${TEMPERATURE} \
-#   --num_workers ${NUM_WORKERS} --seed ${SEED} \
-#   --topk_neg ${TOPK_NEG} --warmup_epochs ${WARMUP_EPOCHS} --alpha_end ${ALPHA_END} --alpha_ramp_epochs ${ALPHA_RAMP_EPOCHS} \
-#   --use_rawboost ${USE_RAWBOOST} --rawboost_prob ${RAWBOOST_PROB}
+${LAUNCHER} train_stage1_asv5.py \
+  --model_name ${MODEL} \
+  --finetune_encoder ${FINETUNE_ENCODER} \
+  --max_duration_seconds ${MAX_DURATION_SECONDS} \
+  --save_dir ${CKPT_ROOT} \
+  --epochs ${EPOCHS} --batch_size ${BATCH_SIZE} --num_samples ${NUM_SAMPLES} \
+  --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight ${UNIFORMITY_WEIGHT} --uniformity_t ${UNIFORMITY_T} \
+  --enc_lr ${ENC_LR} --head_lr ${HEAD_LR} --weight_decay ${WEIGHT_DECAY} --temperature ${TEMPERATURE} \
+  --num_workers ${NUM_WORKERS} --seed ${SEED} \
+  --topk_neg ${TOPK_NEG} --warmup_epochs ${WARMUP_EPOCHS} --alpha_end ${ALPHA_END} --alpha_ramp_epochs ${ALPHA_RAMP_EPOCHS} \
+  --use_rawboost ${USE_RAWBOOST} --rawboost_prob ${RAWBOOST_PROB}
 
 if [ ! -f "${CKPT}" ]; then
   echo "[ERROR] Stage-1 checkpoint not found: ${CKPT}"

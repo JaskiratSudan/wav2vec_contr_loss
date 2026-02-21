@@ -131,3 +131,45 @@ CUDA device count: 2
 [rank1] sim_mean=0.9997 sim_std=0.0004 Loss: 4.565610408782959
 [rank0] pos_mean=0.9993 neg_mean=0.9993 n_pos=8 n_neg=8
 [rank0] sim_mean=0.9993 sim_std=0.0009 Loss: 4.640534400939941
+[rank0] pos_mean=0.9996 neg_mean=0.9997 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9997 sim_std=0.0005 Loss: 3.530015230178833
+[rank1] sim_mean=0.9995 sim_std=0.0005 Loss: 3.575007438659668
+[rank1] sim_mean=0.9998 sim_std=0.0002 Loss: 3.5863142013549805
+[rank0] pos_mean=0.9995 neg_mean=0.9996 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9996 sim_std=0.0005 Loss: 3.6276230812072754
+[epoch 004] alpha=0.00 | train_loss=3.7922 | dev_loss=2.7081
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 4.505187034606934
+[epoch 004] alpha=0.00 | train_loss=3.7922 | dev_loss=2.7080
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 4.501401901245117
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 3.993542194366455
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 3.994396448135376
+[rank0] pos_mean=0.9937 neg_mean=0.9924 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9934 sim_std=0.0079 Loss: 2.9288129806518555
+[rank1] sim_mean=0.9889 sim_std=0.0146 Loss: 3.064079761505127
+[rank0] pos_mean=0.9998 neg_mean=0.9998 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9998 sim_std=0.0003 Loss: 3.7293639183044434
+[rank1] sim_mean=0.9999 sim_std=0.0002 Loss: 3.665205717086792
+[epoch 005] alpha=0.00 | train_loss=3.8511 | dev_loss=2.7081
+[epoch 005] alpha=0.00 | train_loss=3.8511 | dev_loss=2.7081
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 3.678523540496826
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 3.682464122772217
+[rank0] pos_mean=0.9997 neg_mean=0.9996 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9996 sim_std=0.0004 Loss: 2.861342430114746
+[rank1] sim_mean=0.9998 sim_std=0.0002 Loss: 2.8556296825408936
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 4.443301200866699
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 4.442458629608154
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 3.2916369438171387
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 3.3020544052124023
+[epoch 006] alpha=0.00 | train_loss=3.9083 | dev_loss=2.7725
+[rank0] pos_mean=0.9584 neg_mean=0.9633 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9635 sim_std=0.0602 Loss: 3.489349365234375
+[epoch 006] alpha=0.00 | train_loss=3.9083 | dev_loss=2.7695
+[rank1] sim_mean=0.9899 sim_std=0.0138 Loss: 2.9892921447753906
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 5.628532886505127
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 5.6232194900512695

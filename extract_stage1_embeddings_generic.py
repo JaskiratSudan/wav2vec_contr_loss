@@ -173,7 +173,7 @@ def extract_split(backbone: Stage1Backbone,
     Xs, ys = [], []
     backbone.eval()
 
-    for waveforms, labels, *_ in tqdm(loader, desc=f"[{dataset_name}] {split}"):
+    for waveforms, labels, *_ in tqdm(loader, desc=f"[{dataset_name}] {split}", disable=True):
         waveforms = waveforms.to(device)
         labels = labels.to(device)
         attn = (waveforms != 0.0).long()

@@ -20,6 +20,20 @@ from stage1_utils import (
     EmbeddingQueue,   
 )
 from data_loader import ASVspoof2019Dataset, MLAADMailabsDataset
+import random
+
+def stratified_subset(data, n_total, seed):
+    """Return a fixed-size subset with ~50/50 bonafide/spoof."""
+    rng = random.Random(seed)
+    pos = [row for row in data if int(row[1]) == 1]  # bonafide
+    neg = [row for row in data if int(row[1]) == 0]  # spoof
+    rng.shuffle(pos); rng.shuffle(neg)
+
+    n_pos = min(len(pos), n_total // 2)
+    n_neg = min(len(neg), n_total - n_pos)
+    subset = pos[:n_pos] + neg[:n_neg]
+    rng.shuffle(subset)
+    return subset
 
 def _env_or_default(name: str, default: str) -> str:
     val = os.environ.get(name)
@@ -128,7 +142,8 @@ def main():
         print(f"[INFO] Pooled train samples: bonafide={bonafide_count}, spoof={spoof_count}, total={len(train_ds.data)}")
         print(f"[INFO] Train samples loaded: bonafide={bonafide_count}, spoof={spoof_count}")
 
-    dev_ds = ASVspoof5Dataset(
+    # --- Dev ASV5 ---
+    dev_ds_asv5 = ASVspoof5Dataset(
         root_dir=dev_root,
         protocol_file=dev_protocol,
         subset="all",
@@ -137,6 +152,33 @@ def main():
         target_sample_rate=cfg.target_sample_rate,
         max_duration_seconds=cfg.max_duration_seconds,
     )
+
+    # --- Dev ASV19 ---
+    asv19_dev_root = _env_or_default("ASV19_DEV_ROOT", "")
+    asv19_dev_protocol = _env_or_default("ASV19_DEV_PROTOCOL", "")
+    if not asv19_dev_root or not asv19_dev_protocol:
+        raise ValueError("Need ASV19_DEV_ROOT and ASV19_DEV_PROTOCOL to validate on ASV19 dev.")
+
+    dev_ds_asv19 = ASVspoof2019Dataset(
+        root_dir=asv19_dev_root,
+        protocol_file=asv19_dev_protocol,
+        subset="all",
+        num_samples=cfg.num_samples,
+        target_sample_rate=cfg.target_sample_rate,
+        max_duration_seconds=cfg.max_duration_seconds,
+    )
+
+    DEV_PER_DATASET = int(os.environ.get("DEV_PER_DATASET", "4000"))  # total per dataset
+    dev_ds_asv5.data  = stratified_subset(dev_ds_asv5.data,  DEV_PER_DATASET, seed=cfg.seed + 101)
+    dev_ds_asv19.data = stratified_subset(dev_ds_asv19.data, DEV_PER_DATASET, seed=cfg.seed + 202)
+
+    if rank == 0:
+        def _counts(ds):
+            pos = sum(1 for r in ds.data if int(r[1]) == 1)
+            neg = sum(1 for r in ds.data if int(r[1]) == 0)
+            return pos, neg, len(ds.data)
+        p,n,t = _counts(dev_ds_asv5);  print(f"[DEV SUBSET] ASV5  bonafide={p} spoof={n} total={t}")
+        p,n,t = _counts(dev_ds_asv19); print(f"[DEV SUBSET] ASV19 bonafide={p} spoof={n} total={t}")
 
     if is_distributed:
         if cfg.batch_size % world_size != 0 and rank == 0:
@@ -154,9 +196,9 @@ def main():
     train_sampler = BalancedBatchSampler(
         train_ds, batch_size_per_gpu, seed=cfg.seed, rank=rank, world_size=world_size
     )
-    dev_sampler = BalancedBatchSampler(
-        dev_ds, batch_size_per_gpu, seed=cfg.seed + 1, rank=rank, world_size=world_size
-    )
+    # dev_sampler = BalancedBatchSampler(
+    #     dev_ds, batch_size_per_gpu, seed=cfg.seed + 1, rank=rank, world_size=world_size
+    # )
 
     train_loader = DataLoader(
         train_ds,
@@ -165,13 +207,22 @@ def main():
         pin_memory=True,
         collate_fn=asv5_collate,
     )
-    dev_loader = DataLoader(
-        dev_ds,
-        batch_sampler=dev_sampler,
-        num_workers=cfg.num_workers,
-        pin_memory=True,
-        collate_fn=asv5_collate,
-    )
+
+    if rank == 0:
+        dev_loader_asv5 = DataLoader(dev_ds_asv5, batch_size=cfg.batch_size, shuffle=False,
+                                    num_workers=cfg.num_workers, pin_memory=True, collate_fn=asv5_collate)
+        dev_loader_asv19 = DataLoader(dev_ds_asv19, batch_size=cfg.batch_size, shuffle=False,
+                                    num_workers=cfg.num_workers, pin_memory=True, collate_fn=asv5_collate)
+    else:
+        dev_loader_asv5 = dev_loader_asv19 = None
+
+    # dev_loader = DataLoader(
+    #     dev_ds,
+    #     batch_sampler=dev_sampler,
+    #     num_workers=cfg.num_workers,
+    #     pin_memory=True,
+    #     collate_fn=asv5_collate,
+    # )
 
     encoder = Wav2Vec2Encoder(
         model_name=cfg.model_name,
@@ -227,8 +278,6 @@ def main():
     for epoch in range(1, cfg.epochs + 1):
         if hasattr(train_loader.batch_sampler, "set_epoch"):
             train_loader.batch_sampler.set_epoch(epoch)
-        if hasattr(dev_loader.batch_sampler, "set_epoch"):
-            dev_loader.batch_sampler.set_epoch(epoch)
 
         if use_queue and queue is None and queue_size > 0 and epoch >= queue_start_epoch:
             queue = EmbeddingQueue(queue_size, cfg.hidden_dim, device)
@@ -239,16 +288,27 @@ def main():
             encoder, head, loss_fn, train_loader, optim, device, epoch, cfg, queue=queue
         )
 
-        dev_loss = evaluate(encoder, head, loss_fn, dev_loader, device, cfg)
-        print(
-            f"[epoch {epoch:03d}] alpha={alpha:.2f} | "
-            f"train_loss={train_loss:.4f} | dev_loss={dev_loss:.4f}"
-        )
+        # --- Validation (rank 0 only) ---
+        if rank == 0:
+            dev_loss_asv5 = evaluate(encoder, head, loss_fn, dev_loader_asv5, device, cfg)
+            dev_loss_asv19 = evaluate(encoder, head, loss_fn, dev_loader_asv19, device, cfg)
+            dev_loss = 0.5 * (dev_loss_asv5 + dev_loss_asv19)
+            print(f"[dev] asv5={dev_loss_asv5:.4f} asv19={dev_loss_asv19:.4f} avg={dev_loss:.4f}")
+        else:
+            dev_loss = 0.0  # placeholder
 
-        if dev_loss < best:
-            best = dev_loss
-            epochs_no_improve = 0
-            if rank == 0:
+        # Broadcast dev_loss to all ranks so everyone agrees
+        if is_distributed:
+            dev_t = torch.tensor(dev_loss, device=device, dtype=torch.float32)
+            dist.broadcast(dev_t, src=0)
+            dev_loss = float(dev_t.item())
+
+        # --- Checkpointing / early stopping (rank 0 decides) ---
+        if rank == 0:
+            if dev_loss < best:
+                best = dev_loss
+                epochs_no_improve = 0
+
                 best_path = os.path.join(cfg.save_dir, f"{cfg.model_id}_stage1_head_best.pt")
                 head_to_save = head.module if hasattr(head, "module") else head
                 encoder_to_save = encoder.module if hasattr(encoder, "module") else encoder
@@ -263,15 +323,22 @@ def main():
                     ckpt["encoder_state_dict"] = encoder_to_save.state_dict()
                 torch.save(ckpt, best_path)
                 print(f"✓ Saved best -> {best_path} (dev={best:.4f})")
-        else:
-            epochs_no_improve += 1
+            else:
+                epochs_no_improve += 1
 
-        if cfg.patience and epochs_no_improve >= cfg.patience:
+            stop_training = (cfg.patience and epochs_no_improve >= cfg.patience)
+        else:
+            stop_training = False
+
+        # Broadcast stop flag so all ranks exit together
+        if is_distributed:
+            flag = torch.tensor(int(stop_training), device=device)
+            dist.broadcast(flag, src=0)
+            stop_training = bool(flag.item())
+
+        if stop_training:
             if rank == 0:
-                print(
-                    f"Early stopping at epoch {epoch:03d} "
-                    f"(no improvement for {cfg.patience} epochs)."
-                )
+                print(f"Early stopping at epoch {epoch:03d} (no improvement for {cfg.patience} epochs).")
             break
 
 
