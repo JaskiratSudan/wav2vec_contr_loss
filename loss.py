@@ -81,8 +81,7 @@ class SupConBinaryLoss(nn.Module):
         k = min(topk_neg, neg_sims.numel())
         if k < 1:
             return None
-        neg_topk, _ = torch.sort(neg_sims, descending=True)
-        neg_topk = neg_topk[:k]                                       # (k,)
+        neg_topk = torch.topk(neg_sims, k=k, largest=True).values                                     # (k,)
 
         denom = torch.cat([pos_sims, neg_topk], dim=0)                # (P+k,)
         logits = denom / self.tau
@@ -165,6 +164,9 @@ class SupConBinaryLoss(nn.Module):
 
         losses_full = []
         losses_mined = []
+
+        compute_mined = (alpha is not None and alpha > 0.0 and topk_neg > 0)
+
         for i in range(B):
             queue_neg = None
             if sim_queue is not None:
@@ -173,9 +175,12 @@ class SupConBinaryLoss(nn.Module):
                     queue_neg = sim_queue[i][mask]
 
             lf = self._supcon_full(sim[i], pos_mask[i], extra_neg=queue_neg)
-            lm = self._supcon_mined_topk(
-                sim[i], pos_mask[i], neg_mask[i], topk_neg, extra_neg=queue_neg
-            )
+            lm = None
+            if compute_mined:
+                lm = self._supcon_mined_topk(
+                    sim[i], pos_mask[i], neg_mask[i], topk_neg, extra_neg=queue_neg
+                )
+
             if lf is not None:
                 losses_full.append(lf)
             if lm is not None:
