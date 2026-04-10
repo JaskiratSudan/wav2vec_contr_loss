@@ -36,6 +36,9 @@ EXP_NAME=hbm_1024_mem_16384_supcon_temp_0.07
 SUPCON_SIMILARITY=cosine
 TEMPERATURE=0.07
 
+# LABEL TYPE (binary | attack_type)
+LABEL_TYPE=attack_type
+
 # UNIFORMITY TERM
 UNIFORMITY_WEIGHT=0.0
 UNIFORMITY_T=2
@@ -151,7 +154,8 @@ export GLOBAL_CENTER=${GLOBAL_CENTER}
 #   --num_workers 4 --seed 1337 \
 #   --topk_neg ${TOPK_NEG} --warmup_epochs ${WARMUP_EPOCHS} --alpha_end ${ALPHA_END} --alpha_ramp_epochs ${ALPHA_RAMP_EPOCHS} \
 #   --use_rawboost 1 --rawboost_prob 0.7 \
-#   --use_ravdess ${USE_RAVDESS} --use_commonvoice ${USE_COMMONVOICE}
+#   --use_ravdess ${USE_RAVDESS} --use_commonvoice ${USE_COMMONVOICE} \
+#   --label_type ${LABEL_TYPE}
 
 # if [ ! -f "${CKPT}" ]; then
 #   echo "[ERROR] Stage-1 checkpoint not found: ${CKPT}"

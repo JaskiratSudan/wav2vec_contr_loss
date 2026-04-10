@@ -24,10 +24,13 @@ from stage1_utils import (
 )
 
 
-def asv19_collate(batch):
-    waveforms, bin_labels, *_ = pad_collate_fn_speaker_source_multiclass(batch)
-    attn = (waveforms != 0.0).long()
-    return waveforms, attn, bin_labels
+def make_asv19_collate(label_type):
+    def asv19_collate(batch):
+        waveforms, bin_labels, multi_labels, *_ = pad_collate_fn_speaker_source_multiclass(batch)
+        attn = (waveforms != 0.0).long()
+        labels = multi_labels if label_type != "binary" else bin_labels
+        return waveforms, attn, labels
+    return asv19_collate
 
 
 def main():
@@ -113,19 +116,20 @@ def main():
         dev_ds, batch_size_per_gpu, seed=cfg.seed + 1, rank=rank, world_size=world_size
     )
 
+    collate_fn = make_asv19_collate(cfg.label_type)
     train_loader = DataLoader(
         train_ds,
         batch_sampler=train_sampler,
         num_workers=cfg.num_workers,
         pin_memory=True,
-        collate_fn=asv19_collate,
+        collate_fn=collate_fn,
     )
     dev_loader = DataLoader(
         dev_ds,
         batch_sampler=dev_sampler,
         num_workers=cfg.num_workers,
         pin_memory=True,
-        collate_fn=asv19_collate,
+        collate_fn=collate_fn,
     )
 
     encoder = Wav2Vec2Encoder(

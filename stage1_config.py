@@ -223,6 +223,17 @@ def build_config():
         choices=[0, 1],
         help="Enable encoder finetuning (1) or keep frozen (0).",
     )
+    parser.add_argument(
+        "--label_type",
+        type=str,
+        default="binary",
+        choices=["binary", "attack_type"],
+        help=(
+            "Label granularity for SupCon loss. "
+            "'binary': 0=spoof, 1=bonafide (default, preserves existing behaviour). "
+            "'attack_type': 0=bonafide, 1..N=attack method index."
+        ),
+    )
     args = parser.parse_args()
 
     num_samples_arg = args.num_samples.strip().lower()
@@ -272,6 +283,7 @@ def build_config():
         use_ravdess=bool(args.use_ravdess),
         use_commonvoice=bool(args.use_commonvoice),
         patience=args.patience,
+        label_type=args.label_type,
     )
 
 
@@ -316,6 +328,7 @@ def print_config(cfg, is_distributed=False, world_size=1, rank=0):
     print(f"USE_RAVDESS={cfg.use_ravdess}")
     print(f"USE_COMMONVOICE={cfg.use_commonvoice}")
     print(f"PATIENCE={cfg.patience}")
+    print(f"LABEL_TYPE={cfg.label_type}")
     print(f"DISTRIBUTED={is_distributed} | WORLD_SIZE={world_size} | RANK={rank}")
     print("=============")
 
@@ -346,4 +359,5 @@ def ckpt_config(cfg):
         "USE_RAVDESS": cfg.use_ravdess,
         "USE_COMMONVOICE": cfg.use_commonvoice,
         "PATIENCE": cfg.patience,
+        "LABEL_TYPE": cfg.label_type,
     }
