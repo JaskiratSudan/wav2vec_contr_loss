@@ -1,0 +1,21 @@
+# audio_path=/home/jsudan/wav2vec_contr_loss/test_audio_samples/Benjamin_Netanyahu_audio.wav
+# exp_name=asv5_hbm_1024_warmepo_5_mem_16384_qst_2_supcon_geodesic_temp_0.07
+# threshold=-8.399353
+# window_sec=10.0
+# hop_sec=5
+# higher_score_means_bonafide=True
+# sample_rate=16000
+chunk,start_sec,end_sec,logit,label
+1,0.000000,10.000000,5.469614,bonafide
+2,5.000000,15.000000,-1.422153,bonafide
+3,10.000000,20.000000,-3.498329,bonafide
+4,15.000000,25.000000,5.239822,bonafide
+5,20.000000,30.000000,3.633810,bonafide
+6,25.000000,35.000000,5.660473,bonafide
+7,30.000000,40.000000,1.846568,bonafide
+8,35.000000,45.000000,1.398916,bonafide
+9,40.000000,50.000000,-6.493281,bonafide
+10,45.000000,55.000000,-3.692732,bonafide
+11,50.000000,60.000000,-4.303493,bonafide
+12,55.000000,65.000000,-5.388326,bonafide
+13,60.000000,70.000000,-10.657496,spoof

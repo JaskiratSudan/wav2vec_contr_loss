@@ -1,0 +1,55 @@
+Setting up the environment...
+Job started on gl1529.arc-ts.umich.edu at Sat Feb 21 16:39:31 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_1024_supcon_temp_0.07
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_1024_supcon_temp_0.07/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_1024_supcon_temp_0.07/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 6.914651032407089
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_1024_supcon_temp_0.3
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_1024_supcon_temp_0.3/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_1024_supcon_temp_0.3/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 11.291871259491579
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_1024_supcon_geodesic_temp_0.07
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_1024_supcon_geodesic_temp_0.07/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_1024_supcon_geodesic_temp_0.07/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 9.010714969787365
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_1024_supcon_geodesic_temp_0.3
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_1024_supcon_geodesic_temp_0.3/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_1024_supcon_geodesic_temp_0.3/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 7.109341242717424
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_4096_supcon_temp_0.07
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_4096_supcon_temp_0.07/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_4096_supcon_temp_0.07/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 9.125898045316118
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_4096_supcon_temp_0.3
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_4096_supcon_temp_0.3/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_4096_supcon_temp_0.3/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 4.501067710500187
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_4096_supcon_geodesic_temp_0.07
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_4096_supcon_geodesic_temp_0.07/asv21_df/score_cm_asv21_df.txt
+[2026-02-22T12:39:36.012] error: *** JOB 43353269 ON gl1529 CANCELLED AT 2026-02-22T12:39:36 DUE TO TIME LIMIT ***

@@ -1,0 +1,365 @@
+Setting up the environment...
+Job started on gl1524.arc-ts.umich.edu at Mon Mar 16 03:18:18 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+SEED: 1337
+EXPERIMENT NAME: mem_256_supcon_geodesic_temp_0.07_seed_1337
+USE_QUEUE=1
+QUEUE_SIZE=256
+ACCUM_STEPS=1
+CENTER_BEFORE_NORM=0
+GLOBAL_CENTER=0
+Detected NUM_GPUS=2
+Using BATCH_SIZE=32
+W0316 03:18:25.902818 3726794 torch/distributed/run.py:774] 
+W0316 03:18:25.902818 3726794 torch/distributed/run.py:774] *****************************************
+W0316 03:18:25.902818 3726794 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0316 03:18:25.902818 3726794 torch/distributed/run.py:774] *****************************************
+[W316 03:18:25.762320628 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29830 (errno: 97 - Address family not supported by protocol).
+[W316 03:18:25.763356756 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29830 (errno: 97 - Address family not supported by protocol).
+[W316 03:18:25.764377678 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29830 (errno: 97 - Address family not supported by protocol).
+[W316 03:18:34.190517137 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29830 (errno: 97 - Address family not supported by protocol).
+[W316 03:18:34.190549608 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29830 (errno: 97 - Address family not supported by protocol).
+[W316 03:18:34.191474014 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29830 (errno: 97 - Address family not supported by protocol).
+[W316 03:18:34.191631698 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29830 (errno: 97 - Address family not supported by protocol).
+[W316 03:18:34.192406436 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29830 (errno: 97 - Address family not supported by protocol).
+[W316 03:18:34.192684772 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29830 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+MODEL_ID=wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_supcon_geodesic_temp_0.07_seed_1337
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=10
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+ACCUM_STEPS=1
+NUM_SAMPLES=None
+HEAD_LR=0.0005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.07
+NUM_WORKERS=4
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=1024
+WARMUP_EPOCHS=100
+ALPHA_END=0.9
+ALPHA_RAMP_EPOCHS=20
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=5
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Global batch size=32 | Per-GPU batch size=16
+[INFO] Queue will start at epoch 6 (warm-start without queue)
+[INFO] Queue size=256 (per-rank)
+[INFO] Trainable encoder params: 315,438,720
+[rank1] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.9103 std=0.0555 min=0.7103 max=0.9808 var_mean=8.213928e-05
+[rank1] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9499 std=0.0330 min=0.8289 max=0.9900 var_mean=1.833660e-04
+[rank1] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9499 std=0.0330 min=0.8289 max=0.9900 var_mean=1.833660e-04
+[rank1] sim_mean=0.9531 sim_std=0.0342 Loss: 2.9682059288024902
+[rank0] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.8784 std=0.0849 min=0.5629 max=0.9687 var_mean=1.112925e-04
+[rank0] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9352 std=0.0473 min=0.7372 max=0.9851 var_mean=2.374078e-04
+[rank0] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9352 std=0.0473 min=0.7372 max=0.9851 var_mean=2.374078e-04
+[rank0] pos_mean=0.9359 neg_mean=0.9345 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9392 sim_std=0.0484 Loss: 2.9925293922424316
+[epoch 001] alpha=0.00 | train_loss=2.3149 | dev_loss=2.0857
+[epoch 001] alpha=0.00 | train_loss=2.3149 | dev_loss=2.0863
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.0863)
+[rank0] pos_mean=0.9805 neg_mean=0.8769 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9299 sim_std=0.0725 Loss: 2.349689483642578
+[rank1] sim_mean=0.9072 sim_std=0.0939 Loss: 2.132556915283203
+[epoch 002] alpha=0.00 | train_loss=2.0827 | dev_loss=2.0822
+[epoch 002] alpha=0.00 | train_loss=2.0827 | dev_loss=2.0713
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.0822)
+[rank1] sim_mean=0.9282 sim_std=0.0708 Loss: 1.9745336771011353
+[rank0] pos_mean=0.9922 neg_mean=0.8903 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9417 sim_std=0.0582 Loss: 2.144132614135742
+[epoch 003] alpha=0.00 | train_loss=2.0276 | dev_loss=2.0702
+[epoch 003] alpha=0.00 | train_loss=2.0276 | dev_loss=2.0524
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.0524)
+[rank1] sim_mean=0.8930 sim_std=0.1062 Loss: 1.955054521560669
+[rank0] pos_mean=0.9978 neg_mean=0.7780 n_pos=8 n_neg=8
+[rank0] sim_mean=0.8880 sim_std=0.1110 Loss: 1.9544854164123535
+[epoch 004] alpha=0.00 | train_loss=2.0195 | dev_loss=2.0916
+[epoch 004] alpha=0.00 | train_loss=2.0195 | dev_loss=2.0967
+[rank0] pos_mean=0.9972 neg_mean=0.8971 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9473 sim_std=0.0526 Loss: 2.0112533569335938
+[rank1] sim_mean=0.9414 sim_std=0.0580 Loss: 1.9751360416412354
+[epoch 005] alpha=0.00 | train_loss=2.0116 | dev_loss=1.9696
+[epoch 005] alpha=0.00 | train_loss=2.0116 | dev_loss=1.9748
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9696)
+[INFO] Enabling queue at epoch 6 | size=256 (per-rank)
+[rank0] pos_mean=0.9980 neg_mean=0.8094 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9038 sim_std=0.0963 Loss: 1.9694147109985352
+[rank1] sim_mean=0.8948 sim_std=0.1048 Loss: 1.9522130489349365
+[epoch 006] alpha=0.00 | train_loss=2.1615 | dev_loss=1.9610
+[epoch 006] alpha=0.00 | train_loss=2.1615 | dev_loss=1.9651
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9610)
+[rank1] sim_mean=0.8404 sim_std=0.1605 Loss: 2.049502372741699
+[rank0] pos_mean=0.9755 neg_mean=0.7158 n_pos=8 n_neg=8
+[rank0] sim_mean=0.8472 sim_std=0.1558 Loss: 2.7452354431152344
+[epoch 007] alpha=0.00 | train_loss=2.1076 | dev_loss=1.9827
+[epoch 007] alpha=0.00 | train_loss=2.1076 | dev_loss=2.0012
+[rank0] pos_mean=0.9995 neg_mean=0.5922 n_pos=8 n_neg=8
+[rank0] sim_mean=0.7959 sim_std=0.2047 Loss: 2.106050729751587
+[rank1] sim_mean=0.8176 sim_std=0.1887 Loss: 2.601290225982666
+[epoch 008] alpha=0.00 | train_loss=2.1474 | dev_loss=1.9615
+[epoch 008] alpha=0.00 | train_loss=2.1474 | dev_loss=1.9657
+[rank1] sim_mean=0.7566 sim_std=0.2438 Loss: 1.9971354007720947
+[rank0] pos_mean=0.9998 neg_mean=0.4999 n_pos=8 n_neg=8
+[rank0] sim_mean=0.7498 sim_std=0.2506 Loss: 1.998448133468628
+[epoch 009] alpha=0.00 | train_loss=2.1301 | dev_loss=1.9716
+[epoch 009] alpha=0.00 | train_loss=2.1301 | dev_loss=1.9820
+[rank0] pos_mean=0.9998 neg_mean=0.7095 n_pos=8 n_neg=8
+[rank0] sim_mean=0.8547 sim_std=0.1456 Loss: 1.9657970666885376
+[rank1] sim_mean=0.8620 sim_std=0.1407 Loss: 2.7449729442596436
+[epoch 010] alpha=0.00 | train_loss=2.0414 | dev_loss=1.9571
+[epoch 010] alpha=0.00 | train_loss=2.0414 | dev_loss=1.9517
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9517)
+[rank1] sim_mean=0.7523 sim_std=0.2481 Loss: 1.9485554695129395
+[rank0] pos_mean=0.9997 neg_mean=0.4985 n_pos=8 n_neg=8
+[rank0] sim_mean=0.7491 sim_std=0.2514 Loss: 1.9516041278839111
+[epoch 011] alpha=0.00 | train_loss=2.0419 | dev_loss=1.9539
+[epoch 011] alpha=0.00 | train_loss=2.0419 | dev_loss=1.9582
+[rank0] pos_mean=0.9996 neg_mean=0.4688 n_pos=8 n_neg=8
+[rank0] sim_mean=0.7342 sim_std=0.2664 Loss: 1.9749783277511597
+[rank1] sim_mean=0.7290 sim_std=0.2720 Loss: 2.0089383125305176
+[epoch 012] alpha=0.00 | train_loss=2.0665 | dev_loss=1.9549
+[epoch 012] alpha=0.00 | train_loss=2.0665 | dev_loss=1.9593
+[rank0] pos_mean=0.9998 neg_mean=0.5215 n_pos=8 n_neg=8
+[rank0] sim_mean=0.7607 sim_std=0.2398 Loss: 1.9497714042663574
+[rank1] sim_mean=0.7644 sim_std=0.2361 Loss: 1.9494060277938843
+[epoch 013] alpha=0.00 | train_loss=2.0265 | dev_loss=1.9726
+[epoch 013] alpha=0.00 | train_loss=2.0265 | dev_loss=1.9690
+[rank0] pos_mean=0.9998 neg_mean=0.4497 n_pos=8 n_neg=8
+[rank0] sim_mean=0.7248 sim_std=0.2758 Loss: 2.002261161804199
+[rank1] sim_mean=0.7229 sim_std=0.2776 Loss: 1.9970262050628662
+[epoch 014] alpha=0.00 | train_loss=2.0588 | dev_loss=2.1236
+[epoch 014] alpha=0.00 | train_loss=2.0588 | dev_loss=2.0590
+[rank1] sim_mean=0.6903 sim_std=0.3103 Loss: 1.9546380043029785
+[rank0] pos_mean=0.9994 neg_mean=0.3691 n_pos=8 n_neg=8
+[rank0] sim_mean=0.6843 sim_std=0.3164 Loss: 1.9569532871246338
+[epoch 015] alpha=0.00 | train_loss=2.0179 | dev_loss=1.9652
+Early stopping at epoch 015 (no improvement for 5 epochs).
+Best checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9517)
+/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/distributed_c10d.py:4807: UserWarning: No device id is provided via `init_process_group` or `barrier `. Using the current device set by the user. 
+  warnings.warn(  # warn only once
+[epoch 015] alpha=0.00 | train_loss=2.0179 | dev_loss=1.9603
+/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/distributed_c10d.py:4807: UserWarning: No device id is provided via `init_process_group` or `barrier `. Using the current device set by the user. 
+  warnings.warn(  # warn only once
+Using device: cuda
+Model: facebook/wav2vec2-xls-r-300m
+Checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m_stage1_head_best.pt
+Saving to: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/mem_256_supcon_geodesic_temp_0.07_seed_1337/facebook__wav2vec2-xls-r-300m
+Loaded finetuned encoder weights from checkpoint.
+Collecting embeddings on eval set...
+  Processed 1280 samples...
+  Processed 2560 samples...
+  Processed 3840 samples...
+  Processed 5120 samples...
+  Processed 6400 samples...
+  Processed 7680 samples...
+  Processed 8960 samples...
+  Processed 10240 samples...
+  Processed 11520 samples...
+  Processed 12800 samples...
+  Processed 14080 samples...
+  Processed 15360 samples...
+  Processed 16640 samples...
+  Processed 17920 samples...
+  Processed 19200 samples...
+  Processed 20480 samples...
+  Processed 21760 samples...
+  Processed 23040 samples...
+  Processed 24320 samples...
+  Processed 25600 samples...
+  Processed 26880 samples...
+  Processed 28160 samples...
+  Processed 29440 samples...
+  Processed 30720 samples...
+  Processed 32000 samples...
+  Processed 33280 samples...
+  Processed 34560 samples...
+  Processed 35840 samples...
+  Processed 37120 samples...
+  Processed 38400 samples...
+  Processed 39680 samples...
+  Processed 40960 samples...
+  Processed 42240 samples...
+  Processed 43520 samples...
+  Processed 44800 samples...
+  Processed 46080 samples...
+  Processed 47360 samples...
+  Processed 48640 samples...
+  Processed 49920 samples...
+  Processed 51200 samples...
+  Processed 52480 samples...
+  Processed 53760 samples...
+  Processed 55040 samples...
+  Processed 56320 samples...
+  Processed 57600 samples...
+  Processed 58880 samples...
+  Processed 60160 samples...
+  Processed 61440 samples...
+  Processed 62720 samples...
+  Processed 64000 samples...
+  Processed 65280 samples...
+  Processed 66560 samples...
+  Processed 67840 samples...
+  Processed 69120 samples...
+  Processed 70400 samples...
+Total eval embeddings: 71237 (dim=256)
+Running t-SNE...
+Saving PNG plot...
+Saved PNG: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/mem_256_supcon_geodesic_temp_0.07_seed_1337/facebook__wav2vec2-xls-r-300m/stage1_umap_eval_by_attack.png
+Saving interactive HTML plot...
+Saved HTML: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/mem_256_supcon_geodesic_temp_0.07_seed_1337/facebook__wav2vec2-xls-r-300m/stage1_umap_eval_by_attack.html
+Done.
+Using device: cuda
+Model: facebook/wav2vec2-xls-r-300m
+Checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m_stage1_head_best.pt
+Saving to: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/mem_256_supcon_geodesic_temp_0.07_seed_1337/facebook__wav2vec2-xls-r-300m
+Clean mode: False
+Loaded finetuned encoder weights from checkpoint.
+Collecting embeddings on ITW set...
+  Processed 1280 samples...
+  Processed 2560 samples...
+  Processed 3840 samples...
+  Processed 5120 samples...
+  Processed 6400 samples...
+  Processed 7680 samples...
+  Processed 8960 samples...
+  Processed 10240 samples...
+  Processed 11520 samples...
+  Processed 12800 samples...
+  Processed 14080 samples...
+  Processed 15360 samples...
+  Processed 16640 samples...
+  Processed 17920 samples...
+  Processed 19200 samples...
+  Processed 20480 samples...
+  Processed 21760 samples...
+  Processed 23040 samples...
+  Processed 24320 samples...
+  Processed 25600 samples...
+  Processed 26880 samples...
+  Processed 28160 samples...
+  Processed 29440 samples...
+  Processed 30720 samples...
+Total ITW embeddings: 31767 (dim=256)
+Running t-SNE...
+Saving PNG plot...
+Saved PNG: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/mem_256_supcon_geodesic_temp_0.07_seed_1337/facebook__wav2vec2-xls-r-300m/stage1_umap_itw_real_vs_spoof.png
+Saving interactive HTML plot...
+Saved HTML: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/mem_256_supcon_geodesic_temp_0.07_seed_1337/facebook__wav2vec2-xls-r-300m/stage1_umap_itw_real_vs_spoof.html
+Done.
+Using device: cuda
+Loading Stage-1 checkpoint from: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_256_supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m_stage1_head_best.pt
+[OK] Loaded finetuned encoder weights from checkpoint.
+[INFO] Using ASVspoof2019 dataset for embedding extraction.
+==> Building ASV dataset for split: train
+[OK][ASV] Saved train: embeddings (25380, 256), labels (25380,)
+     -> /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/mem_256_supcon_geodesic_temp_0.07_seed_1337/train_embeddings.npy
+     -> /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/mem_256_supcon_geodesic_temp_0.07_seed_1337/train_labels.npy
+==> Building ASV dataset for split: dev
+[OK][ASV] Saved dev: embeddings (24844, 256), labels (24844,)
+     -> /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/mem_256_supcon_geodesic_temp_0.07_seed_1337/dev_embeddings.npy
+     -> /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/mem_256_supcon_geodesic_temp_0.07_seed_1337/dev_labels.npy
+==> Building ASV dataset for split: eval
+[OK][ASV] Saved eval: embeddings (71237, 256), labels (71237,)
+     -> /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/mem_256_supcon_geodesic_temp_0.07_seed_1337/eval_embeddings.npy
+     -> /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/mem_256_supcon_geodesic_temp_0.07_seed_1337/eval_labels.npy
+[INFO] SKIP_ITW=1 set; skipping ITW embedding extraction.
+Using device: cuda
+Train embeddings: (25380, 256), Dev embeddings: (24844, 256)
+Class balance: pos_weight=8.837
+[epoch 001] train_loss=1.1126 | dev_loss=1.0138 | dev_acc=99.99% | dev_auc=1.0000 | dev_eer=0.00%
+[epoch 001] ✓ New best EER=0.00% -> checkpoints_stage2/mem_256_supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 002] train_loss=0.9207 | dev_loss=0.8408 | dev_acc=99.99% | dev_auc=1.0000 | dev_eer=0.00%
+[epoch 002] No EER improvement for 1 epoch(s) (best=0.00%)
+[epoch 003] train_loss=0.7652 | dev_loss=0.7007 | dev_acc=99.99% | dev_auc=1.0000 | dev_eer=0.00%
+[epoch 003] No EER improvement for 2 epoch(s) (best=0.00%)
+[epoch 004] train_loss=0.6390 | dev_loss=0.5867 | dev_acc=99.99% | dev_auc=1.0000 | dev_eer=0.00%
+[epoch 004] No EER improvement for 3 epoch(s) (best=0.00%)
+[epoch 005] train_loss=0.5362 | dev_loss=0.4935 | dev_acc=99.99% | dev_auc=1.0000 | dev_eer=0.00%
+[epoch 005] No EER improvement for 4 epoch(s) (best=0.00%)
+[epoch 006] train_loss=0.4520 | dev_loss=0.4170 | dev_acc=99.99% | dev_auc=1.0000 | dev_eer=0.00%
+[epoch 006] No EER improvement for 5 epoch(s) (best=0.00%)
+[epoch 007] train_loss=0.3826 | dev_loss=0.3538 | dev_acc=99.99% | dev_auc=1.0000 | dev_eer=0.00%
+[epoch 007] No EER improvement for 6 epoch(s) (best=0.00%)
+[epoch 008] train_loss=0.3252 | dev_loss=0.3013 | dev_acc=99.99% | dev_auc=1.0000 | dev_eer=0.00%
+[epoch 008] No EER improvement for 7 epoch(s) (best=0.00%)
+[epoch 009] train_loss=0.2772 | dev_loss=0.2573 | dev_acc=99.99% | dev_auc=1.0000 | dev_eer=0.00%
+[epoch 009] No EER improvement for 8 epoch(s) (best=0.00%)
+[epoch 010] train_loss=0.2371 | dev_loss=0.2203 | dev_acc=99.99% | dev_auc=1.0000 | dev_eer=0.00%
+[epoch 010] No EER improvement for 9 epoch(s) (best=0.00%)
+[epoch 011] train_loss=0.2033 | dev_loss=0.1892 | dev_acc=99.99% | dev_auc=1.0000 | dev_eer=0.00%
+[epoch 011] No EER improvement for 10 epoch(s) (best=0.00%)
+[epoch 012] train_loss=0.1747 | dev_loss=0.1627 | dev_acc=99.99% | dev_auc=1.0000 | dev_eer=0.00%
+[epoch 012] No EER improvement for 11 epoch(s) (best=0.00%)
+[epoch 013] train_loss=0.1504 | dev_loss=0.1403 | dev_acc=99.99% | dev_auc=1.0000 | dev_eer=0.00%
+[epoch 013] No EER improvement for 12 epoch(s) (best=0.00%)
+[epoch 014] train_loss=0.1298 | dev_loss=0.1212 | dev_acc=99.99% | dev_auc=1.0000 | dev_eer=0.00%
+[epoch 014] No EER improvement for 13 epoch(s) (best=0.00%)
+[epoch 015] train_loss=0.1122 | dev_loss=0.1048 | dev_acc=99.99% | dev_auc=1.0000 | dev_eer=0.00%
+[epoch 015] No EER improvement for 14 epoch(s) (best=0.00%)
+[epoch 016] train_loss=0.0971 | dev_loss=0.0908 | dev_acc=99.99% | dev_auc=1.0000 | dev_eer=0.00%
+[epoch 016] No EER improvement for 15 epoch(s) (best=0.00%)
+[EARLY STOP] Patience reached (15) with no EER improvement. Best EER = 0.00%
+==> Stage-2 training complete.
+Best classifier checkpoint: checkpoints_stage2/mem_256_supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> /home/jsudan/wav2vec_contr_loss/scores/mem_256_supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_256_supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 11.483243588448442
+[INFO] Scoring dataset 'asv19' -> /home/jsudan/wav2vec_contr_loss/scores/mem_256_supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_256_supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+EER (asv19): 0.29905250398896793
+[INFO] Scoring dataset 'asv21_la' -> /home/jsudan/wav2vec_contr_loss/scores/mem_256_supcon_geodesic_temp_0.07_seed_1337/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_256_supcon_geodesic_temp_0.07_seed_1337/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 6.048021135985346
+[INFO] Scoring dataset 'asv21_df' -> /home/jsudan/wav2vec_contr_loss/scores/mem_256_supcon_geodesic_temp_0.07_seed_1337/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_256_supcon_geodesic_temp_0.07_seed_1337/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 6.207751227259791
+[INFO] Scoring dataset 'asv5' -> /home/jsudan/wav2vec_contr_loss/scores/mem_256_supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_256_supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+EER (asv5): 18.296503679218667
+[INFO] Scoring dataset 'fakexpose' -> /home/jsudan/wav2vec_contr_loss/scores/mem_256_supcon_geodesic_temp_0.07_seed_1337/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_256_supcon_geodesic_temp_0.07_seed_1337/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 51.25427109085996
+[INFO] DeepfakeEval2024: loaded 1980 samples.
+[INFO] Scoring dataset 'deepfake_eval_2024' -> /home/jsudan/wav2vec_contr_loss/scores/mem_256_supcon_geodesic_temp_0.07_seed_1337/deepfake_eval_2024/score_cm_deepfake_eval_2024.txt
+[src/libmpg123/parse.c:skip_junk():1260] error: Giving up searching valid MPEG header after 65536 bytes of junk.
+[src/libmpg123/id3.c:INT123_id3_to_utf8():394] warning: Weird tag size 93 for encoding 1 - I will probably trim too early or something but I think the MP3 is broken.
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_256_supcon_geodesic_temp_0.07_seed_1337/deepfake_eval_2024/score_cm_deepfake_eval_2024.txt
+EER (deepfake_eval_2024): 51.41419794660671
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> /home/jsudan/wav2vec_contr_loss/scores/mem_256_supcon_geodesic_temp_0.07_seed_1337/famous_figures/score_cm_ff.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/mem_256_supcon_geodesic_temp_0.07_seed_1337/famous_figures/score_cm_ff.txt
+EER (famous_figures): 46.3355724729119
+----------------------------------------------------------------
+ASV19 pipeline finished at: Mon Mar 16 16:43:26 EDT 2026

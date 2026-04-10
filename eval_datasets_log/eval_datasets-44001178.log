@@ -1,0 +1,20 @@
+Setting up the environment...
+Job started on gl1503.arc-ts.umich.edu at Fri Feb 27 17:34:15 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_4096_supcon_geodesic_temp_0.07
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_4096_supcon_geodesic_temp_0.07/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: scores/mem_4096_supcon_geodesic_temp_0.07/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 8.954481177622196
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_4096_supcon_geodesic_temp_0.3
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv21_df' -> scores/mem_4096_supcon_geodesic_temp_0.3/asv21_df/score_cm_asv21_df.txt
+[2026-02-27T22:34:38.008] error: *** JOB 44001178 ON gl1503 CANCELLED AT 2026-02-27T22:34:38 DUE TO TIME LIMIT ***

@@ -1,0 +1,17 @@
+Setting up the environment...
+Job started on gl1503.arc-ts.umich.edu at Mon Mar 23 17:07:09 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] FamousFigures: loaded 33559 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/famous_figures/score_cm_ff.txt
+[OK] Wrote: scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/famous_figures/score_cm_ff.txt
+EER (famous_figures): 47.97968219790669
+----------------------------------------------------------------
+Evaluation finished at: Mon Mar 23 17:24:14 EDT 2026
