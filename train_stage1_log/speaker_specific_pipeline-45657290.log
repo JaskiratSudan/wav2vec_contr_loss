@@ -1,0 +1,171 @@
+Setting up the environment...
+Job started on gl1503.arc-ts.umich.edu at Fri Mar 20 02:32:03 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+============================================================
+  Job:          45657290
+  Run ID:       ff_Barack_Obama_20260320_023208
+  Speaker:      Barack_Obama
+  Node:         gl1503.arc-ts.umich.edu
+  GPUs:         7
+  Save dir:     /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_023208
+  Stage1 ckpt:  /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_013654/ff_Barack_Obama_20260320_013654_stage1_head_best.pt
+  Stage2 ckpt:  /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_023208/ff_Barack_Obama_20260320_023208_stage2_classifier_best.pt
+  Eval results: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_023208/ff_Barack_Obama_20260320_023208_eval_results.txt
+  Train proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_train.txt
+  Dev   proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_dev.txt
+  Eval  proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_eval.txt
+============================================================
+
+[STEP 2] Extracting projection head embeddings...
+  -> train: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/xlsr_train.pt -> /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/head_emb_train.pt
+
+Device     : cuda
+XLSR cache : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/xlsr_train.pt
+Checkpoint : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_013654/ff_Barack_Obama_20260320_013654_stage1_head_best.pt
+Out path   : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/head_emb_train.pt
+
+Loaded head from epoch 7  (dev_loss=6.2407)
+  82217 samples across 83 shards
+
+Extracted 82217 embeddings in 108.3s
+  bonafide=10538  spoof=71679
+  embeddings shape: torch.Size([82217, 256])
+Saved to: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/head_emb_train.pt  (89.1 MB)
+  -> dev: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/xlsr_dev.pt -> /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/head_emb_dev.pt
+
+Device     : cuda
+XLSR cache : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/xlsr_dev.pt
+Checkpoint : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_013654/ff_Barack_Obama_20260320_013654_stage1_head_best.pt
+Out path   : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/head_emb_dev.pt
+
+Loaded head from epoch 7  (dev_loss=6.2407)
+  16780 samples across 17 shards
+
+Extracted 16780 embeddings in 21.3s
+  bonafide=2151  spoof=14629
+  embeddings shape: torch.Size([16780, 256])
+Saved to: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/head_emb_dev.pt  (18.1 MB)
+  -> eval: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/xlsr_eval.pt -> /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/head_emb_eval.pt
+
+Device     : cuda
+XLSR cache : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/xlsr_eval.pt
+Checkpoint : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_013654/ff_Barack_Obama_20260320_013654_stage1_head_best.pt
+Out path   : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/head_emb_eval.pt
+
+Loaded head from epoch 7  (dev_loss=6.2407)
+  33559 samples across 34 shards
+
+Extracted 33559 embeddings in 46.4s
+  bonafide=4302  spoof=29257
+  embeddings shape: torch.Size([33559, 256])
+Saved to: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/head_emb_eval.pt  (36.2 MB)
+[STEP 2] Done.
+
+[STEP 3] Training classifier head (Stage 2)...
+
+Device: cuda
+Train cache : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/head_emb_train.pt
+Dev cache   : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/head_emb_dev.pt
+Save path   : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_023208/ff_Barack_Obama_20260320_023208_stage2_classifier_best.pt
+
+Train: bonafide=10538  spoof=71679  total=82217
+Dev  : bonafide=2151  spoof=14629  total=16780
+
+[epoch 001]  train_loss=0.5430  train_acc=83.9%  dev_loss=0.4381  dev_acc=87.2%  time=1.1s  ✓ saved (dev=0.4381  acc=87.2%)
+[epoch 002]  train_loss=0.4066  train_acc=87.2%  dev_loss=0.3871  dev_acc=87.2%  time=0.7s  ✓ saved (dev=0.3871  acc=87.2%)
+[epoch 003]  train_loss=0.3827  train_acc=87.2%  dev_loss=0.3778  dev_acc=87.2%  time=0.7s  ✓ saved (dev=0.3778  acc=87.2%)
+[epoch 004]  train_loss=0.3777  train_acc=87.2%  dev_loss=0.3749  dev_acc=87.2%  time=0.7s  ✓ saved (dev=0.3749  acc=87.2%)
+[epoch 005]  train_loss=0.3753  train_acc=87.2%  dev_loss=0.3725  dev_acc=87.2%  time=0.6s  ✓ saved (dev=0.3725  acc=87.2%)
+[epoch 006]  train_loss=0.3729  train_acc=87.2%  dev_loss=0.3701  dev_acc=87.2%  time=0.7s  ✓ saved (dev=0.3701  acc=87.2%)
+[epoch 007]  train_loss=0.3705  train_acc=87.2%  dev_loss=0.3676  dev_acc=87.2%  time=0.7s  ✓ saved (dev=0.3676  acc=87.2%)
+[epoch 008]  train_loss=0.3677  train_acc=87.2%  dev_loss=0.3650  dev_acc=87.2%  time=0.7s  ✓ saved (dev=0.3650  acc=87.2%)
+[epoch 009]  train_loss=0.3651  train_acc=87.2%  dev_loss=0.3623  dev_acc=87.2%  time=0.7s  ✓ saved (dev=0.3623  acc=87.2%)
+[epoch 010]  train_loss=0.3623  train_acc=87.2%  dev_loss=0.3594  dev_acc=87.2%  time=0.7s  ✓ saved (dev=0.3594  acc=87.2%)
+
+Best dev loss : 0.3594
+Checkpoint    : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_023208/ff_Barack_Obama_20260320_023208_stage2_classifier_best.pt
+[STEP 3] Done. Stage 2 checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_023208/ff_Barack_Obama_20260320_023208_stage2_classifier_best.pt
+
+[STEP 4] Running final evaluation on eval set...
+Device: cuda
+Loading eval embeddings: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/head_emb_eval.pt
+Loaded 33559 eval samples.
+Loading Stage 2 checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_023208/ff_Barack_Obama_20260320_023208_stage2_classifier_best.pt
+
+==============================================================
+  Evaluation Results — Barack_Obama
+==============================================================
+
+  Overall EER : 8.44%  (threshold=-1.8380)
+  Total samples: 33559  (bonafide=4302  spoof=29257)
+
+  Score distribution:
+    Bonafide  mean=-1.7406  std=0.0678  min=-2.0790  max=-1.5378
+    Spoof     mean=-1.9436  std=0.0742  min=-2.1671  max=-1.6486
+
+  Per-generator EER:
+  ----------------------------------------------------------
+  Source                          n_bon  n_spo   EER (%)
+  ----------------------------------------------------------
+  -                                4302      0       N/A
+  COZYVOICE2                          0   4300       N/A
+  E2TTS                               0   2746       N/A
+  F5TTS                               0   2613       N/A
+  FISHSPEECH                          0    189       N/A
+  LLASA                               0    411       N/A
+  MASKGCT                             0   1613       N/A
+  PARLER                              0   4300       N/A
+  SSRSPEECH                           0    185       N/A
+  STYLETTS2                           0   4300       N/A
+  XTTSV2                              0   4300       N/A
+  ZONOS                               0   4300       N/A
+  ----------------------------------------------------------
+  OVERALL                          4302  29257     8.44%
+==============================================================
+
+Results written to: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_023208/ff_Barack_Obama_20260320_023208_eval_results.txt
+[STEP 4] Done.
+
+==============================================================
+  Evaluation Results — Barack_Obama
+==============================================================
+
+  Overall EER : 8.44%  (threshold=-1.8380)
+  Total samples: 33559  (bonafide=4302  spoof=29257)
+
+  Score distribution:
+    Bonafide  mean=-1.7406  std=0.0678  min=-2.0790  max=-1.5378
+    Spoof     mean=-1.9436  std=0.0742  min=-2.1671  max=-1.6486
+
+  Per-generator EER:
+  ----------------------------------------------------------
+  Source                          n_bon  n_spo   EER (%)
+  ----------------------------------------------------------
+  -                                4302      0       N/A
+  COZYVOICE2                          0   4300       N/A
+  E2TTS                               0   2746       N/A
+  F5TTS                               0   2613       N/A
+  FISHSPEECH                          0    189       N/A
+  LLASA                               0    411       N/A
+  MASKGCT                             0   1613       N/A
+  PARLER                              0   4300       N/A
+  SSRSPEECH                           0    185       N/A
+  STYLETTS2                           0   4300       N/A
+  XTTSV2                              0   4300       N/A
+  ZONOS                               0   4300       N/A
+  ----------------------------------------------------------
+  OVERALL                          4302  29257     8.44%
+==============================================================
+
+============================================================
+  Pipeline complete.
+  Run ID        : ff_Barack_Obama_20260320_023208
+  Save dir      : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_023208
+  Stage 1 ckpt  : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_013654/ff_Barack_Obama_20260320_013654_stage1_head_best.pt
+  Stage 2 ckpt  : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_023208/ff_Barack_Obama_20260320_023208_stage2_classifier_best.pt
+  Eval results  : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_023208/ff_Barack_Obama_20260320_023208_eval_results.txt
+============================================================

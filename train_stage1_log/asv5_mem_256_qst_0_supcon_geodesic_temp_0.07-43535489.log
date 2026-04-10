@@ -1,0 +1,118 @@
+Setting up the environment...
+Job started on gl1517.arc-ts.umich.edu at Mon Feb 23 14:04:31 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+ASV5_TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_train/flac
+ASV5_TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5_train_protocol.txt
+ASV5_DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_dev/flac
+ASV5_DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5.dev.metadata.txt
+ASV5_EVAL_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_eval/flac
+ASV5_EVAL_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5.eval.track_1.tsv
+EXPERIMENT NAME: asv5_mem_256_qst_0_supcon_geodesic_temp_0.07
+Using BATCH_SIZE=32
+W0223 14:04:40.101549 3942276 torch/distributed/run.py:774] 
+W0223 14:04:40.101549 3942276 torch/distributed/run.py:774] *****************************************
+W0223 14:04:40.101549 3942276 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0223 14:04:40.101549 3942276 torch/distributed/run.py:774] *****************************************
+[W223 14:04:40.050877954 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29989 (errno: 97 - Address family not supported by protocol).
+[W223 14:04:40.051814879 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29989 (errno: 97 - Address family not supported by protocol).
+[W223 14:04:40.052821659 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29989 (errno: 97 - Address family not supported by protocol).
+[W223 14:04:50.715378391 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29989 (errno: 97 - Address family not supported by protocol).
+[W223 14:04:50.715546077 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29989 (errno: 97 - Address family not supported by protocol).
+[W223 14:04:50.716355637 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29989 (errno: 97 - Address family not supported by protocol).
+[W223 14:04:50.716544774 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29989 (errno: 97 - Address family not supported by protocol).
+[W223 14:04:50.717296682 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29989 (errno: 97 - Address family not supported by protocol).
+[W223 14:04:50.717608845 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29989 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+MODEL_ID=wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_mem_256_qst_0_supcon_geodesic_temp_0.07
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=10
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=50
+BATCH_SIZE=32
+ACCUM_STEPS=1
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.07
+NUM_WORKERS=6
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=1024
+WARMUP_EPOCHS=100
+ALPHA_END=0.9
+ALPHA_RAMP_EPOCHS=20
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.1
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=5
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=True (p=0.1)
+CUDA device count: 2
+[INFO] POOLED TRAIN_DATASETS=['asv19', 'asv5', 'mlaad']
+[INFO] Pooled train samples: bonafide=175375, spoof=340360, total=515735
+[INFO] Train samples loaded: bonafide=175375, spoof=340360
+[DEV SUBSET] ASV5  bonafide=2500 spoof=2500 total=5000
+[DEV SUBSET] ASV19 bonafide=2500 spoof=2500 total=5000
+[INFO] Global batch size=32 | Per-GPU batch size=16
+[INFO] Queue size=256 (per-rank) | starts at epoch 0
+[rank0] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.8552 std=0.1073 min=0.5237 max=0.9783 var_mean=1.325620e-04
+[rank0] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9392 std=0.0462 min=0.7885 max=0.9894 var_mean=2.224921e-04
+[rank0] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9392 std=0.0462 min=0.7885 max=0.9894 var_mean=2.224921e-04
+[rank0] pos_mean=0.9370 neg_mean=0.9412 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9430 sim_std=0.0471 Loss: 3.182333469390869
+[rank1] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.7804 std=0.1715 min=0.4026 max=0.9808 var_mean=2.010474e-04
+[rank1] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.8929 std=0.0936 min=0.6732 max=0.9910 var_mean=3.923680e-04
+[rank1] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.8929 std=0.0936 min=0.6732 max=0.9910 var_mean=3.923681e-04
+[rank1] sim_mean=0.8996 sim_std=0.0943 Loss: 3.6287407875061035
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 3.99928617477417
+[rank1] sim_mean=1.0000 sim_std=0.0001 Loss: 4.007941722869873
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0001 Loss: 3.790935516357422
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 3.7936172485351562
+[rank1] sim_mean=0.9981 sim_std=0.0027 Loss: 2.760214328765869
+[rank0] pos_mean=0.9957 neg_mean=0.9940 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9951 sim_std=0.0076 Loss: 2.752267837524414
+[epoch 001] alpha=0.00 train_loss=3.6117 dev_asv5=3.4245 dev_asv19=3.4245 avg_dev=3.4245
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_mem_256_qst_0_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=3.4245)
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 4.55198860168457
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 4.5517120361328125
+[rank1] sim_mean=0.9999 sim_std=0.0001 Loss: 3.5209944248199463
+[rank0] pos_mean=0.9999 neg_mean=0.9999 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0001 Loss: 3.5299787521362305
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 3.5529069900512695
+[rank0] pos_mean=0.9990 neg_mean=0.9990 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9990 sim_std=0.0025 Loss: 3.7066457271575928
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 3.878643751144409
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 3.877535820007324
+[epoch 002] alpha=0.00 train_loss=3.8623 dev_asv5=3.4247 dev_asv19=3.4245 avg_dev=3.4246
+[rank1] sim_mean=0.9999 sim_std=0.0001 Loss: 3.715235948562622
+[rank0] pos_mean=0.9999 neg_mean=0.9999 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0001 Loss: 3.6997432708740234
+[rank0] pos_mean=0.9997 neg_mean=0.9997 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9997 sim_std=0.0004 Loss: 3.189232587814331
+[rank1] sim_mean=0.9996 sim_std=0.0005 Loss: 3.211754083633423
+[2026-02-24T02:11:54.755] error: *** JOB 43535489 ON gl1517 CANCELLED AT 2026-02-24T02:11:54 DUE to SIGNAL Terminated ***

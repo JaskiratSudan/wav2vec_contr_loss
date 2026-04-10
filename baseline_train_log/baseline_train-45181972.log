@@ -1,0 +1,132 @@
+Setting up the environment...
+Job started on gl1501.arc-ts.umich.edu at Sat Mar 14 18:39:27 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+Starting the Python training script...
+/home/jsudan/wav2vec_contr_loss/baseline_train.py:371: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler()
+Model: facebook/wav2vec2-xls-r-300m
+Device: cuda | AMP=True | RawBoost=True (p=0.7)
+Finetune encoder: True
+pos_weight (neg/pos) = 8.8372
+/home/jsudan/wav2vec_contr_loss/baseline_train.py:200: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+[DEV] acc@0.5=55.99% | acc@eer_thr=92.95% | eer_thr=0.9984
+[epoch 001] train_loss=1.5985 | dev_loss=1.6827 | dev_eer=7.06% | dev_acc=55.99%
+✓ Saved best (EER=7.06%) -> /home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_baseline_bce_best.pt
+[DEV] acc@0.5=93.64% | acc@eer_thr=99.86% | eer_thr=0.9986
+[epoch 002] train_loss=1.0101 | dev_loss=0.1752 | dev_eer=0.15% | dev_acc=93.64%
+✓ Saved best (EER=0.15%) -> /home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_baseline_bce_best.pt
+[DEV] acc@0.5=96.02% | acc@eer_thr=99.77% | eer_thr=1.0000
+[epoch 003] train_loss=0.6876 | dev_loss=0.1613 | dev_eer=0.24% | dev_acc=96.02%
+No EER improvement (1/10) | best=0.15%
+[DEV] acc@0.5=97.46% | acc@eer_thr=99.86% | eer_thr=1.0000
+[epoch 004] train_loss=0.5261 | dev_loss=0.1041 | dev_eer=0.15% | dev_acc=97.46%
+No EER improvement (2/10) | best=0.15%
+[DEV] acc@0.5=93.62% | acc@eer_thr=99.75% | eer_thr=1.0000
+[epoch 005] train_loss=0.7204 | dev_loss=0.3242 | dev_eer=0.25% | dev_acc=93.62%
+No EER improvement (3/10) | best=0.15%
+[DEV] acc@0.5=92.68% | acc@eer_thr=89.74% | eer_thr=1.0000
+[epoch 006] train_loss=0.7340 | dev_loss=0.5424 | dev_eer=0.45% | dev_acc=92.68%
+No EER improvement (4/10) | best=0.15%
+[DEV] acc@0.5=98.15% | acc@eer_thr=89.74% | eer_thr=1.0000
+[epoch 007] train_loss=0.6045 | dev_loss=0.1243 | dev_eer=0.12% | dev_acc=98.15%
+✓ Saved best (EER=0.12%) -> /home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_baseline_bce_best.pt
+[DEV] acc@0.5=99.84% | acc@eer_thr=99.95% | eer_thr=1.0000
+[epoch 008] train_loss=0.7158 | dev_loss=0.0121 | dev_eer=0.04% | dev_acc=99.84%
+✓ Saved best (EER=0.04%) -> /home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_baseline_bce_best.pt
+[DEV] acc@0.5=99.88% | acc@eer_thr=99.97% | eer_thr=1.0000
+[epoch 009] train_loss=0.2815 | dev_loss=0.0078 | dev_eer=0.04% | dev_acc=99.88%
+✓ Saved best (EER=0.04%) -> /home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_baseline_bce_best.pt
+[DEV] acc@0.5=97.70% | acc@eer_thr=89.74% | eer_thr=1.0000
+[epoch 010] train_loss=0.4893 | dev_loss=0.1675 | dev_eer=0.15% | dev_acc=97.70%
+No EER improvement (1/10) | best=0.04%
+[DEV] acc@0.5=99.83% | acc@eer_thr=99.92% | eer_thr=0.9987
+[epoch 011] train_loss=0.2631 | dev_loss=0.0144 | dev_eer=0.08% | dev_acc=99.83%
+No EER improvement (2/10) | best=0.04%
+[DEV] acc@0.5=99.92% | acc@eer_thr=99.98% | eer_thr=0.9985
+[epoch 012] train_loss=0.2960 | dev_loss=0.0036 | dev_eer=0.01% | dev_acc=99.92%
+✓ Saved best (EER=0.01%) -> /home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_baseline_bce_best.pt
+[DEV] acc@0.5=99.96% | acc@eer_thr=99.99% | eer_thr=1.0000
+[epoch 013] train_loss=0.2177 | dev_loss=0.0024 | dev_eer=0.00% | dev_acc=99.96%
+✓ Saved best (EER=0.00%) -> /home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_baseline_bce_best.pt
+[DEV] acc@0.5=100.00% | acc@eer_thr=99.99% | eer_thr=0.5161
+[epoch 014] train_loss=0.3040 | dev_loss=0.0005 | dev_eer=0.00% | dev_acc=100.00%
+No EER improvement (1/10) | best=0.00%
+[DEV] acc@0.5=99.05% | acc@eer_thr=89.74% | eer_thr=1.0000
+[epoch 015] train_loss=0.2487 | dev_loss=0.0788 | dev_eer=0.13% | dev_acc=99.05%
+No EER improvement (2/10) | best=0.00%
+[DEV] acc@0.5=99.96% | acc@eer_thr=99.96% | eer_thr=0.9660
+[epoch 016] train_loss=0.2306 | dev_loss=0.0052 | dev_eer=0.04% | dev_acc=99.96%
+No EER improvement (3/10) | best=0.00%
+[DEV] acc@0.5=100.00% | acc@eer_thr=99.99% | eer_thr=0.6324
+[epoch 017] train_loss=0.7441 | dev_loss=0.0006 | dev_eer=0.00% | dev_acc=100.00%
+No EER improvement (4/10) | best=0.00%
+[DEV] acc@0.5=99.99% | acc@eer_thr=100.00% | eer_thr=0.0029
+[epoch 018] train_loss=0.2100 | dev_loss=0.0037 | dev_eer=0.00% | dev_acc=99.99%
+✓ Saved best (EER=0.00%) -> /home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_baseline_bce_best.pt
+[DEV] acc@0.5=99.64% | acc@eer_thr=99.94% | eer_thr=1.0000
+[epoch 019] train_loss=0.2284 | dev_loss=0.0213 | dev_eer=0.07% | dev_acc=99.64%
+No EER improvement (1/10) | best=0.00%
+[DEV] acc@0.5=99.98% | acc@eer_thr=99.98% | eer_thr=0.8134
+[epoch 020] train_loss=0.1139 | dev_loss=0.0013 | dev_eer=0.01% | dev_acc=99.98%
+No EER improvement (2/10) | best=0.00%
+[DEV] acc@0.5=99.40% | acc@eer_thr=89.74% | eer_thr=1.0000
+[epoch 021] train_loss=0.1997 | dev_loss=0.0322 | dev_eer=0.04% | dev_acc=99.40%
+No EER improvement (3/10) | best=0.00%
+[DEV] acc@0.5=99.59% | acc@eer_thr=99.90% | eer_thr=1.0000
+[epoch 022] train_loss=0.1387 | dev_loss=0.0400 | dev_eer=0.11% | dev_acc=99.59%
+No EER improvement (4/10) | best=0.00%
+[DEV] acc@0.5=99.96% | acc@eer_thr=99.96% | eer_thr=0.0831
+[epoch 023] train_loss=0.1723 | dev_loss=0.0053 | dev_eer=0.04% | dev_acc=99.96%
+No EER improvement (5/10) | best=0.00%
+[DEV] acc@0.5=99.89% | acc@eer_thr=99.94% | eer_thr=0.9517
+[epoch 024] train_loss=0.1399 | dev_loss=0.0073 | dev_eer=0.07% | dev_acc=99.89%
+No EER improvement (6/10) | best=0.00%
+[DEV] acc@0.5=99.98% | acc@eer_thr=99.96% | eer_thr=0.0062
+[epoch 025] train_loss=0.4369 | dev_loss=0.0041 | dev_eer=0.04% | dev_acc=99.98%
+No EER improvement (7/10) | best=0.00%
+[DEV] acc@0.5=99.97% | acc@eer_thr=99.95% | eer_thr=0.0074
+[epoch 026] train_loss=0.0758 | dev_loss=0.0092 | dev_eer=0.04% | dev_acc=99.97%
+No EER improvement (8/10) | best=0.00%
+[DEV] acc@0.5=99.98% | acc@eer_thr=99.98% | eer_thr=0.8391
+[epoch 027] train_loss=0.2169 | dev_loss=0.0015 | dev_eer=0.03% | dev_acc=99.98%
+No EER improvement (9/10) | best=0.00%
+[DEV] acc@0.5=100.00% | acc@eer_thr=100.00% | eer_thr=0.2089
+[epoch 028] train_loss=0.3079 | dev_loss=0.0007 | dev_eer=0.00% | dev_acc=100.00%
+No EER improvement (10/10) | best=0.00%
+[EARLY STOP] Patience reached. Best dev EER = 0.00%
+Best checkpoint: /home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_baseline_bce_best.pt (best EER=0.00%)
+Device: cuda
+[INFO] Scoring dataset 'itw' -> /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 11.653100737287964
+[INFO] Scoring dataset 'asv19' -> /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+EER (asv19): 0.231406218437542
+[INFO] Scoring dataset 'asv21_la' -> /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 7.164424769122157
+[INFO] Scoring dataset 'asv21_df' -> /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 7.609317957623528
+[INFO] Scoring dataset 'asv5' -> /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+EER (asv5): 17.354796408445733
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_ff.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_ff.txt
+[OK] Wrote speaker scores: /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_ff_speaker.csv
+EER (famous_figures): 49.32756814553638
+[INFO] Scoring dataset 'fakexpose' -> /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_fakexpose.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_fakexpose.txt
+EER (fakexpose): 59.922915951432465
+[INFO] Scoring dataset 'mlaad' -> /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_mlaad.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/baseline/facebook/wav2vec2-xls-r-300m/score_cm_mlaad.txt
+EER (mlaad): 9.257202969240788
+----------------------------------------------------------------
+Training script finished.
+Job finished at: Sun Mar 15 10:04:32 EDT 2026

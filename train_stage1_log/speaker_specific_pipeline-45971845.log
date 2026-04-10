@@ -1,0 +1,396 @@
+Setting up the environment...
+Job started on gl1527.arc-ts.umich.edu at Tue Mar 24 00:06:52 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+============================================================
+  Job:          45971845
+  Run ID:       ff_Donald_Trump_20260324_000701
+  Speaker:      Donald_Trump
+  Node:         gl1527.arc-ts.umich.edu
+  GPUs:         5
+  Save dir:     /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701
+  Stage1 ckpt:  /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701/ff_Donald_Trump_20260324_000701_stage1_head_best.pt
+  Stage2 ckpt:  /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701/ff_Donald_Trump_20260324_000701_stage2_classifier_best.pt
+  Eval results: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701/ff_Donald_Trump_20260324_000701_eval_results.txt
+  Splits dir:   /home/jsudan/wav2vec_contr_loss/famous_figures/splits
+  Train proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_train.txt
+  Dev   proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_dev.txt
+  Eval  proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_eval.txt
+============================================================
+
+[STEP 0a] Splitting protocol for speaker: Donald_Trump...
+
+Loading protocol: /nfs/turbo/umd-hafiz/issf_server_data/famousfigures/protocol.txt
+Total rows in protocol: 348,136
+
+============================================================
+  Speaker: Donald_Trump  (11,320 total samples)
+============================================================
+  Source                           bonafide      spoof      total
+  ------------------------------------------------------------
+  -                                    4754          0       4754
+  COZYVOICE2                              0        359        359
+  E2TTS                                   0        500        500
+  F5TTS                                   0        500        500
+  FISHSPEECH                              0        499        499
+  LLASA                                   0        866        866
+  MASKGCT                                 0        655        655
+  SSRSPEECH                               0        252        252
+  STYLETTS2                               0        501        501
+  XTTSV2                                  0        501        501
+  ZONOS                                   0       1933       1933
+  ------------------------------------------------------------
+  TOTAL                                4754       6566      11320
+
+Splitting 11,320 rows -> train=20% / dev=5% / eval=75%
+
+  Source × Label                             total   train     dev    eval
+  ----------------------------------------------------------------------
+  - / bonafide                                4754     950     238    3566
+  COZYVOICE2 / spoof                           359      72      18     269
+  E2TTS / spoof                                500     100      25     375
+  F5TTS / spoof                                500     100      25     375
+  FISHSPEECH / spoof                           499     100      25     374
+  LLASA / spoof                                866     173      43     650
+  MASKGCT / spoof                              655     131      33     491
+  SSRSPEECH / spoof                            252      50      13     189
+  STYLETTS2 / spoof                            501     100      25     376
+  XTTSV2 / spoof                               501     100      25     376
+  ZONOS / spoof                               1933     386      97    1450
+  ----------------------------------------------------------------------
+  TOTAL                                      11320    2262     567    8491
+  %                                                  20.0%    5.0%   75.0%
+
+  Written: /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_train.txt
+           bonafide=950  spoof=1312  total=2262
+  Written: /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_dev.txt
+           bonafide=238  spoof=329  total=567
+  Written: /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_eval.txt
+           bonafide=3566  spoof=4925  total=8491
+
+Done.
+[STEP 0a] Done. Split files written to: /home/jsudan/wav2vec_contr_loss/famous_figures/splits
+
+[STEP 0b] Extracting XLSR features...
+
+Device     : cuda
+Cache dir  : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump
+Checkpoint : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt
+Fake frac  : 1.0 (train only)
+
+Loaded encoder weights from checkpoint (epoch 1)
+
+--- Extracting: train ---
+[INFO] FamousFigures: loaded 2262 samples (subset=all).
+  [train] 160/2262  shards=0  elapsed=6s  eta=83s
+  [train] 320/2262  shards=0  elapsed=9s  eta=53s
+  [train] 480/2262  shards=0  elapsed=11s  eta=42s
+  [train] 640/2262  shards=0  elapsed=14s  eta=34s
+  [train] 800/2262  shards=0  elapsed=16s  eta=29s
+  [train] 960/2262  shards=0  elapsed=18s  eta=25s
+  [train] 1120/2262  shards=1  elapsed=25s  eta=26s
+  [train] 1280/2262  shards=1  elapsed=28s  eta=21s
+  [train] 1440/2262  shards=1  elapsed=30s  eta=17s
+  [train] 1600/2262  shards=1  elapsed=32s  eta=13s
+  [train] 1760/2262  shards=1  elapsed=35s  eta=10s
+  [train] 1920/2262  shards=1  elapsed=37s  eta=7s
+  [train] 2080/2262  shards=2  elapsed=44s  eta=4s
+  [train] 2240/2262  shards=2  elapsed=46s  eta=0s
+  [train] Done — 2262 samples  3 shards  time=48.0s
+  Manifest saved: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_train.pt  (2262 samples, 3 shards)
+
+--- Extracting: dev ---
+[INFO] FamousFigures: loaded 567 samples (subset=all).
+  [dev] 160/567  shards=0  elapsed=4s  eta=11s
+  [dev] 320/567  shards=0  elapsed=7s  eta=5s
+  [dev] 480/567  shards=0  elapsed=9s  eta=2s
+  [dev] Done — 567 samples  1 shards  time=13.2s
+  Manifest saved: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_dev.pt  (567 samples, 1 shards)
+
+--- Extracting: eval ---
+[INFO] FamousFigures: loaded 8491 samples (subset=all).
+  [eval] 160/8491  shards=0  elapsed=4s  eta=234s
+  [eval] 320/8491  shards=0  elapsed=7s  eta=177s
+  [eval] 480/8491  shards=0  elapsed=9s  eta=157s
+  [eval] 640/8491  shards=0  elapsed=12s  eta=145s
+  [eval] 800/8491  shards=0  elapsed=14s  eta=137s
+  [eval] 960/8491  shards=0  elapsed=17s  eta=131s
+  [eval] 1120/8491  shards=1  elapsed=24s  eta=156s
+  [eval] 1280/8491  shards=1  elapsed=26s  eta=147s
+  [eval] 1440/8491  shards=1  elapsed=29s  eta=140s
+  [eval] 1600/8491  shards=1  elapsed=31s  eta=134s
+  [eval] 1760/8491  shards=1  elapsed=34s  eta=128s
+  [eval] 1920/8491  shards=1  elapsed=36s  eta=123s
+  [eval] 2080/8491  shards=2  elapsed=42s  eta=130s
+  [eval] 2240/8491  shards=2  elapsed=45s  eta=125s
+  [eval] 2400/8491  shards=2  elapsed=47s  eta=120s
+  [eval] 2560/8491  shards=2  elapsed=50s  eta=115s
+  [eval] 2720/8491  shards=2  elapsed=52s  eta=111s
+  [eval] 2880/8491  shards=2  elapsed=54s  eta=106s
+  [eval] 3040/8491  shards=3  elapsed=61s  eta=109s
+  [eval] 3200/8491  shards=3  elapsed=63s  eta=104s
+  [eval] 3360/8491  shards=3  elapsed=65s  eta=100s
+  [eval] 3520/8491  shards=3  elapsed=68s  eta=96s
+  [eval] 3680/8491  shards=3  elapsed=70s  eta=92s
+  [eval] 3840/8491  shards=3  elapsed=72s  eta=88s
+  [eval] 4000/8491  shards=4  elapsed=79s  eta=89s
+  [eval] 4160/8491  shards=4  elapsed=81s  eta=85s
+  [eval] 4320/8491  shards=4  elapsed=84s  eta=81s
+  [eval] 4480/8491  shards=4  elapsed=86s  eta=77s
+  [eval] 4640/8491  shards=4  elapsed=88s  eta=73s
+  [eval] 4800/8491  shards=4  elapsed=91s  eta=70s
+  [eval] 4960/8491  shards=4  elapsed=93s  eta=66s
+  [eval] 5120/8491  shards=5  elapsed=100s  eta=66s
+  [eval] 5280/8491  shards=5  elapsed=102s  eta=62s
+  [eval] 5440/8491  shards=5  elapsed=104s  eta=58s
+  [eval] 5600/8491  shards=5  elapsed=107s  eta=55s
+  [eval] 5760/8491  shards=5  elapsed=109s  eta=52s
+  [eval] 5920/8491  shards=5  elapsed=111s  eta=48s
+  [eval] 6080/8491  shards=6  elapsed=118s  eta=47s
+  [eval] 6240/8491  shards=6  elapsed=120s  eta=43s
+  [eval] 6400/8491  shards=6  elapsed=122s  eta=40s
+  [eval] 6560/8491  shards=6  elapsed=125s  eta=37s
+  [eval] 6720/8491  shards=6  elapsed=127s  eta=33s
+  [eval] 6880/8491  shards=6  elapsed=129s  eta=30s
+  [eval] 7040/8491  shards=7  elapsed=136s  eta=28s
+  [eval] 7200/8491  shards=7  elapsed=138s  eta=25s
+  [eval] 7360/8491  shards=7  elapsed=141s  eta=22s
+  [eval] 7520/8491  shards=7  elapsed=143s  eta=18s
+  [eval] 7680/8491  shards=7  elapsed=145s  eta=15s
+  [eval] 7840/8491  shards=7  elapsed=148s  eta=12s
+  [eval] 8000/8491  shards=8  elapsed=154s  eta=9s
+  [eval] 8160/8491  shards=8  elapsed=157s  eta=6s
+  [eval] 8320/8491  shards=8  elapsed=159s  eta=3s
+  [eval] 8480/8491  shards=8  elapsed=161s  eta=0s
+  [eval] Done — 8491 samples  9 shards  time=163.9s
+  Manifest saved: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_eval.pt  (8491 samples, 9 shards)
+
+All splits extracted.
+  train: 2262 samples  3 shards  -> /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/train_shards
+  dev: 567 samples  1 shards  -> /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/dev_shards
+  eval: 8491 samples  9 shards  -> /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/eval_shards
+[STEP 0b] Done. XLSR cache: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump
+
+[STEP 1] Training projection head (Stage 1)...
+
+Device  : cuda
+Cache   : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump
+Config  : batch=512  lr=0.0005  tau=0.07  sim=geodesic  epochs=50
+
+--- Train dataset ---
+Reading labels from 3 shards...
+  2262 samples  bonafide=950  spoof=1312
+
+--- Dev dataset ---
+Reading labels from 1 shards...
+  567 samples  bonafide=238  spoof=329
+
+Loaded head weights from: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt  (epoch 1)
+
+Training for up to 50 epochs  (patience=10)
+
+[epoch 001]  train=6.6783  dev=5.7578  time=3.6s  ✓ saved (dev=5.7578)
+[epoch 002]  train=6.6814  dev=5.7141  time=2.5s  ✓ saved (dev=5.7141)
+[epoch 003]  train=6.7231  dev=5.6718  time=2.4s  ✓ saved (dev=5.6718)
+[epoch 004]  train=6.5502  dev=5.6302  time=2.5s  ✓ saved (dev=5.6302)
+[epoch 005]  train=6.5696  dev=5.5963  time=2.4s  ✓ saved (dev=5.5963)
+[epoch 006]  train=6.5783  dev=5.5645  time=2.5s  ✓ saved (dev=5.5645)
+[epoch 007]  train=6.4675  dev=5.5338  time=2.6s  ✓ saved (dev=5.5338)
+[epoch 008]  train=6.5464  dev=5.5090  time=2.4s  ✓ saved (dev=5.5090)
+[epoch 009]  train=6.4210  dev=5.4837  time=2.4s  ✓ saved (dev=5.4837)
+[epoch 010]  train=6.4182  dev=5.4632  time=2.5s  ✓ saved (dev=5.4632)
+[epoch 011]  train=6.4429  dev=5.4424  time=2.5s  ✓ saved (dev=5.4424)
+[epoch 012]  train=6.3650  dev=5.4236  time=2.5s  ✓ saved (dev=5.4236)
+[epoch 013]  train=6.3377  dev=5.4069  time=2.4s  ✓ saved (dev=5.4069)
+[epoch 014]  train=6.3879  dev=5.3920  time=2.5s  ✓ saved (dev=5.3920)
+[epoch 015]  train=6.3220  dev=5.3779  time=2.4s  ✓ saved (dev=5.3779)
+[epoch 016]  train=6.3635  dev=5.3651  time=2.6s  ✓ saved (dev=5.3651)
+[epoch 017]  train=6.2924  dev=5.3528  time=2.4s  ✓ saved (dev=5.3528)
+[epoch 018]  train=6.3710  dev=5.3425  time=2.4s  ✓ saved (dev=5.3425)
+[epoch 019]  train=6.2975  dev=5.3318  time=2.4s  ✓ saved (dev=5.3318)
+[epoch 020]  train=6.3225  dev=5.3206  time=2.5s  ✓ saved (dev=5.3206)
+[epoch 021]  train=6.3402  dev=5.3110  time=2.4s  ✓ saved (dev=5.3110)
+[epoch 022]  train=6.2540  dev=5.3016  time=2.5s  ✓ saved (dev=5.3016)
+[epoch 023]  train=6.3257  dev=5.2926  time=2.4s  ✓ saved (dev=5.2926)
+[epoch 024]  train=6.2463  dev=5.2834  time=2.4s  ✓ saved (dev=5.2834)
+[epoch 025]  train=6.2231  dev=5.2753  time=2.5s  ✓ saved (dev=5.2753)
+[epoch 026]  train=6.2755  dev=5.2687  time=2.5s  ✓ saved (dev=5.2687)
+[epoch 027]  train=6.2620  dev=5.2615  time=2.5s  ✓ saved (dev=5.2615)
+[epoch 028]  train=6.2104  dev=5.2548  time=2.4s  ✓ saved (dev=5.2548)
+[epoch 029]  train=6.1999  dev=5.2493  time=2.5s  ✓ saved (dev=5.2493)
+[epoch 030]  train=6.1855  dev=5.2431  time=2.4s  ✓ saved (dev=5.2431)
+[epoch 031]  train=6.1963  dev=5.2381  time=2.4s  ✓ saved (dev=5.2381)
+[epoch 032]  train=6.2263  dev=5.2324  time=2.5s  ✓ saved (dev=5.2324)
+[epoch 033]  train=6.2477  dev=5.2276  time=2.4s  ✓ saved (dev=5.2276)
+[epoch 034]  train=6.2431  dev=5.2227  time=2.4s  ✓ saved (dev=5.2227)
+[epoch 035]  train=6.2356  dev=5.2178  time=2.5s  ✓ saved (dev=5.2178)
+[epoch 036]  train=6.1617  dev=5.2128  time=2.4s  ✓ saved (dev=5.2128)
+[epoch 037]  train=6.1660  dev=5.2083  time=2.4s  ✓ saved (dev=5.2083)
+[epoch 038]  train=6.2244  dev=5.2047  time=2.4s  ✓ saved (dev=5.2047)
+[epoch 039]  train=6.2066  dev=5.2008  time=2.5s  ✓ saved (dev=5.2008)
+[epoch 040]  train=6.1556  dev=5.1968  time=2.5s  ✓ saved (dev=5.1968)
+[epoch 041]  train=6.2117  dev=5.1934  time=2.4s  ✓ saved (dev=5.1934)
+[epoch 042]  train=6.1961  dev=5.1900  time=2.5s  ✓ saved (dev=5.1900)
+[epoch 043]  train=6.1340  dev=5.1864  time=2.4s  ✓ saved (dev=5.1864)
+[epoch 044]  train=6.1445  dev=5.1832  time=2.5s  ✓ saved (dev=5.1832)
+[epoch 045]  train=6.1348  dev=5.1802  time=2.4s  ✓ saved (dev=5.1802)
+[epoch 046]  train=6.1284  dev=5.1776  time=2.4s  ✓ saved (dev=5.1776)
+[epoch 047]  train=6.1347  dev=5.1746  time=2.5s  ✓ saved (dev=5.1746)
+[epoch 048]  train=6.1223  dev=5.1719  time=2.4s  ✓ saved (dev=5.1719)
+[epoch 049]  train=6.1235  dev=5.1693  time=2.4s  ✓ saved (dev=5.1693)
+[epoch 050]  train=6.1797  dev=5.1672  time=2.4s  ✓ saved (dev=5.1672)
+
+Best dev loss : 5.1672
+Checkpoint    : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701/ff_Donald_Trump_20260324_000701_stage1_head_best.pt
+[STEP 1] Done. Stage 1 checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701/ff_Donald_Trump_20260324_000701_stage1_head_best.pt
+
+[STEP 2] Extracting projection head embeddings...
+  -> train: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_train.pt -> /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_train.pt
+
+Device     : cuda
+XLSR cache : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_train.pt
+Checkpoint : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701/ff_Donald_Trump_20260324_000701_stage1_head_best.pt
+Out path   : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_train.pt
+
+Loaded head from epoch 50  (dev_loss=5.1672)
+  2262 samples across 3 shards
+
+Extracted 2262 embeddings in 1.6s
+  bonafide=950  spoof=1312
+  embeddings shape: torch.Size([2262, 256])
+Saved to: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_train.pt  (2.4 MB)
+  -> dev: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_dev.pt -> /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_dev.pt
+
+Device     : cuda
+XLSR cache : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_dev.pt
+Checkpoint : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701/ff_Donald_Trump_20260324_000701_stage1_head_best.pt
+Out path   : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_dev.pt
+
+Loaded head from epoch 50  (dev_loss=5.1672)
+  567 samples across 1 shards
+
+Extracted 567 embeddings in 0.6s
+  bonafide=238  spoof=329
+  embeddings shape: torch.Size([567, 256])
+Saved to: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_dev.pt  (0.6 MB)
+  -> eval: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_eval.pt -> /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_eval.pt
+
+Device     : cuda
+XLSR cache : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_eval.pt
+Checkpoint : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701/ff_Donald_Trump_20260324_000701_stage1_head_best.pt
+Out path   : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_eval.pt
+
+Loaded head from epoch 50  (dev_loss=5.1672)
+  8491 samples across 9 shards
+
+Extracted 8491 embeddings in 7.1s
+  bonafide=3566  spoof=4925
+  embeddings shape: torch.Size([8491, 256])
+Saved to: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_eval.pt  (9.1 MB)
+[STEP 2] Done.
+
+[STEP 3] Training classifier head (Stage 2)...
+
+Device: cuda
+Train cache : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_train.pt
+Dev cache   : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_dev.pt
+Save path   : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701/ff_Donald_Trump_20260324_000701_stage2_classifier_best.pt
+
+Train: bonafide=950  spoof=1312  total=2262
+Dev  : bonafide=238  spoof=329  total=567
+
+[epoch 001]  train_loss=0.6978  train_acc=42.0%  dev_loss=0.6982  dev_acc=42.0%  time=0.3s  ✓ saved (dev=0.6982  acc=42.0%)
+[epoch 002]  train_loss=0.6943  train_acc=42.5%  dev_loss=0.6874  dev_acc=58.0%  time=0.2s  ✓ saved (dev=0.6874  acc=58.0%)
+[epoch 003]  train_loss=0.6909  train_acc=58.0%  dev_loss=0.6775  dev_acc=58.0%  time=0.1s  ✓ saved (dev=0.6775  acc=58.0%)
+[epoch 004]  train_loss=0.6888  train_acc=58.0%  dev_loss=0.6682  dev_acc=58.0%  time=0.2s  ✓ saved (dev=0.6682  acc=58.0%)
+[epoch 005]  train_loss=0.6859  train_acc=58.0%  dev_loss=0.6599  dev_acc=58.0%  time=0.1s  ✓ saved (dev=0.6599  acc=58.0%)
+[epoch 006]  train_loss=0.6840  train_acc=58.0%  dev_loss=0.6524  dev_acc=58.0%  time=0.1s  ✓ saved (dev=0.6524  acc=58.0%)
+[epoch 007]  train_loss=0.6829  train_acc=58.0%  dev_loss=0.6458  dev_acc=58.0%  time=0.2s  ✓ saved (dev=0.6458  acc=58.0%)
+[epoch 008]  train_loss=0.6810  train_acc=58.0%  dev_loss=0.6399  dev_acc=58.0%  time=0.1s  ✓ saved (dev=0.6399  acc=58.0%)
+[epoch 009]  train_loss=0.6821  train_acc=58.0%  dev_loss=0.6346  dev_acc=58.0%  time=0.1s  ✓ saved (dev=0.6346  acc=58.0%)
+[epoch 010]  train_loss=0.6819  train_acc=58.0%  dev_loss=0.6306  dev_acc=58.0%  time=0.1s  ✓ saved (dev=0.6306  acc=58.0%)
+
+Best dev loss : 0.6306
+Checkpoint    : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701/ff_Donald_Trump_20260324_000701_stage2_classifier_best.pt
+[STEP 3] Done. Stage 2 checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701/ff_Donald_Trump_20260324_000701_stage2_classifier_best.pt
+
+[STEP 4] Running final evaluation on eval set...
+Device: cuda
+Loading eval embeddings: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_eval.pt
+Loaded 8491 eval samples.
+Loading Stage 2 checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701/ff_Donald_Trump_20260324_000701_stage2_classifier_best.pt
+
+==============================================================
+  Evaluation Results — Donald_Trump
+==============================================================
+
+  Overall EER : 16.26%  (threshold=-0.2624)
+  Total samples: 8491  (bonafide=3566  spoof=4925)
+
+  Score distribution:
+    Bonafide  mean=-0.2612  std=0.0015  min=-0.2678  max=-0.2589
+    Spoof     mean=-0.2643  std=0.0018  min=-0.2683  max=-0.2572
+
+  Per-generator EER:
+  ----------------------------------------------------------
+  Source                          n_bon  n_spo   EER (%)
+  ----------------------------------------------------------
+  -                                3566      0       N/A
+  COZYVOICE2                          0    269       N/A
+  E2TTS                               0    375       N/A
+  F5TTS                               0    375       N/A
+  FISHSPEECH                          0    374       N/A
+  LLASA                               0    650       N/A
+  MASKGCT                             0    491       N/A
+  SSRSPEECH                           0    189       N/A
+  STYLETTS2                           0    376       N/A
+  XTTSV2                              0    376       N/A
+  ZONOS                               0   1450       N/A
+  ----------------------------------------------------------
+  OVERALL                          3566   4925    16.26%
+==============================================================
+
+Results written to: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701/ff_Donald_Trump_20260324_000701_eval_results.txt
+[STEP 4] Done.
+
+==============================================================
+  Evaluation Results — Donald_Trump
+==============================================================
+
+  Overall EER : 16.26%  (threshold=-0.2624)
+  Total samples: 8491  (bonafide=3566  spoof=4925)
+
+  Score distribution:
+    Bonafide  mean=-0.2612  std=0.0015  min=-0.2678  max=-0.2589
+    Spoof     mean=-0.2643  std=0.0018  min=-0.2683  max=-0.2572
+
+  Per-generator EER:
+  ----------------------------------------------------------
+  Source                          n_bon  n_spo   EER (%)
+  ----------------------------------------------------------
+  -                                3566      0       N/A
+  COZYVOICE2                          0    269       N/A
+  E2TTS                               0    375       N/A
+  F5TTS                               0    375       N/A
+  FISHSPEECH                          0    374       N/A
+  LLASA                               0    650       N/A
+  MASKGCT                             0    491       N/A
+  SSRSPEECH                           0    189       N/A
+  STYLETTS2                           0    376       N/A
+  XTTSV2                              0    376       N/A
+  ZONOS                               0   1450       N/A
+  ----------------------------------------------------------
+  OVERALL                          3566   4925    16.26%
+==============================================================
+
+============================================================
+  Pipeline complete.
+  Run ID        : ff_Donald_Trump_20260324_000701
+  Save dir      : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701
+  Stage 1 ckpt  : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701/ff_Donald_Trump_20260324_000701_stage1_head_best.pt
+  Stage 2 ckpt  : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701/ff_Donald_Trump_20260324_000701_stage2_classifier_best.pt
+  Eval results  : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260324_000701/ff_Donald_Trump_20260324_000701_eval_results.txt
+============================================================

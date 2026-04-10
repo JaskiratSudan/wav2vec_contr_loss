@@ -1,0 +1,160 @@
+Setting up the environment...
+Job started on gl1513.arc-ts.umich.edu at Sun Mar  8 18:12:39 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: l_1-12_mem_16384_supcon_temp_0.3
+USE_QUEUE=1
+QUEUE_SIZE=16384
+ACCUM_STEPS=1
+CENTER_BEFORE_NORM=0
+GLOBAL_CENTER=0
+Detected NUM_GPUS=2
+Using BATCH_SIZE=32
+W0308 18:12:46.307666 2998249 torch/distributed/run.py:774] 
+W0308 18:12:46.307666 2998249 torch/distributed/run.py:774] *****************************************
+W0308 18:12:46.307666 2998249 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0308 18:12:46.307666 2998249 torch/distributed/run.py:774] *****************************************
+[W308 18:12:46.258959827 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30119 (errno: 97 - Address family not supported by protocol).
+[W308 18:12:46.260047872 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30119 (errno: 97 - Address family not supported by protocol).
+[W308 18:12:46.261132947 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30119 (errno: 97 - Address family not supported by protocol).
+[W308 18:12:53.681171935 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30119 (errno: 97 - Address family not supported by protocol).
+[W308 18:12:53.681301902 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30119 (errno: 97 - Address family not supported by protocol).
+[W308 18:12:53.682181501 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30119 (errno: 97 - Address family not supported by protocol).
+[W308 18:12:53.682441230 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30119 (errno: 97 - Address family not supported by protocol).
+[W308 18:12:53.683290967 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30119 (errno: 97 - Address family not supported by protocol).
+[W308 18:12:53.683581667 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30119 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+MODEL_ID=wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/l_1-12_mem_16384_supcon_temp_0.3
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=10
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+ACCUM_STEPS=1
+NUM_SAMPLES=None
+HEAD_LR=0.0005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.3
+NUM_WORKERS=4
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=cosine
+TOPK_NEG=1024
+WARMUP_EPOCHS=100
+ALPHA_END=0.9
+ALPHA_RAMP_EPOCHS=20
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=5
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Global batch size=32 | Per-GPU batch size=16
+[Wav2Vec2Encoder] Using transformer layers 1..12 (inclusive) out of 24
+[Wav2Vec2Encoder] Using transformer layers 1..12 (inclusive) out of 24
+[INFO] Queue will start at epoch 6 (warm-start without queue)
+[INFO] Queue size=16384 (per-rank)
+[rank1] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.8738 std=0.0743 min=0.5938 max=0.9690 var_mean=1.155522e-04
+[rank1] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9259 std=0.0429 min=0.7730 max=0.9835 var_mean=2.714696e-04
+[rank1] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9259 std=0.0429 min=0.7730 max=0.9835 var_mean=2.714696e-04
+[rank1] sim_mean=0.9305 sim_std=0.0453 Loss: 2.7177200317382812
+[rank0] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.8271 std=0.1205 min=0.4249 max=0.9608 var_mean=1.583128e-04
+[rank0] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9063 std=0.0613 min=0.6771 max=0.9763 var_mean=3.432007e-04
+[rank0] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9063 std=0.0613 min=0.6771 max=0.9763 var_mean=3.432008e-04
+[rank0] pos_mean=0.9081 neg_mean=0.9047 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9121 sim_std=0.0636 Loss: 2.7170119285583496
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 257, in <module>
+[rank1]:     main()
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 201, in main
+[rank1]:     train_loss, alpha = train_one_epoch(
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/stage1_utils.py", line 283, in train_one_epoch
+[rank1]:     hs = encoder(waveforms, attention_mask=attn)
+[rank1]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+[rank1]:     return self._call_impl(*args, **kwargs)
+[rank1]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+[rank1]:     return forward_call(*args, **kwargs)
+[rank1]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/parallel/distributed.py", line 1644, in forward
+[rank1]:     inputs, kwargs = self._pre_forward(*inputs, **kwargs)
+[rank1]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/parallel/distributed.py", line 1533, in _pre_forward
+[rank1]:     if torch.is_grad_enabled() and self.reducer._rebuild_buckets():
+[rank1]: RuntimeError: Expected to have finished reduction in the prior iteration before starting a new one. This error indicates that your module has parameters that were not used in producing loss. You can enable unused parameter detection by passing the keyword argument `find_unused_parameters=True` to `torch.nn.parallel.DistributedDataParallel`, and by 
+[rank1]: making sure all `forward` function outputs participate in calculating loss. 
+[rank1]: If you already have done the above, then the distributed data parallel module wasn't able to locate the output tensors in the return value of your module's `forward` function. Please include the loss function and the structure of the return value of `forward` of your module when reporting this issue (e.g. list, dict, iterable).
+[rank1]: Parameter indices which did not receive grad for rank 1: 36 37 230 231 232 233 234 235 236 237 238 239 240 241 242 243 244 245 246 247 248 249 250 251 252 253 254 255 256 257 258 259 260 261 262 263 264 265 266 267 268 269 270 271 272 273 274 275 276 277 278 279 280 281 282 283 284 285 286 287 288 289 290 291 292 293 294 295 296 297 298 299 300 301 302 303 304 305 306 307 308 309 310 311 312 313 314 315 316 317 318 319 320 321 322 323 324 325 326 327 ...
+[rank1]:  In addition, you can set the environment variable TORCH_DISTRIBUTED_DEBUG to either INFO or DETAIL to print out information about which particular parameters did not receive gradient on this rank as part of this error
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 257, in <module>
+[rank0]:     main()
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 201, in main
+[rank0]:     train_loss, alpha = train_one_epoch(
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/stage1_utils.py", line 283, in train_one_epoch
+[rank0]:     hs = encoder(waveforms, attention_mask=attn)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/parallel/distributed.py", line 1644, in forward
+[rank0]:     inputs, kwargs = self._pre_forward(*inputs, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/parallel/distributed.py", line 1533, in _pre_forward
+[rank0]:     if torch.is_grad_enabled() and self.reducer._rebuild_buckets():
+[rank0]: RuntimeError: Expected to have finished reduction in the prior iteration before starting a new one. This error indicates that your module has parameters that were not used in producing loss. You can enable unused parameter detection by passing the keyword argument `find_unused_parameters=True` to `torch.nn.parallel.DistributedDataParallel`, and by 
+[rank0]: making sure all `forward` function outputs participate in calculating loss. 
+[rank0]: If you already have done the above, then the distributed data parallel module wasn't able to locate the output tensors in the return value of your module's `forward` function. Please include the loss function and the structure of the return value of `forward` of your module when reporting this issue (e.g. list, dict, iterable).
+[rank0]: Parameter indices which did not receive grad for rank 0: 36 37 230 231 232 233 234 235 236 237 238 239 240 241 242 243 244 245 246 247 248 249 250 251 252 253 254 255 256 257 258 259 260 261 262 263 264 265 266 267 268 269 270 271 272 273 274 275 276 277 278 279 280 281 282 283 284 285 286 287 288 289 290 291 292 293 294 295 296 297 298 299 300 301 302 303 304 305 306 307 308 309 310 311 312 313 314 315 316 317 318 319 320 321 322 323 324 325 326 327 ...
+[rank0]:  In addition, you can set the environment variable TORCH_DISTRIBUTED_DEBUG to either INFO or DETAIL to print out information about which particular parameters did not receive gradient on this rank as part of this error
+[rank0]:[W308 18:13:02.820200700 ProcessGroupNCCL.cpp:1538] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+W0308 18:13:03.680347 2998249 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 2998260 closing signal SIGTERM
+E0308 18:13:03.994700 2998249 torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: 1) local_rank: 1 (pid: 2998261) of binary: /home/jsudan/myenv/bin/python
+Traceback (most recent call last):
+  File "/home/jsudan/myenv/bin/torchrun", line 7, in <module>
+    sys.exit(main())
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 901, in main
+    run(args)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+train_stage1.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-03-08_18:13:03
+  host      : gl1513.arc-ts.umich.edu
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 2998261)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+[ERROR] Stage-1 checkpoint not found: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/l_1-12_mem_16384_supcon_temp_0.3/wav2vec2-xls-r-300m_stage1_head_best.pt

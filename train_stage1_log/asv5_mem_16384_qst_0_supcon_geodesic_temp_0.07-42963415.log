@@ -173,3 +173,22 @@ CUDA device count: 2
 [rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
 [rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 5.628532886505127
 [rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 5.6232194900512695
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 5.482712745666504
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 5.479523658752441
+[rank1] sim_mean=0.9970 sim_std=0.0055 Loss: 3.040508508682251
+[rank0] pos_mean=0.9983 neg_mean=0.9980 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9983 sim_std=0.0027 Loss: 2.991452693939209
+[epoch 007] alpha=0.00 | train_loss=4.1182 | dev_loss=2.7080
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_mem_16384_qst_0_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7080)
+[epoch 007] alpha=0.00 | train_loss=4.1182 | dev_loss=2.7080
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 3.729065179824829
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 3.7327282428741455
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 4.636115074157715
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 4.6335530281066895
+[rank1] sim_mean=1.0000 sim_std=0.0000 Loss: 5.139989852905273
+[rank0] pos_mean=1.0000 neg_mean=1.0000 n_pos=8 n_neg=8
+[rank0] sim_mean=1.0000 sim_std=0.0000 Loss: 5.139751434326172
+[2026-02-21T11:16:38.778] error: *** JOB 42963415 ON gl1514 CANCELLED AT 2026-02-21T11:16:38 DUE to SIGNAL Terminated ***

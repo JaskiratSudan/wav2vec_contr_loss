@@ -1,0 +1,29 @@
+Setting up the environment...
+Job started on gl1517.arc-ts.umich.edu at Sun Mar  1 01:19:57 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_1024_supcon_temp_0.3
+USE_QUEUE=1
+QUEUE_SIZE=16384
+ACCUM_STEPS=1
+CENTER_BEFORE_NORM=0
+GLOBAL_CENTER=0
+Detected NUM_GPUS=1
+Using BATCH_SIZE=32
+Using device: cuda
+Model: facebook/wav2vec2-xls-r-300m
+Checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_1024_supcon_temp_0.3/wav2vec2-xls-r-300m_stage1_head_best.pt
+Saving to: /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/mem_1024_supcon_temp_0.3/facebook__wav2vec2-xls-r-300m
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_itw.py", line 348, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/plot_stage1_umap_itw.py", line 164, in main
+    itw_ds = InTheWildDataset(
+  File "/home/jsudan/wav2vec_contr_loss/data_loader.py", line 836, in __init__
+    raise ValueError(
+ValueError: No label column found in ITW protocol. Columns: Index(['pw'], dtype='object')
+----------------------------------------------------------------
+ASV19 pipeline finished at: Sun Mar  1 01:20:25 EST 2026

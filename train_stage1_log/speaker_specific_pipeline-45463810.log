@@ -1,0 +1,47 @@
+/var/spool/slurmd.spool/job45463810/slurm_script: line 129: conda: command not found
+/var/spool/slurmd.spool/job45463810/slurm_script: line 129: /etc/profile.d/conda.sh: No such file or directory
+/var/spool/slurmd.spool/job45463810/slurm_script: line 130: conda: command not found
+============================================================
+  Job:          45463810
+  Run ID:       ff_Barack_Obama_20260317_213627
+  Speaker:      Barack_Obama
+  Node:         gl1510.arc-ts.umich.edu
+  GPUs:         4
+  Save dir:     /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260317_213627
+  Stage1 ckpt:  /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260317_213627/ff_Barack_Obama_20260317_213627_stage1_head_best.pt
+  Stage2 ckpt:  /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260317_213627/ff_Barack_Obama_20260317_213627_stage2_classifier_best.pt
+  Eval results: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260317_213627/ff_Barack_Obama_20260317_213627_eval_results.txt
+  Train proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_train.txt
+  Dev   proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_dev.txt
+  Eval  proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_eval.txt
+============================================================
+
+[STEP 0] Extracting XLSR features...
+  -> train (fake_frac=0.70)
+usage: extract_xlsr_features.py [-h] [--model_name MODEL_NAME]
+                                [--save_dir SAVE_DIR]
+                                [--supcon_similarity {cosine,geodesic}]
+                                [--uniformity_weight UNIFORMITY_WEIGHT]
+                                [--uniformity_t UNIFORMITY_T]
+                                [--epochs EPOCHS] [--batch_size BATCH_SIZE]
+                                [--accum_steps ACCUM_STEPS]
+                                [--num_samples NUM_SAMPLES]
+                                [--use_ravdess {0,1}]
+                                [--use_commonvoice {0,1}]
+                                [--ravdess_root RAVDESS_ROOT]
+                                [--commonvoice_root COMMONVOICE_ROOT]
+                                [--head_lr HEAD_LR] [--enc_lr ENC_LR]
+                                [--weight_decay WEIGHT_DECAY]
+                                [--temperature TEMPERATURE]
+                                [--max_duration_seconds MAX_DURATION_SECONDS]
+                                [--num_workers NUM_WORKERS]
+                                [--patience PATIENCE] [--seed SEED]
+                                [--topk_neg TOPK_NEG]
+                                [--warmup_epochs WARMUP_EPOCHS]
+                                [--alpha_end ALPHA_END]
+                                [--alpha_ramp_epochs ALPHA_RAMP_EPOCHS]
+                                [--use_rawboost {0,1}]
+                                [--rawboost_prob RAWBOOST_PROB]
+                                [--finetune_encoder {0,1}]
+extract_xlsr_features.py: error: argument --max_duration_seconds: invalid int value: '10.0'
+ERROR: XLSR extraction failed (train).

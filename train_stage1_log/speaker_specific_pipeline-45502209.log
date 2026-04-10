@@ -1,0 +1,43 @@
+Setting up the environment...
+Job started on gl1508.arc-ts.umich.edu at Wed Mar 18 01:03:19 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+============================================================
+  Job:          45502209
+  Run ID:       ff_Barack_Obama_20260318_010324
+  Speaker:      Barack_Obama
+  Node:         gl1508.arc-ts.umich.edu
+  GPUs:         3
+  Save dir:     /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260318_010324
+  Stage1 ckpt:  /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260318_010324/ff_Barack_Obama_20260318_010324_stage1_head_best.pt
+  Stage2 ckpt:  /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260318_010324/ff_Barack_Obama_20260318_010324_stage2_classifier_best.pt
+  Eval results: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260318_010324/ff_Barack_Obama_20260318_010324_eval_results.txt
+  Train proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_train.txt
+  Dev   proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_dev.txt
+  Eval  proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_eval.txt
+============================================================
+
+[STEP 0] Extracting XLSR features...
+
+Device: cuda
+Cache root: /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama
+Checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt
+
+Loaded encoder weights from checkpoint (epoch 1)
+
+--- Extracting: train ---
+[INFO] FamousFigures: loaded 117454 samples (subset=all).
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_xlsr_features.py", line 227, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_xlsr_features.py", line 211, in main
+    extract_split(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/extract_xlsr_features.py", line 124, in extract_split
+    hidden = hidden.permute(0, 2, 1).cpu()     # → (B, 1024, T)  to match head input
+RuntimeError: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 4 is not equal to len(dims) = 3
+ERROR: XLSR extraction failed.

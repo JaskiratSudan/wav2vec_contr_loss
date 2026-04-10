@@ -1,0 +1,58 @@
+Setting up the environment...
+Job started on gl1504.arc-ts.umich.edu at Thu Mar 19 20:18:01 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+============================================================
+  Job:          45649860
+  Run ID:       ff_Barack_Obama_20260319_201808
+  Speaker:      Barack_Obama
+  Node:         gl1504.arc-ts.umich.edu
+  GPUs:         5
+  Save dir:     /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260319_201808
+  Stage1 ckpt:  /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260319_201808/ff_Barack_Obama_20260319_201808_stage1_head_best.pt
+  Stage2 ckpt:  /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260319_201808/ff_Barack_Obama_20260319_201808_stage2_classifier_best.pt
+  Eval results: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260319_201808/ff_Barack_Obama_20260319_201808_eval_results.txt
+  Train proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_train.txt
+  Dev   proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_dev.txt
+  Eval  proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_eval.txt
+============================================================
+
+[STEP 0] Extracting XLSR features...
+
+Device     : cuda
+Cache dir  : /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama
+Checkpoint : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt
+Fake frac  : 0.7 (train only)
+
+Loaded encoder weights from checkpoint (epoch 1)
+
+--- Extracting: train ---
+[INFO] FamousFigures: loaded 117454 samples (subset=all).
+  Applying 70% per-generator fake sampling...
+  Before: bonafide=15055  spoof=102399  total=117454
+  [sampling] COZYVOICE2                     total= 15050  kept= 10535
+  [sampling] E2TTS                          total=  9609  kept=  6726
+  [sampling] F5TTS                          total=  9147  kept=  6403
+  [sampling] FISHSPEECH                     total=   662  kept=   463
+  [sampling] LLASA                          total=  1438  kept=  1007
+  [sampling] MASKGCT                        total=  5646  kept=  3952
+  [sampling] PARLER                         total= 15050  kept= 10535
+  [sampling] SSRSPEECH                      total=   647  kept=   453
+  [sampling] STYLETTS2                      total= 15050  kept= 10535
+  [sampling] XTTSV2                         total= 15050  kept= 10535
+  [sampling] ZONOS                          total= 15050  kept= 10535
+  After:  bonafide=15055  spoof=71679  total=86734
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_xlsr_features.py", line 302, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_xlsr_features.py", line 277, in main
+    cache = extract_split(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/jsudan/wav2vec_contr_loss/extract_xlsr_features.py", line 138, in extract_split
+    shard_dir     = cache_dir / f"{split_name}_shards"
+NameError: name 'cache_dir' is not defined
+ERROR: XLSR extraction failed.

@@ -1,0 +1,43 @@
+Setting up the environment...
+Job started on gl1503.arc-ts.umich.edu at Fri Mar 20 02:23:11 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+============================================================
+  Job:          45657270
+  Run ID:       ff_Barack_Obama_20260320_022320
+  Speaker:      Barack_Obama
+  Node:         gl1503.arc-ts.umich.edu
+  GPUs:         7
+  Save dir:     /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_022320
+  Stage1 ckpt:  /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_022320/ff_Barack_Obama_20260320_022320_stage1_head_best.pt
+  Stage2 ckpt:  /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_022320/ff_Barack_Obama_20260320_022320_stage2_classifier_best.pt
+  Eval results: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_022320/ff_Barack_Obama_20260320_022320_eval_results.txt
+  Train proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_train.txt
+  Dev   proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_dev.txt
+  Eval  proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_eval.txt
+============================================================
+
+[STEP 2] Extracting projection head embeddings...
+  -> train: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/xlsr_train.pt -> /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/head_emb_train.pt
+
+Device     : cuda
+XLSR cache : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/xlsr_train.pt
+Checkpoint : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_022320/ff_Barack_Obama_20260320_022320_stage1_head_best.pt
+Out path   : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/head_emb_train.pt
+
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_head_embeddings.py", line 181, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_head_embeddings.py", line 112, in main
+    ckpt = torch.load(args.ckpt, map_location=device)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 1484, in load
+    with _open_file_like(f, "rb") as opened_file:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 759, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/serialization.py", line 740, in __init__
+    super().__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_022320/ff_Barack_Obama_20260320_022320_stage1_head_best.pt'
+ERROR: Head embedding extraction failed (train).

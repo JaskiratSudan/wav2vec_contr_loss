@@ -1,0 +1,57 @@
+Setting up the environment...
+Job started on gl1508.arc-ts.umich.edu at Fri Mar 20 01:11:50 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+============================================================
+  Job:          45656330
+  Run ID:       ff_Barack_Obama_20260320_011157
+  Speaker:      Barack_Obama
+  Node:         gl1508.arc-ts.umich.edu
+  GPUs:         3
+  Save dir:     /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_011157
+  Stage1 ckpt:  /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_011157/ff_Barack_Obama_20260320_011157_stage1_head_best.pt
+  Stage2 ckpt:  /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_011157/ff_Barack_Obama_20260320_011157_stage2_classifier_best.pt
+  Eval results: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_011157/ff_Barack_Obama_20260320_011157_eval_results.txt
+  Train proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_train.txt
+  Dev   proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_dev.txt
+  Eval  proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_eval.txt
+============================================================
+
+[STEP 1] Training projection head (Stage 1)...
+
+Device  : cuda
+Cache   : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama
+Config  : batch=512  lr=0.0005  tau=0.07  sim=geodesic  epochs=50
+
+--- Train dataset ---
+Reading labels from 83 shards...
+  82217 samples  bonafide=10538  spoof=71679
+
+--- Dev dataset ---
+Reading labels from 17 shards...
+  16780 samples  bonafide=2151  spoof=14629
+
+Loaded head weights from: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt  (epoch 1)
+
+Training for up to 50 epochs  (patience=10)
+
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/train_stage1_cached.py", line 278, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/train_stage1_cached.py", line 239, in main
+    train_loss = run_one_epoch(head, loss_fn, train_loader, optimizer, device, train=True)
+  File "/home/jsudan/wav2vec_contr_loss/train_stage1_cached.py", line 123, in run_one_epoch
+    for features, labels, *_ in loader:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 734, in __next__
+    data = self._next_data()
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 790, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 43, in fetch
+    return self.collate_fn(data)
+  File "/home/jsudan/wav2vec_contr_loss/train_stage1_cached.py", line 108, in collate_fn
+    padded[i, :, :f.shape[1]] = f
+RuntimeError: The expanded size of the tensor (1024) must match the existing size (249) at non-singleton dimension 0.  Target sizes: [1024, 1024].  Tensor sizes: [249, 1024]
+ERROR: Stage 1 training failed.

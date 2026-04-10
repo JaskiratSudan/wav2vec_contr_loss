@@ -1,0 +1,232 @@
+Setting up the environment...
+Job started on gl1523.arc-ts.umich.edu at Fri Mar  6 18:10:48 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+NVIDIA A40
+NVIDIA A40
+NVIDIA A40
+NVIDIA A40
+NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+EXPERIMENT NAME: mem_16384_batch_256_supcon_temp_0.3
+USE_QUEUE=1
+QUEUE_SIZE=16384
+ACCUM_STEPS=1
+CENTER_BEFORE_NORM=0
+GLOBAL_CENTER=0
+Detected NUM_GPUS=8
+Using BATCH_SIZE=256
+W0306 18:11:02.559283 244695 torch/distributed/run.py:774] 
+W0306 18:11:02.559283 244695 torch/distributed/run.py:774] *****************************************
+W0306 18:11:02.559283 244695 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0306 18:11:02.559283 244695 torch/distributed/run.py:774] *****************************************
+[W306 18:11:02.445728225 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:02.446638158 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:02.447662174 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.536806915 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.536824271 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.537876056 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.537945776 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.538440155 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.538478806 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.538639718 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.538894748 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.538979541 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.539517558 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.539620745 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.539769931 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.540448488 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.540526207 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.540642068 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.540673957 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.540791237 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.541393015 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.541434326 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.541622166 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.542368711 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.542406570 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.542586443 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[W306 18:11:18.543303626 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29789 (errno: 97 - Address family not supported by protocol).
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+MODEL_ID=wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_16384_batch_256_supcon_temp_0.3
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=10
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=256
+ACCUM_STEPS=1
+NUM_SAMPLES=None
+HEAD_LR=0.0005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.3
+NUM_WORKERS=4
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=cosine
+TOPK_NEG=1024
+WARMUP_EPOCHS=100
+ALPHA_END=0.9
+ALPHA_RAMP_EPOCHS=20
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=5
+DISTRIBUTED=True | WORLD_SIZE=8 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 8
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Global batch size=256 | Per-GPU batch size=32
+[INFO] Queue will start at epoch 6 (warm-start without queue)
+[INFO] Queue size=16384 (per-rank)
+[rank5] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.9079 std=0.0512 min=0.6586 max=0.9774 var_mean=8.708437e-05
+[rank5] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9518 std=0.0280 min=0.8221 max=0.9874 var_mean=1.824969e-04
+[rank5] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9518 std=0.0280 min=0.8221 max=0.9874 var_mean=1.824969e-04
+[rank5] sim_mean=0.9533 sim_std=0.0288 Loss: 3.4366228580474854
+[rank2] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.9082 std=0.0517 min=0.6851 max=0.9815 var_mean=8.683636e-05
+[rank2] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9536 std=0.0268 min=0.8300 max=0.9893 var_mean=1.757050e-04
+[rank2] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9536 std=0.0268 min=0.8300 max=0.9893 var_mean=1.757051e-04
+[rank2] sim_mean=0.9550 sim_std=0.0276 Loss: 3.4302358627319336
+[rank1] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.9087 std=0.0482 min=0.6805 max=0.9784 var_mean=8.637254e-05
+[rank1] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9520 std=0.0268 min=0.8146 max=0.9868 var_mean=1.815454e-04
+[rank1] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9520 std=0.0268 min=0.8146 max=0.9868 var_mean=1.815454e-04
+[rank1] sim_mean=0.9535 sim_std=0.0277 Loss: 3.4326024055480957
+[rank0] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.9023 std=0.0649 min=0.6019 max=0.9811 var_mean=9.246559e-05
+[rank0] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9492 std=0.0329 min=0.7868 max=0.9905 var_mean=1.922867e-04
+[rank0] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9492 std=0.0329 min=0.7868 max=0.9905 var_mean=1.922867e-04
+[rank0] pos_mean=0.9490 neg_mean=0.9493 n_pos=16 n_neg=16
+[rank0] sim_mean=0.9508 sim_std=0.0336 Loss: 3.438744306564331
+[rank3] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.8980 std=0.0634 min=0.6373 max=0.9674 var_mean=9.648956e-05
+[rank3] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9490 std=0.0303 min=0.8015 max=0.9855 var_mean=1.929450e-04
+[rank3] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9490 std=0.0303 min=0.8015 max=0.9855 var_mean=1.929450e-04
+[rank3] sim_mean=0.9506 sim_std=0.0311 Loss: 3.437401294708252
+[rank6] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.8855 std=0.0720 min=0.5706 max=0.9789 var_mean=1.083029e-04
+[rank6] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9384 std=0.0410 min=0.7311 max=0.9896 var_mean=2.330474e-04
+[rank6] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9384 std=0.0410 min=0.7311 max=0.9896 var_mean=2.330474e-04
+[rank6] sim_mean=0.9403 sim_std=0.0418 Loss: 3.4410204887390137
+[rank4] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.8916 std=0.0660 min=0.5683 max=0.9653 var_mean=1.025731e-04
+[rank4] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9445 std=0.0331 min=0.7926 max=0.9837 var_mean=2.099985e-04
+[rank4] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9445 std=0.0331 min=0.7926 max=0.9837 var_mean=2.099985e-04
+[rank4] sim_mean=0.9462 sim_std=0.0340 Loss: 3.4404067993164062
+[rank7] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.8935 std=0.0634 min=0.5793 max=0.9599 var_mean=1.007976e-04
+[rank7] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9447 std=0.0315 min=0.7838 max=0.9815 var_mean=2.093294e-04
+[rank7] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9447 std=0.0315 min=0.7838 max=0.9815 var_mean=2.093294e-04
+[rank7] sim_mean=0.9464 sim_std=0.0324 Loss: 3.4360456466674805
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 257, in <module>
+[rank0]:     main()
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 201, in main
+[rank0]:     train_loss, alpha = train_one_epoch(
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/stage1_utils.py", line 283, in train_one_epoch
+[rank0]:     hs = encoder(waveforms, attention_mask=attn)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/parallel/distributed.py", line 1648, in forward
+[rank0]:     else self._run_ddp_forward(*inputs, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/parallel/distributed.py", line 1474, in _run_ddp_forward
+[rank0]:     return self.module(*inputs, **kwargs)  # type: ignore[index]
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/encoder.py", line 57, in forward
+[rank0]:     out = self.model(
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1467, in forward
+[rank0]:     encoder_outputs = self.encoder(
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 831, in forward
+[rank0]:     layer_outputs = layer(
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/modeling_layers.py", line 93, in __call__
+[rank0]:     return super().__call__(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 674, in forward
+[rank0]:     hidden_states = hidden_states + self.feed_forward(self.final_layer_norm(hidden_states))
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 597, in forward
+[rank0]:     hidden_states = self.intermediate_act_fn(hidden_states)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/jsudan/myenv/lib/python3.9/site-packages/transformers/activations.py", line 69, in forward
+[rank0]:     return self.act(input)
+[rank0]: torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 250.00 MiB. GPU 0 has a total capacity of 44.42 GiB of which 25.75 MiB is free. Including non-PyTorch memory, this process has 44.39 GiB memory in use. Of the allocated memory 42.31 GiB is allocated by PyTorch, and 1.63 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[rank0]:[W306 18:11:57.810026139 ProcessGroupNCCL.cpp:1538] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+W0306 18:12:00.126640 244695 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 244709 closing signal SIGTERM
+W0306 18:12:00.128201 244695 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 244710 closing signal SIGTERM
+W0306 18:12:00.128447 244695 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 244711 closing signal SIGTERM
+W0306 18:12:00.128630 244695 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 244712 closing signal SIGTERM
+W0306 18:12:00.128822 244695 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 244713 closing signal SIGTERM
+W0306 18:12:00.129000 244695 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 244714 closing signal SIGTERM
+W0306 18:12:00.129177 244695 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 244715 closing signal SIGTERM
+E0306 18:12:01.846053 244695 torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: 1) local_rank: 0 (pid: 244708) of binary: /home/jsudan/myenv/bin/python
+Traceback (most recent call last):
+  File "/home/jsudan/myenv/bin/torchrun", line 7, in <module>
+    sys.exit(main())
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 901, in main
+    run(args)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+train_stage1.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-03-06_18:12:00
+  host      : gl1523.arc-ts.umich.edu
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 244708)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+[ERROR] Stage-1 checkpoint not found: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/mem_16384_batch_256_supcon_temp_0.3/wav2vec2-xls-r-300m_stage1_head_best.pt

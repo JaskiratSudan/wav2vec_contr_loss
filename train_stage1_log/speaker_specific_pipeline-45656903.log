@@ -1,0 +1,75 @@
+Setting up the environment...
+Job started on gl1524.arc-ts.umich.edu at Fri Mar 20 01:36:48 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+============================================================
+  Job:          45656903
+  Run ID:       ff_Barack_Obama_20260320_013654
+  Speaker:      Barack_Obama
+  Node:         gl1524.arc-ts.umich.edu
+  GPUs:         2
+  Save dir:     /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_013654
+  Stage1 ckpt:  /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_013654/ff_Barack_Obama_20260320_013654_stage1_head_best.pt
+  Stage2 ckpt:  /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_013654/ff_Barack_Obama_20260320_013654_stage2_classifier_best.pt
+  Eval results: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_013654/ff_Barack_Obama_20260320_013654_eval_results.txt
+  Train proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_train.txt
+  Dev   proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_dev.txt
+  Eval  proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_eval.txt
+============================================================
+
+[STEP 1] Training projection head (Stage 1)...
+
+Device  : cuda
+Cache   : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama
+Config  : batch=512  lr=0.0005  tau=0.07  sim=geodesic  epochs=50
+
+--- Train dataset ---
+Reading labels from 83 shards...
+  82217 samples  bonafide=10538  spoof=71679
+
+--- Dev dataset ---
+Reading labels from 17 shards...
+  16780 samples  bonafide=2151  spoof=14629
+
+Loaded head weights from: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt  (epoch 1)
+
+Training for up to 50 epochs  (patience=10)
+
+[epoch 001]  train=6.6462  dev=6.3450  time=129.0s  ✓ saved (dev=6.3450)
+[epoch 002]  train=6.3536  dev=6.2837  time=123.4s  ✓ saved (dev=6.2837)
+[epoch 003]  train=6.2760  dev=6.2611  time=116.0s  ✓ saved (dev=6.2611)
+[epoch 004]  train=6.2370  dev=6.2504  time=115.7s  ✓ saved (dev=6.2504)
+[epoch 005]  train=6.2114  dev=6.2448  time=114.7s  ✓ saved (dev=6.2448)
+[epoch 006]  train=6.1913  dev=6.2418  time=116.2s  ✓ saved (dev=6.2418)
+[epoch 007]  train=6.1741  dev=6.2407  time=115.9s  ✓ saved (dev=6.2407)
+[epoch 008]  train=6.1583  dev=6.2413  time=115.7s  (no improve 1/10)
+[epoch 009]  train=6.1427  dev=6.2431  time=115.4s  (no improve 2/10)
+[epoch 010]  train=6.1257  dev=6.2472  time=114.6s  (no improve 3/10)
+[epoch 011]  train=6.1057  dev=6.2545  time=115.3s  (no improve 4/10)
+[epoch 012]  train=6.0811  dev=6.2629  time=117.6s  (no improve 5/10)
+[epoch 013]  train=6.0515  dev=6.2689  time=114.4s  (no improve 6/10)
+[epoch 014]  train=6.0206  dev=6.2754  time=116.3s  (no improve 7/10)
+[epoch 015]  train=5.9974  dev=6.2722  time=114.1s  (no improve 8/10)
+[epoch 016]  train=5.9836  dev=6.2706  time=113.0s  (no improve 9/10)
+[epoch 017]  train=5.9741  dev=6.2722  time=113.3s  (no improve 10/10)
+
+Early stopping at epoch 17.
+
+Best dev loss : 6.2407
+Checkpoint    : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_013654/stage1_cached_head_best.pt
+[STEP 1] Done. Stage 1 checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260320_013654/ff_Barack_Obama_20260320_013654_stage1_head_best.pt
+
+[STEP 2] Extracting projection head embeddings...
+  -> train: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/xlsr_train.pt -> /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Barack_Obama/head_emb_train.pt
+
+Device     : cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_head_embeddings.py", line 177, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_head_embeddings.py", line 100, in main
+    print(f"XLSR dir   : {args.xlsr_dir}")
+AttributeError: 'Namespace' object has no attribute 'xlsr_dir'
+ERROR: Head embedding extraction failed (train).

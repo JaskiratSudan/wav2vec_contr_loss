@@ -1,0 +1,576 @@
+Setting up the environment...
+Job started on gl1500.arc-ts.umich.edu at Thu Apr  9 10:57:40 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+============================================================
+  Job:           47116984
+  Run ID:        ff_Donald_Trump_20260409_105749
+  Speaker:       Donald_Trump
+  ITW speaker:   Donald Trump
+  Node:          gl1500.arc-ts.umich.edu
+  GPUs:          0
+  Save dir:      /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749
+  Stage1 ckpt:   /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_stage1_head_best.pt
+  Stage2 ckpt:   /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_stage2_classifier_best.pt
+  Eval results:  /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_eval_results.txt
+  FF Train:      /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_train.txt
+  FF Dev:        /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_dev.txt
+  FF Eval:       /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_eval.txt
+  ITW filtered:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_itw.txt
+============================================================
+
+[STEP 0a] Splitting FamousFigures protocol for speaker: Donald_Trump...
+
+Loading protocol: /nfs/turbo/umd-hafiz/issf_server_data/famousfigures/protocol.txt
+Total rows in protocol: 348,136
+
+============================================================
+  Speaker: Donald_Trump  (11,320 total samples)
+============================================================
+  Source                           bonafide      spoof      total
+  ------------------------------------------------------------
+  -                                    4754          0       4754
+  COZYVOICE2                              0        359        359
+  E2TTS                                   0        500        500
+  F5TTS                                   0        500        500
+  FISHSPEECH                              0        499        499
+  LLASA                                   0        866        866
+  MASKGCT                                 0        655        655
+  SSRSPEECH                               0        252        252
+  STYLETTS2                               0        501        501
+  XTTSV2                                  0        501        501
+  ZONOS                                   0       1933       1933
+  ------------------------------------------------------------
+  TOTAL                                4754       6566      11320
+
+Splitting 11,320 rows -> train=70% / dev=10% / eval=20%
+
+  Source × Label                             total   train     dev    eval
+  ----------------------------------------------------------------------
+  - / bonafide                                4754    3328     475     951
+  COZYVOICE2 / spoof                           359     251      36      72
+  E2TTS / spoof                                500     350      50     100
+  F5TTS / spoof                                500     350      50     100
+  FISHSPEECH / spoof                           499     349      50     100
+  LLASA / spoof                                866     606      87     173
+  MASKGCT / spoof                              655     458      66     131
+  SSRSPEECH / spoof                            252     177      25      50
+  STYLETTS2 / spoof                            501     351      50     100
+  XTTSV2 / spoof                               501     351      50     100
+  ZONOS / spoof                               1933    1353     193     387
+  ----------------------------------------------------------------------
+  TOTAL                                      11320    7924    1132    2264
+  %                                                  70.0%   10.0%   20.0%
+
+  Written: /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_train.txt
+           bonafide=3328  spoof=4596  total=7924
+  Written: /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_dev.txt
+           bonafide=475  spoof=657  total=1132
+  Written: /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_eval.txt
+           bonafide=951  spoof=1313  total=2264
+
+Done.
+[STEP 0a] Done.
+
+[STEP 0b] Filtering ITW protocol for speaker: Donald Trump...
+Speaker : Donald Trump
+Bonafide: 3268
+Spoof   : 155
+Total   : 3423
+Written : /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_itw.txt
+[STEP 0b] Done. ITW protocol: /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_itw.txt
+
+[STEP 0c] Extracting XLSR features...
+
+Device     : cuda
+Cache dir  : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump
+Checkpoint : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt
+Fake frac  : 1.0 (train only)
+
+Loaded encoder weights from checkpoint (epoch 1)
+
+--- Skipping train (already exists: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_train.pt) ---
+
+--- Skipping dev (already exists: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_dev.pt) ---
+
+--- Skipping eval (already exists: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_eval.pt) ---
+
+All splits extracted.
+  train: 2262 samples  3 shards  -> /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/train_shards
+  dev: 567 samples  1 shards  -> /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/dev_shards
+  eval: 8491 samples  9 shards  -> /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/eval_shards
+[STEP 0c] Done. XLSR cache: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump
+
+[STEP 1] Training projection head (Stage 1)...
+
+Device  : cuda
+Cache   : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump
+Config  : batch=256  lr=0.0005  tau=0.07  sim=geodesic  epochs=200
+
+--- Train dataset ---
+Reading labels from 3 shards...
+  2262 samples  bonafide=950  spoof=1312
+
+--- Dev dataset ---
+Reading labels from 1 shards...
+  567 samples  bonafide=238  spoof=329
+
+Loaded head weights from: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt  (epoch 1)
+
+Training for up to 200 epochs  (patience=10)
+
+[epoch 001]  train=6.2150  dev=5.7060  time=6.5s  ✓ saved (dev=5.7060)
+[epoch 002]  train=6.1340  dev=5.6424  time=3.4s  ✓ saved (dev=5.6424)
+[epoch 003]  train=6.0685  dev=5.5826  time=3.3s  ✓ saved (dev=5.5826)
+[epoch 004]  train=6.0188  dev=5.5230  time=3.3s  ✓ saved (dev=5.5230)
+[epoch 005]  train=5.9707  dev=5.4821  time=3.2s  ✓ saved (dev=5.4821)
+[epoch 006]  train=5.9288  dev=5.4446  time=3.5s  ✓ saved (dev=5.4446)
+[epoch 007]  train=5.9003  dev=5.4071  time=3.4s  ✓ saved (dev=5.4071)
+[epoch 008]  train=5.8644  dev=5.3815  time=3.2s  ✓ saved (dev=5.3815)
+[epoch 009]  train=5.8426  dev=5.3527  time=3.4s  ✓ saved (dev=5.3527)
+[epoch 010]  train=5.8169  dev=5.3327  time=3.2s  ✓ saved (dev=5.3327)
+[epoch 011]  train=5.7856  dev=5.3108  time=3.4s  ✓ saved (dev=5.3108)
+[epoch 012]  train=5.7766  dev=5.2921  time=3.3s  ✓ saved (dev=5.2921)
+[epoch 013]  train=5.7593  dev=5.2757  time=3.4s  ✓ saved (dev=5.2757)
+[epoch 014]  train=5.7345  dev=5.2617  time=3.3s  ✓ saved (dev=5.2617)
+[epoch 015]  train=5.7330  dev=5.2484  time=3.2s  ✓ saved (dev=5.2484)
+[epoch 016]  train=5.7112  dev=5.2366  time=3.4s  ✓ saved (dev=5.2366)
+[epoch 017]  train=5.7098  dev=5.2252  time=3.2s  ✓ saved (dev=5.2252)
+[epoch 018]  train=5.6991  dev=5.2170  time=3.6s  ✓ saved (dev=5.2170)
+[epoch 019]  train=5.6951  dev=5.2078  time=3.2s  ✓ saved (dev=5.2078)
+[epoch 020]  train=5.6746  dev=5.1975  time=3.2s  ✓ saved (dev=5.1975)
+[epoch 021]  train=5.6762  dev=5.1901  time=2.9s  ✓ saved (dev=5.1901)
+[epoch 022]  train=5.6718  dev=5.1824  time=3.1s  ✓ saved (dev=5.1824)
+[epoch 023]  train=5.6654  dev=5.1753  time=3.3s  ✓ saved (dev=5.1753)
+[epoch 024]  train=5.6569  dev=5.1671  time=3.3s  ✓ saved (dev=5.1671)
+[epoch 025]  train=5.6477  dev=5.1602  time=3.4s  ✓ saved (dev=5.1602)
+[epoch 026]  train=5.6372  dev=5.1552  time=3.4s  ✓ saved (dev=5.1552)
+[epoch 027]  train=5.6274  dev=5.1491  time=3.3s  ✓ saved (dev=5.1491)
+[epoch 028]  train=5.6328  dev=5.1436  time=3.4s  ✓ saved (dev=5.1436)
+[epoch 029]  train=5.6258  dev=5.1395  time=3.3s  ✓ saved (dev=5.1395)
+[epoch 030]  train=5.6198  dev=5.1342  time=3.5s  ✓ saved (dev=5.1342)
+[epoch 031]  train=5.6181  dev=5.1305  time=3.2s  ✓ saved (dev=5.1305)
+[epoch 032]  train=5.5994  dev=5.1258  time=3.1s  ✓ saved (dev=5.1258)
+[epoch 033]  train=5.6093  dev=5.1225  time=3.3s  ✓ saved (dev=5.1225)
+[epoch 034]  train=5.6066  dev=5.1189  time=3.2s  ✓ saved (dev=5.1189)
+[epoch 035]  train=5.6030  dev=5.1153  time=3.3s  ✓ saved (dev=5.1153)
+[epoch 036]  train=5.5976  dev=5.1111  time=3.2s  ✓ saved (dev=5.1111)
+[epoch 037]  train=5.5968  dev=5.1076  time=3.3s  ✓ saved (dev=5.1076)
+[epoch 038]  train=5.5931  dev=5.1051  time=3.4s  ✓ saved (dev=5.1051)
+[epoch 039]  train=5.5897  dev=5.1023  time=3.4s  ✓ saved (dev=5.1023)
+[epoch 040]  train=5.5874  dev=5.0990  time=3.3s  ✓ saved (dev=5.0990)
+[epoch 041]  train=5.5844  dev=5.0967  time=3.7s  ✓ saved (dev=5.0967)
+[epoch 042]  train=5.5822  dev=5.0942  time=4.0s  ✓ saved (dev=5.0942)
+[epoch 043]  train=5.5781  dev=5.0912  time=3.3s  ✓ saved (dev=5.0912)
+[epoch 044]  train=5.5788  dev=5.0887  time=3.4s  ✓ saved (dev=5.0887)
+[epoch 045]  train=5.5764  dev=5.0864  time=3.3s  ✓ saved (dev=5.0864)
+[epoch 046]  train=5.5726  dev=5.0846  time=3.2s  ✓ saved (dev=5.0846)
+[epoch 047]  train=5.5708  dev=5.0823  time=3.3s  ✓ saved (dev=5.0823)
+[epoch 048]  train=5.5654  dev=5.0802  time=3.2s  ✓ saved (dev=5.0802)
+[epoch 049]  train=5.5671  dev=5.0782  time=3.4s  ✓ saved (dev=5.0782)
+[epoch 050]  train=5.5643  dev=5.0769  time=3.4s  ✓ saved (dev=5.0769)
+[epoch 051]  train=5.5635  dev=5.0752  time=3.2s  ✓ saved (dev=5.0752)
+[epoch 052]  train=5.5478  dev=5.0732  time=3.4s  ✓ saved (dev=5.0732)
+[epoch 053]  train=5.5521  dev=5.0715  time=3.3s  ✓ saved (dev=5.0715)
+[epoch 054]  train=5.5574  dev=5.0703  time=3.2s  ✓ saved (dev=5.0703)
+[epoch 055]  train=5.5560  dev=5.0684  time=3.3s  ✓ saved (dev=5.0684)
+[epoch 056]  train=5.5540  dev=5.0672  time=3.3s  ✓ saved (dev=5.0672)
+[epoch 057]  train=5.5549  dev=5.0659  time=3.3s  ✓ saved (dev=5.0659)
+[epoch 058]  train=5.5529  dev=5.0641  time=3.4s  ✓ saved (dev=5.0641)
+[epoch 059]  train=5.5429  dev=5.0627  time=3.4s  ✓ saved (dev=5.0627)
+[epoch 060]  train=5.5519  dev=5.0614  time=3.3s  ✓ saved (dev=5.0614)
+[epoch 061]  train=5.5492  dev=5.0604  time=3.5s  ✓ saved (dev=5.0604)
+[epoch 062]  train=5.5490  dev=5.0589  time=3.4s  ✓ saved (dev=5.0589)
+[epoch 063]  train=5.5486  dev=5.0579  time=3.5s  ✓ saved (dev=5.0579)
+[epoch 064]  train=5.5429  dev=5.0569  time=3.4s  ✓ saved (dev=5.0569)
+[epoch 065]  train=5.5448  dev=5.0555  time=3.4s  ✓ saved (dev=5.0555)
+[epoch 066]  train=5.5440  dev=5.0544  time=3.3s  ✓ saved (dev=5.0544)
+[epoch 067]  train=5.5444  dev=5.0535  time=3.2s  ✓ saved (dev=5.0535)
+[epoch 068]  train=5.5436  dev=5.0526  time=3.2s  ✓ saved (dev=5.0526)
+[epoch 069]  train=5.5416  dev=5.0513  time=3.4s  ✓ saved (dev=5.0513)
+[epoch 070]  train=5.5412  dev=5.0505  time=3.3s  ✓ saved (dev=5.0505)
+[epoch 071]  train=5.5393  dev=5.0494  time=3.4s  ✓ saved (dev=5.0494)
+[epoch 072]  train=5.5386  dev=5.0484  time=3.3s  ✓ saved (dev=5.0484)
+[epoch 073]  train=5.5360  dev=5.0477  time=3.2s  ✓ saved (dev=5.0477)
+[epoch 074]  train=5.5368  dev=5.0470  time=3.3s  ✓ saved (dev=5.0470)
+[epoch 075]  train=5.5339  dev=5.0459  time=3.4s  ✓ saved (dev=5.0459)
+[epoch 076]  train=5.5261  dev=5.0451  time=3.5s  ✓ saved (dev=5.0451)
+[epoch 077]  train=5.5332  dev=5.0446  time=3.2s  ✓ saved (dev=5.0446)
+[epoch 078]  train=5.5219  dev=5.0437  time=3.1s  ✓ saved (dev=5.0437)
+[epoch 079]  train=5.5317  dev=5.0429  time=3.3s  ✓ saved (dev=5.0429)
+[epoch 080]  train=5.5189  dev=5.0423  time=3.4s  ✓ saved (dev=5.0423)
+[epoch 081]  train=5.5312  dev=5.0416  time=3.2s  ✓ saved (dev=5.0416)
+[epoch 082]  train=5.5298  dev=5.0411  time=3.2s  ✓ saved (dev=5.0411)
+[epoch 083]  train=5.5294  dev=5.0402  time=3.5s  ✓ saved (dev=5.0402)
+[epoch 084]  train=5.5175  dev=5.0395  time=3.5s  ✓ saved (dev=5.0395)
+[epoch 085]  train=5.5296  dev=5.0389  time=3.3s  ✓ saved (dev=5.0389)
+[epoch 086]  train=5.5287  dev=5.0382  time=3.3s  ✓ saved (dev=5.0382)
+[epoch 087]  train=5.5277  dev=5.0378  time=3.4s  ✓ saved (dev=5.0378)
+[epoch 088]  train=5.5248  dev=5.0372  time=3.4s  ✓ saved (dev=5.0372)
+[epoch 089]  train=5.5260  dev=5.0366  time=3.3s  ✓ saved (dev=5.0366)
+[epoch 090]  train=5.5266  dev=5.0360  time=3.3s  ✓ saved (dev=5.0360)
+[epoch 091]  train=5.5251  dev=5.0354  time=3.3s  ✓ saved (dev=5.0354)
+[epoch 092]  train=5.5259  dev=5.0348  time=3.4s  ✓ saved (dev=5.0348)
+[epoch 093]  train=5.5258  dev=5.0342  time=3.4s  ✓ saved (dev=5.0342)
+[epoch 094]  train=5.5244  dev=5.0336  time=3.5s  ✓ saved (dev=5.0336)
+[epoch 095]  train=5.5219  dev=5.0329  time=3.3s  ✓ saved (dev=5.0329)
+[epoch 096]  train=5.5212  dev=5.0324  time=3.2s  ✓ saved (dev=5.0324)
+[epoch 097]  train=5.5217  dev=5.0319  time=3.2s  ✓ saved (dev=5.0319)
+[epoch 098]  train=5.5210  dev=5.0314  time=3.3s  ✓ saved (dev=5.0314)
+[epoch 099]  train=5.5109  dev=5.0310  time=3.4s  ✓ saved (dev=5.0310)
+[epoch 100]  train=5.5198  dev=5.0309  time=3.4s  ✓ saved (dev=5.0309)
+[epoch 101]  train=5.5202  dev=5.0302  time=3.4s  ✓ saved (dev=5.0302)
+[epoch 102]  train=5.5222  dev=5.0299  time=3.4s  ✓ saved (dev=5.0299)
+[epoch 103]  train=5.5191  dev=5.0294  time=3.3s  ✓ saved (dev=5.0294)
+[epoch 104]  train=5.5191  dev=5.0288  time=3.3s  ✓ saved (dev=5.0288)
+[epoch 105]  train=5.5091  dev=5.0283  time=3.5s  ✓ saved (dev=5.0283)
+[epoch 106]  train=5.5183  dev=5.0281  time=3.3s  ✓ saved (dev=5.0281)
+[epoch 107]  train=5.5170  dev=5.0276  time=3.3s  ✓ saved (dev=5.0276)
+[epoch 108]  train=5.5166  dev=5.0273  time=3.3s  ✓ saved (dev=5.0273)
+[epoch 109]  train=5.5181  dev=5.0269  time=3.3s  ✓ saved (dev=5.0269)
+[epoch 110]  train=5.5179  dev=5.0265  time=3.3s  ✓ saved (dev=5.0265)
+[epoch 111]  train=5.5165  dev=5.0260  time=3.3s  ✓ saved (dev=5.0260)
+[epoch 112]  train=5.5150  dev=5.0255  time=3.2s  ✓ saved (dev=5.0255)
+[epoch 113]  train=5.5159  dev=5.0252  time=3.3s  ✓ saved (dev=5.0252)
+[epoch 114]  train=5.5152  dev=5.0249  time=3.5s  ✓ saved (dev=5.0249)
+[epoch 115]  train=5.5166  dev=5.0245  time=3.4s  ✓ saved (dev=5.0245)
+[epoch 116]  train=5.5058  dev=5.0240  time=3.5s  ✓ saved (dev=5.0240)
+[epoch 117]  train=5.5149  dev=5.0238  time=3.2s  ✓ saved (dev=5.0238)
+[epoch 118]  train=5.5136  dev=5.0234  time=3.1s  ✓ saved (dev=5.0234)
+[epoch 119]  train=5.5020  dev=5.0231  time=3.4s  ✓ saved (dev=5.0231)
+[epoch 120]  train=5.5111  dev=5.0228  time=3.3s  ✓ saved (dev=5.0228)
+[epoch 121]  train=5.5120  dev=5.0227  time=3.6s  ✓ saved (dev=5.0227)
+[epoch 122]  train=5.5120  dev=5.0222  time=3.3s  ✓ saved (dev=5.0222)
+[epoch 123]  train=5.5110  dev=5.0218  time=3.3s  ✓ saved (dev=5.0218)
+[epoch 124]  train=5.5125  dev=5.0215  time=3.2s  ✓ saved (dev=5.0215)
+[epoch 125]  train=5.5115  dev=5.0211  time=3.3s  ✓ saved (dev=5.0211)
+[epoch 126]  train=5.4990  dev=5.0209  time=3.5s  ✓ saved (dev=5.0209)
+[epoch 127]  train=5.5109  dev=5.0208  time=3.4s  ✓ saved (dev=5.0208)
+[epoch 128]  train=5.5115  dev=5.0206  time=3.2s  ✓ saved (dev=5.0206)
+[epoch 129]  train=5.5108  dev=5.0202  time=3.4s  ✓ saved (dev=5.0202)
+[epoch 130]  train=5.5103  dev=5.0198  time=3.2s  ✓ saved (dev=5.0198)
+[epoch 131]  train=5.5088  dev=5.0194  time=3.2s  ✓ saved (dev=5.0194)
+[epoch 132]  train=5.5094  dev=5.0190  time=4.0s  ✓ saved (dev=5.0190)
+[epoch 133]  train=5.5090  dev=5.0188  time=3.3s  ✓ saved (dev=5.0188)
+[epoch 134]  train=5.5087  dev=5.0185  time=3.2s  ✓ saved (dev=5.0185)
+[epoch 135]  train=5.5082  dev=5.0182  time=3.4s  ✓ saved (dev=5.0182)
+[epoch 136]  train=5.5078  dev=5.0179  time=3.4s  ✓ saved (dev=5.0179)
+[epoch 137]  train=5.5071  dev=5.0177  time=3.4s  ✓ saved (dev=5.0177)
+[epoch 138]  train=5.5068  dev=5.0174  time=3.4s  ✓ saved (dev=5.0174)
+[epoch 139]  train=5.4973  dev=5.0173  time=3.4s  ✓ saved (dev=5.0173)
+[epoch 140]  train=5.5077  dev=5.0173  time=3.3s  ✓ saved (dev=5.0173)
+[epoch 141]  train=5.5084  dev=5.0168  time=3.4s  ✓ saved (dev=5.0168)
+[epoch 142]  train=5.5066  dev=5.0166  time=3.3s  ✓ saved (dev=5.0166)
+[epoch 143]  train=5.5052  dev=5.0162  time=3.2s  ✓ saved (dev=5.0162)
+[epoch 144]  train=5.5055  dev=5.0161  time=3.3s  ✓ saved (dev=5.0161)
+[epoch 145]  train=5.5050  dev=5.0159  time=3.2s  ✓ saved (dev=5.0159)
+[epoch 146]  train=5.4943  dev=5.0156  time=3.4s  ✓ saved (dev=5.0156)
+[epoch 147]  train=5.5045  dev=5.0155  time=3.3s  ✓ saved (dev=5.0155)
+[epoch 148]  train=5.5040  dev=5.0151  time=3.4s  ✓ saved (dev=5.0151)
+[epoch 149]  train=5.4922  dev=5.0149  time=3.4s  ✓ saved (dev=5.0149)
+[epoch 150]  train=5.5042  dev=5.0149  time=3.3s  (no improve 1/10)
+[epoch 151]  train=5.5033  dev=5.0147  time=3.5s  ✓ saved (dev=5.0147)
+[epoch 152]  train=5.4914  dev=5.0144  time=3.4s  ✓ saved (dev=5.0144)
+[epoch 153]  train=5.5036  dev=5.0144  time=3.5s  (no improve 1/10)
+[epoch 154]  train=5.4925  dev=5.0140  time=3.2s  ✓ saved (dev=5.0140)
+[epoch 155]  train=5.4915  dev=5.0138  time=3.1s  ✓ saved (dev=5.0138)
+[epoch 156]  train=5.5022  dev=5.0136  time=3.4s  ✓ saved (dev=5.0136)
+[epoch 157]  train=5.5022  dev=5.0136  time=3.2s  ✓ saved (dev=5.0136)
+[epoch 158]  train=5.5034  dev=5.0131  time=3.4s  ✓ saved (dev=5.0131)
+[epoch 159]  train=5.5018  dev=5.0127  time=3.3s  ✓ saved (dev=5.0127)
+[epoch 160]  train=5.5012  dev=5.0127  time=3.2s  ✓ saved (dev=5.0127)
+[epoch 161]  train=5.5020  dev=5.0123  time=3.3s  ✓ saved (dev=5.0123)
+[epoch 162]  train=5.5021  dev=5.0122  time=3.3s  ✓ saved (dev=5.0122)
+[epoch 163]  train=5.5014  dev=5.0120  time=3.3s  ✓ saved (dev=5.0120)
+[epoch 164]  train=5.5011  dev=5.0116  time=3.5s  ✓ saved (dev=5.0116)
+[epoch 165]  train=5.4886  dev=5.0115  time=3.4s  ✓ saved (dev=5.0115)
+[epoch 166]  train=5.5017  dev=5.0115  time=3.2s  (no improve 1/10)
+[epoch 167]  train=5.4889  dev=5.0112  time=3.1s  ✓ saved (dev=5.0112)
+[epoch 168]  train=5.5007  dev=5.0113  time=3.4s  (no improve 1/10)
+[epoch 169]  train=5.5004  dev=5.0111  time=3.4s  ✓ saved (dev=5.0111)
+[epoch 170]  train=5.5011  dev=5.0108  time=3.4s  ✓ saved (dev=5.0108)
+[epoch 171]  train=5.4990  dev=5.0103  time=3.5s  ✓ saved (dev=5.0103)
+[epoch 172]  train=5.5009  dev=5.0101  time=3.4s  ✓ saved (dev=5.0101)
+[epoch 173]  train=5.4983  dev=5.0099  time=3.4s  ✓ saved (dev=5.0099)
+[epoch 174]  train=5.5002  dev=5.0097  time=3.3s  ✓ saved (dev=5.0097)
+[epoch 175]  train=5.5002  dev=5.0096  time=3.2s  ✓ saved (dev=5.0096)
+[epoch 176]  train=5.4996  dev=5.0095  time=3.4s  ✓ saved (dev=5.0095)
+[epoch 177]  train=5.4990  dev=5.0093  time=3.6s  ✓ saved (dev=5.0093)
+[epoch 178]  train=5.4881  dev=5.0090  time=3.4s  ✓ saved (dev=5.0090)
+[epoch 179]  train=5.4971  dev=5.0089  time=3.2s  ✓ saved (dev=5.0089)
+[epoch 180]  train=5.4971  dev=5.0087  time=3.4s  ✓ saved (dev=5.0087)
+[epoch 181]  train=5.4988  dev=5.0087  time=3.3s  ✓ saved (dev=5.0087)
+[epoch 182]  train=5.4955  dev=5.0084  time=3.3s  ✓ saved (dev=5.0084)
+[epoch 183]  train=5.4835  dev=5.0083  time=3.5s  ✓ saved (dev=5.0083)
+[epoch 184]  train=5.4972  dev=5.0084  time=3.4s  (no improve 1/10)
+[epoch 185]  train=5.4964  dev=5.0084  time=3.3s  (no improve 2/10)
+[epoch 186]  train=5.4855  dev=5.0080  time=3.4s  ✓ saved (dev=5.0080)
+[epoch 187]  train=5.4822  dev=5.0079  time=3.4s  ✓ saved (dev=5.0079)
+[epoch 188]  train=5.4811  dev=5.0079  time=3.4s  (no improve 1/10)
+[epoch 189]  train=5.4988  dev=5.0078  time=3.4s  ✓ saved (dev=5.0078)
+[epoch 190]  train=5.4964  dev=5.0077  time=3.4s  ✓ saved (dev=5.0077)
+[epoch 191]  train=5.4830  dev=5.0073  time=3.5s  ✓ saved (dev=5.0073)
+[epoch 192]  train=5.4951  dev=5.0074  time=3.2s  (no improve 1/10)
+[epoch 193]  train=5.4963  dev=5.0071  time=3.2s  ✓ saved (dev=5.0071)
+[epoch 194]  train=5.4962  dev=5.0068  time=3.4s  ✓ saved (dev=5.0068)
+[epoch 195]  train=5.4953  dev=5.0065  time=3.4s  ✓ saved (dev=5.0065)
+[epoch 196]  train=5.4949  dev=5.0063  time=3.2s  ✓ saved (dev=5.0063)
+[epoch 197]  train=5.4930  dev=5.0060  time=3.3s  ✓ saved (dev=5.0060)
+[epoch 198]  train=5.4813  dev=5.0058  time=3.4s  ✓ saved (dev=5.0058)
+[epoch 199]  train=5.4809  dev=5.0058  time=3.4s  (no improve 1/10)
+[epoch 200]  train=5.4944  dev=5.0060  time=3.3s  (no improve 2/10)
+
+Best dev loss : 5.0058
+Checkpoint    : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_stage1_head_best.pt
+[STEP 1] Done. Stage 1 checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_stage1_head_best.pt
+
+[STEP 2] Extracting projection head embeddings...
+  -> train: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_train.pt -> /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_train.pt
+
+Device     : cuda
+XLSR cache : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_train.pt
+Checkpoint : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_stage1_head_best.pt
+Out path   : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_train.pt
+
+Loaded head from epoch 198  (dev_loss=5.0058)
+  2262 samples across 3 shards
+
+Extracted 2262 embeddings in 2.3s
+  bonafide=950  spoof=1312
+  embeddings shape: torch.Size([2262, 256])
+Saved to: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_train.pt  (2.4 MB)
+  -> dev: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_dev.pt -> /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_dev.pt
+
+Device     : cuda
+XLSR cache : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_dev.pt
+Checkpoint : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_stage1_head_best.pt
+Out path   : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_dev.pt
+
+Loaded head from epoch 198  (dev_loss=5.0058)
+  567 samples across 1 shards
+
+Extracted 567 embeddings in 0.9s
+  bonafide=238  spoof=329
+  embeddings shape: torch.Size([567, 256])
+Saved to: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_dev.pt  (0.6 MB)
+  -> eval: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_eval.pt -> /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_eval.pt
+
+Device     : cuda
+XLSR cache : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/xlsr_eval.pt
+Checkpoint : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_stage1_head_best.pt
+Out path   : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_eval.pt
+
+Loaded head from epoch 198  (dev_loss=5.0058)
+  8491 samples across 9 shards
+
+Extracted 8491 embeddings in 10.8s
+  bonafide=3566  spoof=4925
+  embeddings shape: torch.Size([8491, 256])
+Saved to: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_eval.pt  (9.1 MB)
+[STEP 2] Done.
+
+[STEP 3] Training classifier head (Stage 2)...
+
+Device: cuda
+Train cache : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_train.pt
+Dev cache   : /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_dev.pt
+Save path   : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_stage2_classifier_best.pt
+
+Train: bonafide=950  spoof=1312  total=2262
+Dev  : bonafide=238  spoof=329  total=567
+
+[epoch 001]  train_loss=0.6950  train_acc=44.3%  dev_loss=0.6902  dev_acc=58.0%  time=0.5s  ✓ saved (dev=0.6902  acc=58.0%)
+[epoch 002]  train_loss=0.6896  train_acc=58.0%  dev_loss=0.6777  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6777  acc=58.0%)
+[epoch 003]  train_loss=0.6851  train_acc=58.0%  dev_loss=0.6680  dev_acc=58.0%  time=0.2s  ✓ saved (dev=0.6680  acc=58.0%)
+[epoch 004]  train_loss=0.6826  train_acc=58.0%  dev_loss=0.6599  dev_acc=58.0%  time=0.2s  ✓ saved (dev=0.6599  acc=58.0%)
+[epoch 005]  train_loss=0.6804  train_acc=58.0%  dev_loss=0.6543  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6543  acc=58.0%)
+[epoch 006]  train_loss=0.6790  train_acc=58.0%  dev_loss=0.6501  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6501  acc=58.0%)
+[epoch 007]  train_loss=0.6782  train_acc=58.0%  dev_loss=0.6472  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6472  acc=58.0%)
+[epoch 008]  train_loss=0.6773  train_acc=58.0%  dev_loss=0.6449  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6449  acc=58.0%)
+[epoch 009]  train_loss=0.6771  train_acc=58.0%  dev_loss=0.6427  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6427  acc=58.0%)
+[epoch 010]  train_loss=0.6765  train_acc=58.0%  dev_loss=0.6416  dev_acc=58.0%  time=0.2s  ✓ saved (dev=0.6416  acc=58.0%)
+[epoch 011]  train_loss=0.6752  train_acc=58.0%  dev_loss=0.6414  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6414  acc=58.0%)
+[epoch 012]  train_loss=0.6750  train_acc=58.0%  dev_loss=0.6406  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6406  acc=58.0%)
+[epoch 013]  train_loss=0.6743  train_acc=58.0%  dev_loss=0.6401  dev_acc=58.0%  time=0.2s  ✓ saved (dev=0.6401  acc=58.0%)
+[epoch 014]  train_loss=0.6738  train_acc=58.0%  dev_loss=0.6395  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6395  acc=58.0%)
+[epoch 015]  train_loss=0.6730  train_acc=58.0%  dev_loss=0.6389  dev_acc=58.0%  time=0.2s  ✓ saved (dev=0.6389  acc=58.0%)
+[epoch 016]  train_loss=0.6724  train_acc=58.0%  dev_loss=0.6383  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6383  acc=58.0%)
+[epoch 017]  train_loss=0.6719  train_acc=58.0%  dev_loss=0.6378  dev_acc=58.0%  time=0.2s  ✓ saved (dev=0.6378  acc=58.0%)
+[epoch 018]  train_loss=0.6712  train_acc=58.0%  dev_loss=0.6369  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6369  acc=58.0%)
+[epoch 019]  train_loss=0.6705  train_acc=58.0%  dev_loss=0.6360  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6360  acc=58.0%)
+[epoch 020]  train_loss=0.6701  train_acc=58.0%  dev_loss=0.6356  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6356  acc=58.0%)
+[epoch 021]  train_loss=0.6694  train_acc=58.0%  dev_loss=0.6355  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6355  acc=58.0%)
+[epoch 022]  train_loss=0.6687  train_acc=58.0%  dev_loss=0.6346  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6346  acc=58.0%)
+[epoch 023]  train_loss=0.6682  train_acc=58.0%  dev_loss=0.6339  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6339  acc=58.0%)
+[epoch 024]  train_loss=0.6674  train_acc=58.0%  dev_loss=0.6335  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6335  acc=58.0%)
+[epoch 025]  train_loss=0.6668  train_acc=58.0%  dev_loss=0.6330  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6330  acc=58.0%)
+[epoch 026]  train_loss=0.6661  train_acc=58.0%  dev_loss=0.6326  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6326  acc=58.0%)
+[epoch 027]  train_loss=0.6656  train_acc=58.0%  dev_loss=0.6316  dev_acc=58.0%  time=0.2s  ✓ saved (dev=0.6316  acc=58.0%)
+[epoch 028]  train_loss=0.6647  train_acc=58.0%  dev_loss=0.6312  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6312  acc=58.0%)
+[epoch 029]  train_loss=0.6639  train_acc=58.0%  dev_loss=0.6304  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6304  acc=58.0%)
+[epoch 030]  train_loss=0.6637  train_acc=58.0%  dev_loss=0.6299  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6299  acc=58.0%)
+[epoch 031]  train_loss=0.6630  train_acc=58.0%  dev_loss=0.6290  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6290  acc=58.0%)
+[epoch 032]  train_loss=0.6625  train_acc=58.0%  dev_loss=0.6279  dev_acc=58.0%  time=0.2s  ✓ saved (dev=0.6279  acc=58.0%)
+[epoch 033]  train_loss=0.6616  train_acc=58.0%  dev_loss=0.6274  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6274  acc=58.0%)
+[epoch 034]  train_loss=0.6608  train_acc=58.0%  dev_loss=0.6274  dev_acc=58.0%  time=0.3s  (no improve 1/5)
+[epoch 035]  train_loss=0.6607  train_acc=58.0%  dev_loss=0.6266  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6266  acc=58.0%)
+[epoch 036]  train_loss=0.6598  train_acc=58.0%  dev_loss=0.6265  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6265  acc=58.0%)
+[epoch 037]  train_loss=0.6590  train_acc=58.0%  dev_loss=0.6265  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6265  acc=58.0%)
+[epoch 038]  train_loss=0.6585  train_acc=58.0%  dev_loss=0.6255  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6255  acc=58.0%)
+[epoch 039]  train_loss=0.6579  train_acc=58.0%  dev_loss=0.6246  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6246  acc=58.0%)
+[epoch 040]  train_loss=0.6573  train_acc=58.0%  dev_loss=0.6234  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6234  acc=58.0%)
+[epoch 041]  train_loss=0.6569  train_acc=58.0%  dev_loss=0.6226  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6226  acc=58.0%)
+[epoch 042]  train_loss=0.6559  train_acc=58.0%  dev_loss=0.6228  dev_acc=58.0%  time=0.3s  (no improve 1/5)
+[epoch 043]  train_loss=0.6553  train_acc=58.0%  dev_loss=0.6221  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6221  acc=58.0%)
+[epoch 044]  train_loss=0.6545  train_acc=58.0%  dev_loss=0.6219  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6219  acc=58.0%)
+[epoch 045]  train_loss=0.6539  train_acc=58.0%  dev_loss=0.6211  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6211  acc=58.0%)
+[epoch 046]  train_loss=0.6535  train_acc=58.0%  dev_loss=0.6205  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6205  acc=58.0%)
+[epoch 047]  train_loss=0.6527  train_acc=58.0%  dev_loss=0.6200  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6200  acc=58.0%)
+[epoch 048]  train_loss=0.6527  train_acc=58.0%  dev_loss=0.6187  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6187  acc=58.0%)
+[epoch 049]  train_loss=0.6511  train_acc=58.0%  dev_loss=0.6189  dev_acc=58.0%  time=0.3s  (no improve 1/5)
+[epoch 050]  train_loss=0.6510  train_acc=58.0%  dev_loss=0.6183  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6183  acc=58.0%)
+[epoch 051]  train_loss=0.6500  train_acc=58.0%  dev_loss=0.6183  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6183  acc=58.0%)
+[epoch 052]  train_loss=0.6495  train_acc=58.0%  dev_loss=0.6170  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6170  acc=58.0%)
+[epoch 053]  train_loss=0.6491  train_acc=58.0%  dev_loss=0.6156  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6156  acc=58.0%)
+[epoch 054]  train_loss=0.6485  train_acc=58.0%  dev_loss=0.6153  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6153  acc=58.0%)
+[epoch 055]  train_loss=0.6477  train_acc=58.0%  dev_loss=0.6153  dev_acc=58.0%  time=0.2s  ✓ saved (dev=0.6153  acc=58.0%)
+[epoch 056]  train_loss=0.6469  train_acc=58.0%  dev_loss=0.6147  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6147  acc=58.0%)
+[epoch 057]  train_loss=0.6464  train_acc=58.0%  dev_loss=0.6136  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6136  acc=58.0%)
+[epoch 058]  train_loss=0.6457  train_acc=58.0%  dev_loss=0.6144  dev_acc=58.0%  time=0.3s  (no improve 1/5)
+[epoch 059]  train_loss=0.6454  train_acc=58.0%  dev_loss=0.6124  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6124  acc=58.0%)
+[epoch 060]  train_loss=0.6443  train_acc=58.0%  dev_loss=0.6127  dev_acc=58.0%  time=0.3s  (no improve 1/5)
+[epoch 061]  train_loss=0.6440  train_acc=58.0%  dev_loss=0.6112  dev_acc=58.0%  time=0.2s  ✓ saved (dev=0.6112  acc=58.0%)
+[epoch 062]  train_loss=0.6431  train_acc=58.0%  dev_loss=0.6107  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6107  acc=58.0%)
+[epoch 063]  train_loss=0.6425  train_acc=58.0%  dev_loss=0.6107  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6107  acc=58.0%)
+[epoch 064]  train_loss=0.6419  train_acc=58.0%  dev_loss=0.6096  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6096  acc=58.0%)
+[epoch 065]  train_loss=0.6413  train_acc=58.0%  dev_loss=0.6089  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6089  acc=58.0%)
+[epoch 066]  train_loss=0.6410  train_acc=58.0%  dev_loss=0.6084  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6084  acc=58.0%)
+[epoch 067]  train_loss=0.6400  train_acc=58.0%  dev_loss=0.6084  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6084  acc=58.0%)
+[epoch 068]  train_loss=0.6394  train_acc=58.0%  dev_loss=0.6075  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6075  acc=58.0%)
+[epoch 069]  train_loss=0.6390  train_acc=58.0%  dev_loss=0.6070  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6070  acc=58.0%)
+[epoch 070]  train_loss=0.6381  train_acc=58.0%  dev_loss=0.6066  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6066  acc=58.0%)
+[epoch 071]  train_loss=0.6373  train_acc=58.0%  dev_loss=0.6062  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6062  acc=58.0%)
+[epoch 072]  train_loss=0.6372  train_acc=58.0%  dev_loss=0.6045  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6045  acc=58.0%)
+[epoch 073]  train_loss=0.6365  train_acc=58.0%  dev_loss=0.6041  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6041  acc=58.0%)
+[epoch 074]  train_loss=0.6357  train_acc=58.0%  dev_loss=0.6036  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6036  acc=58.0%)
+[epoch 075]  train_loss=0.6347  train_acc=58.0%  dev_loss=0.6041  dev_acc=58.0%  time=0.3s  (no improve 1/5)
+[epoch 076]  train_loss=0.6347  train_acc=58.0%  dev_loss=0.6029  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6029  acc=58.0%)
+[epoch 077]  train_loss=0.6337  train_acc=58.0%  dev_loss=0.6023  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6023  acc=58.0%)
+[epoch 078]  train_loss=0.6332  train_acc=58.0%  dev_loss=0.6019  dev_acc=58.0%  time=0.2s  ✓ saved (dev=0.6019  acc=58.0%)
+[epoch 079]  train_loss=0.6323  train_acc=58.0%  dev_loss=0.6014  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6014  acc=58.0%)
+[epoch 080]  train_loss=0.6320  train_acc=58.0%  dev_loss=0.6003  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6003  acc=58.0%)
+[epoch 081]  train_loss=0.6311  train_acc=58.0%  dev_loss=0.6000  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6000  acc=58.0%)
+[epoch 082]  train_loss=0.6302  train_acc=58.0%  dev_loss=0.6000  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.6000  acc=58.0%)
+[epoch 083]  train_loss=0.6299  train_acc=58.0%  dev_loss=0.5986  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.5986  acc=58.0%)
+[epoch 084]  train_loss=0.6293  train_acc=58.0%  dev_loss=0.5987  dev_acc=58.0%  time=0.3s  (no improve 1/5)
+[epoch 085]  train_loss=0.6288  train_acc=58.0%  dev_loss=0.5975  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.5975  acc=58.0%)
+[epoch 086]  train_loss=0.6279  train_acc=58.0%  dev_loss=0.5969  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.5969  acc=58.0%)
+[epoch 087]  train_loss=0.6274  train_acc=58.0%  dev_loss=0.5963  dev_acc=58.0%  time=0.2s  ✓ saved (dev=0.5963  acc=58.0%)
+[epoch 088]  train_loss=0.6268  train_acc=58.0%  dev_loss=0.5955  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.5955  acc=58.0%)
+[epoch 089]  train_loss=0.6262  train_acc=58.0%  dev_loss=0.5952  dev_acc=58.0%  time=0.2s  ✓ saved (dev=0.5952  acc=58.0%)
+[epoch 090]  train_loss=0.6258  train_acc=58.0%  dev_loss=0.5945  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.5945  acc=58.0%)
+[epoch 091]  train_loss=0.6251  train_acc=58.0%  dev_loss=0.5939  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.5939  acc=58.0%)
+[epoch 092]  train_loss=0.6244  train_acc=58.0%  dev_loss=0.5935  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.5935  acc=58.0%)
+[epoch 093]  train_loss=0.6235  train_acc=58.0%  dev_loss=0.5931  dev_acc=58.0%  time=0.2s  ✓ saved (dev=0.5931  acc=58.0%)
+[epoch 094]  train_loss=0.6229  train_acc=58.0%  dev_loss=0.5936  dev_acc=58.0%  time=0.3s  (no improve 1/5)
+[epoch 095]  train_loss=0.6225  train_acc=58.0%  dev_loss=0.5927  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.5927  acc=58.0%)
+[epoch 096]  train_loss=0.6218  train_acc=58.0%  dev_loss=0.5909  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.5909  acc=58.0%)
+[epoch 097]  train_loss=0.6211  train_acc=58.0%  dev_loss=0.5903  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.5903  acc=58.0%)
+[epoch 098]  train_loss=0.6206  train_acc=58.0%  dev_loss=0.5900  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.5900  acc=58.0%)
+[epoch 099]  train_loss=0.6200  train_acc=58.0%  dev_loss=0.5896  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.5896  acc=58.0%)
+[epoch 100]  train_loss=0.6194  train_acc=58.0%  dev_loss=0.5891  dev_acc=58.0%  time=0.3s  ✓ saved (dev=0.5891  acc=58.0%)
+
+Best dev loss : 0.5891
+Checkpoint    : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_stage2_classifier_best.pt
+[STEP 3] Done. Stage 2 checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_stage2_classifier_best.pt
+
+[STEP 4] Running final evaluation on eval set...
+Device: cuda
+Loading eval embeddings: /nfs/turbo/umd-hafiz/jsudan/encoder_embeddings/speaker_specific_finetune_embeddings/famousfigures/cache_Donald_Trump/head_emb_eval.pt
+Loaded 8491 eval samples.
+Loading Stage 2 checkpoint: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_stage2_classifier_best.pt
+
+==============================================================
+  Evaluation Results — Donald_Trump
+==============================================================
+
+  Overall EER : 2.66%  (threshold=-0.3116)
+  Total samples: 8491  (bonafide=3566  spoof=4925)
+
+  Score distribution:
+    Bonafide  mean=-0.1717  std=0.0660  min=-0.4416  max=-0.0267
+    Spoof     mean=-0.4302  std=0.0595  min=-0.6056  max=-0.2468
+
+  Per-generator EER:
+  ----------------------------------------------------------
+  Source                          n_bon  n_spo   EER (%)
+  ----------------------------------------------------------
+  -                                3566      0       N/A
+  COZYVOICE2                          0    269       N/A
+  E2TTS                               0    375       N/A
+  F5TTS                               0    375       N/A
+  FISHSPEECH                          0    374       N/A
+  LLASA                               0    650       N/A
+  MASKGCT                             0    491       N/A
+  SSRSPEECH                           0    189       N/A
+  STYLETTS2                           0    376       N/A
+  XTTSV2                              0    376       N/A
+  ZONOS                               0   1450       N/A
+  ----------------------------------------------------------
+  OVERALL                          3566   4925     2.66%
+==============================================================
+
+Results written to: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_eval_results.txt
+[STEP 4] Done.
+
+==============================================================
+  Evaluation Results — Donald_Trump
+==============================================================
+
+  Overall EER : 2.66%  (threshold=-0.3116)
+  Total samples: 8491  (bonafide=3566  spoof=4925)
+
+  Score distribution:
+    Bonafide  mean=-0.1717  std=0.0660  min=-0.4416  max=-0.0267
+    Spoof     mean=-0.4302  std=0.0595  min=-0.6056  max=-0.2468
+
+  Per-generator EER:
+  ----------------------------------------------------------
+  Source                          n_bon  n_spo   EER (%)
+  ----------------------------------------------------------
+  -                                3566      0       N/A
+  COZYVOICE2                          0    269       N/A
+  E2TTS                               0    375       N/A
+  F5TTS                               0    375       N/A
+  FISHSPEECH                          0    374       N/A
+  LLASA                               0    650       N/A
+  MASKGCT                             0    491       N/A
+  SSRSPEECH                           0    189       N/A
+  STYLETTS2                           0    376       N/A
+  XTTSV2                              0    376       N/A
+  ZONOS                               0   1450       N/A
+  ----------------------------------------------------------
+  OVERALL                          3566   4925     2.66%
+==============================================================
+
+============================================================
+  Pipeline complete.
+  Run ID        : ff_Donald_Trump_20260409_105749
+  Save dir      : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749
+  Stage 1 ckpt  : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_stage1_head_best.pt
+  Stage 2 ckpt  : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_stage2_classifier_best.pt
+  Eval results  : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_eval_results.txt
+  ITW protocol  : /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_itw.txt
+============================================================
+
+To evaluate on ITW, run:
+  python eval.py \
+    --stage1_ckpt /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_stage1_head_best.pt \
+    --stage2_ckpt /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260409_105749/ff_Donald_Trump_20260409_105749_stage2_classifier_best.pt \
+    --datasets famous_figures \
+    --ff_protocol /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_itw.txt \
+    --ff_root /nfs/turbo/umd-hafiz/issf_server_data/ds_wild/release_in_the_wild \
+    --print_eer

@@ -1,0 +1,307 @@
+Setting up the environment...
+Job started on gl1506.arc-ts.umich.edu at Mon Feb 23 15:54:21 EST 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+ASV5_TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_train/flac
+ASV5_TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5_train_protocol.txt
+ASV5_DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_dev/flac
+ASV5_DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5.dev.metadata.txt
+ASV5_EVAL_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_eval/flac
+ASV5_EVAL_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5.eval.track_1.tsv
+EXPERIMENT NAME: asv5_mem_256_qst_2_supcon_geodesic_temp_0.07
+Using BATCH_SIZE=32
+W0223 15:54:29.613607 2351950 torch/distributed/run.py:774] 
+W0223 15:54:29.613607 2351950 torch/distributed/run.py:774] *****************************************
+W0223 15:54:29.613607 2351950 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0223 15:54:29.613607 2351950 torch/distributed/run.py:774] *****************************************
+[W223 15:54:29.576980593 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30464 (errno: 97 - Address family not supported by protocol).
+[W223 15:54:29.577866916 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30464 (errno: 97 - Address family not supported by protocol).
+[W223 15:54:29.578872433 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30464 (errno: 97 - Address family not supported by protocol).
+[W223 15:54:39.514700444 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30464 (errno: 97 - Address family not supported by protocol).
+[W223 15:54:39.515943216 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30464 (errno: 97 - Address family not supported by protocol).
+[W223 15:54:39.516114453 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30464 (errno: 97 - Address family not supported by protocol).
+[W223 15:54:39.517125346 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30464 (errno: 97 - Address family not supported by protocol).
+[W223 15:54:39.517319116 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30464 (errno: 97 - Address family not supported by protocol).
+[W223 15:54:39.518365304 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30464 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+MODEL_ID=wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_mem_256_qst_2_supcon_geodesic_temp_0.07
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=10
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=50
+BATCH_SIZE=32
+ACCUM_STEPS=1
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.07
+NUM_WORKERS=6
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=1024
+WARMUP_EPOCHS=100
+ALPHA_END=0.9
+ALPHA_RAMP_EPOCHS=20
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.1
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=5
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=True (p=0.1)
+CUDA device count: 2
+[INFO] POOLED TRAIN_DATASETS=['asv19', 'asv5', 'mlaad']
+[INFO] Pooled train samples: bonafide=175375, spoof=340360, total=515735
+[INFO] Train samples loaded: bonafide=175375, spoof=340360
+[DEV SUBSET] ASV5  bonafide=2500 spoof=2500 total=5000
+[DEV SUBSET] ASV19 bonafide=2500 spoof=2500 total=5000
+[INFO] Global batch size=32 | Per-GPU batch size=16
+[INFO] Queue will start at epoch 2 (warm-start without queue)
+[INFO] Queue size=256 (per-rank)
+[rank0] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.8552 std=0.1073 min=0.5237 max=0.9783 var_mean=1.325620e-04
+[rank0] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9392 std=0.0462 min=0.7885 max=0.9894 var_mean=2.224921e-04
+[rank0] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9392 std=0.0462 min=0.7885 max=0.9894 var_mean=2.224921e-04
+[rank0] pos_mean=0.9370 neg_mean=0.9412 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9430 sim_std=0.0471 Loss: 3.182333469390869
+[rank1] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.7804 std=0.1715 min=0.4026 max=0.9808 var_mean=2.010474e-04
+[rank1] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.8929 std=0.0936 min=0.6732 max=0.9910 var_mean=3.923680e-04
+[rank1] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.8929 std=0.0936 min=0.6732 max=0.9910 var_mean=3.923681e-04
+[rank1] sim_mean=0.8996 sim_std=0.0943 Loss: 3.6287407875061035
+[rank0] pos_mean=0.9995 neg_mean=0.7755 n_pos=8 n_neg=8
+[rank0] sim_mean=0.8875 sim_std=0.1124 Loss: 1.949959397315979
+[rank1] sim_mean=0.8871 sim_std=0.1129 Loss: 1.9508998394012451
+[rank0] pos_mean=0.9995 neg_mean=0.7692 n_pos=8 n_neg=8
+[rank0] sim_mean=0.8844 sim_std=0.1156 Loss: 1.9501363039016724
+[rank1] sim_mean=0.8839 sim_std=0.1160 Loss: 1.9498261213302612
+[rank1] sim_mean=0.9067 sim_std=0.0933 Loss: 1.9515397548675537
+[rank0] pos_mean=0.9995 neg_mean=0.8182 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9089 sim_std=0.0912 Loss: 1.9547154903411865
+[epoch 001] alpha=0.00 train_loss=2.0010 dev_asv5=2.8558 dev_asv19=2.7239 avg_dev=2.7898
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/asv5_mem_256_qst_2_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.7898)
+[INFO] Enabling queue at epoch 2 | size=256 (per-rank)
+[rank0] pos_mean=0.9997 neg_mean=0.8344 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9171 sim_std=0.0830 Loss: 1.9544063806533813
+[rank1] sim_mean=0.9158 sim_std=0.0843 Loss: 1.9527807235717773
+[rank1] sim_mean=0.8081 sim_std=0.1922 Loss: 1.9517213106155396
+[rank0] pos_mean=1.0000 neg_mean=0.6194 n_pos=8 n_neg=8
+[rank0] sim_mean=0.8097 sim_std=0.1907 Loss: 1.9519076347351074
+[rank1] sim_mean=0.8179 sim_std=0.1825 Loss: 1.9529420137405396
+[rank0] pos_mean=1.0000 neg_mean=0.6398 n_pos=8 n_neg=8
+[rank0] sim_mean=0.8199 sim_std=0.1805 Loss: 1.9534823894500732
+[rank1] sim_mean=0.7486 sim_std=0.2518 Loss: 1.982665777206421
+[rank0] pos_mean=1.0000 neg_mean=0.4966 n_pos=8 n_neg=8
+[rank0] sim_mean=0.7483 sim_std=0.2522 Loss: 1.982146978378296
+[epoch 002] alpha=0.00 train_loss=1.9968 dev_asv5=3.6075 dev_asv19=2.7161 avg_dev=3.1618
+[rank0] pos_mean=0.9289 neg_mean=0.4930 n_pos=8 n_neg=8
+[rank0] sim_mean=0.7154 sim_std=0.2896 Loss: 3.4436469078063965
+[rank1] sim_mean=0.7079 sim_std=0.2927 Loss: 2.000145196914673
+[rank0] pos_mean=1.0000 neg_mean=0.4220 n_pos=8 n_neg=8
+[rank0] sim_mean=0.7110 sim_std=0.2896 Loss: 1.9530038833618164
+[rank1] sim_mean=0.7111 sim_std=0.2895 Loss: 1.9531028270721436
+[rank0] pos_mean=1.0000 neg_mean=0.4731 n_pos=8 n_neg=8
+[rank0] sim_mean=0.7366 sim_std=0.2640 Loss: 1.947066307067871
+[rank1] sim_mean=0.7380 sim_std=0.2625 Loss: 1.9472384452819824
+[rank1] sim_mean=0.6666 sim_std=0.3341 Loss: 2.066840410232544
+[rank0] pos_mean=1.0000 neg_mean=0.3341 n_pos=8 n_neg=8
+[rank0] sim_mean=0.6670 sim_std=0.3336 Loss: 2.067037582397461
+[epoch 003] alpha=0.00 train_loss=1.9818 dev_asv5=3.4625 dev_asv19=2.7296 avg_dev=3.0960
+[rank1] sim_mean=0.6721 sim_std=0.3285 Loss: 1.9470858573913574
+[rank0] pos_mean=1.0000 neg_mean=0.3412 n_pos=8 n_neg=8
+[rank0] sim_mean=0.6706 sim_std=0.3301 Loss: 1.946263074874878
+[rank1] sim_mean=0.7209 sim_std=0.2796 Loss: 1.9468011856079102
+[rank0] pos_mean=1.0000 neg_mean=0.4411 n_pos=8 n_neg=8
+[rank0] sim_mean=0.7206 sim_std=0.2800 Loss: 1.9467487335205078
+[rank1] sim_mean=0.6116 sim_std=0.3892 Loss: 1.946029543876648
+[rank0] pos_mean=1.0000 neg_mean=0.2232 n_pos=8 n_neg=8
+[rank0] sim_mean=0.6116 sim_std=0.3892 Loss: 1.9460939168930054
+[rank0] pos_mean=1.0000 neg_mean=0.1689 n_pos=8 n_neg=8
+[rank0] sim_mean=0.5844 sim_std=0.4164 Loss: 1.9461865425109863
+[rank1] sim_mean=0.5816 sim_std=0.4193 Loss: 1.9460179805755615
+[epoch 004] alpha=0.00 train_loss=1.9782 dev_asv5=3.3850 dev_asv19=2.7218 avg_dev=3.0534
+[rank1] sim_mean=0.6582 sim_std=0.3424 Loss: 1.9461777210235596
+[rank0] pos_mean=0.9897 neg_mean=0.3583 n_pos=8 n_neg=8
+[rank0] sim_mean=0.6747 sim_std=0.3277 Loss: 2.1304774284362793
+[rank0] pos_mean=1.0000 neg_mean=0.2914 n_pos=8 n_neg=8
+[rank0] sim_mean=0.6457 sim_std=0.3550 Loss: 1.94618821144104
+[rank1] sim_mean=0.6464 sim_std=0.3543 Loss: 1.9463865756988525
+[rank0] pos_mean=1.0000 neg_mean=0.5163 n_pos=8 n_neg=8
+[rank0] sim_mean=0.7581 sim_std=0.2423 Loss: 1.9533326625823975
+[rank1] sim_mean=0.7577 sim_std=0.2427 Loss: 1.9531198740005493
+[rank0] pos_mean=1.0000 neg_mean=0.4395 n_pos=8 n_neg=8
+[rank0] sim_mean=0.7197 sim_std=0.2808 Loss: 1.9861102104187012
+[rank1] sim_mean=0.7256 sim_std=0.2792 Loss: 3.343966007232666
+[epoch 005] alpha=0.00 train_loss=1.9725 dev_asv5=4.6303 dev_asv19=2.7493 avg_dev=3.6898
+[rank0] pos_mean=0.9107 neg_mean=0.3602 n_pos=8 n_neg=8
+[rank0] sim_mean=0.6410 sim_std=0.3655 Loss: 3.620666265487671
+[rank1] sim_mean=0.6390 sim_std=0.3621 Loss: 2.0935440063476562
+[rank0] pos_mean=1.0000 neg_mean=0.4262 n_pos=8 n_neg=8
+[rank0] sim_mean=0.7131 sim_std=0.2874 Loss: 1.9466965198516846
+[rank1] sim_mean=0.7137 sim_std=0.2869 Loss: 1.9467259645462036
+[rank0] pos_mean=1.0000 neg_mean=0.4959 n_pos=8 n_neg=8
+[rank0] sim_mean=0.7479 sim_std=0.2526 Loss: 1.9474014043807983
+[rank1] sim_mean=0.7485 sim_std=0.2520 Loss: 1.9473488330841064
+[epoch 006] alpha=0.00 train_loss=1.9684 dev_asv5=3.4233 dev_asv19=2.7189 avg_dev=3.0711[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1_asv5.py", line 350, in <module>
+[rank0]:     and epochs_no_improve >= cfg.patience)
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1_asv5.py", line 296, in main
+[rank0]:     
+[rank0]: OSError: [Errno 28] No space left on device
+[rank0]:[W224 22:39:23.838443656 ProcessGroupNCCL.cpp:1538] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+W0224 22:39:25.572262 2351950 torch/distributed/elastic/multiprocessing/api.py:900] Sending process 2351964 closing signal SIGTERM
+E0224 22:39:26.038689 2351950 torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: 1) local_rank: 0 (pid: 2351963) of binary: /home/jsudan/myenv/bin/python
+Traceback (most recent call last):
+  File "/home/jsudan/myenv/bin/torchrun", line 7, in <module>
+    sys.exit(main())
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 901, in main
+    run(args)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+train_stage1_asv5.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-02-24_22:39:25
+  host      : gl1506.arc-ts.umich.edu
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 2351963)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+[INFO] device=cuda
+[OK] Loaded finetuned encoder weights from checkpoint.
+[OK] Saved asv5:train -> X=(182357, 256), y=(182357,), hist={0: 163560, 1: 18797}
+[OK] Saved asv5:dev -> X=(140950, 256), y=(140950,), hist={0: 109616, 1: 31334}
+[INFO] device=cuda
+[OK] Loaded finetuned encoder weights from checkpoint.
+[OK] Saved asv19:train -> X=(25380, 256), y=(25380,), hist={0: 22800, 1: 2580}
+[OK] Saved asv19:dev -> X=(24844, 256), y=(24844,), hist={0: 22296, 1: 2548}
+[INFO] device=cuda
+[OK] Loaded finetuned encoder weights from checkpoint.
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_generic.py", line 277, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_generic.py", line 258, in main
+    extract_split(
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_generic.py", line 176, in extract_split
+    for waveforms, labels, *_ in tqdm(loader, desc=f"[{dataset_name}] {split}", disable=True):
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/tqdm/std.py", line 1169, in __iter__
+    for obj in iterable:
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 734, in __next__
+    data = self._next_data()
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1516, in _next_data
+    return self._process_data(data, worker_id)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1551, in _process_data
+    data.reraise()
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/_utils.py", line 769, in reraise
+    raise exception
+ValueError: Caught ValueError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 55, in fetch
+    return self.collate_fn(data)
+  File "/home/jsudan/wav2vec_contr_loss/collate.py", line 78, in pad_collate_fn_speaker_source_multiclass
+    waveforms, bin_labels, attack_id, speakers, sources = zip(*batch)
+ValueError: not enough values to unpack (expected 5, got 4)
+
+[OK] pooled split='train' -> n=207737 dim=256 labels={'0': 186360, '1': 21377}
+[OK] pooled split='dev' -> n=165794 dim=256 labels={'0': 131912, '1': 33882}
+[OK] wrote summary -> /scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/POOLED/asv5_mem_256_qst_2_supcon_geodesic_temp_0.07/pooling_summary.json
+Using device: cuda
+Train embeddings: (207737, 256), Dev embeddings: (165794, 256)
+Class balance: pos_weight=8.718
+[epoch 001] train_loss=0.9980 | dev_loss=1.1982 | dev_acc=98.50% | dev_auc=0.9983 | dev_eer=1.52%
+[epoch 001] ✓ New best EER=1.52% -> checkpoints_stage2/asv5_mem_256_qst_2_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 002] train_loss=0.6221 | dev_loss=0.7754 | dev_acc=98.50% | dev_auc=0.9983 | dev_eer=1.52%
+[epoch 002] ✓ New best EER=1.52% -> checkpoints_stage2/asv5_mem_256_qst_2_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 003] train_loss=0.3759 | dev_loss=0.5131 | dev_acc=98.50% | dev_auc=0.9983 | dev_eer=1.52%
+[epoch 003] No EER improvement for 1 epoch(s) (best=1.52%)
+[epoch 004] train_loss=0.2220 | dev_loss=0.3457 | dev_acc=98.51% | dev_auc=0.9983 | dev_eer=1.52%
+[epoch 004] No EER improvement for 2 epoch(s) (best=1.52%)
+[epoch 005] train_loss=0.1296 | dev_loss=0.2489 | dev_acc=98.51% | dev_auc=0.9983 | dev_eer=1.52%
+[epoch 005] No EER improvement for 3 epoch(s) (best=1.52%)
+[epoch 006] train_loss=0.0752 | dev_loss=0.1900 | dev_acc=98.51% | dev_auc=0.9983 | dev_eer=1.52%
+[epoch 006] No EER improvement for 4 epoch(s) (best=1.52%)
+[epoch 007] train_loss=0.0438 | dev_loss=0.1567 | dev_acc=98.51% | dev_auc=0.9983 | dev_eer=1.52%
+[epoch 007] No EER improvement for 5 epoch(s) (best=1.52%)
+[epoch 008] train_loss=0.0259 | dev_loss=0.1397 | dev_acc=98.51% | dev_auc=0.9983 | dev_eer=1.52%
+[epoch 008] No EER improvement for 6 epoch(s) (best=1.52%)
+[epoch 009] train_loss=0.0157 | dev_loss=0.1300 | dev_acc=98.51% | dev_auc=0.9983 | dev_eer=1.52%
+[epoch 009] No EER improvement for 7 epoch(s) (best=1.52%)
+[epoch 010] train_loss=0.0100 | dev_loss=0.1263 | dev_acc=98.51% | dev_auc=0.9983 | dev_eer=1.52%
+[epoch 010] No EER improvement for 8 epoch(s) (best=1.52%)
+[epoch 011] train_loss=0.0069 | dev_loss=0.1262 | dev_acc=98.51% | dev_auc=0.9983 | dev_eer=1.52%
+[epoch 011] No EER improvement for 9 epoch(s) (best=1.52%)
+[epoch 012] train_loss=0.0052 | dev_loss=0.1276 | dev_acc=98.51% | dev_auc=0.9983 | dev_eer=1.52%
+[epoch 012] No EER improvement for 10 epoch(s) (best=1.52%)
+[epoch 013] train_loss=0.0042 | dev_loss=0.1290 | dev_acc=98.51% | dev_auc=0.9983 | dev_eer=1.52%
+[epoch 013] No EER improvement for 11 epoch(s) (best=1.52%)
+[epoch 014] train_loss=0.0037 | dev_loss=0.1319 | dev_acc=98.51% | dev_auc=0.9983 | dev_eer=1.52%
+[epoch 014] No EER improvement for 12 epoch(s) (best=1.52%)
+[epoch 015] train_loss=0.0033 | dev_loss=0.1322 | dev_acc=98.51% | dev_auc=0.9983 | dev_eer=1.52%
+[epoch 015] No EER improvement for 13 epoch(s) (best=1.52%)
+[epoch 016] train_loss=0.0031 | dev_loss=0.1322 | dev_acc=98.51% | dev_auc=0.9983 | dev_eer=1.52%
+[epoch 016] No EER improvement for 14 epoch(s) (best=1.52%)
+[epoch 017] train_loss=0.0029 | dev_loss=0.1338 | dev_acc=98.51% | dev_auc=0.9983 | dev_eer=1.52%
+[epoch 017] No EER improvement for 15 epoch(s) (best=1.52%)
+[EARLY STOP] Patience reached (15) with no EER improvement. Best EER = 1.52%
+==> Stage-2 training complete.
+Best classifier checkpoint: checkpoints_stage2/asv5_mem_256_qst_2_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+Traceback (most recent call last):
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'label'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 678, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 611, in main
+    ds = spec["cls"](**spec["kwargs"])
+  File "/home/jsudan/wav2vec_contr_loss/data_loader.py", line 827, in __init__
+    protocol_df['label'] = protocol_df['label'].replace('bona-fide', 'bonafide')
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/pandas/core/frame.py", line 4107, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "/home/jsudan/myenv/lib/python3.9/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'label'
+----------------------------------------------------------------
+Training script finished.
+Job finished at: Wed Feb 25 01:26:53 EST 2026

@@ -1,0 +1,51 @@
+Setting up the environment...
+Job started on gl1509.arc-ts.umich.edu at Wed Mar 18 00:36:49 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+============================================================
+  Job:          45500211
+  Run ID:       ff_Barack_Obama_20260318_003655
+  Speaker:      Barack_Obama
+  Node:         gl1509.arc-ts.umich.edu
+  GPUs:         6
+  Save dir:     /nfs/turbo/umd-hafiz/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260318_003655
+  Stage1 ckpt:  /nfs/turbo/umd-hafiz/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260318_003655/ff_Barack_Obama_20260318_003655_stage1_head_best.pt
+  Stage2 ckpt:  /nfs/turbo/umd-hafiz/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260318_003655/ff_Barack_Obama_20260318_003655_stage2_classifier_best.pt
+  Eval results: /nfs/turbo/umd-hafiz/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Barack_Obama_20260318_003655/ff_Barack_Obama_20260318_003655_eval_results.txt
+  Train proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_train.txt
+  Dev   proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_dev.txt
+  Eval  proto:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Barack_Obama_eval.txt
+============================================================
+
+[STEP 0] Extracting XLSR features...
+  -> train (fake_frac=0.70)
+usage: extract_xlsr_features.py [-h] [--model_name MODEL_NAME]
+                                [--save_dir SAVE_DIR]
+                                [--supcon_similarity {cosine,geodesic}]
+                                [--uniformity_weight UNIFORMITY_WEIGHT]
+                                [--uniformity_t UNIFORMITY_T]
+                                [--epochs EPOCHS] [--batch_size BATCH_SIZE]
+                                [--accum_steps ACCUM_STEPS]
+                                [--num_samples NUM_SAMPLES]
+                                [--use_ravdess {0,1}]
+                                [--use_commonvoice {0,1}]
+                                [--ravdess_root RAVDESS_ROOT]
+                                [--commonvoice_root COMMONVOICE_ROOT]
+                                [--head_lr HEAD_LR] [--enc_lr ENC_LR]
+                                [--weight_decay WEIGHT_DECAY]
+                                [--temperature TEMPERATURE]
+                                [--max_duration_seconds MAX_DURATION_SECONDS]
+                                [--num_workers NUM_WORKERS]
+                                [--patience PATIENCE] [--seed SEED]
+                                [--topk_neg TOPK_NEG]
+                                [--warmup_epochs WARMUP_EPOCHS]
+                                [--alpha_end ALPHA_END]
+                                [--alpha_ramp_epochs ALPHA_RAMP_EPOCHS]
+                                [--use_rawboost {0,1}]
+                                [--rawboost_prob RAWBOOST_PROB]
+                                [--finetune_encoder {0,1}]
+extract_xlsr_features.py: error: argument --max_duration_seconds: invalid int value: '10.0'
+ERROR: XLSR extraction failed (train).

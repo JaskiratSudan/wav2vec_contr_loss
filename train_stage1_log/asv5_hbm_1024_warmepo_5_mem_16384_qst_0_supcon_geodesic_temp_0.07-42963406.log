@@ -10640,3 +10640,24 @@ Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
 [OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/asv5_hbm_1024_warmepo_5_mem_16384_qst_0_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
 EER (itw): 58.72454786955055
 [INFO] Scoring dataset 'asv5' -> /home/jsudan/wav2vec_contr_loss/scores/asv5_hbm_1024_warmepo_5_mem_16384_qst_0_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/asv5_hbm_1024_warmepo_5_mem_16384_qst_0_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+EER (asv5): 50.21416120257185
+[INFO] Scoring dataset 'asv19' -> /home/jsudan/wav2vec_contr_loss/scores/asv5_hbm_1024_warmepo_5_mem_16384_qst_0_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/asv5_hbm_1024_warmepo_5_mem_16384_qst_0_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+EER (asv19): 38.25964546588926
+[INFO] Scoring dataset 'asv21_df' -> /home/jsudan/wav2vec_contr_loss/scores/asv5_hbm_1024_warmepo_5_mem_16384_qst_0_supcon_geodesic_temp_0.07/asv21_df/score_cm_asv21_df.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/asv5_hbm_1024_warmepo_5_mem_16384_qst_0_supcon_geodesic_temp_0.07/asv21_df/score_cm_asv21_df.txt
+EER (asv21_df): 41.71733450555458
+[INFO] Scoring dataset 'asv21_la' -> /home/jsudan/wav2vec_contr_loss/scores/asv5_hbm_1024_warmepo_5_mem_16384_qst_0_supcon_geodesic_temp_0.07/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/asv5_hbm_1024_warmepo_5_mem_16384_qst_0_supcon_geodesic_temp_0.07/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 40.125214845969275
+[INFO] Scoring dataset 'fakexpose' -> /home/jsudan/wav2vec_contr_loss/scores/asv5_hbm_1024_warmepo_5_mem_16384_qst_0_supcon_geodesic_temp_0.07/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/asv5_hbm_1024_warmepo_5_mem_16384_qst_0_supcon_geodesic_temp_0.07/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 55.50870418861462
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> /home/jsudan/wav2vec_contr_loss/scores/asv5_hbm_1024_warmepo_5_mem_16384_qst_0_supcon_geodesic_temp_0.07/famous_figures/score_cm_ff.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/asv5_hbm_1024_warmepo_5_mem_16384_qst_0_supcon_geodesic_temp_0.07/famous_figures/score_cm_ff.txt
+EER (famous_figures): 46.10269784660335
+----------------------------------------------------------------
+Training script finished.
+Job finished at: Sat Feb 21 09:44:52 EST 2026
