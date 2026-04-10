@@ -39,7 +39,7 @@ train_batch_size = 128
 dev_batch_size = 128
 NUM_SAMPLES = None
 NUM_WORKERS = 4
-SEED = 1337
+SEED = bool(int(os.environ.get("SEED", "1337")))
 
 # LRs: encoder should be much smaller than head/classifier
 enc_lr = 1e-5
@@ -50,7 +50,7 @@ GRAD_CLIP = 5.0
 USE_AMP = True
 
 SAVE_DIR = "/home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce"
-PATIENCE = 10  # EER patience
+PATIENCE = 6  # EER patience
 
 # ---- RawBoost ----
 USE_RAWBOOST = True

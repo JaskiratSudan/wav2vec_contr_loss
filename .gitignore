@@ -6,5 +6,7 @@ __pycache_
 # *.log
 debug_audio_samples
 __pycache__
-# scores
+scores
 plots
+*.pyc
+*.pdf

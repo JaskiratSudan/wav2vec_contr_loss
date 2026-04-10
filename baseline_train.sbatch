@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=baseline_train    # Job name
+#SBATCH --job-name=baseline_train_seed_42    # Job name
 #SBATCH --partition=spgpu                # GPU partition
 #SBATCH --account=hafiz1               # Great Lakes account name
 #SBATCH --gpus-per-node=1              # GPU per node
 #SBATCH --mem=24G                      # CPU RAM
 #SBATCH --cpus-per-task=4             # CPU cores (matches num_workers)
-#SBATCH --time=20:00:00                # time requested (hh:mm:ss)
+#SBATCH --time=07:00:00                # time requested (hh:mm:ss)
 #SBATCH --output=baseline_train_log/%x-%j.log             # (%x=job_name, %j=job_id)
 
 # --- Email Notifications (Optional but Recommended) ---
@@ -50,16 +50,19 @@ RUN_TAG=${MODEL//\//__}
 CKPT=/home/jsudan/wav2vec_contr_loss/checkpoints_baseline/bce/${RUN_TAG}/${RUN_TAG}_baseline_bce_best.pt
 SCORES_DIR=/home/jsudan/wav2vec_contr_loss/scores
 
+export SEED=42
+echo "SEED: ${SEED}" 
+
 # Dataset list for eval_baseline_datasets.py
 DATASET_LIST=(
   itw
   asv19
   asv21_la
   asv21_df
-  asv5
-  famous_figures
-  fakexpose
-  mlaad
+  # asv5
+  # famous_figures
+  # fakexpose
+  # mlaad
 )
 DATASETS=$(IFS=,; echo "${DATASET_LIST[*]}")
 

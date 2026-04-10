@@ -5,7 +5,7 @@
 #SBATCH --gpus-per-node=1
 #SBATCH --mem=36G
 #SBATCH --cpus-per-task=8
-#SBATCH --time=70:00:00
+#SBATCH --time=04:00:00
 #SBATCH --output=eval_datasets_log/%x-%j.log
 
 #SBATCH --mail-user=jsudan@umich.edu
@@ -36,24 +36,42 @@ EXP_NAMES=(
   # supcon_temp_0.6
   # supcon_geodesic_temp_0.07
   # supcon_geodesic_temp_0.1
-  supcon_geodesic_temp_0.3
-  supcon_geodesic_temp_0.6
-  mem_256_supcon_temp_0.07
-  mem_256_supcon_temp_0.3
-  mem_256_supcon_geodesic_temp_0.07
-  mem_256_supcon_geodesic_temp_0.3
-  mem_256_supcon_temp_0.07_uni_weight_0.1_uni_t_2
-  mem_256_supcon_temp_0.3_uni_weight_0.1_uni_t_2
-  mem_256_supcon_geodesic_temp_0.07_uni_weight_0.1_uni_t_2
-  mem_256_supcon_geodesic_temp_0.3_uni_weight_0.1_uni_t_2
-  mem_256_qst_12_supcon_temp_0.07
-  mem_256_qst_12_supcon_temp_0.3
-  mem_256_qst_12_supcon_geodesic_temp_0.07
-  mem_256_qst_12_supcon_geodesic_temp_0.3
-  mem_256_qst_12_supcon_temp_0.07_uni_weight_0.1_uni_t_2
-  mem_256_qst_12_supcon_temp_0.3_uni_weight_0.1_uni_t_2
-  mem_256_qst_12_supcon_geodesic_temp_0.07_uni_weight_0.1_uni_t_2
-  mem_256_qst_12_supcon_geodesic_temp_0.3_uni_weight_0.1_uni_t_2
+  # supcon_geodesic_temp_0.3
+  # supcon_geodesic_temp_0.6
+  # mem_256_supcon_temp_0.07
+  # mem_256_supcon_temp_0.3
+  # mem_256_supcon_geodesic_temp_0.07
+  # mem_256_supcon_geodesic_temp_0.3
+  # mem_256_supcon_temp_0.07_uni_weight_0.1_uni_t_2
+  # mem_256_supcon_temp_0.3_uni_weight_0.1_uni_t_2
+  # mem_256_supcon_geodesic_temp_0.07_uni_weight_0.1_uni_t_2
+  # mem_256_supcon_geodesic_temp_0.3_uni_weight_0.1_uni_t_2
+  # mem_256_qst_12_supcon_temp_0.07
+  # mem_256_qst_12_supcon_temp_0.3
+  # mem_256_qst_12_supcon_geodesic_temp_0.07
+  # mem_256_qst_12_supcon_geodesic_temp_0.3
+  # mem_256_qst_12_supcon_temp_0.07_uni_weight_0.1_uni_t_2
+  # mem_256_qst_12_supcon_temp_0.3_uni_weight_0.1_uni_t_2
+  # mem_256_qst_12_supcon_geodesic_temp_0.07_uni_weight_0.1_uni_t_2
+  # mem_256_qst_12_supcon_geodesic_temp_0.3_uni_weight_0.1_uni_t_2
+  # mem_1024_supcon_temp_0.07
+  # mem_1024_supcon_temp_0.3
+  # mem_1024_supcon_geodesic_temp_0.07
+  # mem_1024_supcon_geodesic_temp_0.3
+  # mem_4096_supcon_temp_0.07
+  # mem_4096_supcon_temp_0.3
+  # mem_4096_supcon_geodesic_temp_0.07
+  # mem_4096_supcon_geodesic_temp_0.3
+  # supcon_geodesic_temp_0.07
+  # mem_256_supcon_geodesic_temp_0.07
+  # mem_16384_supcon_temp_0.3
+  # asv5_supcon_geodesic_temp_0.07
+  # asv5_supcon_geodesic_temp_0.07
+  # asv5_mem_256_supcon_geodesic_temp_0.07
+  # asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07
+  # asv5_mem_4096_qst_3_supcon_temp_0.3
+  # asv5_mem_4096_qst_3_supcon_geodesic_temp_0.07
+  asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07
 )
 
 MODEL=facebook/wav2vec2-xls-r-300m
@@ -61,11 +79,12 @@ DATASET_LIST=(
   # asv19
   # itw
   # fakexpose
-  # famous_figures
+  famous_figures
   # asv5
   # mlaad
-  asv21_df
-  asv21_la
+  # asv21_df
+  # asv21_la
+  # deepfake_eval_2024
 )
 
 # FamousFigures speaker filter (line-by-line; leave empty for all)

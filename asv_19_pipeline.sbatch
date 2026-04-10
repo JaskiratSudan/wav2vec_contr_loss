@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH --job-name=hbm_1024_mem_16384_supcon_temp_0.07
+#SBATCH --job-name=supcon_temp_0.3_seed_2024
 #SBATCH --partition=spgpu
 #SBATCH --account=hafiz1
-#SBATCH --gpus-per-node=1
+#SBATCH --gpus-per-node=2
 #SBATCH --mem=36G
 #SBATCH --cpus-per-task=4
-#SBATCH --time=01:00:00
-#SBATCH --output=train_stage1_log/%x-%j.log
+#SBATCH --time=15:00:00
+#SBATCH --output=asv_19_training_log/%x-%j.log
 
 #SBATCH --mail-user=jsudan@umich.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
@@ -31,13 +31,17 @@ export MASTER_PORT=$((29500 + $SLURM_JOB_ID % 1000))
 #----------------------------------------------------------------#
 #  EXPERIMENT VARIABLES
 #----------------------------------------------------------------#
-EXP_NAME=hbm_1024_mem_16384_supcon_temp_0.07
+EXP_NAME=supcon_temp_0.3_seed_2024
+
+# XLS-R Layers
+# export XLSR_FROM_LAYER=1
+# export XLSR_TILL_LAYER=24
+
 # SUPCON
 SUPCON_SIMILARITY=cosine
-TEMPERATURE=0.07
-
-# LABEL TYPE (binary | attack_type)
-LABEL_TYPE=attack_type
+TEMPERATURE=0.3
+SEED=2024
+echo "SEED: ${SEED}" 
 
 # UNIFORMITY TERM
 UNIFORMITY_WEIGHT=0.0
@@ -45,13 +49,13 @@ UNIFORMITY_T=2
 
 # HARD NEGATIVE MINING 
 TOPK_NEG=1024
-WARMUP_EPOCHS=12
+WARMUP_EPOCHS=100
 ALPHA_END=0.9
 ALPHA_RAMP_EPOCHS=20
 
 # MEMORY BANK
-USE_QUEUE=1
-QUEUE_SIZE=16384
+USE_QUEUE=0
+QUEUE_SIZE=256
 QUEUE_START_EPOCH=6
 
 # PREVENT COLLAPSE OF SUPCON
@@ -63,6 +67,9 @@ ACCUM_STEPS=1
 USE_RAVDESS=0
 USE_COMMONVOICE=0
 MAX_DURATION_SECONDS=10
+
+# Plot information
+PLOT_TYPE=tsne
 
 MODEL_PATH=facebook/wav2vec2-xls-r-300m
 MODEL=wav2vec2-xls-r-300m
@@ -88,13 +95,14 @@ WINDOW_BATCH_SIZE=64
 
 # Dataset list for eval_datasets.py
 DATASET_LIST=(
-  # itw
-  # asv19
+  itw
+  asv19
   asv21_la
-  # asv21_df
-  # asv5
-  # fakexpose
-  # famous_figures
+  asv21_df
+  asv5
+  fakexpose
+  deepfake_eval_2024
+  famous_figures
   # mlaad
 )
 DATASETS=$(IFS=,; echo "${DATASET_LIST[*]}")
@@ -143,59 +151,60 @@ export QUEUE_START_EPOCH=${QUEUE_START_EPOCH}
 export CENTER_BEFORE_NORM=${CENTER_BEFORE_NORM}
 export GLOBAL_CENTER=${GLOBAL_CENTER}
 
-# ${LAUNCHER} train_stage1.py \
-#   --model_name ${MODEL_PATH} \
-#   --finetune_encoder 1 \
-#   --save_dir ${CKPT_ROOT} \
-#   --epochs 100 --batch_size ${BATCH_SIZE} --num_samples none --max_duration_seconds ${MAX_DURATION_SECONDS} \
-#   --accum_steps ${ACCUM_STEPS} \
-#   --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight ${UNIFORMITY_WEIGHT} --uniformity_t ${UNIFORMITY_T} \
-#   --enc_lr 1e-5 --head_lr 5e-4 --weight_decay 3e-3 --temperature ${TEMPERATURE} \
-#   --num_workers 4 --seed 1337 \
-#   --topk_neg ${TOPK_NEG} --warmup_epochs ${WARMUP_EPOCHS} --alpha_end ${ALPHA_END} --alpha_ramp_epochs ${ALPHA_RAMP_EPOCHS} \
-#   --use_rawboost 1 --rawboost_prob 0.7 \
-#   --use_ravdess ${USE_RAVDESS} --use_commonvoice ${USE_COMMONVOICE} \
-#   --label_type ${LABEL_TYPE}
+${LAUNCHER} train_stage1.py \
+  --model_name ${MODEL_PATH} \
+  --finetune_encoder 1 \
+  --save_dir ${CKPT_ROOT} \
+  --epochs 100 --batch_size ${BATCH_SIZE} --num_samples none --max_duration_seconds ${MAX_DURATION_SECONDS} \
+  --accum_steps ${ACCUM_STEPS} \
+  --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight ${UNIFORMITY_WEIGHT} --uniformity_t ${UNIFORMITY_T} \
+  --enc_lr 1e-5 --head_lr 5e-4 --weight_decay 3e-3 --temperature ${TEMPERATURE} \
+  --num_workers 4 --seed ${SEED} \
+  --topk_neg ${TOPK_NEG} --warmup_epochs ${WARMUP_EPOCHS} --alpha_end ${ALPHA_END} --alpha_ramp_epochs ${ALPHA_RAMP_EPOCHS} \
+  --use_rawboost 1 --rawboost_prob 0.7 \
+  --use_ravdess ${USE_RAVDESS} --use_commonvoice ${USE_COMMONVOICE}
 
-# if [ ! -f "${CKPT}" ]; then
-#   echo "[ERROR] Stage-1 checkpoint not found: ${CKPT}"
-#   exit 1
-# fi
+if [ ! -f "${CKPT}" ]; then
+  echo "[ERROR] Stage-1 checkpoint not found: ${CKPT}"
+  exit 1
+fi
 
-# #----------------------------------------------------------------#
-# #  PLOTS (ASV + ITW)
-# #----------------------------------------------------------------#
-# python plot_stage1_umap_asv.py \
-#   --model_name ${MODEL_PATH} \
-#   --ckpt_path ${CKPT} \
-#   --plots_dir /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/${EXP_NAME} \
-#   --exp_name ${EXP_NAME}
-# python plot_stage1_umap_itw.py \
-#   --model_name ${MODEL_PATH} \
-#   --ckpt_path ${CKPT} \
-#   --plots_dir /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/${EXP_NAME} \
-#   --exp_name ${EXP_NAME}
+#----------------------------------------------------------------#
+#  PLOTS (ASV + ITW)
+#----------------------------------------------------------------#
+python plot_stage1_umap_asv.py \
+  --model_name ${MODEL_PATH} \
+  --ckpt_path ${CKPT} \
+  --plots_dir /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/${EXP_NAME} \
+  --exp_name ${EXP_NAME} \
+  --dr_method ${PLOT_TYPE}
+python plot_stage1_umap_itw.py \
+  --model_name ${MODEL_PATH} \
+  --ckpt_path ${CKPT} \
+  --plots_dir /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/${EXP_NAME} \
+  --exp_name ${EXP_NAME} \
+  --dr_method ${PLOT_TYPE}
 
-# #----------------------------------------------------------------#
-# #  EXTRACT STAGE-1 EMBEDDINGS (ASV19 ONLY)
-# #----------------------------------------------------------------#
-# rm -rf ${ASV_EMB_DIR}
-# export SKIP_ITW=1
-# python extract_stage1_embeddings.py \
-#   --model_name ${MODEL_PATH} \
-#   --stage1_ckpt ${CKPT} \
-#   --asv_out_dir ${ASV_EMB_DIR} \
-#   --itw_out_dir ${ITW_EMB_DIR} \
-#   --max_duration_seconds ${MAX_DURATION_SECONDS}
+#----------------------------------------------------------------#
+#  EXTRACT STAGE-1 EMBEDDINGS (ASV19 ONLY)
+#----------------------------------------------------------------#
+rm -rf ${ASV_EMB_DIR}
+export SKIP_ITW=1
+python extract_stage1_embeddings.py \
+  --model_name ${MODEL_PATH} \
+  --stage1_ckpt ${CKPT} \
+  --asv_out_dir ${ASV_EMB_DIR} \
+  --itw_out_dir ${ITW_EMB_DIR} \
+  --max_duration_seconds ${MAX_DURATION_SECONDS}
 
-# #----------------------------------------------------------------#
-# #  STAGE-2 TRAINING
-# #----------------------------------------------------------------#
-# python train_stage2_classifier.py \
-#   --emb_dir ${ASV_EMB_DIR} \
-#   --save_dir ${STAGE2_DIR} \
-#   --batch_size 64 --epochs 200 --lr 1e-4 --weight_decay 1e-4 \
-#   --head_type linear --hidden_dim 128 --dropout 0.2 --patience 15
+#----------------------------------------------------------------#
+#  STAGE-2 TRAINING
+#----------------------------------------------------------------#
+python train_stage2_classifier.py \
+  --emb_dir ${ASV_EMB_DIR} \
+  --save_dir ${STAGE2_DIR} \
+  --batch_size 64 --epochs 200 --lr 1e-4 --weight_decay 1e-4 \
+  --head_type linear --hidden_dim 128 --dropout 0.2 --patience 15
 
 #----------------------------------------------------------------#
 #  EVALUATION (eval_datasets.py)

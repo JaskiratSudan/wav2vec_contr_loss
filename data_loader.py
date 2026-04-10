@@ -70,6 +70,90 @@ def load_fakexpose_items(root_dir: str, allowed_exts=None):
     items.sort(key=lambda x: str(x[0]))
     return items
 
+# ---------- DeepFake Eval ----------
+class DeepfakeEval2024Dataset(BaseAudioDataset):
+    """
+    Deepfake_Eval_2024 dataset.
+    Protocol format (CSV, comma-separated):
+      filename, date, Label, description, split
+
+    Returns:
+      (waveform, label_tensor, source_str, audio_name)
+    """
+
+    def __init__(
+        self,
+        protocol_file: str,
+        root_dir: str,
+        subset: str = "all",   # kept for consistency, but ignored
+        num_samples: int = None,
+        sample_seed: int = 1337,
+        **kwargs,
+    ):
+        super().__init__(**kwargs)
+
+        self.root_dir = Path(root_dir)
+
+        if not Path(protocol_file).exists():
+            raise FileNotFoundError(f"Protocol file not found: {protocol_file}")
+
+        df = pd.read_csv(protocol_file)
+
+        # Expected columns (robust check)
+        if len(df.columns) < 3:
+            raise ValueError("DeepfakeEval2024 protocol has unexpected format.")
+
+        # Standardize label column name
+        df.columns = [c.strip() for c in df.columns]
+        label_col = df.columns[2]   # third column = Label
+
+        # Normalize labels
+        df[label_col] = df[label_col].astype(str).str.lower()
+
+        # Map Real/Fake → 1/0
+        def _label_to_int(lbl):
+            return 1 if lbl == "real" else 0
+
+        # Filter files that exist
+        df["full_path"] = df[df.columns[0]].apply(
+            lambda fname: self.root_dir / fname
+        )
+
+        df["exists"] = df["full_path"].apply(lambda p: Path(p).exists())
+        missing = int((~df["exists"]).sum())
+        if missing > 0:
+            print(f"[INFO] DeepfakeEval2024: filtered out {missing} missing audio files.")
+
+        df = df[df["exists"]].copy()
+
+        if num_samples is not None and len(df) > num_samples:
+            df = df.sample(frac=1, random_state=sample_seed).head(num_samples)
+
+        if len(df) == 0:
+            raise RuntimeError("DeepfakeEval2024Dataset: No audio files found.")
+
+        self.rows = [
+            (
+                Path(row["full_path"]),
+                _label_to_int(row[label_col]),
+                Path(row[df.columns[0]]).name,   # utt_id
+            )
+            for _, row in df.iterrows()
+        ]
+
+        print(f"[INFO] DeepfakeEval2024: loaded {len(self.rows)} samples.")
+
+    def __len__(self):
+        return len(self.rows)
+
+    def __getitem__(self, idx):
+        audio_path, label_int, audio_name = self.rows[idx]
+        waveform = self._process_audio(audio_path)
+        label = torch.tensor(label_int, dtype=torch.long)
+
+        # Return source = "deepfake_eval_2024" (constant)
+        return waveform, label, "deepfake_eval_2024", audio_name
+
 # ---------- New Dataset: FamousFigures ----------
 class FamousFiguresDataset(BaseAudioDataset):
     """
@@ -737,10 +821,18 @@ class InTheWildDataset(BaseAudioDataset):
         if not Path(protocol_file).exists():
             raise FileNotFoundError(f"Protocol file not found: {protocol_file}")
 
-        protocol_df = pd.read_csv(protocol_file)
+        protocol_df = pd.read_csv(protocol_file, skiprows=1)
 
-        # Standardize labels: 'bona-fide' -> 'bonafide'
-        protocol_df['label'] = protocol_df['label'].replace('bona-fide', 'bonafide')
+        # Force correct column names
+        protocol_df.columns = ["file", "speaker", "label"]
+
+        # Normalize labels
+        protocol_df["label"] = (
+            protocol_df["label"]
+            .astype(str)
+            .str.lower()
+            .str.replace("bona-fide", "bonafide")
+        )
 
         # ---------- NEW: detect speaker column ----------
         self.spk_col = "speaker"

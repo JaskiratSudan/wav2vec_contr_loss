@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=asv5_mem_16384_qst_0_supcon_geodesic_temp_0.07
+#SBATCH --job-name=asv5_frozen_enc_supcon_temp_0.3
 #SBATCH --partition=spgpu
 #SBATCH --account=hafiz1
 #SBATCH --gpus-per-node=2
 #SBATCH --mem=36G
 #SBATCH --cpus-per-task=6
-#SBATCH --time=100:00:00
+#SBATCH --time=30:00:00
 #SBATCH --output=train_stage1_log/%x-%j.log
 
 #SBATCH --mail-user=jsudan@umich.edu
@@ -44,11 +44,11 @@ export TRAIN_DATASETS=$(IFS=,; echo "${TRAIN_DATASET_LIST[*]}")
 
 export DEV_PER_DATASET=5000   # it is using ASV 5 and ASV 19 dev set
 
-EXP_NAME=asv5_mem_16384_qst_0_supcon_geodesic_temp_0.07
+EXP_NAME=asv5_frozen_enc_supcon_temp_0.3
 MODEL=facebook/wav2vec2-xls-r-300m
 
-SUPCON_SIMILARITY=geodesic
-TEMPERATURE=0.07
+SUPCON_SIMILARITY=cosine
+TEMPERATURE=0.3
 
 # Train hyperparams
 BATCH_SIZE=32
@@ -59,9 +59,9 @@ SEED=1337
 NUM_WORKERS=6
 
 # ----- QUEUE / MEMORY BANK -----
-USE_QUEUE=1
-QUEUE_SIZE=16384
-QUEUE_START_EPOCH=0
+USE_QUEUE=0
+QUEUE_SIZE=256
+QUEUE_START_EPOCH=2
 
 ACCUM_STEPS=1
 CENTER_BEFORE_NORM=0
@@ -77,13 +77,13 @@ ALPHA_RAMP_EPOCHS=20
 UNIFORMITY_WEIGHT=0.0
 UNIFORMITY_T=2.0
 
-FINETUNE_ENCODER=1
+FINETUNE_ENCODER=0
 ENC_LR=1e-5
 HEAD_LR=5e-3
 WEIGHT_DECAY=3e-3
 
 USE_RAWBOOST=1
-RAWBOOST_PROB=0.7
+RAWBOOST_PROB=0.1
 
 # ----- EVAL DATASETS as a LIST -----
 EVAL_DATASETS_LIST=(
@@ -243,31 +243,6 @@ if [ ! -f "${STAGE2_CKPT}" ]; then
   echo "[ERROR] Stage-2 checkpoint not found: ${STAGE2_CKPT}"
   exit 1
 fi
-
-# python generate_eval_score_file.py \
-#   --stage2_ckpt ${STAGE2_CKPT} \
-#   --eval_emb_path ${ASV5_EMB_DIR}/eval_embeddings.npy \
-#   --eval_label_path ${ASV5_EMB_DIR}/eval_labels.npy \
-#   --itw_emb_path ${ITW_EMB_DIR}/itw_embeddings.npy \
-#   --itw_label_path ${ITW_EMB_DIR}/itw_labels.npy \
-#   --score_file_asv_eval ${SCORE_ASV} \
-#   --score_file_itw ${SCORE_ITW} \
-#   --batch_size 256 --run_asv_eval 1 --run_itw 1
-
-# python generate_eval_score_file.py \
-#   --stage2_ckpt ${STAGE2_CKPT} \
-#   --eval_emb_path ${ASV19_EMB_DIR}/eval_embeddings.npy \
-#   --eval_label_path ${ASV19_EMB_DIR}/eval_labels.npy \
-#   --itw_emb_path ${ITW_EMB_DIR}/itw_embeddings.npy \
-#   --itw_label_path ${ITW_EMB_DIR}/itw_labels.npy \
-#   --score_file_asv_eval ${SCORE_ASV19} \
-#   --score_file_itw ${SCORE_ITW} \
-#   --batch_size 256 --run_asv_eval 1 --run_itw 1
-
-# python eval_score_files.py \
-#   --score ASV5=${SCORE_ASV} \
-#   --score ASV19=${SCORE_ASV19} \
-#   --score ITW=${SCORE_ITW}
 
 python eval_datasets.py \
   --exp_name ${EXP_NAME} \

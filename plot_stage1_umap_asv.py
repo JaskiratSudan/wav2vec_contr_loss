@@ -9,6 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader
 
+from sklearn.manifold import TSNE
 import umap
 import plotly.express as px
 
@@ -140,6 +141,13 @@ def main():
         default=os.environ.get("EXP_NAME", "unknown"),
         help="Experiment name to show in plot titles.",
     )
+    parser.add_argument(
+        "--dr_method",
+        type=str,
+        default="umap",
+        choices=["umap", "tsne"],
+        help="Dimensionality reduction method: umap or tsne",
+    )
     args = parser.parse_args()
 
     model_name = args.model_name
@@ -147,6 +155,7 @@ def main():
     ckpt_path = resolve_ckpt_path(args.ckpt_path, run_tag)
     plots_dir = os.path.join(args.plots_dir, run_tag)
     exp_name = args.exp_name
+    dr_method = args.dr_method.lower()
 
     set_seed(SEED)
     os.makedirs(plots_dir, exist_ok=True)
@@ -252,14 +261,26 @@ def main():
     attack_labels = np.array(attack_labels)
 
     # -------- UMAP to 2D --------
-    print("Running UMAP...")
-    reducer = umap.UMAP(
-        n_components=2,
-        n_neighbors=UMAP_N_NEIGHBORS,
-        min_dist=UMAP_MIN_DIST,
-        random_state=UMAP_RANDOM_STATE,
-    )
-    embs_2d = reducer.fit_transform(all_embs)
+    if dr_method == "umap":
+        print("Running UMAP...")
+        reducer = umap.UMAP(
+            n_components=2,
+            n_neighbors=UMAP_N_NEIGHBORS,
+            min_dist=UMAP_MIN_DIST,
+            random_state=UMAP_RANDOM_STATE,
+        )
+        embs_2d = reducer.fit_transform(all_embs)
+
+    elif dr_method == "tsne":
+        print("Running t-SNE...")
+        reducer = TSNE(
+            n_components=2,
+            perplexity=30,
+            learning_rate="auto",
+            init="pca",
+            random_state=UMAP_RANDOM_STATE,
+        )
+        embs_2d = reducer.fit_transform(all_embs)
 
     # -------- Matplotlib PNG (Real=blue, attacks colored separately) --------
     print("Saving PNG plot...")
@@ -294,7 +315,8 @@ def main():
             )
 
     plt.legend(markerscale=2, fontsize=8)
-    plt.title(f"Trained UMAP ASV19 EXP: {exp_name}")
+    # plt.title(f"Trained {dr_method.upper()} ASV19 EXP: {exp_name}")
+    plt.title(f"{dr_method.upper()}")
     plt.xlabel("UMAP-1")
     plt.ylabel("UMAP-2")
     plt.tight_layout()
@@ -313,7 +335,7 @@ def main():
         y=embs_2d[:, 1],
         color=attack_labels,
         hover_name=all_names,
-        title=f"Trained UMAP ASV19 EXP: {exp_name}",
+        title=f"Trained {dr_method.upper()} ASV19 EXP: {exp_name}",
         labels={"x": "UMAP-1", "y": "UMAP-2", "color": "Class"},
         color_discrete_map=color_map,
     )

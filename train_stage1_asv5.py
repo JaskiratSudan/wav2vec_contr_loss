@@ -256,9 +256,11 @@ def main():
     queue_size = int(os.environ.get("QUEUE_SIZE", "0")) if use_queue else 0
     queue_start_epoch = int(os.environ.get("QUEUE_START_EPOCH", "1"))
 
+    queue_enabled_epoch = None
     queue = None
     if use_queue and queue_size > 0 and queue_start_epoch <= 1:
         queue = EmbeddingQueue(queue_size, cfg.hidden_dim, device)
+        queue_enabled_epoch = 1  # queue is active from epoch 1
         if rank == 0:
             print(f"[INFO] Queue size={queue_size} (per-rank) | starts at epoch {queue_start_epoch}")
     elif use_queue and rank == 0:
@@ -275,14 +277,22 @@ def main():
 
     best, best_path = float("inf"), None
     epochs_no_improve = 0
+
     for epoch in range(1, cfg.epochs + 1):
         if hasattr(train_loader.batch_sampler, "set_epoch"):
             train_loader.batch_sampler.set_epoch(epoch)
 
         if use_queue and queue is None and queue_size > 0 and epoch >= queue_start_epoch:
             queue = EmbeddingQueue(queue_size, cfg.hidden_dim, device)
+            queue_enabled_epoch = epoch
+
+            # Reset early-stopping tracking when queue starts
+            best = float("inf")
+            epochs_no_improve = 0
+
             if rank == 0:
                 print(f"[INFO] Enabling queue at epoch {epoch} | size={queue_size} (per-rank)")
+                print("[INFO] Resetting early-stopping tracker (best/dev patience) after queue start.")
 
         train_loss, alpha = train_one_epoch(
             encoder, head, loss_fn, train_loader, optim, device, epoch, cfg, queue=queue
@@ -293,7 +303,11 @@ def main():
             dev_loss_asv5 = evaluate(encoder, head, loss_fn, dev_loader_asv5, device, cfg)
             dev_loss_asv19 = evaluate(encoder, head, loss_fn, dev_loader_asv19, device, cfg)
             dev_loss = 0.5 * (dev_loss_asv5 + dev_loss_asv19)
-            print(f"[dev] asv5={dev_loss_asv5:.4f} asv19={dev_loss_asv19:.4f} avg={dev_loss:.4f}")
+            print(
+                f"[epoch {epoch:03d}] alpha={alpha:.2f} "
+                f"train_loss={train_loss:.4f} "
+                f"dev_asv5={dev_loss_asv5:.4f} dev_asv19={dev_loss_asv19:.4f} avg_dev={dev_loss:.4f}"
+            )
         else:
             dev_loss = 0.0  # placeholder
 
@@ -324,9 +338,17 @@ def main():
                 torch.save(ckpt, best_path)
                 print(f"✓ Saved best -> {best_path} (dev={best:.4f})")
             else:
-                epochs_no_improve += 1
+                # Only count patience after queue is enabled
+                if (not use_queue) or (queue_enabled_epoch is not None and epoch >= queue_enabled_epoch):
+                    epochs_no_improve += 1
 
-            stop_training = (cfg.patience and epochs_no_improve >= cfg.patience)
+            # Only allow early stop after queue is enabled (if using queue)
+            if not use_queue:
+                stop_training = (cfg.patience and epochs_no_improve >= cfg.patience)
+            else:
+                stop_training = (cfg.patience and queue_enabled_epoch is not None and epoch >= queue_enabled_epoch
+                                and epochs_no_improve >= cfg.patience)
+
         else:
             stop_training = False
 

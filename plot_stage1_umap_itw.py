@@ -10,6 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader
 
+from sklearn.manifold import TSNE
 import umap
 import plotly.express as px
 import pandas as pd
@@ -27,7 +28,6 @@ ITW_ROOT = "/nfs/turbo/umd-hafiz/issf_server_data/ds_wild/release_in_the_wild"
 ITW_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/ds_wild/protocols/meta.csv"
 
 MODEL_NAME = "facebook/wav2vec2-large-960h"
-# MODEL_NAME = "facebook/wav2vec2-xls-r-300m"
 
 CKPT_PATH = "/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon/with_rawboost/facebook__wav2vec2-large-960h/stage1_head_best.pt"
 
@@ -41,10 +41,10 @@ DROPOUT = 0.1
 
 # Audio / loader
 MAX_DURATION_SECONDS = 5
-TARGET_SAMPLE_RATE = 16000  # kept for reference
+TARGET_SAMPLE_RATE = 16000
 BATCH_SIZE = 64
 NUM_WORKERS = 4
-ITW_NUM_SAMPLES = None  # e.g., 500 to subsample, or None for all
+ITW_NUM_SAMPLES = None
 
 # UMAP
 UMAP_N_NEIGHBORS = 15
@@ -69,12 +69,6 @@ def set_seed(seed: int = 1337):
     torch.cuda.manual_seed_all(seed)
 
 def resolve_ckpt_path(ckpt_path: str, run_tag: str) -> str:
-    """
-    Resolve a checkpoint path:
-      1) If ckpt_path exists as a file, use it.
-      2) Else, try: <dirname(ckpt_path)>/<run_tag>/<run_tag>_stage1_head_best.pt
-      3) Else, if ckpt_path is a directory, try: <ckpt_path>/<run_tag>/<run_tag>_stage1_head_best.pt
-    """
     if os.path.isfile(ckpt_path):
         return ckpt_path
 
@@ -97,10 +91,6 @@ def resolve_ckpt_path(ckpt_path: str, run_tag: str) -> str:
     raise FileNotFoundError(f"Checkpoint not found. Tried: {tried}")
 
 def load_encoder_from_ckpt(encoder: torch.nn.Module, ckpt: dict) -> bool:
-    """
-    Load finetuned encoder weights if present in the checkpoint.
-    Returns True if weights were loaded.
-    """
     if "encoder_state_dict" not in ckpt:
         return False
     state_dict = ckpt["encoder_state_dict"]
@@ -121,20 +111,18 @@ def load_encoder_from_ckpt(encoder: torch.nn.Module, ckpt: dict) -> bool:
 # =========================
 
 def main():
-    # Optional CLI overrides
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model_name", type=str, default=MODEL_NAME,
-                        help="HF model id, e.g. facebook/wav2vec2-large-960h")
-    parser.add_argument("--ckpt_path", type=str, default=CKPT_PATH,
-                        help="Path to checkpoint file OR base directory containing per-model subfolders.")
-    parser.add_argument("--plots_dir", type=str, default=PLOTS_DIR,
-                        help="Base directory to save plots; a subfolder per model tag will be created.")
-    parser.add_argument(
-        "--exp_name",
-        type=str,
-        default=os.environ.get("EXP_NAME", "unknown"),
-        help="Experiment name to show in plot titles.",
-    )
+    parser.add_argument("--model_name", type=str, default=MODEL_NAME)
+    parser.add_argument("--ckpt_path", type=str, default=CKPT_PATH)
+    parser.add_argument("--plots_dir", type=str, default=PLOTS_DIR)
+    parser.add_argument("--exp_name", type=str,
+                        default=os.environ.get("EXP_NAME", "unknown"))
+    parser.add_argument("--dr_method", type=str, default="umap",
+                        choices=["umap", "tsne"])
+    # --clean: strips title, axis labels, ticks, legend from the PNG
+    # so panels can be composited into a paper figure grid
+    parser.add_argument("--clean", action="store_true",
+                        help="Save a clean panel (no title/axes/legend) for paper figures.")
     args = parser.parse_args()
 
     model_name = args.model_name
@@ -142,6 +130,8 @@ def main():
     ckpt_path = resolve_ckpt_path(args.ckpt_path, run_tag)
     plots_dir = os.path.join(args.plots_dir, run_tag)
     exp_name = args.exp_name
+    dr_method = args.dr_method.lower()
+    clean = args.clean
 
     set_seed(SEED)
     os.makedirs(plots_dir, exist_ok=True)
@@ -150,16 +140,15 @@ def main():
     print(f"Model: {model_name}")
     print(f"Checkpoint: {ckpt_path}")
     print(f"Saving to: {plots_dir}")
+    print(f"Clean mode: {clean}")
 
-    # -------- Dataset & Loader (ITW) --------
+    # -------- Dataset & Loader --------
     itw_ds = InTheWildDataset(
         root_dir=ITW_ROOT,
         protocol_file=ITW_PROTOCOL,
         subset=None,
         num_samples=ITW_NUM_SAMPLES,
         max_duration_seconds=MAX_DURATION_SECONDS,
-        # If your InTheWildDataset supports this, you can pass:
-        # target_sample_rate=TARGET_SAMPLE_RATE,
     )
 
     itw_loader = DataLoader(
@@ -171,14 +160,14 @@ def main():
         collate_fn=pad_collate_fn_speaker_source,
     )
 
-    # -------- Encoder (frozen) --------
+    # -------- Encoder --------
     encoder = Wav2Vec2Encoder(
         model_name=model_name,
         freeze_encoder=True,
     ).to(DEVICE)
     encoder.eval()
 
-    # -------- Compression head --------
+    # -------- Head --------
     head = CompressionModule(
         input_dim=INPUT_DIM,
         hidden_dim=HIDDEN_DIM,
@@ -198,33 +187,22 @@ def main():
     all_bin_labels = []
     all_speakers = []
     all_sources = []
-
     num_seen = 0
 
     with torch.no_grad():
         for batch_idx, batch in enumerate(itw_loader):
-            # batch: (waveforms, bin_labels, speakers, sources)
             waveforms, bin_labels, speakers, sources = batch
-
             waveforms = waveforms.to(DEVICE)
             bin_labels = bin_labels.to(DEVICE).long()
-
             attn_mask = (waveforms != 0.0).long()
 
-            # Encoder -> (B, K, F, T)
             hs_4d = encoder(waveforms, attention_mask=attn_mask)
-
-            # Head -> (B, H, T)
             seq = head(hs_4d)
-
-            # Mean over time -> (B, H); L2 normalize
             z = seq.mean(dim=-1)
             z = F.normalize(z, p=2, dim=1)
 
             all_embs.append(z.cpu().numpy())
             all_bin_labels.append(bin_labels.cpu().numpy())
-
-            # speakers/sources should already be iterables of length B
             all_speakers.extend([str(s) for s in speakers])
             all_sources.extend([str(s) for s in sources])
 
@@ -232,87 +210,115 @@ def main():
             if (batch_idx + 1) % 20 == 0:
                 print(f"  Processed {num_seen} samples...")
 
-    # Concatenate
     all_embs = np.concatenate(all_embs, axis=0)
     all_bin_labels = np.concatenate(all_bin_labels, axis=0)
 
     print(f"Total ITW embeddings: {all_embs.shape[0]} (dim={all_embs.shape[1]})")
 
-    # -------- Map binary labels -> string classes --------
     class_labels = np.array([
         "Real" if int(b) == 1 else "Spoof"
         for b in all_bin_labels
     ])
 
-    # -------- UMAP to 2D --------
-    print("Running UMAP...")
-    reducer = umap.UMAP(
-        n_components=2,
-        n_neighbors=UMAP_N_NEIGHBORS,
-        min_dist=UMAP_MIN_DIST,
-        random_state=UMAP_RANDOM_STATE,
-    )
-    embs_2d = reducer.fit_transform(all_embs)
+    # -------- Dimensionality reduction --------
+    if dr_method == "umap":
+        print("Running UMAP...")
+        reducer = umap.UMAP(
+            n_components=2,
+            n_neighbors=UMAP_N_NEIGHBORS,
+            min_dist=UMAP_MIN_DIST,
+            random_state=UMAP_RANDOM_STATE,
+        )
+        embs_2d = reducer.fit_transform(all_embs)
 
-    # -------- Matplotlib PNG (Real vs Spoof) --------
+    elif dr_method == "tsne":
+        print("Running t-SNE...")
+        reducer = TSNE(
+            n_components=2,
+            perplexity=30,
+            learning_rate="auto",
+            init="pca",
+            random_state=UMAP_RANDOM_STATE,
+        )
+        embs_2d = reducer.fit_transform(all_embs)
+
+    # -------- Matplotlib PNG --------
     print("Saving PNG plot...")
-    plt.figure(figsize=(10, 8))
 
-    mask_real = (class_labels == "Real")
+    mask_real  = (class_labels == "Real")
     mask_spoof = (class_labels == "Spoof")
 
-    if np.any(mask_real):
-        plt.scatter(
-            embs_2d[mask_real, 0],
-            embs_2d[mask_real, 1],
-            s=8,
-            alpha=0.6,
-            c="blue",
-            label="Real",
-        )
+    if clean:
+        # ── Clean panel for paper figure grid ──────────────────────────────
+        # Square figure, no padding, no decorations.
+        # All labelling (row/col headers, shared legend) is handled
+        # by the compositing script.
+        fig, ax = plt.subplots(figsize=(4, 4))
 
-    if np.any(mask_spoof):
-        plt.scatter(
-            embs_2d[mask_spoof, 0],
-            embs_2d[mask_spoof, 1],
-            s=8,
-            alpha=0.6,
-            c="red",
-            label="Spoof",
-        )
+        if np.any(mask_real):
+            ax.scatter(embs_2d[mask_real,  0], embs_2d[mask_real,  1],
+                       s=2, alpha=0.5, c="royalblue", rasterized=True, label="Real")
+        if np.any(mask_spoof):
+            ax.scatter(embs_2d[mask_spoof, 0], embs_2d[mask_spoof, 1],
+                       s=2, alpha=0.5, c="crimson",   rasterized=True, label="Spoof")
 
-    plt.legend(markerscale=2, fontsize=8)
-    plt.title(f"Trained UMAP ITW EXP: {exp_name}")
-    plt.xlabel("UMAP-1")
-    plt.ylabel("UMAP-2")
-    plt.tight_layout()
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.set_xticklabels([])
+        ax.set_yticklabels([])
+        ax.set_xlabel("")
+        ax.set_ylabel("")
+        ax.set_title("")
 
-    png_path = os.path.join(plots_dir, "stage1_umap_itw_real_vs_spoof.png")
-    plt.savefig(png_path, dpi=300)
+        # Thin border only — helps visually separate panels in the grid
+        for spine in ax.spines.values():
+            spine.set_linewidth(0.5)
+            spine.set_color("#aaaaaa")
+
+        plt.subplots_adjust(left=0.01, right=0.99, top=0.99, bottom=0.01)
+        png_path = os.path.join(plots_dir, "stage1_umap_itw_real_vs_spoof_clean.png")
+
+    else:
+        # ── Standard annotated plot (unchanged from original) ──────────────
+        fig, ax = plt.subplots(figsize=(10, 8))
+
+        if np.any(mask_real):
+            ax.scatter(embs_2d[mask_real,  0], embs_2d[mask_real,  1],
+                       s=8, alpha=0.6, c="blue",  label="Real")
+        if np.any(mask_spoof):
+            ax.scatter(embs_2d[mask_spoof, 0], embs_2d[mask_spoof, 1],
+                       s=8, alpha=0.6, c="red",   label="Spoof")
+
+        ax.legend(markerscale=2, fontsize=8)
+        ax.set_title(f"{dr_method.upper()}")
+        ax.set_xlabel("UMAP-1")
+        ax.set_ylabel("UMAP-2")
+        plt.tight_layout()
+        png_path = os.path.join(plots_dir, "stage1_umap_itw_real_vs_spoof.png")
+
+    plt.savefig(png_path, dpi=300, bbox_inches="tight")
     plt.close()
     print(f"Saved PNG: {png_path}")
 
-    # -------- Plotly HTML (hover: speaker + source) --------
+    # -------- Plotly HTML --------
     print("Saving interactive HTML plot...")
 
     df = pd.DataFrame({
         "UMAP-1": embs_2d[:, 0],
         "UMAP-2": embs_2d[:, 1],
-        "Class": class_labels,
+        "Class":  class_labels,
         "Speaker": all_speakers,
-        "Source": all_sources,
+        "Source":  all_sources,
     })
 
     color_map = {"Real": "blue", "Spoof": "red"}
 
     fig = px.scatter(
         df,
-        x="UMAP-1",
-        y="UMAP-2",
+        x="UMAP-1", y="UMAP-2",
         color="Class",
         hover_data=["Speaker", "Source"],
-        title=f"Trained UMAP ITW EXP: {exp_name}",
-        labels={"UMAP-1": "UMAP-1", "UMAP-2": "UMAP-2", "Class": "Class"},
+        title=f"Trained {dr_method.upper()} ITW EXP: {exp_name}",
         color_discrete_map=color_map,
     )
 

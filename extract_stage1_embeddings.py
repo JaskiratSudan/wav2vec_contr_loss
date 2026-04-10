@@ -216,7 +216,7 @@ def extract_asv_split(
 
     backbone.eval()
 
-    for waveforms, labels, *_ in tqdm(loader, desc=f"[ASV] Extracting {split_name}"):
+    for waveforms, labels, *_ in tqdm(loader, desc=f"[ASV] Extracting {split_name}", disable=True):
         waveforms = waveforms.to(device)
         labels = labels.to(device)
 
@@ -287,7 +287,7 @@ def extract_itw(backbone: Stage1Backbone, device: torch.device):
 
     backbone.eval()
 
-    for waveforms, bin_labels, speakers, sources in tqdm(itw_loader, desc="[ITW] Extracting"):
+    for waveforms, bin_labels, speakers, sources in tqdm(itw_loader, desc="[ITW] Extracting", disable=True):
         waveforms = waveforms.to(device)
         bin_labels = bin_labels.to(device)
 

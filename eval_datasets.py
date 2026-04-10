@@ -17,6 +17,7 @@ from data_loader import (
     FamousFiguresDataset,
     FakeXposeDataset,
     MLAADMailabsDataset,
+    DeepfakeEval2024Dataset,
 )
 from encoder import Wav2Vec2Encoder
 from compression_module import CompressionModule
@@ -37,12 +38,19 @@ DEFAULT_ASV21_LA_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof2021_
 DEFAULT_ITW_ROOT = "/nfs/turbo/umd-hafiz/issf_server_data/ds_wild/release_in_the_wild"
 DEFAULT_ITW_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/ds_wild/protocols/meta.csv"
 
-DEFAULT_FF_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/famousfigures/protocol.txt"
+# DEFAULT_FF_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/famousfigures/protocol.txt"
+DEFAULT_FF_PROTOCOL = "/home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_eval.txt"
 DEFAULT_FF_ROOT = ""
 
+print(f"FF_PROTOCOL: {DEFAULT_FF_PROTOCOL}")
+
 DEFAULT_FAKEXPOSE_ROOT = "/nfs/turbo/umd-hafiz/issf_server_data/fakexpose"
+
 DEFAULT_MLAAD_ROOT = "/nfs/turbo/umd-hafiz/issf_server_data/multilingual"
 DEFAULT_MLAAD_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/multilingual/protocol_MLAAD_MAILabs_total_balanced.txt"
+
+DEFAULT_DEEPFAKE_EVAL_ROOT = "/nfs/turbo/umd-hafiz/issf_server_data/Deepfake_Eval_2024/audio-data"
+DEFAULT_DEEPFAKE_EVAL_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/Deepfake_Eval_2024/audio-metadata-publish.csv"
 
 
 def safe_load(path: str, map_location: torch.device):
@@ -471,6 +479,18 @@ def dataset_specs(args):
             },
             "score_rel": os.path.join("mlaad", "score_cm_mlaad.txt"),
         },
+        "deepfake_eval_2024": {
+            "cls": DeepfakeEval2024Dataset,
+            "kwargs": {
+                "root_dir": args.deepfake_root,
+                "protocol_file": args.deepfake_protocol,
+                "subset": args.subset,
+                "num_samples": args.num_samples,
+                "max_duration_seconds": args.max_duration_seconds,
+                "target_sample_rate": args.target_sample_rate,
+            },
+            "score_rel": os.path.join("deepfake_eval_2024", "score_cm_deepfake_eval_2024.txt"),
+        },
     }
 
 def _missing_inputs(kwargs):
@@ -531,6 +551,8 @@ def main():
     ap.add_argument("--fakexpose_root", type=str, default=DEFAULT_FAKEXPOSE_ROOT)
     ap.add_argument("--mlaad_root", type=str, default=DEFAULT_MLAAD_ROOT)
     ap.add_argument("--mlaad_protocol", type=str, default=DEFAULT_MLAAD_PROTOCOL)
+    ap.add_argument("--deepfake_root", type=str, default=DEFAULT_DEEPFAKE_EVAL_ROOT)
+    ap.add_argument("--deepfake_protocol", type=str, default=DEFAULT_DEEPFAKE_EVAL_PROTOCOL)
     ap.add_argument(
         "--force_rescore",
         action="store_true",
