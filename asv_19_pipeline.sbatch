@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=supcon_temp_0.3_seed_2024
+#SBATCH --job-name=supcon_temp_0.3_seed_1337
 #SBATCH --partition=spgpu
 #SBATCH --account=hafiz1
 #SBATCH --gpus-per-node=2
 #SBATCH --mem=36G
 #SBATCH --cpus-per-task=4
-#SBATCH --time=15:00:00
+#SBATCH --time=12:00:00
 #SBATCH --output=asv_19_training_log/%x-%j.log
 
 #SBATCH --mail-user=jsudan@umich.edu
@@ -31,7 +31,7 @@ export MASTER_PORT=$((29500 + $SLURM_JOB_ID % 1000))
 #----------------------------------------------------------------#
 #  EXPERIMENT VARIABLES
 #----------------------------------------------------------------#
-EXP_NAME=supcon_temp_0.3_seed_2024
+EXP_NAME=supcon_temp_0.3_seed_1337
 
 # XLS-R Layers
 # export XLSR_FROM_LAYER=1
@@ -40,7 +40,9 @@ EXP_NAME=supcon_temp_0.3_seed_2024
 # SUPCON
 SUPCON_SIMILARITY=cosine
 TEMPERATURE=0.3
-SEED=2024
+SEED=1337
+# LABEL TYPE (binary | attack_type)
+LABEL_TYPE=attack_type
 echo "SEED: ${SEED}" 
 
 # UNIFORMITY TERM
@@ -162,7 +164,8 @@ ${LAUNCHER} train_stage1.py \
   --num_workers 4 --seed ${SEED} \
   --topk_neg ${TOPK_NEG} --warmup_epochs ${WARMUP_EPOCHS} --alpha_end ${ALPHA_END} --alpha_ramp_epochs ${ALPHA_RAMP_EPOCHS} \
   --use_rawboost 1 --rawboost_prob 0.7 \
-  --use_ravdess ${USE_RAVDESS} --use_commonvoice ${USE_COMMONVOICE}
+  --use_ravdess ${USE_RAVDESS} --use_commonvoice ${USE_COMMONVOICE} \
+  --label_type ${LABEL_TYPE}
 
 if [ ! -f "${CKPT}" ]; then
   echo "[ERROR] Stage-1 checkpoint not found: ${CKPT}"
