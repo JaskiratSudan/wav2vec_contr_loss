@@ -33,6 +33,10 @@ MODEL_NAME = "facebook/wav2vec2-xls-r-300m"
 SAVE_CSV = False
 CSV_OUT = "/home/jsudan/wav2vec_contr_loss/one_audio_analysis/eer_threshold_results.csv"
 
+# Set to True to pool all datasets and compute a single deployment threshold.
+# Set to False for the original per-dataset EER mode.
+POOLED_MODE = False
+
 
 # -------------------------------------------------
 # SCORE FILE NAMES
@@ -136,6 +140,78 @@ def calculate_eer_and_threshold(score_file: str):
     }
 
 
+def per_dataset_stats_at_threshold(labels, scores, threshold, higher_is_bonafide):
+    """Compute FAR, FRR, and accuracy at a fixed threshold for one dataset."""
+    bona = scores[labels == "bonafide"]
+    spoof = scores[labels == "spoof"]
+    if higher_is_bonafide:
+        # bonafide accepted when score >= threshold; spoof accepted when score >= threshold
+        fa = float(np.sum(spoof >= threshold))   # false accepts (spoof above thresh)
+        fr = float(np.sum(bona < threshold))      # false rejects (bona below thresh)
+    else:
+        fa = float(np.sum(spoof < threshold))
+        fr = float(np.sum(bona >= threshold))
+    far = fa / len(spoof) * 100.0 if len(spoof) > 0 else float("nan")
+    frr = fr / len(bona) * 100.0 if len(bona) > 0 else float("nan")
+    correct = (len(bona) - fr) + (len(spoof) - fa)
+    acc = correct / (len(bona) + len(spoof)) * 100.0 if (len(bona) + len(spoof)) > 0 else float("nan")
+    return {"far_pct": far, "frr_pct": frr, "acc_pct": acc}
+
+
+def calculate_pooled_threshold(exp_name, datasets, scores_dir, model_name):
+    """
+    Load score files for all datasets, pool them, and compute a single EER + threshold.
+
+    Returns
+    -------
+    threshold : float
+    eer_pct : float
+    higher_is_bonafide : bool
+    per_ds : list of dicts  (one per dataset, with raw labels/scores + stats)
+    """
+    all_bona = []
+    all_spoof = []
+    per_ds = []
+
+    for ds_name in datasets:
+        score_file = resolve_score_file(exp_name, ds_name, scores_dir, model_name)
+        if score_file is None:
+            print(f"  [WARN] Missing score file for '{ds_name}' — skipping.")
+            per_ds.append({"dataset": ds_name, "status": "missing"})
+            continue
+        try:
+            labels, scores = load_score_file(score_file)
+        except Exception as e:
+            print(f"  [WARN] Could not load '{ds_name}': {e} — skipping.")
+            per_ds.append({"dataset": ds_name, "status": f"error: {e}"})
+            continue
+
+        bona = scores[labels == "bonafide"]
+        spoof = scores[labels == "spoof"]
+        all_bona.append(bona)
+        all_spoof.append(spoof)
+        per_ds.append({
+            "dataset": ds_name,
+            "status": "ok",
+            "labels": labels,
+            "scores": scores,
+            "n_bonafide": len(bona),
+            "n_spoof": len(spoof),
+        })
+        print(f"  [OK] Loaded '{ds_name}': {len(bona)} bonafide, {len(spoof)} spoof")
+
+    if not all_bona or not all_spoof:
+        raise RuntimeError("No score files could be loaded — cannot compute pooled threshold.")
+
+    pooled_bona = np.concatenate(all_bona)
+    pooled_spoof = np.concatenate(all_spoof)
+
+    eer, threshold = compute_eer(pooled_bona, pooled_spoof)
+    higher_is_bonafide = float(np.mean(pooled_bona)) >= float(np.mean(pooled_spoof))
+
+    return float(threshold), float(eer) * 100.0, higher_is_bonafide, per_ds, int(len(pooled_bona)), int(len(pooled_spoof))
+
+
 def print_table(rows):
     if not rows:
         print("No results.")
@@ -169,6 +245,13 @@ def save_csv(rows, out_path):
 
 
 def main():
+    if POOLED_MODE:
+        _main_pooled()
+    else:
+        _main_per_dataset()
+
+
+def _main_per_dataset():
     rows = []
 
     for exp_name in EXP_NAMES:
@@ -235,6 +318,102 @@ def main():
 
     if SAVE_CSV and rows:
         save_csv(rows, CSV_OUT)
+
+
+def _main_pooled():
+    all_rows = []
+
+    for exp_name in EXP_NAMES:
+        print("\n" + "=" * 100)
+        print(f"Experiment (pooled): {exp_name}")
+        print(f"Datasets: {DATASETS}")
+
+        try:
+            threshold, pooled_eer_pct, higher_is_bonafide, per_ds, n_bona_total, n_spoof_total = \
+                calculate_pooled_threshold(exp_name, DATASETS, SCORES_DIR, MODEL_NAME)
+        except RuntimeError as e:
+            print(f"  [ERROR] {e}")
+            continue
+
+        direction = "higher score means bonafide" if higher_is_bonafide else "higher score means spoof"
+        print(f"\n  POOLED EER:  {pooled_eer_pct:.4f}%")
+        print(f"  THRESHOLD:   {threshold:.6f}")
+        print(f"  DIRECTION:   {direction}")
+        print(f"  TOTAL BONA:  {n_bona_total}   TOTAL SPOOF: {n_spoof_total}")
+
+        # Per-dataset stats at the pooled threshold
+        ds_rows = []
+        pooled_correct = 0
+        pooled_total = 0
+
+        for ds_info in per_ds:
+            ds_name = ds_info["dataset"]
+            if ds_info["status"] != "ok":
+                ds_rows.append({
+                    "dataset": ds_name,
+                    "n_bona": "NA",
+                    "n_spoof": "NA",
+                    "per_eer_pct": "NA",
+                    "acc_at_thresh_pct": "NA",
+                    "far_pct": "NA",
+                    "frr_pct": "NA",
+                })
+                continue
+
+            labels = ds_info["labels"]
+            scores = ds_info["scores"]
+
+            # Per-dataset EER (for reference)
+            try:
+                bona = scores[labels == "bonafide"]
+                spoof = scores[labels == "spoof"]
+                per_eer, _ = compute_eer(bona, spoof)
+                per_eer_pct = per_eer * 100.0
+            except Exception:
+                per_eer_pct = float("nan")
+
+            stats = per_dataset_stats_at_threshold(labels, scores, threshold, higher_is_bonafide)
+            n_b = ds_info["n_bonafide"]
+            n_s = ds_info["n_spoof"]
+
+            # Accumulate for pooled accuracy row
+            total = n_b + n_s
+            if not np.isnan(stats["acc_pct"]):
+                pooled_correct += stats["acc_pct"] / 100.0 * total
+                pooled_total += total
+
+            ds_rows.append({
+                "dataset": ds_name,
+                "n_bona": n_b,
+                "n_spoof": n_s,
+                "per_eer_pct": f"{per_eer_pct:.4f}",
+                "acc_at_thresh_pct": f"{stats['acc_pct']:.2f}",
+                "far_pct": f"{stats['far_pct']:.2f}",
+                "frr_pct": f"{stats['frr_pct']:.2f}",
+            })
+
+        # Pooled accuracy row
+        pooled_acc = (pooled_correct / pooled_total * 100.0) if pooled_total > 0 else float("nan")
+        ds_rows.append({
+            "dataset": "POOLED",
+            "n_bona": n_bona_total,
+            "n_spoof": n_spoof_total,
+            "per_eer_pct": f"{pooled_eer_pct:.4f}",
+            "acc_at_thresh_pct": f"{pooled_acc:.2f}",
+            "far_pct": "—",
+            "frr_pct": "—",
+        })
+
+        print()
+        print_table(ds_rows)
+
+        # Collect for CSV
+        for row in ds_rows:
+            all_rows.append({"exp_name": exp_name, "threshold": f"{threshold:.6f}",
+                             "direction": direction, **row})
+
+    if SAVE_CSV and all_rows:
+        save_csv(all_rows, CSV_OUT)
 
 
 if __name__ == "__main__":
