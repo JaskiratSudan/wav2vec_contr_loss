@@ -43,7 +43,7 @@ ALPHA_RAMP_EPOCHS = 80
 
 USE_RAWBOOST = True
 RAWBOOST_PROB = 0.7
-PATIENCE = 5
+PATIENCE = 12
 
 
 def build_config():

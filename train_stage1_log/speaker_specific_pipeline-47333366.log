@@ -1,0 +1,43 @@
+Setting up the environment...
+Job started on gl1511.arc-ts.umich.edu at Fri Apr 10 13:31:49 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+============================================================
+  Job:           47333366
+  Run ID:        ff_Donald_Trump_20260410_133158
+  Speaker:       Donald_Trump
+  ITW speaker:   Donald Trump
+  Node:          gl1511.arc-ts.umich.edu
+  GPUs:          5
+  Save dir:      /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260410_133158
+  Stage1 ckpt:   /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260410_133158/ff_Donald_Trump_20260410_133158_stage1_head_best.pt
+  Stage2 ckpt:   /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260410_133158/ff_Donald_Trump_20260410_133158_stage2_classifier_best.pt
+  FF Eval:       /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260410_133158/ff_Donald_Trump_20260410_133158_eval_results.txt
+  ITW Eval:      /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260410_133158/ff_Donald_Trump_20260410_133158_itw_eval_results.txt
+  FF Train:      /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_train.txt
+  FF Dev:        /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_dev.txt
+  FF Eval proto: /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_eval.txt
+  ITW filtered:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_itw.txt
+============================================================
+
+[STEP 5] Evaluating on ITW (speaker: Donald Trump)...
+FF_PROTOCOL: /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_eval.txt
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> scores/custom/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: scores/custom/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 52.26191652015881
+[STEP 5] Done.
+
+============================================================
+  Pipeline complete.
+  Run ID        : ff_Donald_Trump_20260410_133158
+  Save dir      : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260410_133158
+  Stage 1 ckpt  : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260410_133158/ff_Donald_Trump_20260410_133158_stage1_head_best.pt
+  Stage 2 ckpt  : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260410_133158/ff_Donald_Trump_20260410_133158_stage2_classifier_best.pt
+  FF eval       : /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260410_133158/ff_Donald_Trump_20260410_133158_eval_results.txt
+  ITW protocol  : /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_itw.txt
+============================================================

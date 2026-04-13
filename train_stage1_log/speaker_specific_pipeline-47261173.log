@@ -1,0 +1,37 @@
+Setting up the environment...
+Job started on gl1502.arc-ts.umich.edu at Fri Apr 10 02:40:57 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+============================================================
+  Job:           47261173
+  Run ID:        ff_Donald_Trump_20260410_024105
+  Speaker:       Donald_Trump
+  ITW speaker:   Donald Trump
+  Node:          gl1502.arc-ts.umich.edu
+  GPUs:          1
+  Save dir:      /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260410_024105
+  Stage1 ckpt:   /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260410_024105/ff_Donald_Trump_20260410_024105_stage1_head_best.pt
+  Stage2 ckpt:   /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260410_024105/ff_Donald_Trump_20260410_024105_stage2_classifier_best.pt
+  FF Eval:       /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260410_024105/ff_Donald_Trump_20260410_024105_eval_results.txt
+  ITW Eval:      /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260410_024105/ff_Donald_Trump_20260410_024105_itw_eval_results.txt
+  FF Train:      /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_train.txt
+  FF Dev:        /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_dev.txt
+  FF Eval proto: /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_eval.txt
+  ITW filtered:  /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_itw.txt
+============================================================
+
+[STEP 5] Evaluating on ITW (speaker: Donald Trump)...
+FF_PROTOCOL: /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_eval.txt
+Device: cuda
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 681, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 586, in main
+    stage1_ckpt, stage2_ckpt = resolve_ckpts(
+  File "/home/jsudan/wav2vec_contr_loss/eval_datasets.py", line 376, in resolve_ckpts
+    raise FileNotFoundError(f"Stage-1 checkpoint not found: {stage1_ckpt}")
+FileNotFoundError: Stage-1 checkpoint not found: /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_ff/ff_Donald_Trump_20260410_024105/ff_Donald_Trump_20260410_024105_stage1_head_best.pt
+ERROR: ITW evaluation failed.
