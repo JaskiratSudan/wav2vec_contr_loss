@@ -1,0 +1,18 @@
+Setting up the environment...
+Job started on gl1522.arc-ts.umich.edu at Mon Apr 13 16:51:06 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07
+FF_PROTOCOL: /nfs/turbo/umd-hafiz/issf_server_data/famousfigures/protocol.txt
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] FamousFigures: loaded 348136 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/famous_figures/score_cm_ff.txt
+[OK] Wrote: scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/famous_figures/score_cm_ff.txt
+EER (famous_figures): 35.83322401795623
+[INFO] Scoring dataset 'asv21_df' -> scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/asv21_df/score_cm_asv21_df.txt
+[2026-04-13T21:51:06.011] error: *** JOB 47688309 ON gl1522 CANCELLED AT 2026-04-13T21:51:06 DUE TO TIME LIMIT ***

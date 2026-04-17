@@ -1,0 +1,33 @@
+Setting up the environment...
+Job started on gl1519.arc-ts.umich.edu at Mon Apr 13 02:56:33 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07
+FF_PROTOCOL: /home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_eval.txt
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv19' -> scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+[OK] Wrote: scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+EER (asv19): 0.7634303270448226
+[INFO] Scoring dataset 'itw' -> scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 6.668860525195942
+[INFO] Scoring dataset 'fakexpose' -> scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote: scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 31.37219712836431
+[INFO] FamousFigures: loaded 2264 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/famous_figures/score_cm_ff.txt
+[OK] Wrote: scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/famous_figures/score_cm_ff.txt
+EER (famous_figures): 14.929648752305463
+[INFO] Scoring dataset 'asv5' -> scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[OK] Wrote: scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+EER (asv5): 12.125035528847484
+[INFO] Scoring dataset 'mlaad' -> scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/mlaad/score_cm_mlaad.txt
+[OK] Wrote: scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/mlaad/score_cm_mlaad.txt
+EER (mlaad): 0.8571484230778508
+[INFO] Scoring dataset 'asv21_df' -> scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/asv21_df/score_cm_asv21_df.txt
+[2026-04-13T12:57:01.012] error: *** JOB 47605573 ON gl1519 CANCELLED AT 2026-04-13T12:57:01 DUE TO TIME LIMIT ***

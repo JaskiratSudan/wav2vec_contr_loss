@@ -9,21 +9,21 @@ from evaluation import compute_eer
 # USER CONFIG
 # -------------------------------------------------
 EXP_NAMES = [
-    "asv5_hbm_1024_warmepo_5_mem_16384_qst_2_supcon_geodesic_temp_0.07",
+    # "asv5_hbm_1024_warmepo_5_mem_16384_qst_2_supcon_geodesic_temp_0.07",
     "asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07",
-    "asv5_mem_4096_qst_3_supcon_geodesic_temp_0.07",
-    "mem_4096_supcon_temp_0.3",
+    # "asv5_mem_4096_qst_3_supcon_geodesic_temp_0.07",
+    # "mem_4096_supcon_temp_0.3",
 ]
 
 DATASETS = [
     "itw",
-    # "asv19",
-    # "asv5",
+    "asv19",
+    "asv5",
     "asv21_df",
     "asv21_la",
-    # "famous_figures",
-    # "fakexpose",
-    # "mlaad",
+    "famous_figures",
+    "fakexpose",
+    "mlaad",
     "deepfake_eval_2024",
 ]
 
@@ -35,7 +35,7 @@ CSV_OUT = "/home/jsudan/wav2vec_contr_loss/one_audio_analysis/eer_threshold_resu
 
 # Set to True to pool all datasets and compute a single deployment threshold.
 # Set to False for the original per-dataset EER mode.
-POOLED_MODE = False
+POOLED_MODE = True
 
 
 # -------------------------------------------------

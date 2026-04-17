@@ -1,0 +1,38 @@
+Setting up the environment...
+Job started on gl1510.arc-ts.umich.edu at Tue Apr 14 00:21:45 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+----------------------------------------------------------------
+EXPERIMENT NAME: asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07
+FF_PROTOCOL: /nfs/turbo/umd-hafiz/issf_server_data/famousfigures/protocol.txt
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'asv19' -> scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+[OK] Wrote: scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+EER (asv19): 0.7634303270448226
+[INFO] Scoring dataset 'itw' -> scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 6.668860525195942
+[INFO] Scoring dataset 'fakexpose' -> scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote: scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 31.37219712836431
+[INFO] DeepfakeEval2024: loaded 1980 samples.
+[INFO] Scoring dataset 'deepfake_eval_2024' -> scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/deepfake_eval_2024/score_cm_deepfake_eval_2024.txt
+[src/libmpg123/parse.c:skip_junk():1260] error: Giving up searching valid MPEG header after 65536 bytes of junk.
+[src/libmpg123/id3.c:INT123_id3_to_utf8():394] warning: Weird tag size 93 for encoding 1 - I will probably trim too early or something but I think the MP3 is broken.
+[OK] Wrote: scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/deepfake_eval_2024/score_cm_deepfake_eval_2024.txt
+EER (deepfake_eval_2024): 43.38923723427466
+[INFO] Scoring dataset 'asv21_la' -> scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/asv21_la/score_cm_asv21_la.txt
+[OK] Wrote: scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/asv21_la/score_cm_asv21_la.txt
+EER (asv21_la): 5.728749145774641
+[INFO] Scoring dataset 'asv5' -> scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[OK] Wrote: scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+EER (asv5): 12.125035528847484
+[INFO] Scoring dataset 'mlaad' -> scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/mlaad/score_cm_mlaad.txt
+[OK] Wrote: scores/asv5_hbm_1024_mem_16384_supcon_geodesic_temp_0.07/mlaad/score_cm_mlaad.txt
+EER (mlaad): 0.8571484230778508
+----------------------------------------------------------------
+Evaluation finished at: Tue Apr 14 09:31:12 EDT 2026

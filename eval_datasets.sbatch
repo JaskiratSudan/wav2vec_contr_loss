@@ -5,7 +5,7 @@
 #SBATCH --gpus-per-node=1
 #SBATCH --mem=36G
 #SBATCH --cpus-per-task=8
-#SBATCH --time=04:00:00
+#SBATCH --time=10:00:00
 #SBATCH --output=eval_datasets_log/%x-%j.log
 
 #SBATCH --mail-user=jsudan@umich.edu
@@ -76,15 +76,15 @@ EXP_NAMES=(
 
 MODEL=facebook/wav2vec2-xls-r-300m
 DATASET_LIST=(
-  # asv19
-  # itw
-  # fakexpose
-  famous_figures
-  # asv5
-  # mlaad
+  asv19
+  itw
+  fakexpose
+  deepfake_eval_2024
+  asv21_la
+  # famous_figures
+  asv5
+  mlaad
   # asv21_df
-  # asv21_la
-  # deepfake_eval_2024
 )
 
 # FamousFigures speaker filter (line-by-line; leave empty for all)
@@ -128,7 +128,7 @@ for EXP_NAME in "${EXP_NAMES[@]}"; do
   echo "EXPERIMENT NAME: ${EXP_NAME}"
 
   # Delete any existing score files for this experiment
-  rm -rf "/home/jsudan/wav2vec_contr_loss/scores/${EXP_NAME}"
+  # rm -rf "/home/jsudan/wav2vec_contr_loss/scores/${EXP_NAME}"
   
   python eval_datasets.py \
     --exp_name "${EXP_NAME}" \

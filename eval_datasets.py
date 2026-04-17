@@ -38,8 +38,7 @@ DEFAULT_ASV21_LA_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof2021_
 DEFAULT_ITW_ROOT = "/nfs/turbo/umd-hafiz/issf_server_data/ds_wild/release_in_the_wild"
 DEFAULT_ITW_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/ds_wild/protocols/meta.csv"
 
-# DEFAULT_FF_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/famousfigures/protocol.txt"
-DEFAULT_FF_PROTOCOL = "/home/jsudan/wav2vec_contr_loss/famous_figures/splits/Donald_Trump_eval.txt"
+DEFAULT_FF_PROTOCOL = "/nfs/turbo/umd-hafiz/issf_server_data/famousfigures/protocol.txt"
 DEFAULT_FF_ROOT = ""
 
 print(f"FF_PROTOCOL: {DEFAULT_FF_PROTOCOL}")

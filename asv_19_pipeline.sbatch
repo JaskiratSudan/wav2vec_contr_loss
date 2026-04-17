@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=supcon_temp_0.3_seed_1337
+#SBATCH --job-name=supcon_geodesic_temp_0.07_seed_1337
 #SBATCH --partition=spgpu
 #SBATCH --account=hafiz1
 #SBATCH --gpus-per-node=2
 #SBATCH --mem=36G
 #SBATCH --cpus-per-task=4
-#SBATCH --time=12:00:00
+#SBATCH --time=15:00:00
 #SBATCH --output=asv_19_training_log/%x-%j.log
 
 #SBATCH --mail-user=jsudan@umich.edu
@@ -31,15 +31,15 @@ export MASTER_PORT=$((29500 + $SLURM_JOB_ID % 1000))
 #----------------------------------------------------------------#
 #  EXPERIMENT VARIABLES
 #----------------------------------------------------------------#
-EXP_NAME=supcon_temp_0.3_seed_1337
+EXP_NAME=supcon_geodesic_temp_0.07_seed_1337
 
 # XLS-R Layers
 # export XLSR_FROM_LAYER=1
 # export XLSR_TILL_LAYER=24
 
 # SUPCON
-SUPCON_SIMILARITY=cosine
-TEMPERATURE=0.3
+SUPCON_SIMILARITY=geodesic
+TEMPERATURE=0.07
 SEED=1337
 # LABEL TYPE (binary | attack_type)
 LABEL_TYPE=attack_type
