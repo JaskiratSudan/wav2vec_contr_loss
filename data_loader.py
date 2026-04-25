@@ -70,90 +70,6 @@ def load_fakexpose_items(root_dir: str, allowed_exts=None):
     items.sort(key=lambda x: str(x[0]))
     return items
 
-# ---------- DeepFake Eval ----------
-class DeepfakeEval2024Dataset(BaseAudioDataset):
-    """
-    Deepfake_Eval_2024 dataset.
-    Protocol format (CSV, comma-separated):
-      filename, date, Label, description, split
-
-    Returns:
-      (waveform, label_tensor, source_str, audio_name)
-    """
-
-    def __init__(
-        self,
-        protocol_file: str,
-        root_dir: str,
-        subset: str = "all",   # kept for consistency, but ignored
-        num_samples: int = None,
-        sample_seed: int = 1337,
-        **kwargs,
-    ):
-        super().__init__(**kwargs)
-
-        self.root_dir = Path(root_dir)
-
-        if not Path(protocol_file).exists():
-            raise FileNotFoundError(f"Protocol file not found: {protocol_file}")
-
-        df = pd.read_csv(protocol_file)
-
-        # Expected columns (robust check)
-        if len(df.columns) < 3:
-            raise ValueError("DeepfakeEval2024 protocol has unexpected format.")
-
-        # Standardize label column name
-        df.columns = [c.strip() for c in df.columns]
-        label_col = df.columns[2]   # third column = Label
-
-        # Normalize labels
-        df[label_col] = df[label_col].astype(str).str.lower()
-
-        # Map Real/Fake → 1/0
-        def _label_to_int(lbl):
-            return 1 if lbl == "real" else 0
-
-        # Filter files that exist
-        df["full_path"] = df[df.columns[0]].apply(
-            lambda fname: self.root_dir / fname
-        )
-
-        df["exists"] = df["full_path"].apply(lambda p: Path(p).exists())
-        missing = int((~df["exists"]).sum())
-        if missing > 0:
-            print(f"[INFO] DeepfakeEval2024: filtered out {missing} missing audio files.")
-
-        df = df[df["exists"]].copy()
-
-        if num_samples is not None and len(df) > num_samples:
-            df = df.sample(frac=1, random_state=sample_seed).head(num_samples)
-
-        if len(df) == 0:
-            raise RuntimeError("DeepfakeEval2024Dataset: No audio files found.")
-
-        self.rows = [
-            (
-                Path(row["full_path"]),
-                _label_to_int(row[label_col]),
-                Path(row[df.columns[0]]).name,   # utt_id
-            )
-            for _, row in df.iterrows()
-        ]
-
-        print(f"[INFO] DeepfakeEval2024: loaded {len(self.rows)} samples.")
-
-    def __len__(self):
-        return len(self.rows)
-
-    def __getitem__(self, idx):
-        audio_path, label_int, audio_name = self.rows[idx]
-        waveform = self._process_audio(audio_path)
-        label = torch.tensor(label_int, dtype=torch.long)
-
-        # Return source = "deepfake_eval_2024" (constant)
-        return waveform, label, "deepfake_eval_2024", audio_name
-
 # ---------- New Dataset: FamousFigures ----------
 class FamousFiguresDataset(BaseAudioDataset):
     """
@@ -390,12 +306,8 @@ class ASVspoof5Dataset(BaseAudioDataset):
 
                 speaker_id = parts[0]
                 file_name = parts[1]
-                if len(parts) >= 9:
-                    attack_id_raw = parts[-3]
-                    label_str = parts[-2].lower()
-                else:
-                    attack_id_raw = parts[4]
-                    label_str = parts[5].lower()
+                attack_id_raw = parts[4]
+                label_str = parts[5].lower()
 
                 if subset != "all" and label_str != subset:
                     continue
@@ -421,185 +333,6 @@ class ASVspoof5Dataset(BaseAudioDataset):
                         if j < sample_limit:
                             self.data[j] = row
 
-        if not self.data:
-            raise RuntimeError(
-                f"No audio files found from protocol {protocol_file} "
-                f"after applying subset='{subset}'."
-            )
-
-    def __len__(self):
-        return len(self.data)
-
-    def __getitem__(self, idx):
-        audio_path, binary_label, multi_label, speaker_id, audio_name = self.data[idx]
-        waveform = self._process_audio(audio_path)
-        return (
-            waveform,
-            torch.tensor(binary_label, dtype=torch.long),
-            torch.tensor(multi_label, dtype=torch.long),
-            speaker_id,
-            audio_name,
-        )
-
-def _load_asv2021_trials(
-    protocol_file: str,
-    root_dir: str,
-    subset: str,
-    num_samples: int,
-    sample_seed: int,
-    file_ext: str,
-    skip_missing: bool,
-):
-    subset = (subset or "all").lower()
-    if subset not in {"all", "bonafide", "spoof"}:
-        raise ValueError(
-            f"subset must be one of 'all', 'bonafide', or 'spoof' (got: {subset})"
-        )
-
-    root = Path(root_dir)
-    existing = None
-    if skip_missing:
-        try:
-            existing = {p.stem for p in root.iterdir() if p.is_file() and p.suffix == file_ext}
-        except FileNotFoundError:
-            existing = set()
-
-    def _with_ext(name: str) -> str:
-        return name if Path(name).suffix else f"{name}{file_ext}"
-
-    data = []
-    attack_to_idx = {"bonafide": 0}
-    missing = 0
-
-    sample_limit = int(num_samples) if num_samples is not None else None
-    seen = 0
-    rng = random.Random(sample_seed)
-
-    with open(protocol_file, "r") as f:
-        for line in f:
-            parts = line.strip().split()
-            if len(parts) < 6:
-                continue
-
-            source_id = parts[0]
-            file_id = parts[1]
-            attack_id_raw = parts[4]
-            label_str = parts[5].lower().replace("bona-fide", "bonafide")
-
-            if subset != "all" and label_str != subset:
-                continue
-
-            audio_name = _with_ext(file_id)
-            if skip_missing and existing is not None:
-                stem = Path(audio_name).stem
-                if stem not in existing:
-                    missing += 1
-                    continue
-            full_path = root / audio_name
-            if skip_missing and existing is None and not full_path.exists():
-                missing += 1
-                continue
-
-            binary_label = 1 if label_str == "bonafide" else 0
-            key = "bonafide" if label_str == "bonafide" else attack_id_raw
-            if key not in attack_to_idx:
-                attack_to_idx[key] = len(attack_to_idx)
-            multi_label = attack_to_idx[key]
-
-            row = (full_path, binary_label, multi_label, source_id, audio_name)
-            if sample_limit is None:
-                data.append(row)
-            else:
-                seen += 1
-                if len(data) < sample_limit:
-                    data.append(row)
-                else:
-                    j = rng.randint(0, seen - 1)
-                    if j < sample_limit:
-                        data[j] = row
-
-    return data, attack_to_idx, missing
-
-
-class ASVspoof2021DFDataset(BaseAudioDataset):
-    """
-    ASVspoof2021 DF eval using trial_metadata.txt (whitespace-separated).
-    Uses column 2 as file ID and column 6 as label.
-    Returns (waveform, binary_label, multi_label, speaker_id, audio_name).
-    """
-    def __init__(
-        self,
-        protocol_file: str,
-        root_dir: str,
-        num_samples: int = None,
-        subset: str = "all",
-        sample_seed: int = 1337,
-        file_ext: str = ".flac",
-        skip_missing: bool = True,
-        **kwargs,
-    ):
-        super().__init__(**kwargs)
-        self.data, self.attack_to_idx, missing = _load_asv2021_trials(
-            protocol_file=protocol_file,
-            root_dir=root_dir,
-            subset=subset,
-            num_samples=num_samples,
-            sample_seed=sample_seed,
-            file_ext=file_ext,
-            skip_missing=skip_missing,
-        )
-        if skip_missing and missing > 0:
-            print(f"[INFO] ASVspoof2021 DF: skipped {missing} missing files.")
-        if not self.data:
-            raise RuntimeError(
-                f"No audio files found from protocol {protocol_file} "
-                f"after applying subset='{subset}'."
-            )
-
-    def __len__(self):
-        return len(self.data)
-
-    def __getitem__(self, idx):
-        audio_path, binary_label, multi_label, speaker_id, audio_name = self.data[idx]
-        waveform = self._process_audio(audio_path)
-        return (
-            waveform,
-            torch.tensor(binary_label, dtype=torch.long),
-            torch.tensor(multi_label, dtype=torch.long),
-            speaker_id,
-            audio_name,
-        )
-
-
-class ASVspoof2021LADataset(BaseAudioDataset):
-    """
-    ASVspoof2021 LA eval using trial_metadata.txt (whitespace-separated).
-    Uses column 2 as file ID and column 6 as label.
-    Returns (waveform, binary_label, multi_label, speaker_id, audio_name).
-    """
-    def __init__(
-        self,
-        protocol_file: str,
-        root_dir: str,
-        num_samples: int = None,
-        subset: str = "all",
-        sample_seed: int = 1337,
-        file_ext: str = ".flac",
-        skip_missing: bool = True,
-        **kwargs,
-    ):
-        super().__init__(**kwargs)
-        self.data, self.attack_to_idx, missing = _load_asv2021_trials(
-            protocol_file=protocol_file,
-            root_dir=root_dir,
-            subset=subset,
-            num_samples=num_samples,
-            sample_seed=sample_seed,
-            file_ext=file_ext,
-            skip_missing=skip_missing,
-        )
-        if skip_missing and missing > 0:
-            print(f"[INFO] ASVspoof2021 LA: skipped {missing} missing files.")
         if not self.data:
             raise RuntimeError(
                 f"No audio files found from protocol {protocol_file} "
@@ -660,8 +393,6 @@ class MLAADMailabsDataset(BaseAudioDataset):
                     continue
 
                 rel_path = parts[0]
-                if Path(rel_path).name.startswith("._"):
-                    continue
                 source_or_attack = parts[3]
                 label_str = parts[4].lower()
 
@@ -821,18 +552,13 @@ class InTheWildDataset(BaseAudioDataset):
         if not Path(protocol_file).exists():
             raise FileNotFoundError(f"Protocol file not found: {protocol_file}")
 
-        protocol_df = pd.read_csv(protocol_file, skiprows=1)
+        protocol_df = pd.read_csv(protocol_file)
+        protocol_df.columns = protocol_df.columns.str.lower()
+        if 'audio' in protocol_df.columns and 'file' not in protocol_df.columns:
+            protocol_df = protocol_df.rename(columns={'audio': 'file'})
 
-        # Force correct column names
-        protocol_df.columns = ["file", "speaker", "label"]
-
-        # Normalize labels
-        protocol_df["label"] = (
-            protocol_df["label"]
-            .astype(str)
-            .str.lower()
-            .str.replace("bona-fide", "bonafide")
-        )
+        # Standardize labels: 'bona-fide' -> 'bonafide'
+        protocol_df['label'] = protocol_df['label'].replace('bona-fide', 'bonafide')
 
         # ---------- NEW: detect speaker column ----------
         self.spk_col = "speaker"
@@ -978,4 +704,171 @@ if __name__ == '__main__':
         print(f"Labels: {lab}")
         # print(f"Attack: {attack}")
         print(f"Speaker: {speaker}")
+
+
+# ---------------------------------------------------------------------------
+# Helper + classes needed by eval_datasets.py (added back after revert)
+# ---------------------------------------------------------------------------
+
+def _load_asv2021_trials(
+    protocol_file: str,
+    root_dir: str,
+    subset: str,
+    num_samples: int,
+    sample_seed: int,
+    file_ext: str,
+    skip_missing: bool,
+):
+    subset = (subset or "all").lower()
+    if subset not in {"all", "bonafide", "spoof"}:
+        raise ValueError(
+            f"subset must be one of 'all', 'bonafide', or 'spoof' (got: {subset})"
+        )
+
+    root = Path(root_dir)
+    existing = None
+    if skip_missing:
+        try:
+            existing = {p.stem for p in root.iterdir() if p.is_file() and p.suffix == file_ext}
+        except FileNotFoundError:
+            existing = set()
+
+    def _with_ext(name: str) -> str:
+        return name if Path(name).suffix else f"{name}{file_ext}"
+
+    data = []
+    attack_to_idx = {"bonafide": 0}
+    missing = 0
+
+    sample_limit = int(num_samples) if num_samples is not None else None
+    seen = 0
+    rng = random.Random(sample_seed)
+
+    with open(protocol_file, "r") as f:
+        for line in f:
+            parts = line.strip().split()
+            if len(parts) < 6:
+                continue
+
+            source_id = parts[0]
+            file_id = parts[1]
+            attack_id_raw = parts[4]
+            label_str = parts[5].lower().replace("bona-fide", "bonafide")
+
+            if subset != "all" and label_str != subset:
+                continue
+
+            audio_name = _with_ext(file_id)
+            if skip_missing and existing is not None:
+                stem = Path(audio_name).stem
+                if stem not in existing:
+                    missing += 1
+                    continue
+            full_path = root / audio_name
+            if skip_missing and existing is None and not full_path.exists():
+                missing += 1
+                continue
+
+            binary_label = 1 if label_str == "bonafide" else 0
+            key = "bonafide" if label_str == "bonafide" else attack_id_raw
+            if key not in attack_to_idx:
+                attack_to_idx[key] = len(attack_to_idx)
+            multi_label = attack_to_idx[key]
+
+            row = (full_path, binary_label, multi_label, source_id, audio_name)
+            if sample_limit is None:
+                data.append(row)
+            else:
+                seen += 1
+                if len(data) < sample_limit:
+                    data.append(row)
+                else:
+                    j = rng.randint(0, seen - 1)
+                    if j < sample_limit:
+                        data[j] = row
+
+    return data, attack_to_idx, missing
+
+
+class ASVspoof2021DFDataset(BaseAudioDataset):
+    """ASVspoof2021 DF eval. Returns (waveform, binary_label, multi_label, speaker_id, audio_name)."""
+    def __init__(self, protocol_file, root_dir, num_samples=None, subset="all",
+                 sample_seed=1337, file_ext=".flac", skip_missing=True, **kwargs):
+        super().__init__(**kwargs)
+        self.data, self.attack_to_idx, missing = _load_asv2021_trials(
+            protocol_file=protocol_file, root_dir=root_dir, subset=subset,
+            num_samples=num_samples, sample_seed=sample_seed,
+            file_ext=file_ext, skip_missing=skip_missing,
+        )
+        if skip_missing and missing > 0:
+            print(f"[INFO] ASVspoof2021 DF: skipped {missing} missing files.")
+        if not self.data:
+            raise RuntimeError(f"No audio files found from protocol {protocol_file}.")
+
+    def __len__(self): return len(self.data)
+
+    def __getitem__(self, idx):
+        audio_path, binary_label, multi_label, speaker_id, audio_name = self.data[idx]
+        waveform = self._process_audio(audio_path)
+        return (waveform, torch.tensor(binary_label, dtype=torch.long),
+                torch.tensor(multi_label, dtype=torch.long), speaker_id, audio_name)
+
+
+class ASVspoof2021LADataset(BaseAudioDataset):
+    """ASVspoof2021 LA eval. Returns (waveform, binary_label, multi_label, speaker_id, audio_name)."""
+    def __init__(self, protocol_file, root_dir, num_samples=None, subset="all",
+                 sample_seed=1337, file_ext=".flac", skip_missing=True, **kwargs):
+        super().__init__(**kwargs)
+        self.data, self.attack_to_idx, missing = _load_asv2021_trials(
+            protocol_file=protocol_file, root_dir=root_dir, subset=subset,
+            num_samples=num_samples, sample_seed=sample_seed,
+            file_ext=file_ext, skip_missing=skip_missing,
+        )
+        if skip_missing and missing > 0:
+            print(f"[INFO] ASVspoof2021 LA: skipped {missing} missing files.")
+        if not self.data:
+            raise RuntimeError(f"No audio files found from protocol {protocol_file}.")
+
+    def __len__(self): return len(self.data)
+
+    def __getitem__(self, idx):
+        audio_path, binary_label, multi_label, speaker_id, audio_name = self.data[idx]
+        waveform = self._process_audio(audio_path)
+        return (waveform, torch.tensor(binary_label, dtype=torch.long),
+                torch.tensor(multi_label, dtype=torch.long), speaker_id, audio_name)
+
+
+class DeepfakeEval2024Dataset(BaseAudioDataset):
+    """Deepfake_Eval_2024. Returns (waveform, label_tensor, source_str, audio_name)."""
+    def __init__(self, protocol_file, root_dir, subset="all", num_samples=None,
+                 sample_seed=1337, **kwargs):
+        super().__init__(**kwargs)
+        self.root_dir = Path(root_dir)
+        df = pd.read_csv(protocol_file)
+        df.columns = [c.strip() for c in df.columns]
+        label_col = df.columns[2]
+        df[label_col] = df[label_col].astype(str).str.lower()
+        df["full_path"] = df[df.columns[0]].apply(lambda f: self.root_dir / f)
+        df["exists"] = df["full_path"].apply(lambda p: Path(p).exists())
+        missing = int((~df["exists"]).sum())
+        if missing > 0:
+            print(f"[INFO] DeepfakeEval2024: filtered out {missing} missing audio files.")
+        df = df[df["exists"]].copy()
+        if num_samples is not None and len(df) > num_samples:
+            df = df.sample(frac=1, random_state=sample_seed).head(num_samples)
+        if len(df) == 0:
+            raise RuntimeError("DeepfakeEval2024Dataset: No audio files found.")
+        self.rows = [
+            (Path(row["full_path"]), 1 if row[label_col] == "real" else 0,
+             Path(row[df.columns[0]]).name)
+            for _, row in df.iterrows()
+        ]
+        print(f"[INFO] DeepfakeEval2024: loaded {len(self.rows)} samples.")
+
+    def __len__(self): return len(self.rows)
+
+    def __getitem__(self, idx):
+        audio_path, label_int, audio_name = self.rows[idx]
+        waveform = self._process_audio(audio_path)
+        return waveform, torch.tensor(label_int, dtype=torch.long), "deepfake_eval_2024", audio_name
         print(f"Source: {source}")

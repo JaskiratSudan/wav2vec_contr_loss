@@ -216,7 +216,7 @@ def extract_asv_split(
 
     backbone.eval()
 
-    for waveforms, labels, *_ in tqdm(loader, desc=f"[ASV] Extracting {split_name}", disable=True):
+    for waveforms, labels, *_ in tqdm(loader, desc=f"[ASV] Extracting {split_name}"):
         waveforms = waveforms.to(device)
         labels = labels.to(device)
 
@@ -287,7 +287,7 @@ def extract_itw(backbone: Stage1Backbone, device: torch.device):
 
     backbone.eval()
 
-    for waveforms, bin_labels, speakers, sources in tqdm(itw_loader, desc="[ITW] Extracting", disable=True):
+    for waveforms, bin_labels, speakers, sources in tqdm(itw_loader, desc="[ITW] Extracting"):
         waveforms = waveforms.to(device)
         bin_labels = bin_labels.to(device)
 
@@ -352,6 +352,12 @@ def main():
         default=MAX_DURATION_SECONDS,
         help="Max audio length (seconds) for truncation/padding."
     )
+    parser.add_argument("--train_root", type=str, default=TRAIN_ROOT)
+    parser.add_argument("--train_protocol", type=str, default=TRAIN_PROTOCOL)
+    parser.add_argument("--dev_root", type=str, default=DEV_ROOT)
+    parser.add_argument("--dev_protocol", type=str, default=DEV_PROTOCOL)
+    parser.add_argument("--eval_root", type=str, default=EVAL_ROOT)
+    parser.add_argument("--eval_protocol", type=str, default=EVAL_PROTOCOL)
     args = parser.parse_args()
 
     MODEL_NAME = args.model_name
@@ -377,12 +383,12 @@ def main():
         dataset_cls = ASVspoof5Dataset
         print("[INFO] Using ASVspoof5 dataset for embedding extraction.")
     else:
-        train_root = TRAIN_ROOT
-        train_protocol = TRAIN_PROTOCOL
-        dev_root = DEV_ROOT
-        dev_protocol = DEV_PROTOCOL
-        eval_root = EVAL_ROOT
-        eval_protocol = EVAL_PROTOCOL
+        train_root = args.train_root
+        train_protocol = args.train_protocol
+        dev_root = args.dev_root
+        dev_protocol = args.dev_protocol
+        eval_root = args.eval_root
+        eval_protocol = args.eval_protocol
         dataset_cls = ASVspoof2019Dataset
         print("[INFO] Using ASVspoof2019 dataset for embedding extraction.")
 

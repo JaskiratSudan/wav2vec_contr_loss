@@ -124,8 +124,8 @@ def train_classifier(cfg, train_loader, dev_loader, device, in_dim, pos_weight_v
             total_train_loss += loss.item() * batch_size
             n_train += batch_size
 
-            # if step % cfg.log_every == 0:
-            #     print(f"[epoch {epoch:03d} | step {step:04d}] train_loss={loss.item():.4f}")
+            if step % cfg.log_every == 0:
+                print(f"[epoch {epoch:03d} | step {step:04d}] train_loss={loss.item():.4f}")
 
         avg_train_loss = total_train_loss / max(1, n_train)
 
