@@ -173,6 +173,26 @@ class SmallMLPBinaryHead(nn.Module):
         return self.net(x).squeeze(-1)
 
 
+class DeepMLPBinaryHead(nn.Module):
+    def __init__(self, in_dim: int, hidden_dim: int = 256, num_layers: int = 3, dropout: float = 0.3):
+        super().__init__()
+        layers = []
+        current_dim = in_dim
+        for _ in range(num_layers - 1):
+            layers += [
+                nn.Linear(current_dim, hidden_dim),
+                nn.BatchNorm1d(hidden_dim),
+                nn.GELU(),
+                nn.Dropout(dropout),
+            ]
+            current_dim = hidden_dim
+        layers.append(nn.Linear(current_dim, 1))
+        self.net = nn.Sequential(*layers)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.net(x).squeeze(-1)
+
+
 def load_stage2_head(ckpt_path: str, device: torch.device) -> nn.Module:
     ckpt = safe_load(ckpt_path, map_location=device)
     cfg = ckpt.get("config", {})
@@ -180,12 +200,15 @@ def load_stage2_head(ckpt_path: str, device: torch.device) -> nn.Module:
     head_type = cfg.get("HEAD_TYPE", "linear")
     in_dim = cfg.get("IN_DIM", 256)
     hidden_dim = cfg.get("HIDDEN_DIM", 128)
+    num_layers = cfg.get("NUM_LAYERS", 3)
     dropout = cfg.get("DROPOUT", 0.2)
 
     if head_type == "linear":
         clf = LinearBinaryHead(in_dim=in_dim).to(device)
     elif head_type == "mlp":
         clf = SmallMLPBinaryHead(in_dim=in_dim, hidden=hidden_dim, dropout=dropout).to(device)
+    elif head_type == "deep_mlp":
+        clf = DeepMLPBinaryHead(in_dim=in_dim, hidden_dim=hidden_dim, num_layers=num_layers, dropout=dropout).to(device)
     else:
         raise ValueError(f"Unknown HEAD_TYPE: {head_type}")
 

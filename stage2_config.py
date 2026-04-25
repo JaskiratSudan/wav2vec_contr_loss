@@ -39,11 +39,12 @@ def build_config():
         "--head_type",
         type=str,
         default=HEAD_TYPE,
-        choices=["linear", "mlp"],
-        help="Classifier head type.",
+        choices=["linear", "mlp", "deep_mlp"],
+        help="Classifier head type: linear (1-layer), mlp (2-layer), deep_mlp (N-layer with BN+GELU).",
     )
-    parser.add_argument("--hidden_dim", type=int, default=HIDDEN_DIM, help="Hidden dimension for MLP head.")
-    parser.add_argument("--dropout", type=float, default=DROPOUT, help="Dropout for MLP head.")
+    parser.add_argument("--hidden_dim", type=int, default=HIDDEN_DIM, help="Hidden dimension for MLP/deep_mlp head.")
+    parser.add_argument("--num_layers", type=int, default=3, help="Number of layers for deep_mlp head (>=2).")
+    parser.add_argument("--dropout", type=float, default=DROPOUT, help="Dropout for MLP/deep_mlp head.")
     parser.add_argument("--patience", type=int, default=PATIENCE, help="Early stopping patience.")
     args = parser.parse_args()
 
@@ -56,6 +57,7 @@ def build_config():
         weight_decay=args.weight_decay,
         head_type=args.head_type,
         hidden_dim=args.hidden_dim,
+        num_layers=args.num_layers,
         dropout=args.dropout,
         patience=args.patience,
         model_name=MODEL_NAME,
@@ -74,6 +76,7 @@ def ckpt_config(cfg, in_dim, pos_weight_val):
         "HEAD_TYPE": cfg.head_type,
         "IN_DIM": in_dim,
         "HIDDEN_DIM": cfg.hidden_dim,
+        "NUM_LAYERS": cfg.num_layers,
         "DROPOUT": cfg.dropout,
         "LR": cfg.lr,
         "WEIGHT_DECAY": cfg.weight_decay,
