@@ -1,0 +1,158 @@
+nohup: ignoring input
+Setting up the environment...
+Job started on ISSFLab.engin.umd.umich.edu at Mon Apr 20 21:32:43 EDT 2026
+Python version: Python 3.12.12
+PyTorch version: 2.6.0+cu124
+CUDA available: True
+Current GPU: NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.05_seed_1337
+SEED: 1337
+Using NUM_GPUS=2
+Using BATCH_SIZE=32
+W0420 21:32:49.184000 3103275 torch/distributed/run.py:792] 
+W0420 21:32:49.184000 3103275 torch/distributed/run.py:792] *****************************************
+W0420 21:32:49.184000 3103275 torch/distributed/run.py:792] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0420 21:32:49.184000 3103275 torch/distributed/run.py:792] *****************************************
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesic_temp_0.05_seed_1337/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.05
+NUM_WORKERS=4
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=10
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Global batch size=32 | Per-GPU batch size=16
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights: 100%|██████████| 422/422 [00:00<00:00, 39258.22it/s]
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+project_q.bias               | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights: 100%|██████████| 422/422 [00:00<00:00, 37221.55it/s]
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+project_hid.bias             | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 231, in <module>
+[rank1]:     main()
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 184, in main
+[rank1]:     train_loss, alpha = train_one_epoch(
+[rank1]:                         ^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/stage1_utils.py", line 141, in train_one_epoch
+[rank1]:     waveforms = apply_rawboost_batch(waveforms, attn, cfg)
+[rank1]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/stage1_utils.py", line 75, in apply_rawboost_batch
+[rank1]:     y = LnL_convolutive_noise(
+[rank1]:         ^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/jsudan/wav2vec_contr_loss/RawBoost.py", line 66, in LnL_convolutive_noise
+[rank1]:     y = y + filterFIR(np.power(x, (i+1)),  b)     
+[rank1]:         ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[rank1]: ValueError: operands could not be broadcast together with shapes (1,80160) (1,80128) 
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 231, in <module>
+[rank0]:     main()
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 184, in main
+[rank0]:     train_loss, alpha = train_one_epoch(
+[rank0]:                         ^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/stage1_utils.py", line 141, in train_one_epoch
+[rank0]:     waveforms = apply_rawboost_batch(waveforms, attn, cfg)
+[rank0]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/stage1_utils.py", line 75, in apply_rawboost_batch
+[rank0]:     y = LnL_convolutive_noise(
+[rank0]:         ^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/jsudan/wav2vec_contr_loss/RawBoost.py", line 66, in LnL_convolutive_noise
+[rank0]:     y = y + filterFIR(np.power(x, (i+1)),  b)     
+[rank0]:         ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[rank0]: ValueError: operands could not be broadcast together with shapes (1,80280) (1,80180) 
+[rank0]:[W420 21:33:01.344050355 ProcessGroupNCCL.cpp:1496] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+W0420 21:33:02.552000 3103275 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 3103317 closing signal SIGTERM
+E0420 21:33:02.967000 3103275 torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: 1) local_rank: 1 (pid: 3103318) of binary: /home/jsudan/.myenv/bin/python3.12
+Traceback (most recent call last):
+  File "/home/jsudan/.myenv/bin/torchrun", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 355, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/run.py", line 918, in main
+    run(args)
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/run.py", line 909, in run
+    elastic_launch(
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/launcher/api.py", line 138, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/launcher/api.py", line 269, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+train_stage1.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-04-20_21:33:02
+  host      : ISSFLab.engin.umd.umich.edu
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 3103318)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

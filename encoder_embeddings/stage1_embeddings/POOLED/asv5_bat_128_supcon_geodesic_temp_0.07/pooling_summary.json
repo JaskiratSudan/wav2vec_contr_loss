@@ -1,0 +1,75 @@
+{
+  "inputs": [
+    {
+      "name": "asv5",
+      "dir": "/home/jsudan/wav2vec_contr_loss/encoder_embeddings/stage1_embeddings/ASV5/asv5_bat_128_supcon_geodesic_temp_0.07"
+    },
+    {
+      "name": "asv19",
+      "dir": "/home/jsudan/wav2vec_contr_loss/encoder_embeddings/stage1_embeddings/ASV19/asv5_bat_128_supcon_geodesic_temp_0.07"
+    }
+  ],
+  "out_dir": "/home/jsudan/wav2vec_contr_loss/encoder_embeddings/stage1_embeddings/POOLED/asv5_bat_128_supcon_geodesic_temp_0.07",
+  "splits": {
+    "train": {
+      "split": "train",
+      "pooled": true,
+      "n": 207737,
+      "dim": 256,
+      "label_hist": {
+        "0": 186360,
+        "1": 21377
+      },
+      "per_source": {
+        "asv5": {
+          "used": true,
+          "n": 182357,
+          "label_hist": {
+            "0": 163560,
+            "1": 18797
+          },
+          "dir": "/home/jsudan/wav2vec_contr_loss/encoder_embeddings/stage1_embeddings/ASV5/asv5_bat_128_supcon_geodesic_temp_0.07"
+        },
+        "asv19": {
+          "used": true,
+          "n": 25380,
+          "label_hist": {
+            "0": 22800,
+            "1": 2580
+          },
+          "dir": "/home/jsudan/wav2vec_contr_loss/encoder_embeddings/stage1_embeddings/ASV19/asv5_bat_128_supcon_geodesic_temp_0.07"
+        }
+      }
+    },
+    "dev": {
+      "split": "dev",
+      "pooled": true,
+      "n": 165794,
+      "dim": 256,
+      "label_hist": {
+        "0": 131912,
+        "1": 33882
+      },
+      "per_source": {
+        "asv5": {
+          "used": true,
+          "n": 140950,
+          "label_hist": {
+            "0": 109616,
+            "1": 31334
+          },
+          "dir": "/home/jsudan/wav2vec_contr_loss/encoder_embeddings/stage1_embeddings/ASV5/asv5_bat_128_supcon_geodesic_temp_0.07"
+        },
+        "asv19": {
+          "used": true,
+          "n": 24844,
+          "label_hist": {
+            "0": 22296,
+            "1": 2548
+          },
+          "dir": "/home/jsudan/wav2vec_contr_loss/encoder_embeddings/stage1_embeddings/ASV19/asv5_bat_128_supcon_geodesic_temp_0.07"
+        }
+      }
+    }
+  }
+}

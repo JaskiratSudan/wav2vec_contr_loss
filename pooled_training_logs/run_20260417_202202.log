@@ -1,0 +1,273 @@
+nohup: ignoring input
+Setting up the environment...
+Job started on ISSFLab.engin.umd.umich.edu at Fri Apr 17 20:22:02 EDT 2026
+Python version: Python 3.12.12
+PyTorch version: 2.6.0+cu124
+CUDA available: True
+Current GPU: NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+----------------------------------------------------------------
+ASV5_TRAIN_ROOT=/data/Data/ASVSpoof5/No_Laundering_train/flac
+ASV5_TRAIN_PROTOCOL=/data/Data/ASVSpoof5/protocols/ASVspoof5_train_protocol.txt
+ASV5_DEV_ROOT=/data/Data/ASVSpoof5/No_Laundering_dev/flac
+ASV5_DEV_PROTOCOL=/data/Data/ASVSpoof5/protocols/ASVspoof5.dev.metadata.txt
+ASV5_EVAL_ROOT=/data/Data/ASVSpoof5/No_Laundering_eval/flac
+ASV5_EVAL_PROTOCOL=/data/Data/ASVSpoof5/protocols/ASVspoof5.eval.track_1.tsv
+EXPERIMENT NAME: asv5_bat_128_supcon_geodesic_temp_0.07
+Using BATCH_SIZE=128, NUM_GPUS=2
+W0417 20:22:08.097000 959413 torch/distributed/run.py:792] 
+W0417 20:22:08.097000 959413 torch/distributed/run.py:792] *****************************************
+W0417 20:22:08.097000 959413 torch/distributed/run.py:792] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0417 20:22:08.097000 959413 torch/distributed/run.py:792] *****************************************
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+MODEL_ID=wav2vec2-xls-r-300m
+SAVE_DIR=/home/jsudan/wav2vec_contr_loss/checkpoints/stage_1/asv5_bat_128_supcon_geodesic_temp_0.07
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=10
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=25
+BATCH_SIZE=128
+ACCUM_STEPS=1
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.07
+NUM_WORKERS=6
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=1024
+WARMUP_EPOCHS=100
+ALPHA_END=0.9
+ALPHA_RAMP_EPOCHS=20
+USE_RAWBOOST=False
+RAWBOOST_PROB=0.1
+FINETUNE_ENCODER=False
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=12
+LABEL_TYPE=binary
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=False (p=0.1)
+CUDA device count: 3
+[INFO] POOLED TRAIN_DATASETS=['asv19', 'asv5']
+[INFO] Pooled train samples: bonafide=21377, spoof=186360, total=207737
+[INFO] Train samples loaded: bonafide=21377, spoof=186360
+[DEV SUBSET] ASV5  bonafide=2500 spoof=2500 total=5000
+[DEV SUBSET] ASV19 bonafide=2500 spoof=2500 total=5000
+[INFO] Global batch size=128 | Per-GPU batch size=64
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights: 100%|██████████| 422/422 [00:00<00:00, 37307.06it/s]
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights: 100%|██████████| 422/422 [00:00<00:00, 34999.53it/s]
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+project_q.weight             | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[rank1] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.8516 std=0.1897 min=0.3797 max=0.9934 var_mean=1.426727e-04
+[rank1] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9184 std=0.1079 min=0.6055 max=0.9965 var_mean=3.136507e-04
+[rank1] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9184 std=0.1079 min=0.6055 max=0.9965 var_mean=3.136507e-04
+[rank1] sim_mean=0.9197 sim_std=0.1075 Loss: 4.861611366271973
+[rank0] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.9087 std=0.1426 min=0.4657 max=0.9934 var_mean=8.777784e-05
+[rank0] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9511 std=0.0766 min=0.6953 max=0.9962 var_mean=1.881495e-04
+[rank0] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9511 std=0.0766 min=0.6953 max=0.9962 var_mean=1.881495e-04
+[rank0] pos_mean=0.9527 neg_mean=0.9495 n_pos=32 n_neg=32
+[rank0] sim_mean=0.9518 sim_std=0.0762 Loss: 4.447617530822754
+[epoch 001] alpha=0.00 train_loss=3.6721 dev_asv5=4.3921 dev_asv19=4.2837 avg_dev=4.3379
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints/stage_1/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.3379)
+[rank0] pos_mean=0.9900 neg_mean=0.8254 n_pos=32 n_neg=32
+[rank0] sim_mean=0.9078 sim_std=0.0896 Loss: 3.498473644256592
+[rank1] sim_mean=0.9027 sim_std=0.0957 Loss: 3.5009477138519287
+[epoch 002] alpha=0.00 train_loss=3.5012 dev_asv5=4.4507 dev_asv19=4.2590 avg_dev=4.3548
+[rank1] sim_mean=0.8931 sim_std=0.1022 Loss: 3.5329904556274414
+[rank0] pos_mean=0.9854 neg_mean=0.7957 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8908 sim_std=0.1042 Loss: 3.5116403102874756
+[epoch 003] alpha=0.00 train_loss=3.4897 dev_asv5=4.4001 dev_asv19=4.2416 avg_dev=4.3209
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints/stage_1/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.3209)
+[rank0] pos_mean=0.9823 neg_mean=0.7425 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8627 sim_std=0.1288 Loss: 3.4888172149658203
+[rank1] sim_mean=0.8722 sim_std=0.1188 Loss: 3.4968042373657227
+[epoch 004] alpha=0.00 train_loss=3.4867 dev_asv5=4.3701 dev_asv19=4.2257 avg_dev=4.2979
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints/stage_1/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.2979)
+[rank1] sim_mean=0.8797 sim_std=0.1123 Loss: 3.4830641746520996
+[rank0] pos_mean=0.9832 neg_mean=0.7809 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8823 sim_std=0.1108 Loss: 3.5129294395446777
+[epoch 005] alpha=0.00 train_loss=3.4833 dev_asv5=4.4029 dev_asv19=4.2218 avg_dev=4.3124
+[rank1] sim_mean=0.8799 sim_std=0.1125 Loss: 3.4758152961730957
+[rank0] pos_mean=0.9855 neg_mean=0.7753 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8806 sim_std=0.1102 Loss: 3.46720552444458
+[epoch 006] alpha=0.00 train_loss=3.4801 dev_asv5=4.4456 dev_asv19=4.2288 avg_dev=4.3372
+[rank1] sim_mean=0.8797 sim_std=0.1114 Loss: 3.468871593475342
+[rank0] pos_mean=0.9842 neg_mean=0.7856 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8851 sim_std=0.1059 Loss: 3.479884147644043
+[epoch 007] alpha=0.00 train_loss=3.4784 dev_asv5=4.3920 dev_asv19=4.2149 avg_dev=4.3035
+[rank1] sim_mean=0.8854 sim_std=0.1052 Loss: 3.4914958477020264
+[rank0] pos_mean=0.9849 neg_mean=0.7856 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8854 sim_std=0.1053 Loss: 3.471395969390869
+[epoch 008] alpha=0.00 train_loss=3.4801 dev_asv5=4.3910 dev_asv19=4.2231 avg_dev=4.3070
+[rank0] pos_mean=0.9829 neg_mean=0.7681 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8757 sim_std=0.1148 Loss: 3.479280710220337
+[rank1] sim_mean=0.8766 sim_std=0.1133 Loss: 3.4648995399475098
+[epoch 009] alpha=0.00 train_loss=3.4770 dev_asv5=4.3824 dev_asv19=4.2102 avg_dev=4.2963
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints/stage_1/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.2963)
+[rank0] pos_mean=0.9857 neg_mean=0.7764 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8813 sim_std=0.1090 Loss: 3.465440034866333
+[rank1] sim_mean=0.8903 sim_std=0.1002 Loss: 3.497683048248291
+[epoch 010] alpha=0.00 train_loss=3.4749 dev_asv5=4.4013 dev_asv19=4.2187 avg_dev=4.3100
+[rank1] sim_mean=0.8756 sim_std=0.1140 Loss: 3.4649248123168945
+[rank0] pos_mean=0.9837 neg_mean=0.7674 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8758 sim_std=0.1141 Loss: 3.474120855331421
+[epoch 011] alpha=0.00 train_loss=3.4748 dev_asv5=4.3956 dev_asv19=4.2092 avg_dev=4.3024
+[rank1] sim_mean=0.8842 sim_std=0.1063 Loss: 3.4892160892486572
+[rank0] pos_mean=0.9842 neg_mean=0.7806 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8826 sim_std=0.1073 Loss: 3.471850872039795
+[epoch 012] alpha=0.00 train_loss=3.4749 dev_asv5=4.3976 dev_asv19=4.2221 avg_dev=4.3099
+[rank1] sim_mean=0.8838 sim_std=0.1071 Loss: 3.558825969696045
+[rank0] pos_mean=0.9841 neg_mean=0.7862 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8854 sim_std=0.1057 Loss: 3.4770326614379883
+[epoch 013] alpha=0.00 train_loss=3.4755 dev_asv5=4.4285 dev_asv19=4.2216 avg_dev=4.3251
+[rank0] pos_mean=0.9781 neg_mean=0.7296 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8542 sim_std=0.1336 Loss: 3.499521255493164
+[rank1] sim_mean=0.8564 sim_std=0.1312 Loss: 3.4800658226013184
+[epoch 014] alpha=0.00 train_loss=3.4760 dev_asv5=4.4196 dev_asv19=4.2220 avg_dev=4.3208
+[rank1] sim_mean=0.8364 sim_std=0.1490 Loss: 3.4669604301452637
+[rank0] pos_mean=0.9767 neg_mean=0.7101 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8438 sim_std=0.1411 Loss: 3.4714608192443848
+[epoch 015] alpha=0.00 train_loss=3.4756 dev_asv5=4.3855 dev_asv19=4.2108 avg_dev=4.2981
+[rank0] pos_mean=0.9800 neg_mean=0.7275 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8540 sim_std=0.1327 Loss: 3.467374801635742
+[rank1] sim_mean=0.8565 sim_std=0.1306 Loss: 3.4729843139648438
+[epoch 016] alpha=0.00 train_loss=3.4733 dev_asv5=4.4153 dev_asv19=4.2226 avg_dev=4.3189
+[rank1] sim_mean=0.8617 sim_std=0.1270 Loss: 3.473567247390747
+[rank0] pos_mean=0.9819 neg_mean=0.7237 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8531 sim_std=0.1361 Loss: 3.4727377891540527
+[epoch 017] alpha=0.00 train_loss=3.4730 dev_asv5=4.4182 dev_asv19=4.2180 avg_dev=4.3181
+[rank1] sim_mean=0.8404 sim_std=0.1460 Loss: 3.458475112915039
+[rank0] pos_mean=0.9778 neg_mean=0.6953 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8369 sim_std=0.1496 Loss: 3.483978033065796
+[epoch 018] alpha=0.00 train_loss=3.4719 dev_asv5=4.4815 dev_asv19=4.2289 avg_dev=4.3552
+[rank0] pos_mean=0.9808 neg_mean=0.7112 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8463 sim_std=0.1407 Loss: 3.4643313884735107
+[rank1] sim_mean=0.8400 sim_std=0.1476 Loss: 3.4596076011657715
+[epoch 019] alpha=0.00 train_loss=3.4730 dev_asv5=4.4781 dev_asv19=4.2449 avg_dev=4.3615
+[rank0] pos_mean=0.9778 neg_mean=0.6977 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8381 sim_std=0.1483 Loss: 3.474055767059326
+[rank1] sim_mean=0.8406 sim_std=0.1441 Loss: 3.4577770233154297
+[epoch 020] alpha=0.00 train_loss=3.4734 dev_asv5=4.4347 dev_asv19=4.2168 avg_dev=4.3258
+[rank1] sim_mean=0.8542 sim_std=0.1326 Loss: 3.4673097133636475
+[rank0] pos_mean=0.9781 neg_mean=0.7222 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8505 sim_std=0.1365 Loss: 3.480142116546631
+[epoch 021] alpha=0.00 train_loss=3.4709 dev_asv5=4.3846 dev_asv19=4.2070 avg_dev=4.2958
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints/stage_1/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=4.2958)
+[rank1] sim_mean=0.8743 sim_std=0.1137 Loss: 3.4681901931762695
+[rank0] pos_mean=0.9824 neg_mean=0.7539 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8684 sim_std=0.1196 Loss: 3.463080644607544
+[epoch 022] alpha=0.00 train_loss=3.4724 dev_asv5=4.4095 dev_asv19=4.2144 avg_dev=4.3119
+[rank1] sim_mean=0.8546 sim_std=0.1320 Loss: 3.477013111114502
+[rank0] pos_mean=0.9814 neg_mean=0.7379 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8600 sim_std=0.1262 Loss: 3.4598584175109863
+[epoch 023] alpha=0.00 train_loss=3.4718 dev_asv5=4.4069 dev_asv19=4.2191 avg_dev=4.3130
+[rank1] sim_mean=0.8472 sim_std=0.1396 Loss: 3.4648923873901367
+[rank0] pos_mean=0.9809 neg_mean=0.7349 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8582 sim_std=0.1286 Loss: 3.4638028144836426
+[epoch 024] alpha=0.00 train_loss=3.4714 dev_asv5=4.3979 dev_asv19=4.2113 avg_dev=4.3046
+[rank0] pos_mean=0.9768 neg_mean=0.7192 n_pos=32 n_neg=32
+[rank0] sim_mean=0.8484 sim_std=0.1383 Loss: 3.4877636432647705
+[rank1] sim_mean=0.8317 sim_std=0.1533 Loss: 3.461482048034668
+[epoch 025] alpha=0.00 train_loss=3.4711 dev_asv5=4.4445 dev_asv19=4.2250 avg_dev=4.3347
+[rank0]:[W418 01:25:31.422506839 ProcessGroupNCCL.cpp:1496] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[INFO] device=cuda
+Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights: 100%|██████████| 422/422 [00:00<00:00, 37968.09it/s]
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[INFO] No encoder_state_dict in ckpt (encoder likely frozen during Stage-1).
+[OK] Saved asv5:train -> X=(182357, 256), y=(182357,), hist={0: 163560, 1: 18797}
+[OK] Saved asv5:dev -> X=(140950, 256), y=(140950,), hist={0: 109616, 1: 31334}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[INFO] device=cuda
+Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights: 100%|██████████| 422/422 [00:00<00:00, 39124.59it/s]
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+project_hid.weight           | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[INFO] No encoder_state_dict in ckpt (encoder likely frozen during Stage-1).
+[OK] Saved asv19:train -> X=(25380, 256), y=(25380,), hist={0: 22800, 1: 2580}
+[OK] Saved asv19:dev -> X=(24844, 256), y=(24844,), hist={0: 22296, 1: 2548}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[INFO] device=cuda
+Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights: 100%|██████████| 422/422 [00:00<00:00, 38693.52it/s]
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+quantizer.codevectors        | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[INFO] No encoder_state_dict in ckpt (encoder likely frozen during Stage-1).
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_generic.py", line 277, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/extract_stage1_embeddings_generic.py", line 256, in main
+    raise RuntimeError(msg + " (set --allow_missing_splits to skip)")
+RuntimeError: [WARN] Missing train root/protocol for dataset=mlaad (set --allow_missing_splits to skip)

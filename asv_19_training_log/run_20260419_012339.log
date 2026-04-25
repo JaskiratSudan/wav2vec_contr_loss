@@ -1,0 +1,127 @@
+nohup: ignoring input
+Setting up the environment...
+Job started on ISSFLab.engin.umd.umich.edu at Sun Apr 19 01:23:39 EDT 2026
+Python version: Python 3.12.12
+PyTorch version: 2.6.0+cu124
+CUDA available: True
+Current GPU: NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.07_seed_1337
+SEED: 1337
+Using NUM_GPUS=2
+Using BATCH_SIZE=32
+Using device: cuda
+Train embeddings: (25380, 256), Dev embeddings: (24844, 256)
+Class balance: pos_weight=8.837
+[epoch 001] train_loss=0.1795 | dev_loss=0.0533 | dev_acc=99.88% | dev_auc=1.0000 | dev_eer=0.07%
+[epoch 001] ✓ New best EER=0.07% -> checkpoints_stage2/supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 002] train_loss=0.0408 | dev_loss=0.0245 | dev_acc=99.90% | dev_auc=1.0000 | dev_eer=0.07%
+[epoch 002] No EER improvement for 1 epoch(s) (best=0.07%)
+[epoch 003] train_loss=0.0195 | dev_loss=0.0140 | dev_acc=99.91% | dev_auc=1.0000 | dev_eer=0.07%
+[epoch 003] No EER improvement for 2 epoch(s) (best=0.07%)
+[epoch 004] train_loss=0.0130 | dev_loss=0.0092 | dev_acc=99.91% | dev_auc=1.0000 | dev_eer=0.08%
+[epoch 004] No EER improvement for 3 epoch(s) (best=0.07%)
+[epoch 005] train_loss=0.0089 | dev_loss=0.0076 | dev_acc=99.94% | dev_auc=1.0000 | dev_eer=0.08%
+[epoch 005] No EER improvement for 4 epoch(s) (best=0.07%)
+[epoch 006] train_loss=0.0075 | dev_loss=0.0063 | dev_acc=99.94% | dev_auc=1.0000 | dev_eer=0.08%
+[epoch 006] No EER improvement for 5 epoch(s) (best=0.07%)
+[epoch 007] train_loss=0.0051 | dev_loss=0.0056 | dev_acc=99.96% | dev_auc=1.0000 | dev_eer=0.08%
+[epoch 007] No EER improvement for 6 epoch(s) (best=0.07%)
+[epoch 008] train_loss=0.0046 | dev_loss=0.0053 | dev_acc=99.96% | dev_auc=1.0000 | dev_eer=0.08%
+[epoch 008] No EER improvement for 7 epoch(s) (best=0.07%)
+[epoch 009] train_loss=0.0050 | dev_loss=0.0045 | dev_acc=99.93% | dev_auc=1.0000 | dev_eer=0.08%
+[epoch 009] No EER improvement for 8 epoch(s) (best=0.07%)
+[epoch 010] train_loss=0.0041 | dev_loss=0.0061 | dev_acc=99.98% | dev_auc=1.0000 | dev_eer=0.08%
+[epoch 010] No EER improvement for 9 epoch(s) (best=0.07%)
+[epoch 011] train_loss=0.0040 | dev_loss=0.0058 | dev_acc=99.95% | dev_auc=1.0000 | dev_eer=0.07%
+[epoch 011] No EER improvement for 10 epoch(s) (best=0.07%)
+[epoch 012] train_loss=0.0032 | dev_loss=0.0061 | dev_acc=99.97% | dev_auc=1.0000 | dev_eer=0.08%
+[epoch 012] No EER improvement for 11 epoch(s) (best=0.07%)
+[epoch 013] train_loss=0.0028 | dev_loss=0.0063 | dev_acc=99.97% | dev_auc=1.0000 | dev_eer=0.08%
+[epoch 013] No EER improvement for 12 epoch(s) (best=0.07%)
+[epoch 014] train_loss=0.0025 | dev_loss=0.0079 | dev_acc=99.99% | dev_auc=0.9998 | dev_eer=0.09%
+[epoch 014] No EER improvement for 13 epoch(s) (best=0.07%)
+[epoch 015] train_loss=0.0029 | dev_loss=0.0029 | dev_acc=99.95% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 015] ✓ New best EER=0.04% -> checkpoints_stage2/supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 016] train_loss=0.0026 | dev_loss=0.0059 | dev_acc=99.98% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 016] No EER improvement for 1 epoch(s) (best=0.04%)
+[epoch 017] train_loss=0.0024 | dev_loss=0.0045 | dev_acc=99.98% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 017] No EER improvement for 2 epoch(s) (best=0.04%)
+[epoch 018] train_loss=0.0022 | dev_loss=0.0078 | dev_acc=99.98% | dev_auc=0.9999 | dev_eer=0.08%
+[epoch 018] No EER improvement for 3 epoch(s) (best=0.04%)
+[epoch 019] train_loss=0.0017 | dev_loss=0.0072 | dev_acc=99.98% | dev_auc=0.9999 | dev_eer=0.07%
+[epoch 019] No EER improvement for 4 epoch(s) (best=0.04%)
+[epoch 020] train_loss=0.0024 | dev_loss=0.0055 | dev_acc=99.97% | dev_auc=1.0000 | dev_eer=0.05%
+[epoch 020] No EER improvement for 5 epoch(s) (best=0.04%)
+[epoch 021] train_loss=0.0019 | dev_loss=0.0061 | dev_acc=99.98% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 021] ✓ New best EER=0.04% -> checkpoints_stage2/supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 022] train_loss=0.0027 | dev_loss=0.0060 | dev_acc=99.98% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 022] No EER improvement for 1 epoch(s) (best=0.04%)
+[epoch 023] train_loss=0.0015 | dev_loss=0.0089 | dev_acc=99.99% | dev_auc=0.9997 | dev_eer=0.07%
+[epoch 023] No EER improvement for 2 epoch(s) (best=0.04%)
+[epoch 024] train_loss=0.0015 | dev_loss=0.0091 | dev_acc=99.98% | dev_auc=0.9997 | dev_eer=0.07%
+[epoch 024] No EER improvement for 3 epoch(s) (best=0.04%)
+[epoch 025] train_loss=0.0017 | dev_loss=0.0072 | dev_acc=99.98% | dev_auc=0.9999 | dev_eer=0.03%
+[epoch 025] ✓ New best EER=0.03% -> checkpoints_stage2/supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 026] train_loss=0.0020 | dev_loss=0.0072 | dev_acc=99.98% | dev_auc=0.9999 | dev_eer=0.04%
+[epoch 026] No EER improvement for 1 epoch(s) (best=0.03%)
+[epoch 027] train_loss=0.0012 | dev_loss=0.0060 | dev_acc=99.99% | dev_auc=1.0000 | dev_eer=0.03%
+[epoch 027] ✓ New best EER=0.03% -> checkpoints_stage2/supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 028] train_loss=0.0015 | dev_loss=0.0076 | dev_acc=99.99% | dev_auc=0.9999 | dev_eer=0.04%
+[epoch 028] No EER improvement for 1 epoch(s) (best=0.03%)
+[epoch 029] train_loss=0.0013 | dev_loss=0.0071 | dev_acc=99.97% | dev_auc=0.9999 | dev_eer=0.07%
+[epoch 029] No EER improvement for 2 epoch(s) (best=0.03%)
+[epoch 030] train_loss=0.0012 | dev_loss=0.0124 | dev_acc=99.98% | dev_auc=0.9995 | dev_eer=0.06%
+[epoch 030] No EER improvement for 3 epoch(s) (best=0.03%)
+[epoch 031] train_loss=0.0015 | dev_loss=0.0092 | dev_acc=99.99% | dev_auc=0.9999 | dev_eer=0.03%
+[epoch 031] No EER improvement for 4 epoch(s) (best=0.03%)
+[epoch 032] train_loss=0.0013 | dev_loss=0.0064 | dev_acc=99.98% | dev_auc=1.0000 | dev_eer=0.03%
+[epoch 032] No EER improvement for 5 epoch(s) (best=0.03%)
+[epoch 033] train_loss=0.0023 | dev_loss=0.0094 | dev_acc=99.93% | dev_auc=0.9997 | dev_eer=0.09%
+[epoch 033] No EER improvement for 6 epoch(s) (best=0.03%)
+[epoch 034] train_loss=0.0023 | dev_loss=0.0095 | dev_acc=99.98% | dev_auc=0.9997 | dev_eer=0.08%
+[epoch 034] No EER improvement for 7 epoch(s) (best=0.03%)
+[epoch 035] train_loss=0.0009 | dev_loss=0.0100 | dev_acc=99.99% | dev_auc=0.9997 | dev_eer=0.07%
+[epoch 035] No EER improvement for 8 epoch(s) (best=0.03%)
+[epoch 036] train_loss=0.0012 | dev_loss=0.0120 | dev_acc=99.99% | dev_auc=0.9996 | dev_eer=0.08%
+[epoch 036] No EER improvement for 9 epoch(s) (best=0.03%)
+[epoch 037] train_loss=0.0005 | dev_loss=0.0126 | dev_acc=99.99% | dev_auc=0.9996 | dev_eer=0.06%
+[epoch 037] No EER improvement for 10 epoch(s) (best=0.03%)
+[epoch 038] train_loss=0.0033 | dev_loss=0.0061 | dev_acc=99.98% | dev_auc=1.0000 | dev_eer=0.03%
+[epoch 038] No EER improvement for 11 epoch(s) (best=0.03%)
+[epoch 039] train_loss=0.0013 | dev_loss=0.0082 | dev_acc=99.98% | dev_auc=0.9999 | dev_eer=0.03%
+[epoch 039] No EER improvement for 12 epoch(s) (best=0.03%)
+[epoch 040] train_loss=0.0010 | dev_loss=0.0094 | dev_acc=99.99% | dev_auc=0.9999 | dev_eer=0.04%
+[epoch 040] No EER improvement for 13 epoch(s) (best=0.03%)
+[epoch 041] train_loss=0.0009 | dev_loss=0.0118 | dev_acc=99.98% | dev_auc=0.9998 | dev_eer=0.05%
+[epoch 041] No EER improvement for 14 epoch(s) (best=0.03%)
+[epoch 042] train_loss=0.0006 | dev_loss=0.0116 | dev_acc=99.99% | dev_auc=0.9997 | dev_eer=0.06%
+[epoch 042] No EER improvement for 15 epoch(s) (best=0.03%)
+[EARLY STOP] Patience reached (15) with no EER improvement. Best EER = 0.03%
+==> Stage-2 training complete.
+Best classifier checkpoint: checkpoints_stage2/supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+FF_PROTOCOL: /nfs/turbo/umd-hafiz/issf_server_data/famousfigures/protocol.txt
+Device: cuda
+Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights: 100%|██████████| 422/422 [00:00<00:00, 38128.39it/s]
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+project_q.weight             | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+Loaded Stage-2 head: type=deep_mlp, in_dim=256, hidden_dim=256, dropout=0.3
+[INFO] Scoring dataset 'itw' -> /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 14.692683580578365
+[INFO] Scoring dataset 'asv19' -> /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+run_asv19_pipeline.sh: line 249: 1534670 Terminated              CUDA_VISIBLE_DEVICES=0 python eval_datasets.py --exp_name "${EXP_NAME}" --datasets "${DATASETS}" --model_name "${MODEL_PATH}" --stage1_ckpt "${CKPT}" --stage2_ckpt "${STAGE2_CKPT}" --scores_dir "${SCORES_DIR}" --batch_size ${EVAL_BATCH_SIZE} --num_workers ${NUM_WORKERS} --subset all --max_duration_seconds ${MAX_DURATION_SECONDS} --ff_speakers "${FF_SPEAKERS}" --ff_root /data/Data/famousfigures --ff_protocol /data/Data/famousfigures/protocol.txt --asv19_root ${ASV19_EVAL_ROOT} --asv19_protocol ${ASV19_EVAL_PROTOCOL} --asv5_root /data/Data/ASVSpoof5/No_Laundering_eval/flac --asv5_protocol /data/Data/ASVSpoof5/protocols/ASVspoof5.eval.track_1.tsv --itw_root /data/Data/ds_wild/release_in_the_wild --itw_protocol /data/Data/ds_wild/protocols/meta.csv --fakexpose_root /data/Data/fakexpose --deepfake_root /data/Data/Deepfake_Eval_2024/audio-data --deepfake_protocol /data/Data/Deepfake_Eval_2024/audio-metadata-publish.csv --print_eer --windowed_eval ${WINDOWED_EVAL} --window_sec ${WINDOW_SEC} --hop_sec ${HOP_SEC} --agg ${AGG} --topk_frac ${TOPK_FRAC} --max_windows_per_utt ${MAX_WINDOWS_PER_UTT} --window_batch_size ${WINDOW_BATCH_SIZE}

@@ -1,0 +1,40 @@
+nohup: ignoring input
+Setting up the environment...
+Job started on ISSFLab.engin.umd.umich.edu at Sat Apr 18 14:23:29 EDT 2026
+Python version: Python 3.12.12
+PyTorch version: 2.6.0+cu124
+CUDA available: True
+Current GPU: NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+----------------------------------------------------------------
+ASV5_TRAIN_ROOT=/data/Data/ASVSpoof5/No_Laundering_train/flac
+ASV5_TRAIN_PROTOCOL=/data/Data/ASVSpoof5/protocols/ASVspoof5_train_protocol.txt
+ASV5_DEV_ROOT=/data/Data/ASVSpoof5/No_Laundering_dev/flac
+ASV5_DEV_PROTOCOL=/data/Data/ASVSpoof5/protocols/ASVspoof5.dev.metadata.txt
+ASV5_EVAL_ROOT=/data/Data/ASVSpoof5/No_Laundering_eval/flac
+ASV5_EVAL_PROTOCOL=/data/Data/ASVSpoof5/protocols/ASVspoof5.eval.track_1.tsv
+EXPERIMENT NAME: asv5_bat_128_supcon_geodesic_temp_0.07
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+FF_PROTOCOL: /nfs/turbo/umd-hafiz/issf_server_data/famousfigures/protocol.txt
+Device: cuda
+Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights: 100%|██████████| 422/422 [00:00<00:00, 39098.66it/s]
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+project_q.bias               | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> /home/jsudan/wav2vec_contr_loss/scores/asv5_bat_128_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/asv5_bat_128_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 38.50830235682098
+[INFO] Scoring dataset 'asv5' -> /home/jsudan/wav2vec_contr_loss/scores/asv5_bat_128_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+run_train_stage1.sh: line 219: 1168776 Terminated              python eval_datasets.py --exp_name ${EXP_NAME} --datasets "${EVAL_DATASETS}" --model_name ${MODEL} --stage1_ckpt ${CKPT} --stage2_ckpt ${STAGE2_CKPT} --scores_dir /home/jsudan/wav2vec_contr_loss/scores --batch_size ${EVAL_BATCH_SIZE} --num_workers ${EVAL_NUM_WORKERS} --max_duration_seconds ${MAX_DURATION_SECONDS} --target_sample_rate 16000 --print_eer --asv5_root ${ASV5_EVAL_ROOT} --asv5_protocol ${ASV5_EVAL_PROTOCOL} --itw_root /data/Data/ds_wild/release_in_the_wild --itw_protocol /data/Data/ds_wild/protocols/meta.csv

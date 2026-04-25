@@ -1,0 +1,122 @@
+nohup: ignoring input
+Setting up the environment...
+Job started on ISSFLab.engin.umd.umich.edu at Sun Apr 19 18:09:17 EDT 2026
+Python version: Python 3.12.12
+PyTorch version: 2.6.0+cu124
+CUDA available: True
+Current GPU: NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.07_seed_1337
+SEED: 1337
+Using NUM_GPUS=2
+Using BATCH_SIZE=32
+W0419 18:09:23.910000 2026958 torch/distributed/run.py:792] 
+W0419 18:09:23.910000 2026958 torch/distributed/run.py:792] *****************************************
+W0419 18:09:23.910000 2026958 torch/distributed/run.py:792] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0419 18:09:23.910000 2026958 torch/distributed/run.py:792] *****************************************
+/home/jsudan/wav2vec_contr_loss/data_loader.py:792: SyntaxWarning: invalid escape sequence '\s'
+  protocol_df = pd.read_csv(protocol_file, sep="\s+", header=None, engine="python", names=col_names)
+[W419 18:09:31.244403674 CUDAFunctions.cpp:109] Warning: CUDA initialization: CUDA driver initialization failed, you might not have a CUDA gpu. (function operator())
+Traceback (most recent call last):
+  File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 262, in <module>
+    main()
+  File "/home/jsudan/wav2vec_contr_loss/train_stage1.py", line 38, in main
+    is_distributed, rank, world_size, local_rank = setup_distributed()
+                                                   ^^^^^^^^^^^^^^^^^^^
+  File "/home/jsudan/wav2vec_contr_loss/stage1_utils.py", line 400, in setup_distributed
+    dist.init_process_group(backend="nccl", init_method="env://")
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/c10d_logger.py", line 81, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/c10d_logger.py", line 95, in wrapper
+    func_return = func(*args, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/distributed_c10d.py", line 1721, in init_process_group
+    default_pg, _ = _new_process_group_helper(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/distributed_c10d.py", line 1982, in _new_process_group_helper
+    backend_class = ProcessGroupNCCL(
+                    ^^^^^^^^^^^^^^^^^
+ValueError: ProcessGroupNCCL is only supported with GPUs, no GPUs found!
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+MODEL_ID=wav2vec2-xls-r-300m
+SAVE_DIR=/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesic_temp_0.07_seed_1337
+TRAIN_ROOT=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=10
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+ACCUM_STEPS=1
+NUM_SAMPLES=None
+HEAD_LR=0.0005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.07
+NUM_WORKERS=4
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=256
+WARMUP_EPOCHS=100
+ALPHA_END=0.9
+ALPHA_RAMP_EPOCHS=20
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=10
+LABEL_TYPE=binary
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Global batch size=32 | Per-GPU batch size=16
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+W0419 18:09:32.685000 2026958 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 2026997 closing signal SIGTERM
+E0419 18:09:32.850000 2026958 torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: 1) local_rank: 1 (pid: 2026998) of binary: /home/jsudan/.myenv/bin/python3.12
+Traceback (most recent call last):
+  File "/home/jsudan/.myenv/bin/torchrun", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 355, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/run.py", line 918, in main
+    run(args)
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/run.py", line 909, in run
+    elastic_launch(
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/launcher/api.py", line 138, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/launcher/api.py", line 269, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+train_stage1.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-04-19_18:09:32
+  host      : ISSFLab.engin.umd.umich.edu
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 2026998)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

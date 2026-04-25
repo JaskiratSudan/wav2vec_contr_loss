@@ -1,0 +1,38 @@
+Setting up the environment...
+Job started on ISSFLab.engin.umd.umich.edu at Tue Apr 21 02:34:25 EDT 2026
+Python version: Python 3.12.12
+PyTorch version: 2.6.0+cu124
+CUDA available: True
+Current GPU: NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.05_seed_1337
+SEED: 1337
+Using NUM_GPUS=1
+Using BATCH_SIZE=32
+/home/jsudan/wav2vec_contr_loss/data_loader.py:513: SyntaxWarning: invalid escape sequence '\s'
+  protocol_df = pd.read_csv(protocol_file, sep="\s+", header=None, engine="python", names=col_names)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+FF_PROTOCOL: /nfs/turbo/umd-hafiz/issf_server_data/famousfigures/protocol.txt
+Device: cuda
+Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights: 100%|██████████| 422/422 [00:00<00:00, 25752.89it/s]
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+project_q.bias               | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.05_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.05_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 13.040380416363368
+[INFO] Scoring dataset 'asv19' -> /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.05_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+run_asv19_pipeline.sh: line 232: 3798419 Terminated              python eval_datasets.py --exp_name "${EXP_NAME}" --datasets "${DATASETS}" --model_name "${MODEL_PATH}" --stage1_ckpt "${CKPT}" --stage2_ckpt "${STAGE2_CKPT}" --scores_dir "${SCORES_DIR}" --batch_size ${EVAL_BATCH_SIZE} --num_workers ${NUM_WORKERS} --subset all --max_duration_seconds ${MAX_DURATION_SECONDS} --ff_speakers "${FF_SPEAKERS}" --ff_root /data/Data/famousfigures --ff_protocol /data/Data/famousfigures/protocol.txt --asv19_root ${ASV19_EVAL_ROOT} --asv19_protocol ${ASV19_EVAL_PROTOCOL} --asv5_root /data/Data/ASVSpoof5/No_Laundering_eval/flac --asv5_protocol /data/Data/ASVSpoof5/protocols/ASVspoof5.eval.track_1.tsv --itw_root /data/Data/ds_wild/release_in_the_wild --itw_protocol /data/Data/ds_wild/protocols/meta.csv --fakexpose_root /data/Data/fakexpose --deepfake_root /data/Data/Deepfake_Eval_2024/audio-data --deepfake_protocol /data/Data/Deepfake_Eval_2024/audio-metadata-publish.csv --print_eer --windowed_eval ${WINDOWED_EVAL} --window_sec ${WINDOW_SEC} --hop_sec ${HOP_SEC} --agg ${AGG} --topk_frac ${TOPK_FRAC} --max_windows_per_utt ${MAX_WINDOWS_PER_UTT} --window_batch_size ${WINDOW_BATCH_SIZE}

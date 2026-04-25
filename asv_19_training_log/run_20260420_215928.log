@@ -1,0 +1,239 @@
+nohup: ignoring input
+Setting up the environment...
+Job started on ISSFLab.engin.umd.umich.edu at Mon Apr 20 21:59:28 EDT 2026
+Python version: Python 3.12.12
+PyTorch version: 2.6.0+cu124
+/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/cuda/__init__.py:129: UserWarning: CUDA initialization: CUDA driver initialization failed, you might not have a CUDA gpu. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:109.)
+  return torch._C._cuda_getDeviceCount() > 0
+CUDA available: False
+Current GPU: NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.05_seed_1337
+SEED: 1337
+Using NUM_GPUS=2
+Using BATCH_SIZE=32
+W0420 21:59:34.676000 3123763 torch/distributed/run.py:792] 
+W0420 21:59:34.676000 3123763 torch/distributed/run.py:792] *****************************************
+W0420 21:59:34.676000 3123763 torch/distributed/run.py:792] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0420 21:59:34.676000 3123763 torch/distributed/run.py:792] *****************************************
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesic_temp_0.05_seed_1337/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=5
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=100
+BATCH_SIZE=32
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.05
+NUM_WORKERS=4
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=10
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Train samples loaded: bonafide=2580, spoof=22800
+[INFO] Global batch size=32 | Per-GPU batch size=16
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights: 100%|██████████| 422/422 [00:00<00:00, 40218.96it/s]
+Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights: 100%|██████████| 422/422 [00:00<00:00, 39227.77it/s]
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+project_q.bias               | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[rank1] sim_mean=0.9546 sim_std=0.0361 Loss: 3.379298210144043
+[rank0] pos_mean=0.9712 neg_mean=0.9737 n_pos=0 n_neg=8
+[rank0] sim_mean=0.9747 sim_std=0.0172 Loss: 2.9490203857421875
+[epoch 001] alpha=0.00 | train_loss=2.3481 | dev_loss=1.9473
+[epoch 001] alpha=0.00 | train_loss=2.3481 | dev_loss=1.9712
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesic_temp_0.05_seed_1337/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.9473)
+[rank1] sim_mean=0.9592 sim_std=0.0538 Loss: 2.1124062538146973
+[rank0] pos_mean=0.9986 neg_mean=0.9162 n_pos=2 n_neg=8
+[rank0] sim_mean=0.9421 sim_std=0.0602 Loss: 2.029179811477661
+[epoch 002] alpha=0.00 | train_loss=1.9545 | dev_loss=1.6444
+[epoch 002] alpha=0.00 | train_loss=1.9545 | dev_loss=1.6375
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesic_temp_0.05_seed_1337/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.6444)
+[rank1] sim_mean=0.9336 sim_std=0.0880 Loss: 2.30728816986084
+[rank0] pos_mean=0.9939 neg_mean=0.8950 n_pos=1 n_neg=8
+[rank0] sim_mean=0.9270 sim_std=0.0768 Loss: 1.8784120082855225
+[epoch 003] alpha=0.00 | train_loss=1.6781 | dev_loss=1.4657
+[epoch 003] alpha=0.00 | train_loss=1.6781 | dev_loss=1.4634
+[rank1] sim_mean=0.7966 sim_std=0.1954 Loss: 1.260689616203308
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesic_temp_0.05_seed_1337/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.4634)
+[rank0] pos_mean=0.9954 neg_mean=0.8021 n_pos=2 n_neg=8
+[rank0] sim_mean=0.8628 sim_std=0.1247 Loss: 1.0770578384399414
+[epoch 004] alpha=0.00 | train_loss=1.4911 | dev_loss=1.4322
+[epoch 004] alpha=0.00 | train_loss=1.4911 | dev_loss=1.4485
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesic_temp_0.05_seed_1337/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.4322)
+[rank1] sim_mean=0.7699 sim_std=0.2291 Loss: 1.4875283241271973
+[rank0] pos_mean=0.9979 neg_mean=0.7066 n_pos=0 n_neg=8
+[rank0] sim_mean=0.8000 sim_std=0.2095 Loss: 1.2181674242019653
+[epoch 005] alpha=0.00 | train_loss=1.4354 | dev_loss=1.4712
+[epoch 005] alpha=0.00 | train_loss=1.4354 | dev_loss=1.4602
+[rank0] pos_mean=0.9974 neg_mean=0.7453 n_pos=1 n_neg=8
+[rank0] sim_mean=0.8203 sim_std=0.1799 Loss: 1.520343542098999
+[rank1] sim_mean=0.8277 sim_std=0.1999 Loss: 1.3186522722244263
+[epoch 006] alpha=0.00 | train_loss=1.3931 | dev_loss=1.4049
+[epoch 006] alpha=0.00 | train_loss=1.3931 | dev_loss=1.4197
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesic_temp_0.05_seed_1337/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.4049)
+[rank1] sim_mean=0.7473 sim_std=0.2125 Loss: 1.204451322555542
+[rank0] pos_mean=0.9975 neg_mean=0.6808 n_pos=1 n_neg=8
+[rank0] sim_mean=0.7800 sim_std=0.1949 Loss: 1.3998240232467651
+[epoch 007] alpha=0.00 | train_loss=1.3787 | dev_loss=1.3490
+[epoch 007] alpha=0.00 | train_loss=1.3787 | dev_loss=1.3429
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesic_temp_0.05_seed_1337/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.3490)
+[rank1] sim_mean=0.7399 sim_std=0.2312 Loss: 1.437246322631836
+[rank0] pos_mean=0.9953 neg_mean=0.7401 n_pos=1 n_neg=8
+[rank0] sim_mean=0.8201 sim_std=0.1562 Loss: 1.4669522047042847
+[epoch 008] alpha=0.00 | train_loss=1.4040 | dev_loss=1.3668
+[epoch 008] alpha=0.00 | train_loss=1.4040 | dev_loss=1.3380
+[rank0] pos_mean=0.9981 neg_mean=0.7095 n_pos=0 n_neg=8
+[rank0] sim_mean=0.8066 sim_std=0.1595 Loss: 1.441284418106079
+[rank1] sim_mean=0.7951 sim_std=0.1615 Loss: 1.1298683881759644
+[epoch 009] alpha=0.00 | train_loss=1.3705 | dev_loss=1.3982
+[epoch 009] alpha=0.00 | train_loss=1.3705 | dev_loss=1.3805
+[rank0] pos_mean=0.9978 neg_mean=0.7433 n_pos=1 n_neg=8
+[rank0] sim_mean=0.8349 sim_std=0.1458 Loss: 1.7690635919570923
+[rank1] sim_mean=0.8973 sim_std=0.0928 Loss: 1.4297444820404053
+[epoch 010] alpha=0.00 | train_loss=1.3960 | dev_loss=1.3383
+[epoch 010] alpha=0.00 | train_loss=1.3960 | dev_loss=1.3266
+[rank1] sim_mean=0.8023 sim_std=0.1648 Loss: 1.198309302330017
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesic_temp_0.05_seed_1337/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.3383)
+[rank0] pos_mean=0.9970 neg_mean=0.6456 n_pos=0 n_neg=8
+[rank0] sim_mean=0.7638 sim_std=0.2079 Loss: 1.530676007270813
+[epoch 011] alpha=0.00 | train_loss=1.3521 | dev_loss=1.3360
+[epoch 011] alpha=0.00 | train_loss=1.3521 | dev_loss=1.3155
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesic_temp_0.05_seed_1337/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.3360)
+[rank1] sim_mean=0.8003 sim_std=0.1641 Loss: 2.1866512298583984
+[rank0] pos_mean=0.9975 neg_mean=0.6842 n_pos=0 n_neg=8
+[rank0] sim_mean=0.7847 sim_std=0.1628 Loss: 1.186932921409607
+[epoch 012] alpha=0.00 | train_loss=1.3779 | dev_loss=1.3298
+[epoch 012] alpha=0.00 | train_loss=1.3779 | dev_loss=1.2988
+[rank1] sim_mean=0.8076 sim_std=0.1715 Loss: 1.3655712604522705
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesic_temp_0.05_seed_1337/facebook__wav2vec2-xls-r-300m/facebook__wav2vec2-xls-r-300m_stage1_head_best.pt (dev=1.2988)
+[rank0] pos_mean=0.9988 neg_mean=0.7283 n_pos=0 n_neg=8
+[rank0] sim_mean=0.8256 sim_std=0.1860 Loss: 1.7393567562103271
+[epoch 013] alpha=0.00 | train_loss=1.3591 | dev_loss=1.3262
+[epoch 013] alpha=0.00 | train_loss=1.3591 | dev_loss=1.3170
+[rank0] pos_mean=0.9983 neg_mean=0.6017 n_pos=1 n_neg=8
+[rank0] sim_mean=0.7351 sim_std=0.2345 Loss: 1.4460692405700684
+[rank1] sim_mean=0.7940 sim_std=0.1730 Loss: 1.3059035539627075
+[epoch 014] alpha=0.00 | train_loss=1.3499 | dev_loss=1.3355
+[epoch 014] alpha=0.00 | train_loss=1.3499 | dev_loss=1.3354
+[rank0] pos_mean=0.9988 neg_mean=0.6704 n_pos=3 n_neg=8
+[rank0] sim_mean=0.7757 sim_std=0.2125 Loss: 1.183730125427246
+[rank1] sim_mean=0.8631 sim_std=0.1010 Loss: 1.4795705080032349
+[epoch 015] alpha=0.00 | train_loss=1.3235 | dev_loss=1.3113
+[epoch 015] alpha=0.00 | train_loss=1.3235 | dev_loss=1.3475
+[rank1] sim_mean=0.7693 sim_std=0.1785 Loss: 1.118436574935913
+[rank0] pos_mean=0.9988 neg_mean=0.7370 n_pos=0 n_neg=8
+[rank0] sim_mean=0.8250 sim_std=0.1479 Loss: 1.4337961673736572
+[epoch 016] alpha=0.00 | train_loss=1.3206 | dev_loss=1.3023
+[epoch 016] alpha=0.00 | train_loss=1.3206 | dev_loss=1.2993
+[rank0] pos_mean=0.9985 neg_mean=0.7197 n_pos=3 n_neg=8
+[rank0] sim_mean=0.8069 sim_std=0.1641 Loss: 1.3904576301574707
+[rank1] sim_mean=0.7949 sim_std=0.1634 Loss: 1.392968773841858
+[epoch 017] alpha=0.00 | train_loss=1.3318 | dev_loss=1.3237
+[epoch 017] alpha=0.00 | train_loss=1.3318 | dev_loss=1.3411
+[rank0] pos_mean=0.9991 neg_mean=0.7611 n_pos=1 n_neg=8
+[rank0] sim_mean=0.8355 sim_std=0.1447 Loss: 1.3650978803634644
+[rank1] sim_mean=0.8803 sim_std=0.0945 Loss: 1.18594491481781
+[epoch 018] alpha=0.00 | train_loss=1.3431 | dev_loss=1.3281
+[epoch 018] alpha=0.00 | train_loss=1.3431 | dev_loss=1.3645
+[rank0] pos_mean=0.9924 neg_mean=0.7459 n_pos=0 n_neg=8
+[rank0] sim_mean=0.8234 sim_std=0.1366 Loss: 2.212629795074463
+[rank1] sim_mean=0.8012 sim_std=0.1590 Loss: 1.4372928142547607
+[epoch 019] alpha=0.00 | train_loss=1.3316 | dev_loss=1.3232
+[epoch 019] alpha=0.00 | train_loss=1.3316 | dev_loss=1.3160
+[rank0] pos_mean=0.9987 neg_mean=0.6513 n_pos=0 n_neg=8
+[rank0] sim_mean=0.7654 sim_std=0.1839 Loss: 1.4180315732955933
+[rank1] sim_mean=0.7867 sim_std=0.1773 Loss: 1.1155506372451782
+[epoch 020] alpha=0.00 | train_loss=1.3620 | dev_loss=1.3111
+[epoch 020] alpha=0.00 | train_loss=1.3620 | dev_loss=1.3199
+[rank1] sim_mean=0.7942 sim_std=0.1617 Loss: 1.1824116706848145
+[rank0] pos_mean=0.9992 neg_mean=0.6908 n_pos=1 n_neg=8
+[rank0] sim_mean=0.7872 sim_std=0.1754 Loss: 1.368730902671814
+W0420 23:27:06.285000 3123763 torch/distributed/elastic/multiprocessing/api.py:897] Sending process 3123812 closing signal SIGTERM
+E0420 23:27:06.451000 3123763 torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: -15) local_rank: 0 (pid: 3123811) of binary: /home/jsudan/.myenv/bin/python3.12
+Traceback (most recent call last):
+  File "/home/jsudan/.myenv/bin/torchrun", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 355, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/run.py", line 918, in main
+    run(args)
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/run.py", line 909, in run
+    elastic_launch(
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/launcher/api.py", line 138, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/distributed/launcher/api.py", line 269, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+=========================================================
+train_stage1.py FAILED
+---------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+---------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-04-20_23:27:06
+  host      : ISSFLab.engin.umd.umich.edu
+  rank      : 0 (local_rank: 0)
+  exitcode  : -15 (pid: 3123811)
+  error_file: <N/A>
+  traceback : Signal 15 (SIGTERM) received by PID 3123811
+=========================================================

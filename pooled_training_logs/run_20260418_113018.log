@@ -1,0 +1,402 @@
+nohup: ignoring input
+Setting up the environment...
+Job started on ISSFLab.engin.umd.umich.edu at Sat Apr 18 11:30:18 EDT 2026
+Python version: Python 3.12.12
+PyTorch version: 2.6.0+cu124
+CUDA available: True
+Current GPU: NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+----------------------------------------------------------------
+ASV5_TRAIN_ROOT=/data/Data/ASVSpoof5/No_Laundering_train/flac
+ASV5_TRAIN_PROTOCOL=/data/Data/ASVSpoof5/protocols/ASVspoof5_train_protocol.txt
+ASV5_DEV_ROOT=/data/Data/ASVSpoof5/No_Laundering_dev/flac
+ASV5_DEV_PROTOCOL=/data/Data/ASVSpoof5/protocols/ASVspoof5.dev.metadata.txt
+ASV5_EVAL_ROOT=/data/Data/ASVSpoof5/No_Laundering_eval/flac
+ASV5_EVAL_PROTOCOL=/data/Data/ASVSpoof5/protocols/ASVspoof5.eval.track_1.tsv
+EXPERIMENT NAME: asv5_bat_128_supcon_geodesic_temp_0.07
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[INFO] device=cuda
+Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights: 100%|██████████| 422/422 [00:00<00:00, 39446.33it/s]
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+project_hid.bias             | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[INFO] No encoder_state_dict in ckpt (encoder likely frozen during Stage-1).
+[OK] Saved asv5:train -> X=(182357, 256), y=(182357,), hist={0: 163560, 1: 18797}
+[OK] Saved asv5:dev -> X=(140950, 256), y=(140950,), hist={0: 109616, 1: 31334}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[INFO] device=cuda
+Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights: 100%|██████████| 422/422 [00:00<00:00, 38993.57it/s]
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+quantizer.codevectors        | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[INFO] No encoder_state_dict in ckpt (encoder likely frozen during Stage-1).
+[OK] Saved asv19:train -> X=(25380, 256), y=(25380,), hist={0: 22800, 1: 2580}
+[OK] Saved asv19:dev -> X=(24844, 256), y=(24844,), hist={0: 22296, 1: 2548}
+[OK] pooled split='train' -> n=207737 dim=256 labels={'0': 186360, '1': 21377}
+[OK] pooled split='dev' -> n=165794 dim=256 labels={'0': 131912, '1': 33882}
+[OK] wrote summary -> /home/jsudan/wav2vec_contr_loss/encoder_embeddings/stage1_embeddings/POOLED/asv5_bat_128_supcon_geodesic_temp_0.07/pooling_summary.json
+Using device: cuda
+Train embeddings: (207737, 256), Dev embeddings: (165794, 256)
+Class balance: pos_weight=8.718
+[epoch 001] train_loss=1.0680 | dev_loss=1.4106 | dev_acc=97.02% | dev_auc=0.9933 | dev_eer=3.97%
+[epoch 001] ✓ New best EER=3.97% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 002] train_loss=0.7545 | dev_loss=1.1103 | dev_acc=96.71% | dev_auc=0.9933 | dev_eer=4.00%
+[epoch 002] No EER improvement for 1 epoch(s) (best=3.97%)
+[epoch 003] train_loss=0.5361 | dev_loss=0.9024 | dev_acc=96.78% | dev_auc=0.9932 | dev_eer=4.00%
+[epoch 003] No EER improvement for 2 epoch(s) (best=3.97%)
+[epoch 004] train_loss=0.3828 | dev_loss=0.7445 | dev_acc=96.75% | dev_auc=0.9932 | dev_eer=4.00%
+[epoch 004] No EER improvement for 3 epoch(s) (best=3.97%)
+[epoch 005] train_loss=0.2749 | dev_loss=0.6358 | dev_acc=96.86% | dev_auc=0.9932 | dev_eer=4.01%
+[epoch 005] No EER improvement for 4 epoch(s) (best=3.97%)
+[epoch 006] train_loss=0.1989 | dev_loss=0.5493 | dev_acc=96.85% | dev_auc=0.9932 | dev_eer=4.01%
+[epoch 006] No EER improvement for 5 epoch(s) (best=3.97%)
+[epoch 007] train_loss=0.1452 | dev_loss=0.4886 | dev_acc=96.90% | dev_auc=0.9932 | dev_eer=4.01%
+[epoch 007] No EER improvement for 6 epoch(s) (best=3.97%)
+[epoch 008] train_loss=0.1072 | dev_loss=0.4440 | dev_acc=96.93% | dev_auc=0.9932 | dev_eer=4.00%
+[epoch 008] No EER improvement for 7 epoch(s) (best=3.97%)
+[epoch 009] train_loss=0.0803 | dev_loss=0.4142 | dev_acc=97.01% | dev_auc=0.9933 | dev_eer=4.00%
+[epoch 009] No EER improvement for 8 epoch(s) (best=3.97%)
+[epoch 010] train_loss=0.0613 | dev_loss=0.3903 | dev_acc=97.02% | dev_auc=0.9933 | dev_eer=4.00%
+[epoch 010] No EER improvement for 9 epoch(s) (best=3.97%)
+[epoch 011] train_loss=0.0477 | dev_loss=0.3742 | dev_acc=97.06% | dev_auc=0.9933 | dev_eer=3.99%
+[epoch 011] No EER improvement for 10 epoch(s) (best=3.97%)
+[epoch 012] train_loss=0.0379 | dev_loss=0.3724 | dev_acc=97.16% | dev_auc=0.9933 | dev_eer=3.98%
+[epoch 012] No EER improvement for 11 epoch(s) (best=3.97%)
+[epoch 013] train_loss=0.0309 | dev_loss=0.3709 | dev_acc=97.22% | dev_auc=0.9933 | dev_eer=3.98%
+[epoch 013] No EER improvement for 12 epoch(s) (best=3.97%)
+[epoch 014] train_loss=0.0258 | dev_loss=0.3751 | dev_acc=97.26% | dev_auc=0.9933 | dev_eer=3.98%
+[epoch 014] No EER improvement for 13 epoch(s) (best=3.97%)
+[epoch 015] train_loss=0.0220 | dev_loss=0.3817 | dev_acc=97.30% | dev_auc=0.9933 | dev_eer=3.97%
+[epoch 015] ✓ New best EER=3.97% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 016] train_loss=0.0192 | dev_loss=0.3944 | dev_acc=97.36% | dev_auc=0.9933 | dev_eer=3.97%
+[epoch 016] No EER improvement for 1 epoch(s) (best=3.97%)
+[epoch 017] train_loss=0.0170 | dev_loss=0.4123 | dev_acc=97.38% | dev_auc=0.9933 | dev_eer=3.97%
+[epoch 017] No EER improvement for 2 epoch(s) (best=3.97%)
+[epoch 018] train_loss=0.0154 | dev_loss=0.4322 | dev_acc=97.37% | dev_auc=0.9934 | dev_eer=3.97%
+[epoch 018] ✓ New best EER=3.97% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 019] train_loss=0.0141 | dev_loss=0.4489 | dev_acc=97.38% | dev_auc=0.9934 | dev_eer=3.96%
+[epoch 019] ✓ New best EER=3.96% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 020] train_loss=0.0131 | dev_loss=0.4673 | dev_acc=97.37% | dev_auc=0.9934 | dev_eer=3.96%
+[epoch 020] ✓ New best EER=3.96% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 021] train_loss=0.0122 | dev_loss=0.4873 | dev_acc=97.34% | dev_auc=0.9934 | dev_eer=3.94%
+[epoch 021] ✓ New best EER=3.94% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 022] train_loss=0.0116 | dev_loss=0.5120 | dev_acc=97.32% | dev_auc=0.9934 | dev_eer=3.94%
+[epoch 022] ✓ New best EER=3.94% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 023] train_loss=0.0110 | dev_loss=0.5291 | dev_acc=97.30% | dev_auc=0.9935 | dev_eer=3.94%
+[epoch 023] ✓ New best EER=3.94% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 024] train_loss=0.0105 | dev_loss=0.5515 | dev_acc=97.28% | dev_auc=0.9935 | dev_eer=3.93%
+[epoch 024] ✓ New best EER=3.93% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 025] train_loss=0.0101 | dev_loss=0.5723 | dev_acc=97.25% | dev_auc=0.9935 | dev_eer=3.92%
+[epoch 025] ✓ New best EER=3.92% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 026] train_loss=0.0098 | dev_loss=0.5934 | dev_acc=97.22% | dev_auc=0.9935 | dev_eer=3.91%
+[epoch 026] ✓ New best EER=3.91% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 027] train_loss=0.0095 | dev_loss=0.6128 | dev_acc=97.19% | dev_auc=0.9935 | dev_eer=3.91%
+[epoch 027] ✓ New best EER=3.91% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 028] train_loss=0.0092 | dev_loss=0.6294 | dev_acc=97.17% | dev_auc=0.9935 | dev_eer=3.91%
+[epoch 028] ✓ New best EER=3.91% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 029] train_loss=0.0090 | dev_loss=0.6474 | dev_acc=97.15% | dev_auc=0.9936 | dev_eer=3.90%
+[epoch 029] ✓ New best EER=3.90% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 030] train_loss=0.0088 | dev_loss=0.6690 | dev_acc=97.11% | dev_auc=0.9936 | dev_eer=3.90%
+[epoch 030] ✓ New best EER=3.90% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 031] train_loss=0.0086 | dev_loss=0.6787 | dev_acc=97.10% | dev_auc=0.9936 | dev_eer=3.89%
+[epoch 031] ✓ New best EER=3.89% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 032] train_loss=0.0084 | dev_loss=0.6993 | dev_acc=97.07% | dev_auc=0.9936 | dev_eer=3.88%
+[epoch 032] ✓ New best EER=3.88% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 033] train_loss=0.0083 | dev_loss=0.7112 | dev_acc=97.07% | dev_auc=0.9936 | dev_eer=3.88%
+[epoch 033] ✓ New best EER=3.88% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 034] train_loss=0.0081 | dev_loss=0.7253 | dev_acc=97.05% | dev_auc=0.9936 | dev_eer=3.87%
+[epoch 034] ✓ New best EER=3.87% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 035] train_loss=0.0080 | dev_loss=0.7373 | dev_acc=97.04% | dev_auc=0.9936 | dev_eer=3.87%
+[epoch 035] ✓ New best EER=3.87% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 036] train_loss=0.0079 | dev_loss=0.7515 | dev_acc=97.01% | dev_auc=0.9936 | dev_eer=3.86%
+[epoch 036] ✓ New best EER=3.86% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 037] train_loss=0.0078 | dev_loss=0.7595 | dev_acc=97.01% | dev_auc=0.9937 | dev_eer=3.86%
+[epoch 037] ✓ New best EER=3.86% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 038] train_loss=0.0077 | dev_loss=0.7697 | dev_acc=97.01% | dev_auc=0.9937 | dev_eer=3.86%
+[epoch 038] ✓ New best EER=3.86% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 039] train_loss=0.0076 | dev_loss=0.7758 | dev_acc=97.01% | dev_auc=0.9937 | dev_eer=3.85%
+[epoch 039] ✓ New best EER=3.85% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 040] train_loss=0.0075 | dev_loss=0.7871 | dev_acc=97.00% | dev_auc=0.9937 | dev_eer=3.85%
+[epoch 040] ✓ New best EER=3.85% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 041] train_loss=0.0074 | dev_loss=0.7939 | dev_acc=96.99% | dev_auc=0.9937 | dev_eer=3.84%
+[epoch 041] ✓ New best EER=3.84% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 042] train_loss=0.0073 | dev_loss=0.8031 | dev_acc=96.98% | dev_auc=0.9937 | dev_eer=3.84%
+[epoch 042] ✓ New best EER=3.84% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 043] train_loss=0.0072 | dev_loss=0.8136 | dev_acc=96.97% | dev_auc=0.9937 | dev_eer=3.84%
+[epoch 043] ✓ New best EER=3.84% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 044] train_loss=0.0072 | dev_loss=0.8193 | dev_acc=96.97% | dev_auc=0.9937 | dev_eer=3.84%
+[epoch 044] ✓ New best EER=3.84% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 045] train_loss=0.0071 | dev_loss=0.8280 | dev_acc=96.96% | dev_auc=0.9937 | dev_eer=3.83%
+[epoch 045] ✓ New best EER=3.83% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 046] train_loss=0.0070 | dev_loss=0.8339 | dev_acc=96.96% | dev_auc=0.9937 | dev_eer=3.83%
+[epoch 046] ✓ New best EER=3.83% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 047] train_loss=0.0070 | dev_loss=0.8439 | dev_acc=96.95% | dev_auc=0.9937 | dev_eer=3.83%
+[epoch 047] ✓ New best EER=3.83% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 048] train_loss=0.0069 | dev_loss=0.8495 | dev_acc=96.95% | dev_auc=0.9938 | dev_eer=3.83%
+[epoch 048] No EER improvement for 1 epoch(s) (best=3.83%)
+[epoch 049] train_loss=0.0069 | dev_loss=0.8606 | dev_acc=96.93% | dev_auc=0.9938 | dev_eer=3.83%
+[epoch 049] No EER improvement for 2 epoch(s) (best=3.83%)
+[epoch 050] train_loss=0.0068 | dev_loss=0.8636 | dev_acc=96.93% | dev_auc=0.9938 | dev_eer=3.83%
+[epoch 050] No EER improvement for 3 epoch(s) (best=3.83%)
+[epoch 051] train_loss=0.0068 | dev_loss=0.8683 | dev_acc=96.93% | dev_auc=0.9938 | dev_eer=3.83%
+[epoch 051] No EER improvement for 4 epoch(s) (best=3.83%)
+[epoch 052] train_loss=0.0067 | dev_loss=0.8724 | dev_acc=96.93% | dev_auc=0.9938 | dev_eer=3.82%
+[epoch 052] ✓ New best EER=3.82% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 053] train_loss=0.0067 | dev_loss=0.8844 | dev_acc=96.91% | dev_auc=0.9938 | dev_eer=3.82%
+[epoch 053] No EER improvement for 1 epoch(s) (best=3.82%)
+[epoch 054] train_loss=0.0066 | dev_loss=0.8899 | dev_acc=96.90% | dev_auc=0.9938 | dev_eer=3.82%
+[epoch 054] ✓ New best EER=3.82% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 055] train_loss=0.0066 | dev_loss=0.8972 | dev_acc=96.90% | dev_auc=0.9938 | dev_eer=3.81%
+[epoch 055] ✓ New best EER=3.81% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 056] train_loss=0.0065 | dev_loss=0.8972 | dev_acc=96.90% | dev_auc=0.9938 | dev_eer=3.81%
+[epoch 056] ✓ New best EER=3.81% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 057] train_loss=0.0065 | dev_loss=0.8986 | dev_acc=96.91% | dev_auc=0.9938 | dev_eer=3.81%
+[epoch 057] No EER improvement for 1 epoch(s) (best=3.81%)
+[epoch 058] train_loss=0.0065 | dev_loss=0.9050 | dev_acc=96.90% | dev_auc=0.9938 | dev_eer=3.81%
+[epoch 058] ✓ New best EER=3.81% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 059] train_loss=0.0064 | dev_loss=0.9067 | dev_acc=96.90% | dev_auc=0.9938 | dev_eer=3.81%
+[epoch 059] ✓ New best EER=3.81% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 060] train_loss=0.0064 | dev_loss=0.9161 | dev_acc=96.88% | dev_auc=0.9938 | dev_eer=3.80%
+[epoch 060] ✓ New best EER=3.80% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 061] train_loss=0.0063 | dev_loss=0.9137 | dev_acc=96.89% | dev_auc=0.9938 | dev_eer=3.80%
+[epoch 061] No EER improvement for 1 epoch(s) (best=3.80%)
+[epoch 062] train_loss=0.0063 | dev_loss=0.9176 | dev_acc=96.89% | dev_auc=0.9938 | dev_eer=3.80%
+[epoch 062] ✓ New best EER=3.80% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 063] train_loss=0.0063 | dev_loss=0.9263 | dev_acc=96.87% | dev_auc=0.9939 | dev_eer=3.80%
+[epoch 063] ✓ New best EER=3.80% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 064] train_loss=0.0062 | dev_loss=0.9266 | dev_acc=96.88% | dev_auc=0.9939 | dev_eer=3.79%
+[epoch 064] ✓ New best EER=3.79% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 065] train_loss=0.0062 | dev_loss=0.9305 | dev_acc=96.88% | dev_auc=0.9939 | dev_eer=3.79%
+[epoch 065] No EER improvement for 1 epoch(s) (best=3.79%)
+[epoch 066] train_loss=0.0062 | dev_loss=0.9346 | dev_acc=96.87% | dev_auc=0.9939 | dev_eer=3.79%
+[epoch 066] ✓ New best EER=3.79% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 067] train_loss=0.0061 | dev_loss=0.9343 | dev_acc=96.88% | dev_auc=0.9939 | dev_eer=3.79%
+[epoch 067] No EER improvement for 1 epoch(s) (best=3.79%)
+[epoch 068] train_loss=0.0061 | dev_loss=0.9397 | dev_acc=96.87% | dev_auc=0.9939 | dev_eer=3.78%
+[epoch 068] ✓ New best EER=3.78% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 069] train_loss=0.0061 | dev_loss=0.9418 | dev_acc=96.87% | dev_auc=0.9939 | dev_eer=3.78%
+[epoch 069] ✓ New best EER=3.78% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 070] train_loss=0.0060 | dev_loss=0.9450 | dev_acc=96.86% | dev_auc=0.9939 | dev_eer=3.78%
+[epoch 070] ✓ New best EER=3.78% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 071] train_loss=0.0060 | dev_loss=0.9495 | dev_acc=96.86% | dev_auc=0.9939 | dev_eer=3.78%
+[epoch 071] No EER improvement for 1 epoch(s) (best=3.78%)
+[epoch 072] train_loss=0.0060 | dev_loss=0.9519 | dev_acc=96.86% | dev_auc=0.9939 | dev_eer=3.78%
+[epoch 072] ✓ New best EER=3.78% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 073] train_loss=0.0060 | dev_loss=0.9521 | dev_acc=96.87% | dev_auc=0.9939 | dev_eer=3.78%
+[epoch 073] No EER improvement for 1 epoch(s) (best=3.78%)
+[epoch 074] train_loss=0.0059 | dev_loss=0.9546 | dev_acc=96.86% | dev_auc=0.9939 | dev_eer=3.78%
+[epoch 074] ✓ New best EER=3.78% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 075] train_loss=0.0059 | dev_loss=0.9535 | dev_acc=96.87% | dev_auc=0.9939 | dev_eer=3.77%
+[epoch 075] ✓ New best EER=3.77% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 076] train_loss=0.0059 | dev_loss=0.9563 | dev_acc=96.87% | dev_auc=0.9939 | dev_eer=3.77%
+[epoch 076] ✓ New best EER=3.77% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 077] train_loss=0.0058 | dev_loss=0.9559 | dev_acc=96.87% | dev_auc=0.9939 | dev_eer=3.78%
+[epoch 077] No EER improvement for 1 epoch(s) (best=3.77%)
+[epoch 078] train_loss=0.0058 | dev_loss=0.9582 | dev_acc=96.87% | dev_auc=0.9939 | dev_eer=3.78%
+[epoch 078] No EER improvement for 2 epoch(s) (best=3.77%)
+[epoch 079] train_loss=0.0058 | dev_loss=0.9646 | dev_acc=96.86% | dev_auc=0.9939 | dev_eer=3.78%
+[epoch 079] No EER improvement for 3 epoch(s) (best=3.77%)
+[epoch 080] train_loss=0.0058 | dev_loss=0.9663 | dev_acc=96.86% | dev_auc=0.9939 | dev_eer=3.78%
+[epoch 080] No EER improvement for 4 epoch(s) (best=3.77%)
+[epoch 081] train_loss=0.0057 | dev_loss=0.9718 | dev_acc=96.85% | dev_auc=0.9939 | dev_eer=3.78%
+[epoch 081] No EER improvement for 5 epoch(s) (best=3.77%)
+[epoch 082] train_loss=0.0057 | dev_loss=0.9716 | dev_acc=96.85% | dev_auc=0.9939 | dev_eer=3.77%
+[epoch 082] ✓ New best EER=3.77% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 083] train_loss=0.0057 | dev_loss=0.9749 | dev_acc=96.85% | dev_auc=0.9940 | dev_eer=3.77%
+[epoch 083] No EER improvement for 1 epoch(s) (best=3.77%)
+[epoch 084] train_loss=0.0057 | dev_loss=0.9738 | dev_acc=96.86% | dev_auc=0.9940 | dev_eer=3.77%
+[epoch 084] ✓ New best EER=3.77% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 085] train_loss=0.0056 | dev_loss=0.9730 | dev_acc=96.86% | dev_auc=0.9940 | dev_eer=3.77%
+[epoch 085] ✓ New best EER=3.77% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 086] train_loss=0.0056 | dev_loss=0.9775 | dev_acc=96.86% | dev_auc=0.9940 | dev_eer=3.77%
+[epoch 086] No EER improvement for 1 epoch(s) (best=3.77%)
+[epoch 087] train_loss=0.0056 | dev_loss=0.9798 | dev_acc=96.85% | dev_auc=0.9940 | dev_eer=3.77%
+[epoch 087] ✓ New best EER=3.77% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 088] train_loss=0.0056 | dev_loss=0.9790 | dev_acc=96.86% | dev_auc=0.9940 | dev_eer=3.77%
+[epoch 088] ✓ New best EER=3.77% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 089] train_loss=0.0055 | dev_loss=0.9766 | dev_acc=96.87% | dev_auc=0.9940 | dev_eer=3.77%
+[epoch 089] No EER improvement for 1 epoch(s) (best=3.77%)
+[epoch 090] train_loss=0.0055 | dev_loss=0.9765 | dev_acc=96.87% | dev_auc=0.9940 | dev_eer=3.77%
+[epoch 090] No EER improvement for 2 epoch(s) (best=3.77%)
+[epoch 091] train_loss=0.0055 | dev_loss=0.9780 | dev_acc=96.87% | dev_auc=0.9940 | dev_eer=3.76%
+[epoch 091] ✓ New best EER=3.76% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 092] train_loss=0.0055 | dev_loss=0.9759 | dev_acc=96.88% | dev_auc=0.9940 | dev_eer=3.77%
+[epoch 092] No EER improvement for 1 epoch(s) (best=3.76%)
+[epoch 093] train_loss=0.0054 | dev_loss=0.9810 | dev_acc=96.86% | dev_auc=0.9940 | dev_eer=3.76%
+[epoch 093] No EER improvement for 2 epoch(s) (best=3.76%)
+[epoch 094] train_loss=0.0054 | dev_loss=0.9816 | dev_acc=96.87% | dev_auc=0.9940 | dev_eer=3.76%
+[epoch 094] ✓ New best EER=3.76% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 095] train_loss=0.0054 | dev_loss=0.9827 | dev_acc=96.86% | dev_auc=0.9940 | dev_eer=3.76%
+[epoch 095] ✓ New best EER=3.76% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 096] train_loss=0.0054 | dev_loss=0.9839 | dev_acc=96.86% | dev_auc=0.9940 | dev_eer=3.76%
+[epoch 096] ✓ New best EER=3.76% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 097] train_loss=0.0054 | dev_loss=0.9901 | dev_acc=96.85% | dev_auc=0.9940 | dev_eer=3.76%
+[epoch 097] ✓ New best EER=3.76% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 098] train_loss=0.0053 | dev_loss=0.9886 | dev_acc=96.86% | dev_auc=0.9940 | dev_eer=3.76%
+[epoch 098] No EER improvement for 1 epoch(s) (best=3.76%)
+[epoch 099] train_loss=0.0053 | dev_loss=0.9883 | dev_acc=96.86% | dev_auc=0.9940 | dev_eer=3.76%
+[epoch 099] No EER improvement for 2 epoch(s) (best=3.76%)
+[epoch 100] train_loss=0.0053 | dev_loss=0.9925 | dev_acc=96.85% | dev_auc=0.9940 | dev_eer=3.76%
+[epoch 100] ✓ New best EER=3.76% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 101] train_loss=0.0053 | dev_loss=0.9944 | dev_acc=96.85% | dev_auc=0.9940 | dev_eer=3.75%
+[epoch 101] ✓ New best EER=3.75% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 102] train_loss=0.0053 | dev_loss=0.9885 | dev_acc=96.87% | dev_auc=0.9940 | dev_eer=3.75%
+[epoch 102] ✓ New best EER=3.75% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 103] train_loss=0.0052 | dev_loss=0.9910 | dev_acc=96.87% | dev_auc=0.9940 | dev_eer=3.76%
+[epoch 103] No EER improvement for 1 epoch(s) (best=3.75%)
+[epoch 104] train_loss=0.0052 | dev_loss=0.9907 | dev_acc=96.87% | dev_auc=0.9940 | dev_eer=3.76%
+[epoch 104] No EER improvement for 2 epoch(s) (best=3.75%)
+[epoch 105] train_loss=0.0052 | dev_loss=0.9895 | dev_acc=96.87% | dev_auc=0.9940 | dev_eer=3.76%
+[epoch 105] No EER improvement for 3 epoch(s) (best=3.75%)
+[epoch 106] train_loss=0.0052 | dev_loss=0.9892 | dev_acc=96.87% | dev_auc=0.9940 | dev_eer=3.75%
+[epoch 106] ✓ New best EER=3.75% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 107] train_loss=0.0052 | dev_loss=0.9883 | dev_acc=96.88% | dev_auc=0.9941 | dev_eer=3.75%
+[epoch 107] No EER improvement for 1 epoch(s) (best=3.75%)
+[epoch 108] train_loss=0.0051 | dev_loss=0.9906 | dev_acc=96.87% | dev_auc=0.9941 | dev_eer=3.75%
+[epoch 108] ✓ New best EER=3.75% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 109] train_loss=0.0051 | dev_loss=0.9921 | dev_acc=96.87% | dev_auc=0.9941 | dev_eer=3.75%
+[epoch 109] No EER improvement for 1 epoch(s) (best=3.75%)
+[epoch 110] train_loss=0.0051 | dev_loss=0.9955 | dev_acc=96.87% | dev_auc=0.9941 | dev_eer=3.75%
+[epoch 110] No EER improvement for 2 epoch(s) (best=3.75%)
+[epoch 111] train_loss=0.0051 | dev_loss=0.9921 | dev_acc=96.88% | dev_auc=0.9941 | dev_eer=3.75%
+[epoch 111] ✓ New best EER=3.75% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 112] train_loss=0.0051 | dev_loss=0.9909 | dev_acc=96.88% | dev_auc=0.9941 | dev_eer=3.75%
+[epoch 112] No EER improvement for 1 epoch(s) (best=3.75%)
+[epoch 113] train_loss=0.0050 | dev_loss=0.9913 | dev_acc=96.88% | dev_auc=0.9941 | dev_eer=3.75%
+[epoch 113] No EER improvement for 2 epoch(s) (best=3.75%)
+[epoch 114] train_loss=0.0050 | dev_loss=0.9883 | dev_acc=96.89% | dev_auc=0.9941 | dev_eer=3.75%
+[epoch 114] No EER improvement for 3 epoch(s) (best=3.75%)
+[epoch 115] train_loss=0.0050 | dev_loss=0.9893 | dev_acc=96.89% | dev_auc=0.9941 | dev_eer=3.75%
+[epoch 115] ✓ New best EER=3.75% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 116] train_loss=0.0050 | dev_loss=0.9938 | dev_acc=96.88% | dev_auc=0.9941 | dev_eer=3.74%
+[epoch 116] ✓ New best EER=3.74% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 117] train_loss=0.0050 | dev_loss=0.9902 | dev_acc=96.89% | dev_auc=0.9941 | dev_eer=3.74%
+[epoch 117] ✓ New best EER=3.74% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 118] train_loss=0.0049 | dev_loss=0.9907 | dev_acc=96.89% | dev_auc=0.9941 | dev_eer=3.74%
+[epoch 118] No EER improvement for 1 epoch(s) (best=3.74%)
+[epoch 119] train_loss=0.0049 | dev_loss=0.9890 | dev_acc=96.89% | dev_auc=0.9941 | dev_eer=3.74%
+[epoch 119] ✓ New best EER=3.74% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 120] train_loss=0.0049 | dev_loss=0.9901 | dev_acc=96.89% | dev_auc=0.9941 | dev_eer=3.74%
+[epoch 120] ✓ New best EER=3.74% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 121] train_loss=0.0049 | dev_loss=0.9910 | dev_acc=96.89% | dev_auc=0.9941 | dev_eer=3.74%
+[epoch 121] No EER improvement for 1 epoch(s) (best=3.74%)
+[epoch 122] train_loss=0.0049 | dev_loss=0.9968 | dev_acc=96.88% | dev_auc=0.9941 | dev_eer=3.74%
+[epoch 122] No EER improvement for 2 epoch(s) (best=3.74%)
+[epoch 123] train_loss=0.0048 | dev_loss=0.9913 | dev_acc=96.89% | dev_auc=0.9941 | dev_eer=3.74%
+[epoch 123] No EER improvement for 3 epoch(s) (best=3.74%)
+[epoch 124] train_loss=0.0048 | dev_loss=0.9912 | dev_acc=96.89% | dev_auc=0.9941 | dev_eer=3.73%
+[epoch 124] ✓ New best EER=3.73% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 125] train_loss=0.0048 | dev_loss=0.9969 | dev_acc=96.88% | dev_auc=0.9941 | dev_eer=3.73%
+[epoch 125] No EER improvement for 1 epoch(s) (best=3.73%)
+[epoch 126] train_loss=0.0048 | dev_loss=0.9965 | dev_acc=96.89% | dev_auc=0.9941 | dev_eer=3.73%
+[epoch 126] ✓ New best EER=3.73% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 127] train_loss=0.0048 | dev_loss=0.9942 | dev_acc=96.89% | dev_auc=0.9941 | dev_eer=3.73%
+[epoch 127] ✓ New best EER=3.73% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 128] train_loss=0.0048 | dev_loss=0.9934 | dev_acc=96.90% | dev_auc=0.9941 | dev_eer=3.72%
+[epoch 128] ✓ New best EER=3.72% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 129] train_loss=0.0047 | dev_loss=0.9908 | dev_acc=96.90% | dev_auc=0.9941 | dev_eer=3.72%
+[epoch 129] ✓ New best EER=3.72% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 130] train_loss=0.0047 | dev_loss=0.9924 | dev_acc=96.90% | dev_auc=0.9941 | dev_eer=3.73%
+[epoch 130] No EER improvement for 1 epoch(s) (best=3.72%)
+[epoch 131] train_loss=0.0047 | dev_loss=0.9920 | dev_acc=96.90% | dev_auc=0.9941 | dev_eer=3.72%
+[epoch 131] No EER improvement for 2 epoch(s) (best=3.72%)
+[epoch 132] train_loss=0.0047 | dev_loss=0.9903 | dev_acc=96.91% | dev_auc=0.9941 | dev_eer=3.72%
+[epoch 132] ✓ New best EER=3.72% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 133] train_loss=0.0047 | dev_loss=0.9873 | dev_acc=96.92% | dev_auc=0.9941 | dev_eer=3.72%
+[epoch 133] ✓ New best EER=3.72% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 134] train_loss=0.0047 | dev_loss=0.9904 | dev_acc=96.91% | dev_auc=0.9941 | dev_eer=3.72%
+[epoch 134] No EER improvement for 1 epoch(s) (best=3.72%)
+[epoch 135] train_loss=0.0046 | dev_loss=0.9889 | dev_acc=96.91% | dev_auc=0.9942 | dev_eer=3.72%
+[epoch 135] ✓ New best EER=3.72% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 136] train_loss=0.0046 | dev_loss=0.9861 | dev_acc=96.92% | dev_auc=0.9942 | dev_eer=3.72%
+[epoch 136] No EER improvement for 1 epoch(s) (best=3.72%)
+[epoch 137] train_loss=0.0046 | dev_loss=0.9877 | dev_acc=96.92% | dev_auc=0.9942 | dev_eer=3.72%
+[epoch 137] No EER improvement for 2 epoch(s) (best=3.72%)
+[epoch 138] train_loss=0.0046 | dev_loss=0.9865 | dev_acc=96.93% | dev_auc=0.9942 | dev_eer=3.72%
+[epoch 138] No EER improvement for 3 epoch(s) (best=3.72%)
+[epoch 139] train_loss=0.0046 | dev_loss=0.9849 | dev_acc=96.93% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 139] ✓ New best EER=3.71% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 140] train_loss=0.0046 | dev_loss=0.9852 | dev_acc=96.93% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 140] ✓ New best EER=3.71% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 141] train_loss=0.0045 | dev_loss=0.9820 | dev_acc=96.93% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 141] No EER improvement for 1 epoch(s) (best=3.71%)
+[epoch 142] train_loss=0.0045 | dev_loss=0.9835 | dev_acc=96.93% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 142] No EER improvement for 2 epoch(s) (best=3.71%)
+[epoch 143] train_loss=0.0045 | dev_loss=0.9852 | dev_acc=96.93% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 143] ✓ New best EER=3.71% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 144] train_loss=0.0045 | dev_loss=0.9824 | dev_acc=96.93% | dev_auc=0.9942 | dev_eer=3.70%
+[epoch 144] ✓ New best EER=3.70% -> checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 145] train_loss=0.0045 | dev_loss=0.9876 | dev_acc=96.92% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 145] No EER improvement for 1 epoch(s) (best=3.70%)
+[epoch 146] train_loss=0.0045 | dev_loss=0.9849 | dev_acc=96.93% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 146] No EER improvement for 2 epoch(s) (best=3.70%)
+[epoch 147] train_loss=0.0044 | dev_loss=0.9825 | dev_acc=96.94% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 147] No EER improvement for 3 epoch(s) (best=3.70%)
+[epoch 148] train_loss=0.0044 | dev_loss=0.9815 | dev_acc=96.94% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 148] No EER improvement for 4 epoch(s) (best=3.70%)
+[epoch 149] train_loss=0.0044 | dev_loss=0.9777 | dev_acc=96.95% | dev_auc=0.9942 | dev_eer=3.70%
+[epoch 149] No EER improvement for 5 epoch(s) (best=3.70%)
+[epoch 150] train_loss=0.0044 | dev_loss=0.9775 | dev_acc=96.95% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 150] No EER improvement for 6 epoch(s) (best=3.70%)
+[epoch 151] train_loss=0.0044 | dev_loss=0.9755 | dev_acc=96.95% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 151] No EER improvement for 7 epoch(s) (best=3.70%)
+[epoch 152] train_loss=0.0044 | dev_loss=0.9761 | dev_acc=96.95% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 152] No EER improvement for 8 epoch(s) (best=3.70%)
+[epoch 153] train_loss=0.0043 | dev_loss=0.9743 | dev_acc=96.95% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 153] No EER improvement for 9 epoch(s) (best=3.70%)
+[epoch 154] train_loss=0.0043 | dev_loss=0.9765 | dev_acc=96.95% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 154] No EER improvement for 10 epoch(s) (best=3.70%)
+[epoch 155] train_loss=0.0043 | dev_loss=0.9739 | dev_acc=96.96% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 155] No EER improvement for 11 epoch(s) (best=3.70%)
+[epoch 156] train_loss=0.0043 | dev_loss=0.9721 | dev_acc=96.96% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 156] No EER improvement for 12 epoch(s) (best=3.70%)
+[epoch 157] train_loss=0.0043 | dev_loss=0.9712 | dev_acc=96.96% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 157] No EER improvement for 13 epoch(s) (best=3.70%)
+[epoch 158] train_loss=0.0043 | dev_loss=0.9720 | dev_acc=96.96% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 158] No EER improvement for 14 epoch(s) (best=3.70%)
+[epoch 159] train_loss=0.0043 | dev_loss=0.9737 | dev_acc=96.96% | dev_auc=0.9942 | dev_eer=3.71%
+[epoch 159] No EER improvement for 15 epoch(s) (best=3.70%)
+[EARLY STOP] Patience reached (15) with no EER improvement. Best EER = 3.70%
+==> Stage-2 training complete.
+Best classifier checkpoint: checkpoints_stage2/asv5_bat_128_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+FF_PROTOCOL: /nfs/turbo/umd-hafiz/issf_server_data/famousfigures/protocol.txt
+Device: cuda
+Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights: 100%|██████████| 422/422 [00:00<00:00, 39801.14it/s]
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[WARN] Missing inputs for 'itw': ['/nfs/turbo/umd-hafiz/issf_server_data/ds_wild/protocols/meta.csv', '/nfs/turbo/umd-hafiz/issf_server_data/ds_wild/release_in_the_wild']. Skipping.
+[INFO] Scoring dataset 'asv5' -> /home/jsudan/wav2vec_contr_loss/scores/asv5_bat_128_supcon_geodesic_temp_0.07/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt

@@ -1,0 +1,98 @@
+nohup: ignoring input
+Setting up the environment...
+Job started on ISSFLab.engin.umd.umich.edu at Mon Apr 20 11:41:50 EDT 2026
+Python version: Python 3.12.12
+PyTorch version: 2.6.0+cu124
+/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/cuda/__init__.py:129: UserWarning: CUDA initialization: CUDA driver initialization failed, you might not have a CUDA gpu. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:109.)
+  return torch._C._cuda_getDeviceCount() > 0
+CUDA available: False
+Current GPU: NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+----------------------------------------------------------------
+EXPERIMENT NAME: supcon_geodesic_temp_0.07_seed_1337
+SEED: 1337
+Using NUM_GPUS=2
+Using BATCH_SIZE=32
+/home/jsudan/.myenv/lib64/python3.12/site-packages/torch/cuda/__init__.py:129: UserWarning: CUDA initialization: CUDA driver initialization failed, you might not have a CUDA gpu. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:109.)
+  return torch._C._cuda_getDeviceCount() > 0
+Using device: cpu
+Train embeddings: (25380, 256), Dev embeddings: (24844, 256)
+Class balance: pos_weight=8.837
+[epoch 001] train_loss=1.1986 | dev_loss=1.1349 | dev_acc=99.95% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 001] ✓ New best EER=0.04% -> checkpoints_stage2/supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+[epoch 002] train_loss=1.0675 | dev_loss=1.0120 | dev_acc=99.95% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 002] No EER improvement for 1 epoch(s) (best=0.04%)
+[epoch 003] train_loss=0.9519 | dev_loss=0.9035 | dev_acc=99.96% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 003] No EER improvement for 2 epoch(s) (best=0.04%)
+[epoch 004] train_loss=0.8499 | dev_loss=0.8075 | dev_acc=99.95% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 004] No EER improvement for 3 epoch(s) (best=0.04%)
+[epoch 005] train_loss=0.7595 | dev_loss=0.7221 | dev_acc=99.95% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 005] No EER improvement for 4 epoch(s) (best=0.04%)
+[epoch 006] train_loss=0.6792 | dev_loss=0.6464 | dev_acc=99.95% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 006] No EER improvement for 5 epoch(s) (best=0.04%)
+[epoch 007] train_loss=0.6079 | dev_loss=0.5790 | dev_acc=99.95% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 007] No EER improvement for 6 epoch(s) (best=0.04%)
+[epoch 008] train_loss=0.5443 | dev_loss=0.5189 | dev_acc=99.95% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 008] No EER improvement for 7 epoch(s) (best=0.04%)
+[epoch 009] train_loss=0.4875 | dev_loss=0.4651 | dev_acc=99.95% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 009] No EER improvement for 8 epoch(s) (best=0.04%)
+[epoch 010] train_loss=0.4369 | dev_loss=0.4171 | dev_acc=99.95% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 010] No EER improvement for 9 epoch(s) (best=0.04%)
+[epoch 011] train_loss=0.3917 | dev_loss=0.3743 | dev_acc=99.95% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 011] No EER improvement for 10 epoch(s) (best=0.04%)
+[epoch 012] train_loss=0.3512 | dev_loss=0.3358 | dev_acc=99.95% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 012] No EER improvement for 11 epoch(s) (best=0.04%)
+[epoch 013] train_loss=0.3150 | dev_loss=0.3014 | dev_acc=99.95% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 013] No EER improvement for 12 epoch(s) (best=0.04%)
+[epoch 014] train_loss=0.2826 | dev_loss=0.2706 | dev_acc=99.95% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 014] No EER improvement for 13 epoch(s) (best=0.04%)
+[epoch 015] train_loss=0.2535 | dev_loss=0.2430 | dev_acc=99.95% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 015] No EER improvement for 14 epoch(s) (best=0.04%)
+[epoch 016] train_loss=0.2275 | dev_loss=0.2182 | dev_acc=99.95% | dev_auc=1.0000 | dev_eer=0.04%
+[epoch 016] No EER improvement for 15 epoch(s) (best=0.04%)
+[EARLY STOP] Patience reached (15) with no EER improvement. Best EER = 0.04%
+==> Stage-2 training complete.
+Best classifier checkpoint: checkpoints_stage2/supcon_geodesic_temp_0.07_seed_1337/wav2vec2-xls-r-300m/stage2_binary_head_best.pt
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+FF_PROTOCOL: /nfs/turbo/umd-hafiz/issf_server_data/famousfigures/protocol.txt
+Device: cuda
+Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights: 100%|██████████| 422/422 [00:00<00:00, 39083.12it/s]
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+project_q.bias               | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 12.017926138387757
+[INFO] Scoring dataset 'asv19' -> /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+EER (asv19): 0.6665339866197473
+[INFO] Scoring dataset 'fakexpose' -> /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 50.709072182959105
+[INFO] DeepfakeEval2024: loaded 1980 samples.
+[INFO] Scoring dataset 'deepfake_eval_2024' -> /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/deepfake_eval_2024/score_cm_deepfake_eval_2024.txt
+[src/libmpg123/parse.c:skip_junk():1260] error: Giving up searching valid MPEG header after 65536 bytes of junk.
+[src/libmpg123/id3.c:INT123_id3_to_utf8():394] warning: Weird tag size 93 for encoding 1 - I will probably trim too early or something but I think the MP3 is broken.
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/deepfake_eval_2024/score_cm_deepfake_eval_2024.txt
+EER (deepfake_eval_2024): 49.54910088946648
+[INFO] Scoring dataset 'asv5' -> /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
+EER (asv5): 18.10969326257005
+[INFO] FamousFigures: loaded 348135 samples (subset=all).
+[INFO] Scoring dataset 'famous_figures' -> /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/famous_figures/score_cm_ff.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/famous_figures/score_cm_ff.txt
+EER (famous_figures): 54.45788917814429
+----------------------------------------------------------------
+ASV19 pipeline finished at: Mon Apr 20 19:01:43 EDT 2026

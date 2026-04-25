@@ -1,0 +1,122 @@
+Setting up the environment...
+Job started on ISSFLab.engin.umd.umich.edu at Fri Apr 17 00:04:49 EDT 2026
+Python version: Python 3.12.12
+PyTorch version: 2.6.0+cu124
+CUDA available: True
+Current GPU: NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+NVIDIA A100-PCIE-40GB
+----------------------------------------------------------------
+ASV5_TRAIN_ROOT=/data/Data/ASVSpoof5/No_Laundering_train/flac
+ASV5_TRAIN_PROTOCOL=/data/Data/ASVSpoof5/protocols/ASVspoof5_train_protocol.txt
+ASV5_DEV_ROOT=/data/Data/ASVSpoof5/No_Laundering_dev/flac
+ASV5_DEV_PROTOCOL=/data/Data/ASVSpoof5/protocols/ASVspoof5.dev.metadata.txt
+ASV5_EVAL_ROOT=/data/Data/ASVSpoof5/No_Laundering_eval/flac
+ASV5_EVAL_PROTOCOL=/data/Data/ASVSpoof5/protocols/ASVspoof5.eval.track_1.tsv
+EXPERIMENT NAME: asv5_supcon_geodesic_temp_0.07
+Using BATCH_SIZE=32, NUM_GPUS=2
+W0417 00:04:55.565000 758290 torch/distributed/run.py:792] 
+W0417 00:04:55.565000 758290 torch/distributed/run.py:792] *****************************************
+W0417 00:04:55.565000 758290 torch/distributed/run.py:792] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0417 00:04:55.565000 758290 torch/distributed/run.py:792] *****************************************
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+MODEL_ID=wav2vec2-xls-r-300m
+SAVE_DIR=/home/jsudan/wav2vec_contr_loss/checkpoints/stage_1/asv5_supcon_geodesic_temp_0.07
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=10
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=25
+BATCH_SIZE=32
+ACCUM_STEPS=1
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.07
+NUM_WORKERS=6
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SUPCON_SIMILARITY=geodesic
+TOPK_NEG=1024
+WARMUP_EPOCHS=100
+ALPHA_END=0.9
+ALPHA_RAMP_EPOCHS=20
+USE_RAWBOOST=False
+RAWBOOST_PROB=0.1
+FINETUNE_ENCODER=False
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=12
+LABEL_TYPE=binary
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=False (p=0.1)
+CUDA device count: 3
+[INFO] POOLED TRAIN_DATASETS=['asv19', 'asv5']
+[INFO] Pooled train samples: bonafide=21377, spoof=186360, total=207737
+[INFO] Train samples loaded: bonafide=21377, spoof=186360
+[DEV SUBSET] ASV5  bonafide=2500 spoof=2500 total=5000
+[DEV SUBSET] ASV19 bonafide=2500 spoof=2500 total=5000
+[INFO] Global batch size=32 | Per-GPU batch size=16
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights:   0%|          | 0/422 [00:00<?, ?it/s]Loading weights: 100%|██████████| 422/422 [00:00<00:00, 39525.61it/s]
+Loading weights: 100%|██████████| 422/422 [00:00<00:00, 36832.72it/s]
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+project_q.bias               | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[1mWav2Vec2Model LOAD REPORT[0m from: facebook/wav2vec2-xls-r-300m
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[rank1] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.9287 std=0.1287 min=0.5320 max=0.9922 var_mean=6.523849e-05
+[rank1] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9619 std=0.0700 min=0.7478 max=0.9957 var_mean=1.396883e-04
+[rank1] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9619 std=0.0700 min=0.7478 max=0.9957 var_mean=1.396883e-04
+[rank1] sim_mean=0.9642 sim_std=0.0684 Loss: 2.8596606254577637
+[rank0] enc_pooled: z_norm_mean=1.0000 offdiag_cos mean=0.9167 std=0.1492 min=0.4826 max=0.9894 var_mean=7.630343e-05
+[rank0] head_pre: z_norm_mean=1.0000 offdiag_cos mean=0.9542 std=0.0830 min=0.7055 max=0.9944 var_mean=1.676784e-04
+[rank0] head_post: z_norm_mean=1.0000 offdiag_cos mean=0.9542 std=0.0830 min=0.7055 max=0.9944 var_mean=1.676784e-04
+[rank0] pos_mean=0.9542 neg_mean=0.9542 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9571 sim_std=0.0811 Loss: 2.9622416496276855
+[epoch 001] alpha=0.00 train_loss=2.0597 dev_asv5=3.0734 dev_asv19=2.9517 avg_dev=3.0125
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints/stage_1/asv5_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=3.0125)
+[rank1] sim_mean=0.8447 sim_std=0.1498 Loss: 2.0286970138549805
+[rank0] pos_mean=0.9839 neg_mean=0.7076 n_pos=8 n_neg=8
+[rank0] sim_mean=0.8468 sim_std=0.1445 Loss: 1.973430871963501
+[epoch 002] alpha=0.00 train_loss=2.0115 dev_asv5=3.0647 dev_asv19=2.9080 avg_dev=2.9864
+✓ Saved best -> /home/jsudan/wav2vec_contr_loss/checkpoints/stage_1/asv5_supcon_geodesic_temp_0.07/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=2.9864)
+[rank0] pos_mean=0.9901 neg_mean=0.8522 n_pos=8 n_neg=8
+[rank0] sim_mean=0.9218 sim_std=0.0730 Loss: 2.001784563064575
+[rank1] sim_mean=0.9219 sim_std=0.0741 Loss: 2.0638833045959473
+[epoch 003] alpha=0.00 train_loss=2.0044 dev_asv5=3.0986 dev_asv19=2.9578 avg_dev=3.0282
+[rank1] sim_mean=0.8599 sim_std=0.1340 Loss: 1.995859146118164
+[rank0] pos_mean=0.9817 neg_mean=0.7056 n_pos=8 n_neg=8
+[rank0] sim_mean=0.8448 sim_std=0.1507 Loss: 2.0225276947021484
