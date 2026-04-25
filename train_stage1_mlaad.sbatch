@@ -17,6 +17,7 @@ echo "Job started on $(hostname) at $(date)"
 module purge
 module load python/3.9.12
 module load cuda/11.8.0
+module load ffmpeg
 
 source ~/myenv/bin/activate
 
@@ -160,7 +161,8 @@ ${LAUNCHER} train_stage1_mlaad.py \
   --enc_lr 1e-5 --head_lr 5e-3 --weight_decay 3e-3 --temperature 0.05 \
   --num_workers 6 --seed 1337 \
   --topk_neg 15 --warmup_epochs 100 --alpha_end 1 --alpha_ramp_epochs 80 \
-  --use_rawboost 1 --rawboost_prob 0.7
+  --use_rawboost 1 --rawboost_prob 0.7 \
+  --use_bg_aug 1
 
 TRAIN_EXIT=$?
 if [ ${TRAIN_EXIT} -ne 0 ]; then

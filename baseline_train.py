@@ -15,6 +15,7 @@ from loss import BCEBinaryLoss, compute_pos_weight_from_dataset
 
 # ---- RawBoost (train-time only) ----
 from RawBoost import LnL_convolutive_noise, ISD_additive_noise, SSI_additive_noise
+from bg_augmentation import apply_aug_split_batch_baseline as apply_aug_split_batch
 
 
 # =======================
@@ -55,6 +56,9 @@ PATIENCE = 6  # EER patience
 # ---- RawBoost ----
 USE_RAWBOOST = True
 RAWBOOST_PROB = 0.7
+
+# ---- Background noise augmentation ----
+USE_BG_AUG = True
 
 
 # =======================
@@ -188,7 +192,9 @@ def train_one_epoch(model, loss_fn, loader, optimizer, device, scaler):
         waveforms = waveforms.to(device)
         labels = labels.to(device).float()
 
-        if USE_RAWBOOST:
+        if USE_BG_AUG:
+            waveforms = apply_aug_split_batch(waveforms)
+        elif USE_RAWBOOST:
             waveforms = apply_rawboost_batch(waveforms)
 
         attn = (waveforms != 0.0).long()

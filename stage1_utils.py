@@ -7,11 +7,8 @@ import torch
 import torch.nn.functional as F
 from torch.utils.data import Sampler
 import torch.distributed as dist
-
 from RawBoost import LnL_convolutive_noise, ISD_additive_noise, SSI_additive_noise
-
-CENTER_BEFORE_NORM = os.getenv("CENTER_BEFORE_NORM", "1") == "1"
-GLOBAL_CENTER = os.getenv("GLOBAL_CENTER", "0") == "1"
+from bg_augmentation import apply_aug_split_batch
 
 
 def set_seed(seed: int):
@@ -19,116 +16,6 @@ def set_seed(seed: int):
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
-
-
-@torch.no_grad()
-def _cos_stats(z: torch.Tensor, name: str, rank: int) -> None:
-    if z is None:
-        return
-    if z.dim() != 2 or z.size(0) < 2:
-        return
-    z = z.float()
-    zn = F.normalize(z, dim=-1)
-    sim = zn @ zn.t()
-    B = sim.size(0)
-    eye = torch.eye(B, dtype=torch.bool, device=sim.device)
-    off = sim[~eye]
-    print(
-        f"[rank{rank}] {name}: "
-        f"z_norm_mean={zn.norm(dim=-1).mean().item():.4f} "
-        f"offdiag_cos mean={off.mean().item():.4f} std={off.std().item():.4f} "
-        f"min={off.min().item():.4f} max={off.max().item():.4f} "
-        f"var_mean={zn.var(dim=0, unbiased=False).mean().item():.6e}"
-    )
-
-
-def _pool_to_vec(x: torch.Tensor) -> torch.Tensor:
-    if x is None:
-        return None
-    if x.dim() == 4:
-        x = x.mean(dim=1)
-    if x.dim() == 3:
-        x = x.mean(dim=-1)
-    return x
-
-
-@torch.no_grad()
-def _global_mean(x: torch.Tensor) -> torch.Tensor:
-    m = x.mean(dim=0)
-    if dist.is_available() and dist.is_initialized():
-        dist.all_reduce(m, op=dist.ReduceOp.SUM)
-        m /= dist.get_world_size()
-    return m
-
-
-
-@torch.no_grad()
-def _concat_all_gather(tensor: torch.Tensor) -> torch.Tensor:
-    if not (dist.is_available() and dist.is_initialized()):
-        return tensor
-    tensors_gather = [torch.zeros_like(tensor) for _ in range(dist.get_world_size())]
-    dist.all_gather(tensors_gather, tensor)
-    return torch.cat(tensors_gather, dim=0)
-
-
-def process_contrastive_z(z: torch.Tensor) -> torch.Tensor:
-    z = z.float()
-    if CENTER_BEFORE_NORM:
-        if GLOBAL_CENTER:
-            z = z - _global_mean(z)
-        else:
-            z = z - z.mean(dim=0, keepdim=True)
-    z = F.normalize(z, dim=-1)
-    return z
-
-
-class EmbeddingQueue:
-    def __init__(self, size: int, dim: int, device: torch.device):
-        self.size = int(size)
-        self.dim = int(dim)
-        self.device = device
-        self.queue = torch.zeros(self.size, self.dim, device=device)
-        self.labels = torch.zeros(self.size, device=device, dtype=torch.long)
-        self.ptr = 0
-        self.is_full = False
-
-    def __len__(self) -> int:
-        return self.size if self.is_full else self.ptr
-
-    def get(self):
-        if len(self) == 0:
-            return None, None
-        if self.is_full:
-            return self.queue, self.labels
-        return self.queue[: self.ptr], self.labels[: self.ptr]
-
-    def enqueue(self, embeddings: torch.Tensor, labels: torch.Tensor) -> None:
-        if embeddings is None or embeddings.numel() == 0:
-            return
-        emb = embeddings.detach()
-        lab = labels.detach().long()
-        n = emb.size(0)
-        if n >= self.size:
-            self.queue.copy_(emb[-self.size:])
-            self.labels.copy_(lab[-self.size:])
-            self.ptr = 0
-            self.is_full = True
-            return
-
-        end = self.ptr + n
-        if end <= self.size:
-            self.queue[self.ptr:end] = emb
-            self.labels[self.ptr:end] = lab
-        else:
-            first = self.size - self.ptr
-            self.queue[self.ptr:] = emb[:first]
-            self.labels[self.ptr:] = lab[:first]
-            remain = n - first
-            self.queue[:remain] = emb[first:]
-            self.labels[:remain] = lab[first:]
-        self.ptr = (self.ptr + n) % self.size
-        if not self.is_full and self.ptr == 0:
-            self.is_full = True
 
 
 class BalancedBatchSampler(Sampler[List[int]]):
@@ -179,14 +66,15 @@ def apply_rawboost_batch(x: torch.Tensor, attn_mask: torch.Tensor, cfg) -> torch
         return x
     device = x.device
 
-    # attn_mask: (B, T) with 1 for real samples, 0 for padding
-    pad_mask = attn_mask.to(device=device, dtype=x.dtype)
-
     a = x.detach().cpu().numpy()
     for i in range(a.shape[0]):
         if random.random() < cfg.rawboost_prob:
+            xi = a[i]
+            original_shape = xi.shape
+            xi_1d = xi.ravel()
+            target_len = xi_1d.shape[0]
             y = LnL_convolutive_noise(
-                a[i], N_f=5, nBands=5,
+                xi_1d, N_f=5, nBands=5,
                 minF=20.0,  maxF=8000.0,
                 minBW=100.0, maxBW=1000.0,
                 minCoeff=10, maxCoeff=100,
@@ -203,12 +91,13 @@ def apply_rawboost_batch(x: torch.Tensor, attn_mask: torch.Tensor, cfg) -> torch
                 )
             if random.random() < 0.5:
                 y = ISD_additive_noise(y, P=10.0, g_sd=2.0)
-            a[i] = y
+            if y.shape[0] > target_len:
+                y = y[:target_len]
+            elif y.shape[0] < target_len:
+                y = np.pad(y, (0, target_len - y.shape[0]))
+            a[i] = y.reshape(original_shape)
 
-    y = torch.from_numpy(a).to(device=device, dtype=x.dtype)
-
-    # Keep padding at exactly zero
-    return y * pad_mask
+    return torch.from_numpy(a).to(device=device, dtype=x.dtype)
 
 def alpha_for_epoch(epoch: int, cfg) -> float:
     if epoch <= cfg.warmup_epochs:
@@ -228,7 +117,7 @@ def _reduce_avg(total: float, steps: int, device: torch.device) -> float:
     return avg
 
 
-def train_one_epoch(encoder, head, loss_fn, loader, optimizer, device, epoch, cfg, queue=None):
+def train_one_epoch(encoder, head, loss_fn, loader, optimizer, device, epoch, cfg):
     if cfg.finetune_encoder:
         encoder.train()
     else:
@@ -236,7 +125,7 @@ def train_one_epoch(encoder, head, loss_fn, loader, optimizer, device, epoch, cf
     head.train()
     total, steps = 0.0, 0
     alpha = alpha_for_epoch(epoch, cfg)
-    LOG_EVERY = 3000
+    LOG_EVERY = 500
     rank = dist.get_rank() if dist.is_initialized() else 0
     use_amp = bool(getattr(cfg, "use_amp", False)) and torch.cuda.is_available()
     if use_amp and not hasattr(cfg, "_amp_scaler"):
@@ -245,17 +134,19 @@ def train_one_epoch(encoder, head, loss_fn, loader, optimizer, device, epoch, cf
     if accum_steps < 1:
         accum_steps = 1
     optimizer.zero_grad(set_to_none=True)
-    for step_idx, (waveforms, attn, labels, *_ ) in enumerate(loader, start=1):
+    for step_idx, (waveforms, bin_labels, _attack_ids, *_ ) in enumerate(loader, start=1):
         waveforms = waveforms.to(device)
-        attn = attn.to(device)
-        labels = labels.to(device).long()
+        labels = bin_labels.to(device).long()  # binary: bonafide=1, spoof=0
 
-        if cfg.use_rawboost:
-            waveforms = apply_rawboost_batch(waveforms, attn, cfg)
+        if cfg.use_bg_aug:
+            waveforms = apply_aug_split_batch(waveforms, cfg)
+        elif cfg.use_rawboost:
+            waveforms = apply_rawboost_batch(waveforms, labels, cfg)
 
-        queue_embs, queue_labels = (None, None)
-        if queue is not None:
-            queue_embs, queue_labels = queue.get()
+        # windowed loader returns (B, N_chunks, T); take first chunk and compute proper mask
+        if waveforms.ndim == 3:
+            waveforms = waveforms[:, 0, :]
+        attn = (waveforms != 0.0).long()
 
         if use_amp:
             with torch.cuda.amp.autocast():
@@ -265,19 +156,8 @@ def train_one_epoch(encoder, head, loss_fn, loader, optimizer, device, epoch, cf
                     with torch.no_grad():
                         hs = encoder(waveforms, attention_mask=attn)
                 seq = head(hs)
-                head_pre = seq.mean(dim=-1)
-                z = process_contrastive_z(head_pre)
-                if queue_embs is None or queue_labels is None:
-                    loss = loss_fn(z, labels, topk_neg=cfg.topk_neg, alpha=alpha)
-                else:
-                    loss = loss_fn(
-                        z,
-                        labels,
-                        topk_neg=cfg.topk_neg,
-                        alpha=alpha,
-                        queue_embs=queue_embs,
-                        queue_labels=queue_labels,
-                    )
+                z = F.normalize(seq.mean(dim=-1), p=2, dim=1)
+                loss = loss_fn(z, labels, topk_neg=cfg.topk_neg, alpha=alpha)
         else:
             if cfg.finetune_encoder:
                 hs = encoder(waveforms, attention_mask=attn)
@@ -285,26 +165,8 @@ def train_one_epoch(encoder, head, loss_fn, loader, optimizer, device, epoch, cf
                 with torch.no_grad():
                     hs = encoder(waveforms, attention_mask=attn)
             seq = head(hs)
-            head_pre = seq.mean(dim=-1)
-            z = process_contrastive_z(head_pre)
-            if queue_embs is None or queue_labels is None:
-                loss = loss_fn(z, labels, topk_neg=cfg.topk_neg, alpha=alpha)
-            else:
-                loss = loss_fn(
-                    z,
-                    labels,
-                    topk_neg=cfg.topk_neg,
-                    alpha=alpha,
-                    queue_embs=queue_embs,
-                    queue_labels=queue_labels,
-                )
-
-        if epoch == 1 and step_idx == 1:
-            with torch.no_grad():
-                enc_pooled = _pool_to_vec(hs)
-                _cos_stats(enc_pooled, "enc_pooled", rank)
-                _cos_stats(head_pre, "head_pre", rank)
-                _cos_stats(z, "head_post", rank)
+            z = F.normalize(seq.mean(dim=-1), p=2, dim=1)
+            loss = loss_fn(z, labels, topk_neg=cfg.topk_neg, alpha=alpha)
 
         with torch.no_grad():
             B = labels.numel()
@@ -332,14 +194,6 @@ def train_one_epoch(encoder, head, loss_fn, loader, optimizer, device, epoch, cf
         else:
             loss.backward()
 
-        if queue is not None:
-            z_store = z.detach()
-            y_store = labels.detach()
-            if dist.is_available() and dist.is_initialized():
-                z_store = _concat_all_gather(z_store)
-                y_store = _concat_all_gather(y_store)
-            queue.enqueue(z_store, y_store)
-
         if step_idx % accum_steps == 0:
             if use_amp:
                 cfg._amp_scaler.unscale_(optimizer)
@@ -363,20 +217,23 @@ def evaluate(encoder, head, loss_fn, loader, device, cfg):
     head.eval()
     total, steps = 0.0, 0
     use_amp = bool(getattr(cfg, "use_amp", False)) and torch.cuda.is_available()
-    for waveforms, attn, labels, *_ in loader:
+    for waveforms, bin_labels, _attack_ids, *_ in loader:
         waveforms = waveforms.to(device)
-        attn = attn.to(device)
-        labels = labels.to(device).long()
+        labels = bin_labels.to(device).long()
+
+        if waveforms.ndim == 3:
+            waveforms = waveforms[:, 0, :]
+        attn = (waveforms != 0.0).long()
 
         if use_amp:
             with torch.cuda.amp.autocast():
                 hs = encoder(waveforms, attention_mask=attn)
                 seq = head(hs)
-                z = process_contrastive_z(seq.mean(dim=-1))
+                z = F.normalize(seq.mean(dim=-1), p=2, dim=1)
         else:
             hs = encoder(waveforms, attention_mask=attn)
             seq = head(hs)
-            z = process_contrastive_z(seq.mean(dim=-1))
+            z = F.normalize(seq.mean(dim=-1), p=2, dim=1)
         loss = loss_fn(z, labels, topk_neg=cfg.topk_neg, alpha=0.0)
 
         total += loss.item()

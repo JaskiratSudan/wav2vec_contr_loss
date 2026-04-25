@@ -30,7 +30,6 @@ NUM_WORKERS = 16
 SEED = 1337
 SAVE_DIR = "/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/supcon_geodesic_dist"
 FINETUNE_ENCODER = False
-ACCUM_STEPS = 1
 
 UNIFORMITY_WEIGHT = 0.2
 UNIFORMITY_T = 2.0
@@ -43,7 +42,9 @@ ALPHA_RAMP_EPOCHS = 80
 
 USE_RAWBOOST = True
 RAWBOOST_PROB = 0.7
-PATIENCE = 12
+USE_BG_AUG = True
+BG_NOISE_DIR = "/data/FF_V2/Speaker_Specific_OCSVM/Mixture/additional noise"
+PATIENCE = 10
 
 
 def build_config():
@@ -59,7 +60,7 @@ def build_config():
         "--save_dir",
         type=str,
         default=SAVE_DIR,
-        help="Base directory for checkpoints.",
+        help="Base directory for checkpoints (run_tag subfolder will be created).",
     )
     parser.add_argument(
         "--supcon_similarity",
@@ -91,12 +92,6 @@ def build_config():
         type=int,
         default=BATCH_SIZE,
         help="Batch size (must be even for BalancedBatchSampler).",
-    )
-    parser.add_argument(
-        "--accum_steps",
-        type=int,
-        default=ACCUM_STEPS,
-        help="Gradient accumulation steps (default: 1).",
     )
     parser.add_argument(
         "--num_samples",
@@ -155,13 +150,6 @@ def build_config():
         help="SupCon temperature.",
     )
     parser.add_argument(
-        "--max_duration_seconds",
-        type=int,
-        default=MAX_DURATION_SECONDS,
-        help="Max audio length (seconds) for truncation/padding.",
-    )
-
-    parser.add_argument(
         "--num_workers",
         type=int,
         default=NUM_WORKERS,
@@ -217,23 +205,32 @@ def build_config():
         help="Probability of applying RawBoost per utterance.",
     )
     parser.add_argument(
+        "--use_bg_aug",
+        type=int,
+        default=int(USE_BG_AUG),
+        choices=[0, 1],
+        help="Enable 4-way split augmentation with background noise (1) or disable (0).",
+    )
+    parser.add_argument(
+        "--bg_noise_dir",
+        type=str,
+        default=BG_NOISE_DIR,
+        help="Directory containing background noise MP3 files.",
+    )
+    parser.add_argument(
         "--finetune_encoder",
         type=int,
         default=int(FINETUNE_ENCODER),
         choices=[0, 1],
         help="Enable encoder finetuning (1) or keep frozen (0).",
     )
-    parser.add_argument(
-        "--label_type",
-        type=str,
-        default="binary",
-        choices=["binary", "attack_type"],
-        help=(
-            "Label granularity for SupCon loss. "
-            "'binary': 0=spoof, 1=bonafide (default, preserves existing behaviour). "
-            "'attack_type': 0=bonafide, 1..N=attack method index."
-        ),
-    )
+    parser.add_argument("--train_root", type=str, default=TRAIN_ROOT)
+    parser.add_argument("--train_protocol", type=str, default=TRAIN_PROTOCOL)
+    parser.add_argument("--dev_root", type=str, default=DEV_ROOT)
+    parser.add_argument("--dev_protocol", type=str, default=DEV_PROTOCOL)
+    parser.add_argument("--max_duration_seconds", type=int, default=MAX_DURATION_SECONDS)
+    parser.add_argument("--accum_steps", type=int, default=1)
+    parser.add_argument("--label_type", type=str, default="binary")
     args = parser.parse_args()
 
     num_samples_arg = args.num_samples.strip().lower()
@@ -242,17 +239,17 @@ def build_config():
     else:
         num_samples_arg = int(num_samples_arg)
 
-    model_id = os.path.basename(args.model_name.rstrip("/"))
-    save_dir = args.save_dir
+    run_tag = args.model_name.replace("/", "__")
+    save_dir = os.path.join(args.save_dir, run_tag)
 
     return SimpleNamespace(
         model_name=args.model_name,
-        model_id=model_id,
+        run_tag=run_tag,
         save_dir=save_dir,
-        train_root=TRAIN_ROOT,
-        train_protocol=TRAIN_PROTOCOL,
-        dev_root=DEV_ROOT,
-        dev_protocol=DEV_PROTOCOL,
+        train_root=args.train_root,
+        train_protocol=args.train_protocol,
+        dev_root=args.dev_root,
+        dev_protocol=args.dev_protocol,
         ravdess_root=args.ravdess_root,
         commonvoice_root=args.commonvoice_root,
         target_sample_rate=TARGET_SAMPLE_RATE,
@@ -262,7 +259,6 @@ def build_config():
         dropout=DROPOUT,
         epochs=args.epochs,
         batch_size=args.batch_size,
-        accum_steps=args.accum_steps,
         num_samples=num_samples_arg,
         head_lr=args.head_lr,
         enc_lr=args.enc_lr,
@@ -279,11 +275,13 @@ def build_config():
         alpha_ramp_epochs=args.alpha_ramp_epochs,
         use_rawboost=bool(args.use_rawboost),
         rawboost_prob=args.rawboost_prob,
+        use_bg_aug=bool(args.use_bg_aug),
+        bg_noise_dir=args.bg_noise_dir,
+        bg_files=[],
         finetune_encoder=bool(args.finetune_encoder),
         use_ravdess=bool(args.use_ravdess),
         use_commonvoice=bool(args.use_commonvoice),
         patience=args.patience,
-        label_type=args.label_type,
     )
 
 
@@ -292,7 +290,6 @@ def print_config(cfg, is_distributed=False, world_size=1, rank=0):
         return
     print("=== CONFIG ===")
     print(f"MODEL_NAME={cfg.model_name}")
-    print(f"MODEL_ID={cfg.model_id}")
     print(f"SAVE_DIR={cfg.save_dir}")
     print(f"TRAIN_ROOT={cfg.train_root}")
     print(f"TRAIN_PROTOCOL={cfg.train_protocol}")
@@ -307,7 +304,6 @@ def print_config(cfg, is_distributed=False, world_size=1, rank=0):
     print(f"DROPOUT={cfg.dropout}")
     print(f"EPOCHS={cfg.epochs}")
     print(f"BATCH_SIZE={cfg.batch_size}")
-    print(f"ACCUM_STEPS={cfg.accum_steps}")
     print(f"NUM_SAMPLES={cfg.num_samples}")
     print(f"HEAD_LR={cfg.head_lr}")
     print(f"ENC_LR={cfg.enc_lr}")
@@ -324,11 +320,12 @@ def print_config(cfg, is_distributed=False, world_size=1, rank=0):
     print(f"ALPHA_RAMP_EPOCHS={cfg.alpha_ramp_epochs}")
     print(f"USE_RAWBOOST={cfg.use_rawboost}")
     print(f"RAWBOOST_PROB={cfg.rawboost_prob}")
+    print(f"USE_BG_AUG={cfg.use_bg_aug}")
+    print(f"BG_NOISE_DIR={cfg.bg_noise_dir}")
     print(f"FINETUNE_ENCODER={cfg.finetune_encoder}")
     print(f"USE_RAVDESS={cfg.use_ravdess}")
     print(f"USE_COMMONVOICE={cfg.use_commonvoice}")
     print(f"PATIENCE={cfg.patience}")
-    print(f"LABEL_TYPE={cfg.label_type}")
     print(f"DISTRIBUTED={is_distributed} | WORLD_SIZE={world_size} | RANK={rank}")
     print("=============")
 
@@ -336,12 +333,11 @@ def print_config(cfg, is_distributed=False, world_size=1, rank=0):
 def ckpt_config(cfg):
     return {
         "MODEL_NAME": cfg.model_name,
-        "MODEL_ID": cfg.model_id,
+        "RUN_TAG": cfg.run_tag,
         "INPUT_DIM": cfg.input_dim,
         "HIDDEN_DIM": cfg.hidden_dim,
         "DROPOUT": cfg.dropout,
         "BATCH_SIZE": cfg.batch_size,
-        "ACCUM_STEPS": cfg.accum_steps,
         "HEAD_LR": cfg.head_lr,
         "ENC_LR": cfg.enc_lr,
         "WEIGHT_DECAY": cfg.weight_decay,
@@ -352,6 +348,8 @@ def ckpt_config(cfg):
         "ALPHA_RAMP_EPOCHS": cfg.alpha_ramp_epochs,
         "USE_RAWBOOST": cfg.use_rawboost,
         "RAWBOOST_PROB": cfg.rawboost_prob,
+        "USE_BG_AUG": cfg.use_bg_aug,
+        "BG_NOISE_DIR": cfg.bg_noise_dir,
         "UNIFORMITY_WEIGHT": cfg.uniformity_weight,
         "UNIFORMITY_T": cfg.uniformity_t,
         "SUPCON_SIMILARITY": cfg.supcon_similarity,
@@ -359,5 +357,4 @@ def ckpt_config(cfg):
         "USE_RAVDESS": cfg.use_ravdess,
         "USE_COMMONVOICE": cfg.use_commonvoice,
         "PATIENCE": cfg.patience,
-        "LABEL_TYPE": cfg.label_type,
     }

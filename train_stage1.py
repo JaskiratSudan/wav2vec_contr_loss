@@ -1,4 +1,5 @@
 # train_stage1.py
+import glob
 import os
 
 import torch
@@ -10,6 +11,7 @@ from data_loader import (
     CommonVoiceDataset,
     pad_collate_fn_speaker_source_multiclass,
 )
+from asvspoof_windowed_loader import ASVspoof2019WindowedDataset
 from encoder import Wav2Vec2Encoder
 from compression_module import CompressionModule
 from loss import SupConBinaryLoss
@@ -20,17 +22,7 @@ from stage1_utils import (
     train_one_epoch,
     evaluate,
     setup_distributed,
-    EmbeddingQueue,
 )
-
-
-def make_asv19_collate(label_type):
-    def asv19_collate(batch):
-        waveforms, bin_labels, multi_labels, *_ = pad_collate_fn_speaker_source_multiclass(batch)
-        attn = (waveforms != 0.0).long()
-        labels = multi_labels if label_type != "binary" else bin_labels
-        return waveforms, attn, labels
-    return asv19_collate
 
 
 def main():
@@ -38,6 +30,8 @@ def main():
     is_distributed, rank, world_size, local_rank = setup_distributed()
     set_seed(cfg.seed + rank)
     os.makedirs(cfg.save_dir, exist_ok=True)
+
+    cfg.bg_files = glob.glob(os.path.join(cfg.bg_noise_dir, "*.mp3"))
 
     print_config(cfg, is_distributed=is_distributed, world_size=world_size, rank=rank)
 
@@ -49,17 +43,26 @@ def main():
     else:
         device = torch.device("cpu")
     if rank == 0:
-        print(f"Using device: {device} | RawBoost={cfg.use_rawboost} (p={cfg.rawboost_prob})")
+        print(f"Using device: {device} | RawBoost={cfg.use_rawboost} (p={cfg.rawboost_prob}) | BG_AUG={cfg.use_bg_aug} ({len(cfg.bg_files)} noise files)")
         if torch.cuda.is_available():
             print(f"CUDA device count: {torch.cuda.device_count()}")
 
-    train_ds = ASVspoof2019Dataset(
+    # train_ds = ASVspoof2019Dataset(
+    #     root_dir=cfg.train_root,
+    #     protocol_file=cfg.train_protocol,
+    #     subset="all",
+    #     max_duration_seconds=cfg.max_duration_seconds,
+    #     target_sample_rate=cfg.target_sample_rate,
+    #     num_samples=cfg.num_samples,
+    # )
+    train_ds = ASVspoof2019WindowedDataset(
         root_dir=cfg.train_root,
         protocol_file=cfg.train_protocol,
         subset="all",
         num_samples=cfg.num_samples,
         target_sample_rate=cfg.target_sample_rate,
-        max_duration_seconds=cfg.max_duration_seconds,
+        window_seconds=cfg.max_duration_seconds,
+        min_tail_seconds=1.0,
     )
     if cfg.use_ravdess:
         ravdess_ds = RAVDESSDataset(
@@ -87,13 +90,22 @@ def main():
     bonafide_count = sum(1 for item in train_ds.data if item[1] == 1)
     spoof_count = sum(1 for item in train_ds.data if item[1] == 0)
     print(f"[INFO] Train samples loaded: bonafide={bonafide_count}, spoof={spoof_count}")
-    dev_ds = ASVspoof2019Dataset(
+    # dev_ds = ASVspoof2019Dataset(
+    #     root_dir=cfg.dev_root,
+    #     protocol_file=cfg.dev_protocol,
+    #     subset="all",
+    #     max_duration_seconds=cfg.max_duration_seconds,
+    #     target_sample_rate=cfg.target_sample_rate,
+    #     num_samples=cfg.num_samples,
+    # )
+    dev_ds = ASVspoof2019WindowedDataset(
         root_dir=cfg.dev_root,
         protocol_file=cfg.dev_protocol,
         subset="all",
         num_samples=cfg.num_samples,
         target_sample_rate=cfg.target_sample_rate,
-        max_duration_seconds=cfg.max_duration_seconds,
+        window_seconds=cfg.max_duration_seconds,
+        min_tail_seconds=1.0,
     )
 
     if is_distributed:
@@ -116,20 +128,19 @@ def main():
         dev_ds, batch_size_per_gpu, seed=cfg.seed + 1, rank=rank, world_size=world_size
     )
 
-    collate_fn = make_asv19_collate(cfg.label_type)
     train_loader = DataLoader(
         train_ds,
         batch_sampler=train_sampler,
         num_workers=cfg.num_workers,
         pin_memory=True,
-        collate_fn=collate_fn,
+        collate_fn=pad_collate_fn_speaker_source_multiclass,
     )
     dev_loader = DataLoader(
         dev_ds,
         batch_sampler=dev_sampler,
         num_workers=cfg.num_workers,
         pin_memory=True,
-        collate_fn=collate_fn,
+        collate_fn=pad_collate_fn_speaker_source_multiclass,
     )
 
     encoder = Wav2Vec2Encoder(
@@ -160,28 +171,6 @@ def main():
         uniformity_t=cfg.uniformity_t,
     )
 
-    use_queue = bool(int(os.environ.get("USE_QUEUE", "0")))
-    queue_size = int(os.environ.get("QUEUE_SIZE", "0")) if use_queue else 0
-
-    # NEW: delay queue usage until this epoch (1 = immediate)
-    queue_start_epoch = int(os.environ.get("QUEUE_START_EPOCH", "1"))
-
-    queue = None
-    if use_queue and queue_size > 0 and queue_start_epoch <= 1:
-        queue = EmbeddingQueue(queue_size, cfg.hidden_dim, device)
-        if rank == 0:
-            print(f"[INFO] Queue size={queue_size} (per-rank) | starts at epoch {queue_start_epoch}")
-    elif use_queue and rank == 0:
-        if queue_size <= 0:
-            print("[WARN] USE_QUEUE=1 but QUEUE_SIZE <= 0; queue disabled.")
-        else:
-            print(f"[INFO] Queue will start at epoch {queue_start_epoch} (warm-start without queue)")
-
-        if rank == 0:
-            print(f"[INFO] Queue size={queue_size} (per-rank)")
-    elif use_queue and rank == 0:
-        print("[WARN] USE_QUEUE=1 but QUEUE_SIZE <= 0; queue disabled.")
-
     params = [{"params": head.parameters(), "lr": cfg.head_lr}]
     if cfg.finetune_encoder:
         params.append({"params": encoder.parameters(), "lr": cfg.enc_lr})
@@ -194,16 +183,9 @@ def main():
             train_loader.batch_sampler.set_epoch(epoch)
         if hasattr(dev_loader.batch_sampler, "set_epoch"):
             dev_loader.batch_sampler.set_epoch(epoch)
-        
-        # NEW: create queue only when warm-start is over
-        if use_queue and queue is None and queue_size > 0 and epoch >= queue_start_epoch:
-            queue = EmbeddingQueue(queue_size, cfg.hidden_dim, device)
-            if rank == 0:
-                print(f"[INFO] Enabling queue at epoch {epoch} | size={queue_size} (per-rank)")
-
 
         train_loss, alpha = train_one_epoch(
-            encoder, head, loss_fn, train_loader, optim, device, epoch, cfg, queue=queue
+            encoder, head, loss_fn, train_loader, optim, device, epoch, cfg
         )
         dev_loss = evaluate(encoder, head, loss_fn, dev_loader, device, cfg)
         print(
@@ -215,7 +197,7 @@ def main():
             best = dev_loss
             epochs_no_improve = 0
             if rank == 0:
-                best_path = os.path.join(cfg.save_dir, f"{cfg.model_id}_stage1_head_best.pt")
+                best_path = os.path.join(cfg.save_dir, f"{cfg.run_tag}_stage1_head_best.pt")
                 head_to_save = head.module if hasattr(head, "module") else head
                 encoder_to_save = encoder.module if hasattr(encoder, "module") else encoder
                 ckpt = {
@@ -232,16 +214,7 @@ def main():
         else:
             epochs_no_improve += 1
 
-        stop_training = False
         if cfg.patience and epochs_no_improve >= cfg.patience:
-            stop_training = True
-
-        if is_distributed:
-            flag = torch.tensor(int(stop_training), device=device)
-            dist.broadcast(flag, src=0)
-            stop_training = bool(flag.item())
-
-        if stop_training:
             if rank == 0:
                 print(
                     f"Early stopping at epoch {epoch:03d} "

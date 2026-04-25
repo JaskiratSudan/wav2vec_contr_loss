@@ -106,6 +106,7 @@ export GLOBAL_CENTER=${GLOBAL_CENTER}
 #   --num_workers 4 --seed 1337 \
 #   --topk_neg 15 --warmup_epochs 100 --alpha_end 1 --alpha_ramp_epochs 80 \
 #   --use_rawboost 1 --rawboost_prob 0.7 \
+#   --use_bg_aug 1 \
 #   --use_ravdess ${USE_RAVDESS} --use_commonvoice ${USE_COMMONVOICE}
 
 # if [ ! -f "${CKPT}" ]; then

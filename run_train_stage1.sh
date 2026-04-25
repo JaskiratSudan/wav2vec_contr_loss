@@ -1,24 +1,10 @@
 #!/bin/bash
-#SBATCH --job-name=asv5_frozen_enc_supcon_temp_0.3
-#SBATCH --partition=spgpu
-#SBATCH --account=hafiz1
-#SBATCH --gpus-per-node=2
-#SBATCH --mem=36G
-#SBATCH --cpus-per-task=6
-#SBATCH --time=30:00:00
-#SBATCH --output=train_stage1_log/%x-%j.log
-
-#SBATCH --mail-user=jsudan@umich.edu
-#SBATCH --mail-type=BEGIN,END,FAIL
+set -e
 
 echo "Setting up the environment..."
 echo "Job started on $(hostname) at $(date)"
 
-module purge
-module load python/3.9.12
-module load cuda/11.8.0
-module load ffmpeg
-source ~/myenv/bin/activate
+source ~/.myenv/bin/activate
 
 echo "Python version: $(python --version)"
 echo "PyTorch version: $(python -c 'import torch; print(torch.__version__)')"
@@ -26,11 +12,10 @@ echo "CUDA available: $(python -c 'import torch; print(torch.cuda.is_available()
 echo "Current GPU: $(nvidia-smi --query-gpu=name --format=csv,noheader)"
 echo "----------------------------------------------------------------"
 
-export MASTER_PORT=$((29500 + $SLURM_JOB_ID % 1000))
-
-export GLOO_SOCKET_IFNAME=eth0
-export NCCL_SOCKET_IFNAME=eth0
+export MASTER_PORT=29500
 export MASTER_ADDR=127.0.0.1
+export NCCL_IB_DISABLE=1
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 #----------------------------------------------------------------#
 #  EXPERIMENT CONFIG (edit these only)
@@ -38,27 +23,25 @@ export MASTER_ADDR=127.0.0.1
 TRAIN_DATASET_LIST=(
   asv5
   asv19
-  mlaad
+  # mlaad
 )
 export TRAIN_DATASETS=$(IFS=,; echo "${TRAIN_DATASET_LIST[*]}")
 
-export DEV_PER_DATASET=5000   # it is using ASV 5 and ASV 19 dev set
+export DEV_PER_DATASET=5000
 
-EXP_NAME=asv5_frozen_enc_supcon_temp_0.3
+EXP_NAME=asv5_bat_128_supcon_geodesic_temp_0.07
 MODEL=facebook/wav2vec2-xls-r-300m
 
-SUPCON_SIMILARITY=cosine
-TEMPERATURE=0.3
+SUPCON_SIMILARITY=geodesic
+TEMPERATURE=0.07
 
-# Train hyperparams
-BATCH_SIZE=32
+BATCH_SIZE=128
 MAX_DURATION_SECONDS=10
-EPOCHS=50
+EPOCHS=25
 NUM_SAMPLES=none
 SEED=1337
 NUM_WORKERS=6
 
-# ----- QUEUE / MEMORY BANK -----
 USE_QUEUE=0
 QUEUE_SIZE=256
 QUEUE_START_EPOCH=2
@@ -67,13 +50,11 @@ ACCUM_STEPS=1
 CENTER_BEFORE_NORM=0
 GLOBAL_CENTER=0
 
-# ----- HARD BATCH MINING -----
 TOPK_NEG=1024
 WARMUP_EPOCHS=100
 ALPHA_END=0.9
 ALPHA_RAMP_EPOCHS=20
 
-# ----- UNIFORMITY TERM -----
 UNIFORMITY_WEIGHT=0.0
 UNIFORMITY_T=2.0
 
@@ -83,68 +64,57 @@ HEAD_LR=5e-3
 WEIGHT_DECAY=3e-3
 
 USE_RAWBOOST=1
-RAWBOOST_PROB=0.1
+RAWBOOST_PROB=0.7
 USE_BG_AUG=1
 
-# ----- EVAL DATASETS as a LIST -----
 EVAL_DATASETS_LIST=(
   itw
-  asv5
   asv19
-  asv21_df
-  asv21_la
   fakexpose
+  asv5
+  asv21_la
+  asv21_df
   famous_figures
   # mlaad
 )
 EVAL_DATASETS=$(IFS=, ; echo "${EVAL_DATASETS_LIST[*]}")
 
-EVAL_BATCH_SIZE=32
+EVAL_BATCH_SIZE=16
 EVAL_NUM_WORKERS=6
 
-#----------------------------------------------------------------#
-#  DERIVED / OUTPUT PATHS (do not edit unless needed)
-#----------------------------------------------------------------#
-RUN_TAG=${MODEL//\//__}
+# Number of GPUs to use (adjust to match available GPUs: nvidia-smi)
+NUM_GPUS=2
 
+#----------------------------------------------------------------#
+#  DERIVED / OUTPUT PATHS
+#----------------------------------------------------------------#
 MODEL_ID=$(basename "${MODEL}")
-CKPT_ROOT=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/${EXP_NAME}
+CKPT_ROOT=/home/jsudan/wav2vec_contr_loss/checkpoints/stage_1/${EXP_NAME}
 CKPT=${CKPT_ROOT}/${MODEL_ID}_stage1_head_best.pt
 
-ASV5_EMB_DIR=/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV5/${EXP_NAME}
-ASV19_EMB_DIR=/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV19/${EXP_NAME}
-ITW_EMB_DIR=/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ITW/${EXP_NAME}
-MLAAD_EMB_DIR=/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/MLAAD/${EXP_NAME}
-
-
-POOLED_EMB_DIR=/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/POOLED/${EXP_NAME}
+ASV5_EMB_DIR=/home/jsudan/wav2vec_contr_loss/encoder_embeddings/stage1_embeddings/ASV5/${EXP_NAME}
+ASV19_EMB_DIR=/home/jsudan/wav2vec_contr_loss/encoder_embeddings/stage1_embeddings/ASV19/${EXP_NAME}
+ITW_EMB_DIR=/home/jsudan/wav2vec_contr_loss/encoder_embeddings/stage1_embeddings/ITW/${EXP_NAME}
+MLAAD_EMB_DIR=/home/jsudan/wav2vec_contr_loss/encoder_embeddings/stage1_embeddings/MLAAD/${EXP_NAME}
+POOLED_EMB_DIR=/home/jsudan/wav2vec_contr_loss/encoder_embeddings/stage1_embeddings/POOLED/${EXP_NAME}
 
 STAGE2_DIR=checkpoints_stage2/${EXP_NAME}/wav2vec2-xls-r-300m
 STAGE2_CKPT=${STAGE2_DIR}/stage2_binary_head_best.pt
 
-SCORE_ASV=/home/jsudan/wav2vec_contr_loss/scores/${EXP_NAME}/wav2vec2-xls-r-300m/score_cm_eval_asv5.txt
-SCORE_ITW=/home/jsudan/wav2vec_contr_loss/scores/${EXP_NAME}/wav2vec2-xls-r-300m/score_cm_itw.txt
-SCORE_ASV19=/home/jsudan/wav2vec_contr_loss/scores/${EXP_NAME}/wav2vec2-xls-r-300m/score_cm_eval.txt
-
 #----------------------------------------------------------------#
-#  ASVSPOOF5 PATHS
+#  DATA PATHS
 #----------------------------------------------------------------#
-export ASV19_DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
-export ASV19_DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
-export ASV19_TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
-export ASV19_TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
-export ASV19_DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
-export ASV19_DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+export ASV19_TRAIN_ROOT=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+export ASV19_TRAIN_PROTOCOL=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+export ASV19_DEV_ROOT=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+export ASV19_DEV_PROTOCOL=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
 
-export MLAAD_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/multilingual
-export MLAAD_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/multilingual/protocol_MLAAD_MAILabs_total_balanced.txt
-
-export ASV5_TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_train/flac
-export ASV5_TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5_train_protocol.txt
-export ASV5_DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_dev/flac
-export ASV5_DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5.dev.metadata.txt
-export ASV5_EVAL_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_eval/flac
-export ASV5_EVAL_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5.eval.track_1.tsv
+export ASV5_TRAIN_ROOT=/data/Data/ASVSpoof5/No_Laundering_train/flac
+export ASV5_TRAIN_PROTOCOL=/data/Data/ASVSpoof5/protocols/ASVspoof5_train_protocol.txt
+export ASV5_DEV_ROOT=/data/Data/ASVSpoof5/No_Laundering_dev/flac
+export ASV5_DEV_PROTOCOL=/data/Data/ASVSpoof5/protocols/ASVspoof5.dev.metadata.txt
+export ASV5_EVAL_ROOT=/data/Data/ASVSpoof5/No_Laundering_eval/flac
+export ASV5_EVAL_PROTOCOL=/data/Data/ASVSpoof5/protocols/ASVspoof5.eval.track_1.tsv
 
 export ASV_DATASET=asv5
 export ASV19_DATASET=asv19
@@ -157,22 +127,21 @@ echo "ASV5_EVAL_ROOT=${ASV5_EVAL_ROOT}"
 echo "ASV5_EVAL_PROTOCOL=${ASV5_EVAL_PROTOCOL}"
 
 #----------------------------------------------------------------#
-#  RUN THE TRAINING SCRIPT
+#  RUN TRAINING
 #----------------------------------------------------------------#
 echo "EXPERIMENT NAME: ${EXP_NAME}"
 
+mkdir -p train_stage1_log
+
 cd ~/wav2vec_contr_loss
 
-LAUNCHER="torchrun --nproc_per_node=2 --rdzv_endpoint=localhost:${MASTER_PORT}"
-
-echo "Using BATCH_SIZE=${BATCH_SIZE}"
-
+LAUNCHER="torchrun --standalone --nproc_per_node=${NUM_GPUS}"
+echo "Using BATCH_SIZE=${BATCH_SIZE}, NUM_GPUS=${NUM_GPUS}"
 export USE_QUEUE=${USE_QUEUE}
 export QUEUE_SIZE=${QUEUE_SIZE}
 export QUEUE_START_EPOCH=${QUEUE_START_EPOCH}
 export CENTER_BEFORE_NORM=${CENTER_BEFORE_NORM}
 export GLOBAL_CENTER=${GLOBAL_CENTER}
-
 ${LAUNCHER} train_stage1_asv5.py \
   --model_name ${MODEL} \
   --finetune_encoder ${FINETUNE_ENCODER} \
@@ -191,11 +160,9 @@ if [ ! -f "${CKPT}" ]; then
   exit 1
 fi
 
-export SKIP_ITW=1
+export SKIP_ITW=0
 
 rm -rf ${ASV5_EMB_DIR} ${ASV19_EMB_DIR} ${MLAAD_EMB_DIR} ${POOLED_EMB_DIR} ${ITW_EMB_DIR}
-
-# Extracting datasets
 
 python extract_stage1_embeddings_generic.py \
   --dataset asv5 \
@@ -217,20 +184,9 @@ python extract_stage1_embeddings_generic.py \
   --dev_root   "${ASV19_DEV_ROOT}"   --dev_protocol   "${ASV19_DEV_PROTOCOL}" \
   --max_duration_seconds "${MAX_DURATION_SECONDS}"
 
-python extract_stage1_embeddings_generic.py \
-  --dataset mlaad \
-  --model_name "${MODEL}" \
-  --stage1_ckpt "${CKPT}" \
-  --out_dir "${MLAAD_EMB_DIR}" \
-  --splits "train" \
-  --train_root "${MLAAD_ROOT}" --train_protocol "${MLAAD_PROTOCOL}" \
-  --max_duration_seconds "${MAX_DURATION_SECONDS}"
-
-# Pooling dataset for stage 2
-
 python pool_stage1_embeddings.py \
-  --in_dirs "${ASV5_EMB_DIR},${ASV19_EMB_DIR},${MLAAD_EMB_DIR}" \
-  --names "asv5,asv19,mlaad" \
+  --in_dirs "${ASV5_EMB_DIR},${ASV19_EMB_DIR}" \
+  --names "asv5,asv19" \
   --out_dir "${POOLED_EMB_DIR}" \
   --splits "train,dev" \
   --allow_missing_splits
@@ -238,7 +194,7 @@ python pool_stage1_embeddings.py \
 python train_stage2_classifier.py \
   --emb_dir "${POOLED_EMB_DIR}" \
   --save_dir "${STAGE2_DIR}" \
-  --batch_size 32 --epochs 200 --lr 1e-4 --weight_decay 1e-4 \
+  --batch_size 128 --epochs 200 --lr 1e-4 --weight_decay 1e-4 \
   --head_type linear --hidden_dim 128 --dropout 0.2 --patience 15
 
 if [ ! -f "${STAGE2_CKPT}" ]; then
@@ -246,7 +202,7 @@ if [ ! -f "${STAGE2_CKPT}" ]; then
   exit 1
 fi
 
-python eval_datasets.py \
+CUDA_VISIBLE_DEVICES=0 python eval_datasets.py \
   --exp_name ${EXP_NAME} \
   --datasets "${EVAL_DATASETS}" \
   --model_name ${MODEL} \
@@ -259,7 +215,9 @@ python eval_datasets.py \
   --target_sample_rate 16000 \
   --print_eer \
   --asv5_root ${ASV5_EVAL_ROOT} \
-  --asv5_protocol ${ASV5_EVAL_PROTOCOL}
+  --asv5_protocol ${ASV5_EVAL_PROTOCOL} \
+  --itw_root /data/Data/ds_wild/release_in_the_wild \
+  --itw_protocol /data/Data/ds_wild/protocols/meta.csv
 
 echo "----------------------------------------------------------------"
 echo "Training script finished."
