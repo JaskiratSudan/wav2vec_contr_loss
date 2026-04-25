@@ -123,6 +123,10 @@ def main():
     # so panels can be composited into a paper figure grid
     parser.add_argument("--clean", action="store_true",
                         help="Save a clean panel (no title/axes/legend) for paper figures.")
+    parser.add_argument("--itw_root", type=str, default=ITW_ROOT,
+                        help="ITW audio root directory.")
+    parser.add_argument("--itw_protocol", type=str, default=ITW_PROTOCOL,
+                        help="ITW protocol file.")
     args = parser.parse_args()
 
     model_name = args.model_name
@@ -144,8 +148,8 @@ def main():
 
     # -------- Dataset & Loader --------
     itw_ds = InTheWildDataset(
-        root_dir=ITW_ROOT,
-        protocol_file=ITW_PROTOCOL,
+        root_dir=args.itw_root,
+        protocol_file=args.itw_protocol,
         subset=None,
         num_samples=ITW_NUM_SAMPLES,
         max_duration_seconds=MAX_DURATION_SECONDS,

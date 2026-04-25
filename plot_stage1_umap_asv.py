@@ -148,6 +148,10 @@ def main():
         choices=["umap", "tsne"],
         help="Dimensionality reduction method: umap or tsne",
     )
+    parser.add_argument("--eval_root", type=str, default=EVAL_ROOT,
+                        help="ASV19 eval audio root directory.")
+    parser.add_argument("--eval_protocol", type=str, default=EVAL_PROTOCOL,
+                        help="ASV19 eval protocol file.")
     args = parser.parse_args()
 
     model_name = args.model_name
@@ -167,8 +171,8 @@ def main():
 
     # -------- Dataset & Loader (eval) --------
     eval_ds = ASVspoof2019Dataset(
-        root_dir=EVAL_ROOT,
-        protocol_file=EVAL_PROTOCOL,
+        root_dir=args.eval_root,
+        protocol_file=args.eval_protocol,
         subset="all",
         max_duration_seconds=MAX_DURATION_SECONDS,
         target_sample_rate=TARGET_SAMPLE_RATE,
