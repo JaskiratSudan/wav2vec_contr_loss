@@ -1,0 +1,235 @@
+#!/bin/bash
+set -e
+
+echo "Setting up the environment..."
+echo "Job started on $(hostname) at $(date)"
+
+source ~/.myenv/bin/activate
+
+echo "Python version: $(python --version)"
+echo "PyTorch version: $(python -c 'import torch; print(torch.__version__)')"
+echo "CUDA available: $(python -c 'import torch; print(torch.cuda.is_available())')"
+echo "Current GPU: $(nvidia-smi --query-gpu=name --format=csv,noheader)"
+echo "----------------------------------------------------------------"
+
+export MASTER_PORT=29500
+export MASTER_ADDR=127.0.0.1
+export NCCL_IB_DISABLE=1
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+
+#----------------------------------------------------------------#
+#  EXPERIMENT CONFIG (edit these only)
+#----------------------------------------------------------------#
+EXP_NAME=supcon_geodesic_temp_0.05_seed_1337
+MODEL_PATH=facebook/wav2vec2-xls-r-300m
+MODEL=wav2vec2-xls-r-300m
+
+SUPCON_SIMILARITY=geodesic
+TEMPERATURE=0.05
+SEED=1337
+LABEL_TYPE=binary
+
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2
+
+TOPK_NEG=15
+WARMUP_EPOCHS=100
+ALPHA_END=1.0
+ALPHA_RAMP_EPOCHS=80
+
+USE_QUEUE=0
+QUEUE_SIZE=256
+QUEUE_START_EPOCH=6
+
+CENTER_BEFORE_NORM=0
+GLOBAL_CENTER=0
+
+ACCUM_STEPS=1
+USE_RAVDESS=0
+USE_COMMONVOICE=0
+MAX_DURATION_SECONDS=5
+
+BATCH_SIZE=32
+NUM_WORKERS=4
+
+PLOT_TYPE=tsne
+
+WINDOWED_EVAL=0
+WINDOW_SEC=${MAX_DURATION_SECONDS}
+HOP_SEC=${MAX_DURATION_SECONDS}
+AGG=mean
+TOPK_FRAC=0.3
+MAX_WINDOWS_PER_UTT=0
+WINDOW_BATCH_SIZE=64
+
+EVAL_BATCH_SIZE=16
+
+# GPUs to use (comma-separated list, e.g. "0,1" or "2")
+GPU_IDS=2
+NUM_GPUS=$(echo "${GPU_IDS}" | tr ',' '\n' | wc -l)
+
+# Dataset list for eval_datasets.py (asv21_la and asv21_df excluded — not on this server)
+DATASET_LIST=(
+  itw
+  asv19
+  fakexpose
+  deepfake_eval_2024
+  asv5
+  famous_figures
+  # mlaad
+)
+DATASETS=$(IFS=,; echo "${DATASET_LIST[*]}")
+
+# FamousFigures speaker filter
+FF_SPEAKERS_LIST=(
+  Anthony_Blinken
+  Barack_Obama
+  Donald_Trump
+  Elon_Musk
+  JD_Vance
+  Joe_Biden
+  Kamala_Harris
+  Mathew_Miller
+  Tim_Walz
+  Vivek_Ramaswamy
+)
+FF_SPEAKERS=$(IFS=,; echo "${FF_SPEAKERS_LIST[*]}")
+
+#----------------------------------------------------------------#
+#  PATHS
+#----------------------------------------------------------------#
+CKPT_ROOT=/home/jsudan/wav2vec_contr_loss/checkpoints_stage1/${EXP_NAME}
+MODEL_TAG=${MODEL_PATH//\//__}
+CKPT=${CKPT_ROOT}/${MODEL_TAG}/${MODEL_TAG}_stage1_head_best.pt
+
+ASV_EMB_DIR=/home/jsudan/wav2vec_contr_loss/encoder_embeddings/stage1_embeddings/ASV/${EXP_NAME}
+ITW_EMB_DIR=/home/jsudan/wav2vec_contr_loss/encoder_embeddings/stage1_embeddings/ITW/${EXP_NAME}
+
+STAGE2_DIR=checkpoints_stage2/${EXP_NAME}/${MODEL}
+STAGE2_CKPT=${STAGE2_DIR}/stage2_binary_head_best.pt
+
+SCORES_DIR=/home/jsudan/wav2vec_contr_loss/scores
+
+#----------------------------------------------------------------#
+#  ASV19 DATA PATHS
+#----------------------------------------------------------------#
+ASV19_TRAIN_ROOT=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+ASV19_TRAIN_PROTOCOL=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+ASV19_DEV_ROOT=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+ASV19_DEV_PROTOCOL=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+ASV19_EVAL_ROOT=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_LA_eval/flac
+ASV19_EVAL_PROTOCOL=/data/Data/ASVSpoofData_2019/train/LA/ASVspoof2019_eval_protocol_with_speaker.txt
+
+#----------------------------------------------------------------#
+#  RUN STAGE-1 TRAINING
+#----------------------------------------------------------------#
+echo "EXPERIMENT NAME: ${EXP_NAME}"
+echo "SEED: ${SEED}"
+
+mkdir -p asv_19_training_log
+
+cd ~/wav2vec_contr_loss
+
+echo "Using NUM_GPUS=${NUM_GPUS}"
+
+unset CUDA_VISIBLE_DEVICES
+export CUDA_VISIBLE_DEVICES=${GPU_IDS}
+LAUNCHER="torchrun --standalone --nproc_per_node=${NUM_GPUS}"
+echo "Using BATCH_SIZE=${BATCH_SIZE}"
+
+export USE_QUEUE=${USE_QUEUE}
+export QUEUE_SIZE=${QUEUE_SIZE}
+export QUEUE_START_EPOCH=${QUEUE_START_EPOCH}
+export CENTER_BEFORE_NORM=${CENTER_BEFORE_NORM}
+export GLOBAL_CENTER=${GLOBAL_CENTER}
+
+${LAUNCHER} train_stage1.py \
+  --model_name ${MODEL_PATH} \
+  --finetune_encoder 1 \
+  --save_dir ${CKPT_ROOT} \
+  --epochs 100 --batch_size ${BATCH_SIZE} --num_samples none --max_duration_seconds ${MAX_DURATION_SECONDS} \
+  --accum_steps ${ACCUM_STEPS} \
+  --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight ${UNIFORMITY_WEIGHT} --uniformity_t ${UNIFORMITY_T} \
+  --enc_lr 1e-5 --head_lr 5e-3 --weight_decay 3e-3 --temperature ${TEMPERATURE} \
+  --num_workers ${NUM_WORKERS} --seed ${SEED} \
+  --topk_neg ${TOPK_NEG} --warmup_epochs ${WARMUP_EPOCHS} --alpha_end ${ALPHA_END} --alpha_ramp_epochs ${ALPHA_RAMP_EPOCHS} \
+  --use_rawboost 1 --rawboost_prob 0.7 \
+  --use_ravdess ${USE_RAVDESS} --use_commonvoice ${USE_COMMONVOICE} \
+  --label_type ${LABEL_TYPE} \
+  --train_root ${ASV19_TRAIN_ROOT} \
+  --train_protocol ${ASV19_TRAIN_PROTOCOL} \
+  --dev_root ${ASV19_DEV_ROOT} \
+  --dev_protocol ${ASV19_DEV_PROTOCOL}
+
+if [ ! -f "${CKPT}" ]; then
+  echo "[ERROR] Stage-1 checkpoint not found: ${CKPT}"
+  exit 1
+fi
+
+#----------------------------------------------------------------#
+#  EXTRACT STAGE-1 EMBEDDINGS (ASV19)
+#----------------------------------------------------------------#
+rm -rf ${ASV_EMB_DIR}
+export SKIP_ITW=1
+python extract_stage1_embeddings.py \
+  --model_name ${MODEL_PATH} \
+  --stage1_ckpt ${CKPT} \
+  --asv_out_dir ${ASV_EMB_DIR} \
+  --itw_out_dir ${ITW_EMB_DIR} \
+  --max_duration_seconds ${MAX_DURATION_SECONDS} \
+  --train_root ${ASV19_TRAIN_ROOT} \
+  --train_protocol ${ASV19_TRAIN_PROTOCOL} \
+  --dev_root ${ASV19_DEV_ROOT} \
+  --dev_protocol ${ASV19_DEV_PROTOCOL} \
+  --eval_root ${ASV19_EVAL_ROOT} \
+  --eval_protocol ${ASV19_EVAL_PROTOCOL}
+
+#----------------------------------------------------------------#
+#  STAGE-2 TRAINING
+#----------------------------------------------------------------#
+python train_stage2_classifier.py \
+  --emb_dir ${ASV_EMB_DIR} \
+  --save_dir ${STAGE2_DIR} \
+  --batch_size 64 --epochs 200 --lr 1e-4 --weight_decay 1e-4 \
+  --head_type linear --patience 15
+
+if [ ! -f "${STAGE2_CKPT}" ]; then
+  echo "[ERROR] Stage-2 checkpoint not found: ${STAGE2_CKPT}"
+  exit 1
+fi
+
+#----------------------------------------------------------------#
+#  EVALUATION
+#----------------------------------------------------------------#
+python eval_datasets.py \
+  --exp_name "${EXP_NAME}" \
+  --datasets "${DATASETS}" \
+  --model_name "${MODEL_PATH}" \
+  --stage1_ckpt "${CKPT}" \
+  --stage2_ckpt "${STAGE2_CKPT}" \
+  --scores_dir "${SCORES_DIR}" \
+  --batch_size ${EVAL_BATCH_SIZE} --num_workers ${NUM_WORKERS} \
+  --subset all --max_duration_seconds ${MAX_DURATION_SECONDS} \
+  --ff_speakers "${FF_SPEAKERS}" \
+  --ff_root /data/Data/famousfigures \
+  --ff_protocol /data/Data/famousfigures/protocol.txt \
+  --asv19_root ${ASV19_EVAL_ROOT} \
+  --asv19_protocol ${ASV19_EVAL_PROTOCOL} \
+  --asv5_root /data/Data/ASVSpoof5/No_Laundering_eval/flac \
+  --asv5_protocol /data/Data/ASVSpoof5/protocols/ASVspoof5.eval.track_1.tsv \
+  --itw_root /data/Data/ds_wild/release_in_the_wild \
+  --itw_protocol /data/Data/ds_wild/protocols/meta.csv \
+  --fakexpose_root /data/Data/fakexpose \
+  --deepfake_root /data/Data/Deepfake_Eval_2024/audio-data \
+  --deepfake_protocol /data/Data/Deepfake_Eval_2024/audio-metadata-publish.csv \
+  --print_eer \
+  --windowed_eval ${WINDOWED_EVAL} \
+  --window_sec ${WINDOW_SEC} \
+  --hop_sec ${HOP_SEC} \
+  --agg ${AGG} \
+  --topk_frac ${TOPK_FRAC} \
+  --max_windows_per_utt ${MAX_WINDOWS_PER_UTT} \
+  --window_batch_size ${WINDOW_BATCH_SIZE}
+
+echo "----------------------------------------------------------------"
+echo "ASV19 pipeline finished at: $(date)"
