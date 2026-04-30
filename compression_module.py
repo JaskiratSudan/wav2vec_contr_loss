@@ -8,63 +8,37 @@ class CompressionModule(nn.Module):
     """
     Fuses and processes encoder features to produce a final embedding.
     """
-    def __init__(self, input_dim=1024, hidden_dim=256, dropout_rate=0.1):
-        """
-        Initializes the module layers.
-
-        Args:
-            input_dim (int): Feature dimension from encoders.
-            hidden_dim (int): Intermediate and final embedding dimension.
-            dropout_rate (float): Dropout probability.
-        """
+    def __init__(self, input_dim=1024, hidden_dim=256, dropout_rate=0.1, use_bottleneck=False):
         super(CompressionModule, self).__init__()
+        self.use_bottleneck = use_bottleneck
 
-        # --- Bottleneck Module Layers ---
-        # self.mlp1 = nn.Linear(input_dim, hidden_dim)
-        # self.bn1 = nn.BatchNorm1d(hidden_dim)
-        # self.activation1 = nn.LeakyReLU()
-        # self.dropout1 = nn.Dropout(p=dropout_rate)
-        # self.mlp2 = nn.Linear(hidden_dim, input_dim)
+        if use_bottleneck:
+            self.mlp1 = nn.Linear(input_dim, hidden_dim)
+            self.bn1 = nn.BatchNorm1d(hidden_dim)
+            self.activation1 = nn.LeakyReLU()
+            self.dropout1 = nn.Dropout(p=dropout_rate)
+            self.mlp2 = nn.Linear(hidden_dim, input_dim)
 
-        # --- Head Module Layers ---
         self.dropout_head = nn.Dropout(p=dropout_rate)
         self.activation_head = nn.LeakyReLU()
         self.mlp3 = nn.Linear(input_dim, hidden_dim)
 
-
     def forward(self, encoder_output: torch.Tensor) -> torch.Tensor:
-        """
-        Defines the forward pass logic.
+        # (B, K, F, T) -> (B, F, T)
+        x = torch.mean(encoder_output, dim=1)
 
-        Args:
-            encoder_output (torch.Tensor): 4D tensor from an encoder.
-                                           Shape: (batch, K, F, T)
+        if self.use_bottleneck:
+            skip = x
+            x = self.mlp1(x.transpose(1, 2)).transpose(1, 2)
+            x = self.bn1(x)
+            x = self.activation1(x)
+            x = self.dropout1(x)
+            x = self.mlp2(x.transpose(1, 2)).transpose(1, 2)
+            x = x + skip
 
-        Returns:
-            torch.Tensor: Final sequence of shape (batch, hidden_dim, T).
-        """
-        # 1. Pooling: Average across the layer dimension (K).
-        # Input: (B, K, F, T) -> Output: (B, F, T)
-        pooled_features = torch.mean(encoder_output, dim=1)
-        x = pooled_features
-
-        # --- Apply Bottleneck Module ---
-        # skip_connection = x
-
-        # x = self.mlp1(x.transpose(1, 2)).transpose(1, 2)
-        # x = self.bn1(x)
-        # x = self.activation1(x)
-        # x = self.dropout1(x)
-        # x = self.mlp2(x.transpose(1, 2)).transpose(1, 2)
-
-        # x = x + skip_connection
-
-        # --- Apply Head Module ---
         x = self.dropout_head(x)
         x = self.activation_head(x)
-        final_sequence = self.mlp3(x.transpose(1, 2)).transpose(1, 2)
-
-        return final_sequence
+        return self.mlp3(x.transpose(1, 2)).transpose(1, 2)
 
 # Example usage script.
 if __name__ == '__main__':

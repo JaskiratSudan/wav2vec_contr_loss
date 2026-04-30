@@ -1,0 +1,30 @@
+Setting up the environment...
+Job started on gl1509.arc-ts.umich.edu at Sun Apr 26 13:43:55 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+----------------------------------------------------------------
+SEED: 1337
+EXPERIMENT NAME: supcon_geodesic_temp_0.07_seed_1337
+USE_QUEUE=0
+QUEUE_SIZE=256
+ACCUM_STEPS=1
+CENTER_BEFORE_NORM=0
+GLOBAL_CENTER=0
+Detected NUM_GPUS=1
+Using BATCH_SIZE=32
+FF_PROTOCOL: /nfs/turbo/umd-hafiz/issf_server_data/famousfigures/protocol.txt
+Device: cuda
+Loaded Stage-2 head: type=linear, in_dim=256, hidden_dim=128, dropout=0.2
+[INFO] Scoring dataset 'itw' -> /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_itw.txt
+EER (itw): 17.09647449992494
+[INFO] Scoring dataset 'asv19' -> /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/facebook/wav2vec2-xls-r-300m/score_cm_eval.txt
+EER (asv19): 0.5158336949896851
+[INFO] Scoring dataset 'fakexpose' -> /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/fakexpose/score_cm_fakexpose.txt
+[OK] Wrote: /home/jsudan/wav2vec_contr_loss/scores/supcon_geodesic_temp_0.07_seed_1337/fakexpose/score_cm_fakexpose.txt
+EER (fakexpose): 39.95354744313507
+----------------------------------------------------------------
+ASV19 pipeline finished at: Sun Apr 26 14:24:33 EDT 2026

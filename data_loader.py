@@ -552,7 +552,8 @@ class InTheWildDataset(BaseAudioDataset):
         if not Path(protocol_file).exists():
             raise FileNotFoundError(f"Protocol file not found: {protocol_file}")
 
-        protocol_df = pd.read_csv(protocol_file)
+        # ITW meta.csv has no header row: columns are file, speaker, label
+        protocol_df = pd.read_csv(protocol_file, header=None, names=['file', 'speaker', 'label'])
         protocol_df.columns = protocol_df.columns.str.lower()
         if 'audio' in protocol_df.columns and 'file' not in protocol_df.columns:
             protocol_df = protocol_df.rename(columns={'audio': 'file'})

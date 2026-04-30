@@ -47,6 +47,7 @@ GLOBAL_CENTER=0
 ACCUM_STEPS=1
 USE_RAVDESS=0
 USE_COMMONVOICE=0
+USE_BOTTLENECK=0
 MAX_DURATION_SECONDS=5
 
 BATCH_SIZE=32
@@ -155,6 +156,7 @@ ${LAUNCHER} train_stage1.py \
   --topk_neg ${TOPK_NEG} --warmup_epochs ${WARMUP_EPOCHS} --alpha_end ${ALPHA_END} --alpha_ramp_epochs ${ALPHA_RAMP_EPOCHS} \
   --use_rawboost 1 --rawboost_prob 0.7 \
   --use_ravdess ${USE_RAVDESS} --use_commonvoice ${USE_COMMONVOICE} \
+  --use_bottleneck ${USE_BOTTLENECK} \
   --label_type ${LABEL_TYPE} \
   --train_root ${ASV19_TRAIN_ROOT} \
   --train_protocol ${ASV19_TRAIN_PROTOCOL} \

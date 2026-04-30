@@ -138,9 +138,13 @@ def apply_aug_split_batch_baseline(x: torch.Tensor, sr: int = 16000,
 # Source: /data/FF_V2/Speaker_Specific_OCSVM/Mixture/data_utils.py
 # ---------------------------------------------------------------------------
 
-from torch import Tensor
-from torch.utils.data import Dataset
-from RawBoost import process_Rawboost_feature
+try:
+    from torch import Tensor
+    from torch.utils.data import Dataset
+    from RawBoost import process_Rawboost_feature
+    _DATASET_CLASS_AVAILABLE = True
+except ImportError:
+    _DATASET_CLASS_AVAILABLE = False
 
 try:
     from utils import pad as _pad_fn

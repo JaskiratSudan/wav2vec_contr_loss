@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=asv5_frozen_enc_supcon_temp_0.3
+#SBATCH --job-name=pooled_bat_64_supcon_geodesic_temp_0.07
 #SBATCH --partition=spgpu
 #SBATCH --account=hafiz1
-#SBATCH --gpus-per-node=2
+#SBATCH --gpus-per-node=1
 #SBATCH --mem=36G
 #SBATCH --cpus-per-task=6
-#SBATCH --time=30:00:00
+#SBATCH --time=10:00:00
 #SBATCH --output=train_stage1_log/%x-%j.log
 
 #SBATCH --mail-user=jsudan@umich.edu
@@ -31,6 +31,7 @@ export MASTER_PORT=$((29500 + $SLURM_JOB_ID % 1000))
 export GLOO_SOCKET_IFNAME=eth0
 export NCCL_SOCKET_IFNAME=eth0
 export MASTER_ADDR=127.0.0.1
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 #----------------------------------------------------------------#
 #  EXPERIMENT CONFIG (edit these only)
@@ -44,16 +45,16 @@ export TRAIN_DATASETS=$(IFS=,; echo "${TRAIN_DATASET_LIST[*]}")
 
 export DEV_PER_DATASET=5000   # it is using ASV 5 and ASV 19 dev set
 
-EXP_NAME=asv5_frozen_enc_supcon_temp_0.3
+EXP_NAME=pooled_bat_64_supcon_geodesic_temp_0.07
 MODEL=facebook/wav2vec2-xls-r-300m
 
-SUPCON_SIMILARITY=cosine
-TEMPERATURE=0.3
+SUPCON_SIMILARITY=geodesic
+TEMPERATURE=0.07
 
 # Train hyperparams
-BATCH_SIZE=32
+BATCH_SIZE=64
 MAX_DURATION_SECONDS=10
-EPOCHS=50
+EPOCHS=10
 NUM_SAMPLES=none
 SEED=1337
 NUM_WORKERS=6
@@ -77,7 +78,7 @@ ALPHA_RAMP_EPOCHS=20
 UNIFORMITY_WEIGHT=0.0
 UNIFORMITY_T=2.0
 
-FINETUNE_ENCODER=0
+FINETUNE_ENCODER=1
 ENC_LR=1e-5
 HEAD_LR=5e-3
 WEIGHT_DECAY=3e-3
@@ -89,12 +90,11 @@ USE_BG_AUG=1
 # ----- EVAL DATASETS as a LIST -----
 EVAL_DATASETS_LIST=(
   itw
-  asv5
   asv19
-  asv21_df
-  asv21_la
-  fakexpose
-  famous_figures
+  # fakexpose
+  # asv5
+  # asv21_df
+  # asv21_la
   # mlaad
 )
 EVAL_DATASETS=$(IFS=, ; echo "${EVAL_DATASETS_LIST[*]}")
@@ -109,7 +109,7 @@ RUN_TAG=${MODEL//\//__}
 
 MODEL_ID=$(basename "${MODEL}")
 CKPT_ROOT=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/${EXP_NAME}
-CKPT=${CKPT_ROOT}/${MODEL_ID}_stage1_head_best.pt
+CKPT=${CKPT_ROOT}/${RUN_TAG}/${MODEL_ID}_stage1_head_best.pt
 
 ASV5_EMB_DIR=/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV5/${EXP_NAME}
 ASV19_EMB_DIR=/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV19/${EXP_NAME}
@@ -173,23 +173,23 @@ export QUEUE_START_EPOCH=${QUEUE_START_EPOCH}
 export CENTER_BEFORE_NORM=${CENTER_BEFORE_NORM}
 export GLOBAL_CENTER=${GLOBAL_CENTER}
 
-${LAUNCHER} train_stage1_asv5.py \
-  --model_name ${MODEL} \
-  --finetune_encoder ${FINETUNE_ENCODER} \
-  --max_duration_seconds ${MAX_DURATION_SECONDS} \
-  --save_dir ${CKPT_ROOT} \
-  --epochs ${EPOCHS} --batch_size ${BATCH_SIZE} --num_samples ${NUM_SAMPLES} \
-  --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight ${UNIFORMITY_WEIGHT} --uniformity_t ${UNIFORMITY_T} \
-  --enc_lr ${ENC_LR} --head_lr ${HEAD_LR} --weight_decay ${WEIGHT_DECAY} --temperature ${TEMPERATURE} \
-  --num_workers ${NUM_WORKERS} --seed ${SEED} \
-  --topk_neg ${TOPK_NEG} --warmup_epochs ${WARMUP_EPOCHS} --alpha_end ${ALPHA_END} --alpha_ramp_epochs ${ALPHA_RAMP_EPOCHS} \
-  --use_rawboost ${USE_RAWBOOST} --rawboost_prob ${RAWBOOST_PROB} \
-  --use_bg_aug ${USE_BG_AUG}
-
-if [ ! -f "${CKPT}" ]; then
-  echo "[ERROR] Stage-1 checkpoint not found: ${CKPT}"
-  exit 1
-fi
+# ${LAUNCHER} train_stage1_asv5.py \
+#   --model_name ${MODEL} \
+#   --finetune_encoder ${FINETUNE_ENCODER} \
+#   --max_duration_seconds ${MAX_DURATION_SECONDS} \
+#   --save_dir ${CKPT_ROOT} \
+#   --epochs ${EPOCHS} --batch_size ${BATCH_SIZE} --num_samples ${NUM_SAMPLES} \
+#   --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight ${UNIFORMITY_WEIGHT} --uniformity_t ${UNIFORMITY_T} \
+#   --enc_lr ${ENC_LR} --head_lr ${HEAD_LR} --weight_decay ${WEIGHT_DECAY} --temperature ${TEMPERATURE} \
+#   --num_workers ${NUM_WORKERS} --seed ${SEED} \
+#   --topk_neg ${TOPK_NEG} --warmup_epochs ${WARMUP_EPOCHS} --alpha_end ${ALPHA_END} --alpha_ramp_epochs ${ALPHA_RAMP_EPOCHS} \
+#   --use_rawboost ${USE_RAWBOOST} --rawboost_prob ${RAWBOOST_PROB} \
+#   --use_bg_aug ${USE_BG_AUG}
+# 
+# if [ ! -f "${CKPT}" ]; then
+#   echo "[ERROR] Stage-1 checkpoint not found: ${CKPT}"
+#   exit 1
+# fi
 
 export SKIP_ITW=1
 

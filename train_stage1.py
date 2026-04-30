@@ -150,7 +150,7 @@ def main():
     if hasattr(encoder, "model") and hasattr(encoder.model, "config"):
         if hasattr(encoder.model.config, "layerdrop"):
             encoder.model.config.layerdrop = 0.0
-    head = CompressionModule(cfg.input_dim, cfg.hidden_dim, cfg.dropout).to(device)
+    head = CompressionModule(cfg.input_dim, cfg.hidden_dim, cfg.dropout, use_bottleneck=cfg.use_bottleneck).to(device)
 
     if is_distributed:
         if cfg.finetune_encoder:

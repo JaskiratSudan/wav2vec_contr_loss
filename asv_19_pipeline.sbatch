@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=supcon_geodesic_temp_0.07_seed_1337
+#SBATCH --job-name=bott_enc_supcon_geodesic_temp_0.07
 #SBATCH --partition=spgpu
 #SBATCH --account=hafiz1
 #SBATCH --gpus-per-node=2
@@ -27,11 +27,12 @@ echo "Current GPU: $(nvidia-smi --query-gpu=name --format=csv,noheader)"
 echo "----------------------------------------------------------------"
 
 export MASTER_PORT=$((29500 + $SLURM_JOB_ID % 1000))
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 #----------------------------------------------------------------#
 #  EXPERIMENT VARIABLES
 #----------------------------------------------------------------#
-EXP_NAME=supcon_geodesic_temp_0.07_seed_1337
+EXP_NAME=bott_enc_supcon_geodesic_temp_0.07
 
 # XLS-R Layers
 # export XLSR_FROM_LAYER=1
@@ -68,6 +69,7 @@ GLOBAL_CENTER=0
 ACCUM_STEPS=1
 USE_RAVDESS=0
 USE_COMMONVOICE=0
+USE_BOTTLENECK=0
 MAX_DURATION_SECONDS=10
 
 # Plot information
@@ -76,8 +78,9 @@ PLOT_TYPE=tsne
 MODEL_PATH=facebook/wav2vec2-xls-r-300m
 MODEL=wav2vec2-xls-r-300m
 
+MODEL_TAG=${MODEL_PATH//\//__}
 CKPT_ROOT=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/${EXP_NAME}
-CKPT=${CKPT_ROOT}/${MODEL}_stage1_head_best.pt
+CKPT=${CKPT_ROOT}/${MODEL_TAG}/${MODEL_TAG}_stage1_head_best.pt
 
 ASV_EMB_DIR=/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ASV/${EXP_NAME}
 ITW_EMB_DIR=/scratch/hafiz_root/hafiz1/jsudan/encoder_embeddings/stage1_embeddings/ITW/${EXP_NAME}
@@ -99,12 +102,12 @@ WINDOW_BATCH_SIZE=64
 DATASET_LIST=(
   itw
   asv19
-  asv21_la
-  asv21_df
-  asv5
   fakexpose
-  deepfake_eval_2024
-  famous_figures
+  # asv21_la
+  # asv21_df
+  # asv5
+  # deepfake_eval_2024
+  # famous_figures
   # mlaad
 )
 DATASETS=$(IFS=,; echo "${DATASET_LIST[*]}")
@@ -165,6 +168,7 @@ ${LAUNCHER} train_stage1.py \
   --topk_neg ${TOPK_NEG} --warmup_epochs ${WARMUP_EPOCHS} --alpha_end ${ALPHA_END} --alpha_ramp_epochs ${ALPHA_RAMP_EPOCHS} \
   --use_rawboost 1 --rawboost_prob 0.7 \
   --use_ravdess ${USE_RAVDESS} --use_commonvoice ${USE_COMMONVOICE} \
+  --use_bottleneck ${USE_BOTTLENECK} \
   --label_type ${LABEL_TYPE}
 
 if [ ! -f "${CKPT}" ]; then

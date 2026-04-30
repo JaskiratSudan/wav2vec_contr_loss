@@ -43,8 +43,8 @@ ALPHA_RAMP_EPOCHS = 80
 USE_RAWBOOST = True
 RAWBOOST_PROB = 0.7
 USE_BG_AUG = True
-BG_NOISE_DIR = "/data/FF_V2/Speaker_Specific_OCSVM/Mixture/additional noise"
-PATIENCE = 10
+BG_NOISE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "bg_noise")
+PATIENCE = 15
 
 
 def build_config():
@@ -231,6 +231,13 @@ def build_config():
     parser.add_argument("--max_duration_seconds", type=int, default=MAX_DURATION_SECONDS)
     parser.add_argument("--accum_steps", type=int, default=1)
     parser.add_argument("--label_type", type=str, default="binary")
+    parser.add_argument(
+        "--use_bottleneck",
+        type=int,
+        default=0,
+        choices=[0, 1],
+        help="Use bottleneck residual block in CompressionModule before final projection (1) or plain head (0).",
+    )
     args = parser.parse_args()
 
     num_samples_arg = args.num_samples.strip().lower()
@@ -244,6 +251,7 @@ def build_config():
 
     return SimpleNamespace(
         model_name=args.model_name,
+        model_id=os.path.basename(args.model_name),
         run_tag=run_tag,
         save_dir=save_dir,
         train_root=args.train_root,
@@ -282,6 +290,8 @@ def build_config():
         use_ravdess=bool(args.use_ravdess),
         use_commonvoice=bool(args.use_commonvoice),
         patience=args.patience,
+        label_type=args.label_type,
+        use_bottleneck=bool(args.use_bottleneck),
     )
 
 
@@ -326,6 +336,7 @@ def print_config(cfg, is_distributed=False, world_size=1, rank=0):
     print(f"USE_RAVDESS={cfg.use_ravdess}")
     print(f"USE_COMMONVOICE={cfg.use_commonvoice}")
     print(f"PATIENCE={cfg.patience}")
+    print(f"USE_BOTTLENECK={cfg.use_bottleneck}")
     print(f"DISTRIBUTED={is_distributed} | WORLD_SIZE={world_size} | RANK={rank}")
     print("=============")
 
@@ -357,4 +368,5 @@ def ckpt_config(cfg):
         "USE_RAVDESS": cfg.use_ravdess,
         "USE_COMMONVOICE": cfg.use_commonvoice,
         "PATIENCE": cfg.patience,
+        "USE_BOTTLENECK": cfg.use_bottleneck,
     }

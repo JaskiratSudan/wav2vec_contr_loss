@@ -1,4 +1,5 @@
 # train_stage1_asv5.py
+import glob
 import os
 
 import torch
@@ -41,9 +42,8 @@ def _env_or_default(name: str, default: str) -> str:
 
 
 def asv5_collate(batch):
-    waveforms, bin_labels, *_ = pad_collate_fn_speaker_source_multiclass(batch)
-    attn = (waveforms != 0.0).long()
-    return waveforms, attn, bin_labels
+    waveforms, bin_labels, multi_labels, *_ = pad_collate_fn_speaker_source_multiclass(batch)
+    return waveforms, bin_labels, multi_labels
 
 
 def main():
@@ -223,6 +223,10 @@ def main():
     #     pin_memory=True,
     #     collate_fn=asv5_collate,
     # )
+
+    cfg.bg_files = glob.glob(os.path.join(cfg.bg_noise_dir, "*.mp3"))
+    if rank == 0:
+        print(f"Using device: {device} | RawBoost={cfg.use_rawboost} (p={cfg.rawboost_prob}) | BG_AUG={cfg.use_bg_aug} ({len(cfg.bg_files)} noise files)")
 
     encoder = Wav2Vec2Encoder(
         model_name=cfg.model_name,

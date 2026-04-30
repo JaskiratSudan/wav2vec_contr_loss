@@ -25,6 +25,8 @@ class Wav2Vec2Encoder(nn.Module):
             for p in self.model.parameters():
                 p.requires_grad = False
             self.model.eval()
+        else:
+            self.model.gradient_checkpointing_enable()
 
     @torch.no_grad()
     def _forward_frozen(self, waveforms: torch.Tensor, attention_mask: torch.Tensor):
