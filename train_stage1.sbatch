@@ -50,6 +50,7 @@ QUEUE_SIZE=128
 ACCUM_STEPS=1
 CENTER_BEFORE_NORM=1
 GLOBAL_CENTER=1
+SIL_WEIGHT=0.0
 
 CKPT_ROOT=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/${EXP_NAME}
 CKPT=${CKPT_ROOT}/${MODEL}_stage1_head_best.pt
@@ -95,35 +96,35 @@ export QUEUE_SIZE=${QUEUE_SIZE}
 export CENTER_BEFORE_NORM=${CENTER_BEFORE_NORM}
 export GLOBAL_CENTER=${GLOBAL_CENTER}
 
-# ${LAUNCHER} train_stage1.py \
-#   --model_name ${MODEL_PATH} \
-#   --finetune_encoder 1 \
-#   --save_dir ${CKPT_ROOT} \
-#   --epochs 100 --batch_size ${BATCH_SIZE} --num_samples none \
-#   --accum_steps ${ACCUM_STEPS} \
-#   --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight 0.0 --uniformity_t 0.5 \
-#   --enc_lr 1e-5 --head_lr 5e-3 --weight_decay 3e-3 --temperature 0.05 \
-#   --num_workers 4 --seed 1337 \
-#   --topk_neg 15 --warmup_epochs 100 --alpha_end 1 --alpha_ramp_epochs 80 \
-#   --use_rawboost 1 --rawboost_prob 0.7 \
-#   --use_bg_aug 1 \
-#   --use_ravdess ${USE_RAVDESS} --use_commonvoice ${USE_COMMONVOICE}
+${LAUNCHER} train_stage1.py \
+  --model_name ${MODEL_PATH} \
+  --finetune_encoder 1 \
+  --save_dir ${CKPT_ROOT} \
+  --epochs 100 --batch_size ${BATCH_SIZE} --num_samples none \
+  --accum_steps ${ACCUM_STEPS} \
+  --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight 0.0 --uniformity_t 0.5 --sil_weight ${SIL_WEIGHT} \
+  --enc_lr 1e-5 --head_lr 5e-3 --weight_decay 3e-3 --temperature 0.05 \
+  --num_workers 4 --seed 1337 \
+  --topk_neg 15 --warmup_epochs 100 --alpha_end 1 --alpha_ramp_epochs 80 \
+  --use_rawboost 1 --rawboost_prob 0.7 \
+  --use_bg_aug 1 \
+  --use_ravdess ${USE_RAVDESS} --use_commonvoice ${USE_COMMONVOICE}
 
-# if [ ! -f "${CKPT}" ]; then
-#   echo "[ERROR] Stage-1 checkpoint not found: ${CKPT}"
-#   exit 1
-# fi
+if [ ! -f "${CKPT}" ]; then
+  echo "[ERROR] Stage-1 checkpoint not found: ${CKPT}"
+  exit 1
+fi
 
-# python plot_stage1_umap_asv.py \
-#   --model_name ${MODEL_PATH} \
-#   --ckpt_path ${CKPT} \
-#   --plots_dir /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/${EXP_NAME} \
-#   --exp_name ${EXP_NAME}
-# python plot_stage1_umap_itw.py \
-#   --model_name ${MODEL_PATH} \
-#   --ckpt_path ${CKPT} \
-#   --plots_dir /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/${EXP_NAME} \
-#   --exp_name ${EXP_NAME}
+python plot_stage1_umap_asv.py \
+  --model_name ${MODEL_PATH} \
+  --ckpt_path ${CKPT} \
+  --plots_dir /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ASV/${EXP_NAME} \
+  --exp_name ${EXP_NAME}
+python plot_stage1_umap_itw.py \
+  --model_name ${MODEL_PATH} \
+  --ckpt_path ${CKPT} \
+  --plots_dir /home/jsudan/wav2vec_contr_loss/plots/dep_embeddings/ITW/${EXP_NAME} \
+  --exp_name ${EXP_NAME}
 
 rm -rf ${ASV_EMB_DIR}
 rm -rf ${ITW_EMB_DIR}

@@ -22,12 +22,14 @@ class SupConBinaryLoss(nn.Module):
         similarity: str = "geodesic",
         uniformity_weight: float = 0.0,
         uniformity_t: float = 2.0,
+        sil_weight: float = 0.0,
     ):
         super().__init__()
         self.tau = temperature
         self.similarity = similarity.lower()
         self.lambda_uni = float(uniformity_weight)
         self.uni_t = float(uniformity_t)
+        self.lambda_sil = float(sil_weight)
         if self.similarity not in ("cosine", "geodesic"):
             raise ValueError(f"Unknown similarity: {similarity}")
 
@@ -92,6 +94,44 @@ class SupConBinaryLoss(nn.Module):
         # uniformity: log mean(exp(-t * dist^2))
         return torch.log(torch.exp(-self.uni_t * sq_pdist).mean() + 1e-8)
 
+    # ---------- Soft Silhouette regularizer ----------
+
+    def _soft_silhouette_loss(self, z: torch.Tensor, labels: torch.Tensor) -> torch.Tensor:
+        """
+        Todescato & Carbonera 2026 (arXiv 2604.08573) Soft Silhouette Loss.
+        Always uses cosine distance regardless of self.similarity.
+
+        a(i) = mean cosine distance to same-class samples (excl. self)
+        b(i) = mean cosine distance to opposite-class samples
+        s̃(i) = (b(i) - a(i)) / logsumexp([a(i), b(i)])
+        L_sil = mean(-s̃(i))
+        """
+        B = z.size(0)
+        cos_dist = 1.0 - z @ z.t()                         # (B, B), cosine distance
+
+        labels_1d = labels.view(-1)
+        eye = torch.eye(B, device=z.device, dtype=torch.bool)
+
+        scores = []
+        for i in range(B):
+            same_mask = (labels_1d == labels_1d[i]) & (~eye[i])
+            opp_mask  = (labels_1d != labels_1d[i])
+
+            if not same_mask.any() or not opp_mask.any():
+                continue
+
+            a = cos_dist[i, same_mask].mean()
+            b = cos_dist[i, opp_mask].mean()
+
+            # clamp prevents div-by-near-zero when both distances are ~0
+            denom = torch.logsumexp(torch.stack([a, b]), dim=0).clamp(min=1e-8)
+            scores.append(-(b - a) / denom)
+
+        if len(scores) == 0:
+            return torch.tensor(0.0, device=z.device, requires_grad=False)
+
+        return torch.stack(scores).mean()
+
     # ---------- Forward ----------
     def _pairwise_similarity(self, z: torch.Tensor) -> torch.Tensor:
         if self.similarity == "cosine":
@@ -149,6 +189,10 @@ class SupConBinaryLoss(nn.Module):
         if self.lambda_uni > 0.0 and B > 1:
             uni_loss = self._uniformity_loss(z)
             main_loss = main_loss + self.lambda_uni * uni_loss
+
+        if self.lambda_sil > 0.0:
+            sil_loss = self._soft_silhouette_loss(z, labels)
+            main_loss = main_loss + self.lambda_sil * sil_loss
 
         return main_loss
 

@@ -254,6 +254,7 @@ def main():
         similarity=cfg.supcon_similarity,
         uniformity_weight=cfg.uniformity_weight,
         uniformity_t=cfg.uniformity_t,
+        sil_weight=cfg.sil_weight,
     )
 
     use_queue = bool(int(os.environ.get("USE_QUEUE", "0")))

@@ -33,6 +33,7 @@ FINETUNE_ENCODER = False
 
 UNIFORMITY_WEIGHT = 0.2
 UNIFORMITY_T = 2.0
+SIL_WEIGHT = 0.0
 SUPCON_SIMILARITY = "cosine"
 
 TOPK_NEG = 15
@@ -80,6 +81,12 @@ def build_config():
         type=float,
         default=UNIFORMITY_T,
         help="Temperature t for uniformity regularizer.",
+    )
+    parser.add_argument(
+        "--sil_weight",
+        type=float,
+        default=SIL_WEIGHT,
+        help="Weight for soft silhouette regularizer (0 disables).",
     )
     parser.add_argument(
         "--epochs",
@@ -276,6 +283,7 @@ def build_config():
         seed=args.seed,
         uniformity_weight=args.uniformity_weight,
         uniformity_t=args.uniformity_t,
+        sil_weight=args.sil_weight,
         supcon_similarity=args.supcon_similarity,
         topk_neg=args.topk_neg,
         warmup_epochs=args.warmup_epochs,
@@ -323,6 +331,7 @@ def print_config(cfg, is_distributed=False, world_size=1, rank=0):
     print(f"SEED={cfg.seed}")
     print(f"UNIFORMITY_WEIGHT={cfg.uniformity_weight}")
     print(f"UNIFORMITY_T={cfg.uniformity_t}")
+    print(f"SIL_WEIGHT={cfg.sil_weight}")
     print(f"SUPCON_SIMILARITY={cfg.supcon_similarity}")
     print(f"TOPK_NEG={cfg.topk_neg}")
     print(f"WARMUP_EPOCHS={cfg.warmup_epochs}")
@@ -363,6 +372,7 @@ def ckpt_config(cfg):
         "BG_NOISE_DIR": cfg.bg_noise_dir,
         "UNIFORMITY_WEIGHT": cfg.uniformity_weight,
         "UNIFORMITY_T": cfg.uniformity_t,
+        "SIL_WEIGHT": cfg.sil_weight,
         "SUPCON_SIMILARITY": cfg.supcon_similarity,
         "FINETUNE_ENCODER": cfg.finetune_encoder,
         "USE_RAVDESS": cfg.use_ravdess,

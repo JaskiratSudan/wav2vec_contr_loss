@@ -78,6 +78,9 @@ ALPHA_RAMP_EPOCHS=20
 UNIFORMITY_WEIGHT=0.0
 UNIFORMITY_T=2.0
 
+# ----- SOFT SILHOUETTE TERM -----
+SIL_WEIGHT=0.0
+
 FINETUNE_ENCODER=1
 ENC_LR=1e-5
 HEAD_LR=5e-3
@@ -179,7 +182,7 @@ export GLOBAL_CENTER=${GLOBAL_CENTER}
 #   --max_duration_seconds ${MAX_DURATION_SECONDS} \
 #   --save_dir ${CKPT_ROOT} \
 #   --epochs ${EPOCHS} --batch_size ${BATCH_SIZE} --num_samples ${NUM_SAMPLES} \
-#   --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight ${UNIFORMITY_WEIGHT} --uniformity_t ${UNIFORMITY_T} \
+#   --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight ${UNIFORMITY_WEIGHT} --uniformity_t ${UNIFORMITY_T} --sil_weight ${SIL_WEIGHT} \
 #   --enc_lr ${ENC_LR} --head_lr ${HEAD_LR} --weight_decay ${WEIGHT_DECAY} --temperature ${TEMPERATURE} \
 #   --num_workers ${NUM_WORKERS} --seed ${SEED} \
 #   --topk_neg ${TOPK_NEG} --warmup_epochs ${WARMUP_EPOCHS} --alpha_end ${ALPHA_END} --alpha_ramp_epochs ${ALPHA_RAMP_EPOCHS} \

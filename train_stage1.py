@@ -169,6 +169,7 @@ def main():
         similarity=cfg.supcon_similarity,
         uniformity_weight=cfg.uniformity_weight,
         uniformity_t=cfg.uniformity_t,
+        sil_weight=cfg.sil_weight,
     )
 
     params = [{"params": head.parameters(), "lr": cfg.head_lr}]

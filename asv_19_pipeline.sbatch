@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=bott_enc_supcon_geodesic_temp_0.07
+#SBATCH --job-name=bott_enc_sil_loss_0.5_supcon_temp_0.3
 #SBATCH --partition=spgpu
 #SBATCH --account=hafiz1
 #SBATCH --gpus-per-node=2
@@ -32,15 +32,15 @@ export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 #----------------------------------------------------------------#
 #  EXPERIMENT VARIABLES
 #----------------------------------------------------------------#
-EXP_NAME=bott_enc_supcon_geodesic_temp_0.07
+EXP_NAME=bott_enc_sil_loss_0.5_supcon_temp_0.3
 
 # XLS-R Layers
 # export XLSR_FROM_LAYER=1
 # export XLSR_TILL_LAYER=24
 
 # SUPCON
-SUPCON_SIMILARITY=geodesic
-TEMPERATURE=0.07
+SUPCON_SIMILARITY=cosine
+TEMPERATURE=0.3
 SEED=1337
 # LABEL TYPE (binary | attack_type)
 LABEL_TYPE=attack_type
@@ -49,6 +49,9 @@ echo "SEED: ${SEED}"
 # UNIFORMITY TERM
 UNIFORMITY_WEIGHT=0.0
 UNIFORMITY_T=2
+
+# SOFT SILHOUETTE TERM
+SIL_WEIGHT=0.5
 
 # HARD NEGATIVE MINING 
 TOPK_NEG=1024
@@ -162,7 +165,7 @@ ${LAUNCHER} train_stage1.py \
   --save_dir ${CKPT_ROOT} \
   --epochs 100 --batch_size ${BATCH_SIZE} --num_samples none --max_duration_seconds ${MAX_DURATION_SECONDS} \
   --accum_steps ${ACCUM_STEPS} \
-  --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight ${UNIFORMITY_WEIGHT} --uniformity_t ${UNIFORMITY_T} \
+  --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight ${UNIFORMITY_WEIGHT} --uniformity_t ${UNIFORMITY_T} --sil_weight ${SIL_WEIGHT} \
   --enc_lr 1e-5 --head_lr 5e-4 --weight_decay 3e-3 --temperature ${TEMPERATURE} \
   --num_workers 4 --seed ${SEED} \
   --topk_neg ${TOPK_NEG} --warmup_epochs ${WARMUP_EPOCHS} --alpha_end ${ALPHA_END} --alpha_ramp_epochs ${ALPHA_RAMP_EPOCHS} \
