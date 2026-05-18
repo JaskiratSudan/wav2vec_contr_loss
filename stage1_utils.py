@@ -8,7 +8,7 @@ import torch.nn.functional as F
 from torch.utils.data import Sampler
 import torch.distributed as dist
 from RawBoost import LnL_convolutive_noise, ISD_additive_noise, SSI_additive_noise
-from bg_augmentation import apply_aug_split_batch
+from bg_augmentation import apply_aug_split_batch, _aug_one, _rawboost_1d
 
 
 def set_seed(seed: int):
@@ -16,6 +16,45 @@ def set_seed(seed: int):
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
+
+
+class AugDatasetWrapper(torch.utils.data.Dataset):
+    """Wraps a dataset and applies augmentation per-sample inside DataLoader workers.
+
+    Moving augmentation here lets workers pipeline CPU aug with GPU compute, hiding
+    the ~2–6s sequential augmentation cost that currently stalls the GPU between batches.
+    """
+
+    def __init__(self, dataset, cfg):
+        self.dataset = dataset
+        self.bg_files = list(cfg.bg_files)
+        self.sr = cfg.target_sample_rate
+        self.use_bg_aug = cfg.use_bg_aug
+        self.use_rawboost = cfg.use_rawboost
+        self.rawboost_prob = cfg.rawboost_prob
+
+    def __len__(self):
+        return len(self.dataset)
+
+    def __getitem__(self, idx):
+        items = self.dataset[idx]
+        waveform = items[0]
+        rest = items[1:]
+
+        if self.use_bg_aug or self.use_rawboost:
+            xi = waveform.numpy().ravel()
+            target_len = xi.shape[0]
+            if self.use_bg_aug:
+                xi = _aug_one(xi, self.sr, self.bg_files)
+            elif self.use_rawboost and random.random() < self.rawboost_prob:
+                xi = _rawboost_1d(xi, self.sr)
+            if xi.shape[0] > target_len:
+                xi = xi[:target_len]
+            elif xi.shape[0] < target_len:
+                xi = np.pad(xi, (0, target_len - xi.shape[0]))
+            waveform = torch.from_numpy(xi.astype(np.float32))
+
+        return (waveform,) + tuple(rest)
 
 
 class EmbeddingQueue:
@@ -185,7 +224,7 @@ def train_one_epoch(encoder, head, loss_fn, loader, optimizer, device, epoch, cf
     rank = dist.get_rank() if dist.is_initialized() else 0
     use_amp = bool(getattr(cfg, "use_amp", False)) and torch.cuda.is_available()
     if use_amp and not hasattr(cfg, "_amp_scaler"):
-        cfg._amp_scaler = torch.cuda.amp.GradScaler()
+        cfg._amp_scaler = torch.amp.GradScaler(device="cuda")
     accum_steps = int(getattr(cfg, "accum_steps", 1))
     if accum_steps < 1:
         accum_steps = 1
@@ -194,11 +233,6 @@ def train_one_epoch(encoder, head, loss_fn, loader, optimizer, device, epoch, cf
         waveforms = waveforms.to(device)
         raw_labels = attack_ids if getattr(cfg, 'label_type', 'binary') == 'attack_type' else bin_labels
         labels = raw_labels.to(device).long()
-
-        if cfg.use_bg_aug:
-            waveforms = apply_aug_split_batch(waveforms, cfg)
-        elif cfg.use_rawboost:
-            waveforms = apply_rawboost_batch(waveforms, labels, cfg)
 
         # windowed loader returns (B, N_chunks, T); take first chunk and compute proper mask
         if waveforms.ndim == 3:
@@ -210,7 +244,7 @@ def train_one_epoch(encoder, head, loss_fn, loader, optimizer, device, epoch, cf
             queue_embs, queue_labels = queue.get()
 
         if use_amp:
-            with torch.cuda.amp.autocast():
+            with torch.amp.autocast(device_type="cuda", dtype=torch.bfloat16):
                 if cfg.finetune_encoder:
                     hs = encoder(waveforms, attention_mask=attn)
                 else:
@@ -301,7 +335,7 @@ def evaluate(encoder, head, loss_fn, loader, device, cfg):
         attn = (waveforms != 0.0).long()
 
         if use_amp:
-            with torch.cuda.amp.autocast():
+            with torch.amp.autocast(device_type="cuda", dtype=torch.bfloat16):
                 hs = encoder(waveforms, attention_mask=attn)
                 seq = head(hs)
                 z = F.normalize(seq.mean(dim=-1), p=2, dim=1)

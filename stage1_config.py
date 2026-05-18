@@ -245,6 +245,13 @@ def build_config():
         choices=[0, 1],
         help="Use bottleneck residual block in CompressionModule before final projection (1) or plain head (0).",
     )
+    parser.add_argument(
+        "--use_amp",
+        type=int,
+        default=1,
+        choices=[0, 1],
+        help="Enable automatic mixed precision (BF16) training for ~2x speedup on Ampere GPUs.",
+    )
     args = parser.parse_args()
 
     num_samples_arg = args.num_samples.strip().lower()
@@ -300,6 +307,7 @@ def build_config():
         patience=args.patience,
         label_type=args.label_type,
         use_bottleneck=bool(args.use_bottleneck),
+        use_amp=bool(args.use_amp),
     )
 
 
@@ -346,6 +354,7 @@ def print_config(cfg, is_distributed=False, world_size=1, rank=0):
     print(f"USE_COMMONVOICE={cfg.use_commonvoice}")
     print(f"PATIENCE={cfg.patience}")
     print(f"USE_BOTTLENECK={cfg.use_bottleneck}")
+    print(f"USE_AMP={cfg.use_amp}")
     print(f"DISTRIBUTED={is_distributed} | WORLD_SIZE={world_size} | RANK={rank}")
     print("=============")
 

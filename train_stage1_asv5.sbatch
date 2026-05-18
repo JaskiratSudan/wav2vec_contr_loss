@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=pooled_bat_64_supcon_geodesic_temp_0.07
+#SBATCH --job-name=pooled_bat_64_bott_enc_sil_loss_1_supcon_temp_0.3
 #SBATCH --partition=spgpu
 #SBATCH --account=hafiz1
-#SBATCH --gpus-per-node=1
-#SBATCH --mem=36G
-#SBATCH --cpus-per-task=6
-#SBATCH --time=10:00:00
+#SBATCH --gpus-per-node=2
+#SBATCH --mem=64G
+#SBATCH --cpus-per-task=8
+#SBATCH --time=50:00:00
 #SBATCH --output=train_stage1_log/%x-%j.log
 
 #SBATCH --mail-user=jsudan@umich.edu
@@ -39,17 +39,24 @@ export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 TRAIN_DATASET_LIST=(
   asv5
   asv19
-  mlaad
+  # mlaad
 )
 export TRAIN_DATASETS=$(IFS=,; echo "${TRAIN_DATASET_LIST[*]}")
 
 export DEV_PER_DATASET=5000   # it is using ASV 5 and ASV 19 dev set
 
-EXP_NAME=pooled_bat_64_supcon_geodesic_temp_0.07
+EXP_NAME=pooled_bat_64_bott_enc_sil_loss_1_supcon_temp_0.3
 MODEL=facebook/wav2vec2-xls-r-300m
 
-SUPCON_SIMILARITY=geodesic
-TEMPERATURE=0.07
+SUPCON_SIMILARITY=cosine
+TEMPERATURE=0.3
+
+# ----- UNIFORMITY TERM -----
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+
+# ----- SOFT SILHOUETTE TERM -----
+SIL_WEIGHT=1
 
 # Train hyperparams
 BATCH_SIZE=64
@@ -57,7 +64,7 @@ MAX_DURATION_SECONDS=10
 EPOCHS=10
 NUM_SAMPLES=none
 SEED=1337
-NUM_WORKERS=6
+NUM_WORKERS=8
 
 # ----- QUEUE / MEMORY BANK -----
 USE_QUEUE=0
@@ -74,27 +81,20 @@ WARMUP_EPOCHS=100
 ALPHA_END=0.9
 ALPHA_RAMP_EPOCHS=20
 
-# ----- UNIFORMITY TERM -----
-UNIFORMITY_WEIGHT=0.0
-UNIFORMITY_T=2.0
-
-# ----- SOFT SILHOUETTE TERM -----
-SIL_WEIGHT=0.0
-
 FINETUNE_ENCODER=1
 ENC_LR=1e-5
 HEAD_LR=5e-3
 WEIGHT_DECAY=3e-3
 
 USE_RAWBOOST=1
-RAWBOOST_PROB=0.1
+RAWBOOST_PROB=0.7
 USE_BG_AUG=1
 
 # ----- EVAL DATASETS as a LIST -----
 EVAL_DATASETS_LIST=(
   itw
   asv19
-  # fakexpose
+  fakexpose
   # asv5
   # asv21_df
   # asv21_la
@@ -176,64 +176,90 @@ export QUEUE_START_EPOCH=${QUEUE_START_EPOCH}
 export CENTER_BEFORE_NORM=${CENTER_BEFORE_NORM}
 export GLOBAL_CENTER=${GLOBAL_CENTER}
 
-# ${LAUNCHER} train_stage1_asv5.py \
-#   --model_name ${MODEL} \
-#   --finetune_encoder ${FINETUNE_ENCODER} \
-#   --max_duration_seconds ${MAX_DURATION_SECONDS} \
-#   --save_dir ${CKPT_ROOT} \
-#   --epochs ${EPOCHS} --batch_size ${BATCH_SIZE} --num_samples ${NUM_SAMPLES} \
-#   --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight ${UNIFORMITY_WEIGHT} --uniformity_t ${UNIFORMITY_T} --sil_weight ${SIL_WEIGHT} \
-#   --enc_lr ${ENC_LR} --head_lr ${HEAD_LR} --weight_decay ${WEIGHT_DECAY} --temperature ${TEMPERATURE} \
-#   --num_workers ${NUM_WORKERS} --seed ${SEED} \
-#   --topk_neg ${TOPK_NEG} --warmup_epochs ${WARMUP_EPOCHS} --alpha_end ${ALPHA_END} --alpha_ramp_epochs ${ALPHA_RAMP_EPOCHS} \
-#   --use_rawboost ${USE_RAWBOOST} --rawboost_prob ${RAWBOOST_PROB} \
-#   --use_bg_aug ${USE_BG_AUG}
-# 
-# if [ ! -f "${CKPT}" ]; then
-#   echo "[ERROR] Stage-1 checkpoint not found: ${CKPT}"
-#   exit 1
-# fi
+${LAUNCHER} train_stage1_asv5.py \
+  --model_name ${MODEL} \
+  --finetune_encoder ${FINETUNE_ENCODER} \
+  --max_duration_seconds ${MAX_DURATION_SECONDS} \
+  --save_dir ${CKPT_ROOT} \
+  --epochs ${EPOCHS} --batch_size ${BATCH_SIZE} --num_samples ${NUM_SAMPLES} \
+  --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight ${UNIFORMITY_WEIGHT} --uniformity_t ${UNIFORMITY_T} --sil_weight ${SIL_WEIGHT} \
+  --enc_lr ${ENC_LR} --head_lr ${HEAD_LR} --weight_decay ${WEIGHT_DECAY} --temperature ${TEMPERATURE} \
+  --num_workers ${NUM_WORKERS} --seed ${SEED} \
+  --topk_neg ${TOPK_NEG} --warmup_epochs ${WARMUP_EPOCHS} --alpha_end ${ALPHA_END} --alpha_ramp_epochs ${ALPHA_RAMP_EPOCHS} \
+  --use_rawboost ${USE_RAWBOOST} --rawboost_prob ${RAWBOOST_PROB} \
+  --use_bg_aug ${USE_BG_AUG} \
+  --use_amp 1
+
+if [ ! -f "${CKPT}" ]; then
+  echo "[ERROR] Stage-1 checkpoint not found: ${CKPT}"
+  exit 1
+fi
 
 export SKIP_ITW=1
 
 rm -rf ${ASV5_EMB_DIR} ${ASV19_EMB_DIR} ${MLAAD_EMB_DIR} ${POOLED_EMB_DIR} ${ITW_EMB_DIR}
 
-# Extracting datasets
+# Extract Stage-1 embeddings only for datasets in TRAIN_DATASET_LIST,
+# then pool exactly those same datasets for Stage-2.
+POOL_IN_DIRS=""
+POOL_NAMES=""
 
-python extract_stage1_embeddings_generic.py \
-  --dataset asv5 \
-  --model_name "${MODEL}" \
-  --stage1_ckpt "${CKPT}" \
-  --out_dir "${ASV5_EMB_DIR}" \
-  --splits "train,dev" \
-  --train_root "${ASV5_TRAIN_ROOT}" --train_protocol "${ASV5_TRAIN_PROTOCOL}" \
-  --dev_root   "${ASV5_DEV_ROOT}"   --dev_protocol   "${ASV5_DEV_PROTOCOL}" \
-  --max_duration_seconds "${MAX_DURATION_SECONDS}"
+for DS in "${TRAIN_DATASET_LIST[@]}"; do
+  case "${DS}" in
+    asv5)
+      python extract_stage1_embeddings_generic.py \
+        --dataset asv5 \
+        --model_name "${MODEL}" \
+        --stage1_ckpt "${CKPT}" \
+        --out_dir "${ASV5_EMB_DIR}" \
+        --splits "train,dev" \
+        --train_root "${ASV5_TRAIN_ROOT}" --train_protocol "${ASV5_TRAIN_PROTOCOL}" \
+        --dev_root   "${ASV5_DEV_ROOT}"   --dev_protocol   "${ASV5_DEV_PROTOCOL}" \
+        --max_duration_seconds "${MAX_DURATION_SECONDS}"
+      POOL_IN_DIRS="${POOL_IN_DIRS},${ASV5_EMB_DIR}"
+      POOL_NAMES="${POOL_NAMES},asv5"
+      ;;
+    asv19)
+      python extract_stage1_embeddings_generic.py \
+        --dataset asv19 \
+        --model_name "${MODEL}" \
+        --stage1_ckpt "${CKPT}" \
+        --out_dir "${ASV19_EMB_DIR}" \
+        --splits "train,dev" \
+        --train_root "${ASV19_TRAIN_ROOT}" --train_protocol "${ASV19_TRAIN_PROTOCOL}" \
+        --dev_root   "${ASV19_DEV_ROOT}"   --dev_protocol   "${ASV19_DEV_PROTOCOL}" \
+        --max_duration_seconds "${MAX_DURATION_SECONDS}"
+      POOL_IN_DIRS="${POOL_IN_DIRS},${ASV19_EMB_DIR}"
+      POOL_NAMES="${POOL_NAMES},asv19"
+      ;;
+    mlaad)
+      python extract_stage1_embeddings_generic.py \
+        --dataset mlaad \
+        --model_name "${MODEL}" \
+        --stage1_ckpt "${CKPT}" \
+        --out_dir "${MLAAD_EMB_DIR}" \
+        --splits "train" \
+        --train_root "${MLAAD_ROOT}" --train_protocol "${MLAAD_PROTOCOL}" \
+        --max_duration_seconds "${MAX_DURATION_SECONDS}"
+      POOL_IN_DIRS="${POOL_IN_DIRS},${MLAAD_EMB_DIR}"
+      POOL_NAMES="${POOL_NAMES},mlaad"
+      ;;
+    *)
+      echo "[WARN] Unknown dataset '${DS}' in TRAIN_DATASET_LIST — skipping extraction"
+      ;;
+  esac
+done
 
-python extract_stage1_embeddings_generic.py \
-  --dataset asv19 \
-  --model_name "${MODEL}" \
-  --stage1_ckpt "${CKPT}" \
-  --out_dir "${ASV19_EMB_DIR}" \
-  --splits "train,dev" \
-  --train_root "${ASV19_TRAIN_ROOT}" --train_protocol "${ASV19_TRAIN_PROTOCOL}" \
-  --dev_root   "${ASV19_DEV_ROOT}"   --dev_protocol   "${ASV19_DEV_PROTOCOL}" \
-  --max_duration_seconds "${MAX_DURATION_SECONDS}"
+# Strip the leading comma added by the loop
+POOL_IN_DIRS="${POOL_IN_DIRS#,}"
+POOL_NAMES="${POOL_NAMES#,}"
 
-python extract_stage1_embeddings_generic.py \
-  --dataset mlaad \
-  --model_name "${MODEL}" \
-  --stage1_ckpt "${CKPT}" \
-  --out_dir "${MLAAD_EMB_DIR}" \
-  --splits "train" \
-  --train_root "${MLAAD_ROOT}" --train_protocol "${MLAAD_PROTOCOL}" \
-  --max_duration_seconds "${MAX_DURATION_SECONDS}"
+echo "Stage-2 pooling: datasets=${POOL_NAMES}"
 
-# Pooling dataset for stage 2
-
+# Pool into a single Stage-2 training set
 python pool_stage1_embeddings.py \
-  --in_dirs "${ASV5_EMB_DIR},${ASV19_EMB_DIR},${MLAAD_EMB_DIR}" \
-  --names "asv5,asv19,mlaad" \
+  --in_dirs "${POOL_IN_DIRS}" \
+  --names "${POOL_NAMES}" \
   --out_dir "${POOLED_EMB_DIR}" \
   --splits "train,dev" \
   --allow_missing_splits

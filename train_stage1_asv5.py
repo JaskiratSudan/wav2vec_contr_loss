@@ -14,11 +14,12 @@ from loss import SupConBinaryLoss
 from stage1_config import build_config, print_config, ckpt_config
 from stage1_utils import (
     set_seed,
+    AugDatasetWrapper,
     BalancedBatchSampler,
     train_one_epoch,
     evaluate,
     setup_distributed,
-    EmbeddingQueue,   
+    EmbeddingQueue,
 )
 from data_loader import ASVspoof2019Dataset, MLAADMailabsDataset
 import random
@@ -196,16 +197,17 @@ def main():
     train_sampler = BalancedBatchSampler(
         train_ds, batch_size_per_gpu, seed=cfg.seed, rank=rank, world_size=world_size
     )
-    # dev_sampler = BalancedBatchSampler(
-    #     dev_ds, batch_size_per_gpu, seed=cfg.seed + 1, rank=rank, world_size=world_size
-    # )
+
+    # Wrap with augmentation so workers pipeline CPU aug with GPU compute
+    aug_train_ds = AugDatasetWrapper(train_ds, cfg)
 
     train_loader = DataLoader(
-        train_ds,
+        aug_train_ds,
         batch_sampler=train_sampler,
         num_workers=cfg.num_workers,
         pin_memory=True,
         collate_fn=asv5_collate,
+        persistent_workers=(cfg.num_workers > 0),
     )
 
     if rank == 0:
@@ -367,6 +369,9 @@ def main():
             if rank == 0:
                 print(f"Early stopping at epoch {epoch:03d} (no improvement for {cfg.patience} epochs).")
             break
+
+    if is_distributed:
+        dist.destroy_process_group()
 
 
 if __name__ == "__main__":

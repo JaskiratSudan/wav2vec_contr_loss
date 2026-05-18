@@ -31,6 +31,16 @@ from RawBoost import LnL_convolutive_noise, ISD_additive_noise, SSI_additive_noi
 
 _DEFAULT_BG_NOISE_DIR = os.path.join(os.path.dirname(__file__), "bg_noise")
 
+# Per-process RAM cache: each DataLoader worker loads each bg file at most once.
+_BG_ARRAY_CACHE: dict = {}
+
+
+def _load_bg_cached(path: str, sr: int) -> np.ndarray:
+    key = (path, sr)
+    if key not in _BG_ARRAY_CACHE:
+        _BG_ARRAY_CACHE[key] = librosa.load(path, sr=sr, mono=True)[0]
+    return _BG_ARRAY_CACHE[key]
+
 
 def _discover_bg_files(bg_noise_dir: str = _DEFAULT_BG_NOISE_DIR):
     files = glob.glob(os.path.join(bg_noise_dir, "*.mp3"))
@@ -46,7 +56,7 @@ def mix_mild_background(speech: np.ndarray, sr: int, bg_files: list,
     """Mix speech with a randomly selected background noise file at a mild SNR."""
     if not bg_files:
         return speech
-    bg, _ = librosa.load(random.choice(bg_files), sr=sr, mono=True)
+    bg = _load_bg_cached(random.choice(bg_files), sr).copy()
     if len(bg) == 0:
         return speech
     if len(bg) < len(speech):

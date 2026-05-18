@@ -2,6 +2,7 @@ from pathlib import Path
 
 import torch
 import torch.nn.functional as F
+import torchaudio
 from tqdm import tqdm
 import librosa
 
@@ -36,18 +37,31 @@ class BaseAudioDataset(torch.utils.data.Dataset):
 
     def _process_audio(self, audio_path: Path) -> torch.Tensor:
         try:
-            waveform, sample_rate = librosa.load(
-                audio_path, sr=self.target_sample_rate, mono=True
-            )
-            waveform = torch.from_numpy(waveform).float()
-            BaseAudioDataset.loaded_count += 1
-        except Exception as e:
-            tqdm.write(f"[WARNING] Corrupted file: {audio_path}. Error: {e}")
-            BaseAudioDataset.failed_count += 1
-            if self.max_duration_seconds is not None:
-                return torch.zeros(self.max_duration_seconds * self.target_sample_rate)
+            waveform, sample_rate = torchaudio.load(str(audio_path))
+            if waveform.shape[0] > 1:
+                waveform = waveform.mean(0)
             else:
-                return torch.zeros(self.target_sample_rate)
+                waveform = waveform[0]
+            if sample_rate != self.target_sample_rate:
+                waveform = torchaudio.functional.resample(
+                    waveform, sample_rate, self.target_sample_rate
+                )
+            BaseAudioDataset.loaded_count += 1
+        except Exception:
+            # Fallback for formats torchaudio can't handle (e.g. macOS ._* metadata files)
+            try:
+                waveform_np, _ = librosa.load(
+                    audio_path, sr=self.target_sample_rate, mono=True
+                )
+                waveform = torch.from_numpy(waveform_np).float()
+                BaseAudioDataset.loaded_count += 1
+            except Exception as e:
+                tqdm.write(f"[WARNING] Corrupted file: {audio_path}. Error: {e}")
+                BaseAudioDataset.failed_count += 1
+                if self.max_duration_seconds is not None:
+                    return torch.zeros(self.max_duration_seconds * self.target_sample_rate)
+                else:
+                    return torch.zeros(self.target_sample_rate)
 
         if waveform.ndim > 1:
             waveform = waveform.mean(dim=0)

@@ -400,6 +400,10 @@ class MLAADMailabsDataset(BaseAudioDataset):
                     continue
 
                 audio_name = Path(rel_path).name
+                # Skip macOS AppleDouble resource-fork files (._filename) — not audio
+                if audio_name.startswith("._"):
+                    continue
+
                 full_path = self.root_dir / rel_path
                 binary_label = 1 if label_str == "bonafide" else 0
 
@@ -440,6 +444,7 @@ class MLAADMailabsDataset(BaseAudioDataset):
             waveform,
             torch.tensor(binary_label, dtype=torch.long),
             torch.tensor(multi_label, dtype=torch.long),
+            "mlaad",   # speaker field — matches 5-tuple expected by pad_collate_fn_speaker_source_multiclass
             audio_name,
         )
 
