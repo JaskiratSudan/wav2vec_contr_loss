@@ -61,8 +61,8 @@ Training: ASVspoof 2019 LA. Metric: EER (%, lower is better).
 |---|---|---|---|---|---|
 | Baseline (BCE) | 0.23 | 12.18 | 9.12 | 7.54 | 7.27 |
 | Cosine SupCon (τ=0.30, no queue) | 0.35 | 9.99 | 6.58 | 6.18 | 5.78 |
-| Geodesic SupCon (τ=0.07, no queue) | 0.25 | 8.70 | 6.16 | 6.11 | 5.31 |
-| Cosine SupCon + queue (|Q|=4096) | — | **8.29** | — | — | **4.44** |
+| Geodesic SupCon (τ=0.07, no queue) | 0.25 | **8.70** | **6.16** | **6.11** | **5.31** |
+| Cosine SupCon + queue (Q=2048) | 0.21 | 8.51 | 4.50 | 4.54 | **4.44** |
 
 ---
 
