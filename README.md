@@ -1,38 +1,106 @@
-# wav2vec_contr_loss (experimental)
+# Similarity Choice and Negative Scaling in Supervised Contrastive Learning for Deepfake Audio Detection
 
-Training and evaluation for spoofed-speech detection using Wav2Vec2 encoders,
-a lightweight compression head, and supervised contrastive losses. The repo
-has two main pipelines:
+Code for the master's thesis and accompanying paper:
+**[Similarity Choice and Negative Scaling in Supervised Contrastive Learning for Deepfake Audio Detection](https://arxiv.org/abs/2604.26057)**
+Jaskirat Sudan, Hashim Ali, Surya Subramani, Hafiz Malik. arXiv 2604.26057
 
-- **Baseline**: end-to-end BCE classifier (Wav2Vec2 → head → BCE).
-- **SupCon experiments**: Stage-1 contrastive training to learn embeddings,
-  Stage-2 classifier on those embeddings, plus plotting and scoring utilities.
+---
 
-## Architectures
+## What is this?
+
+This repo implements a two-stage pipeline for deepfake audio detection using **[wav2vec2 XLS-R (300M)](https://huggingface.co/facebook/wav2vec2-xls-r-300m)** with supervised contrastive learning. The thesis studies two specific design choices in the contrastive objective:
+
+1. **Similarity choice**: cosine vs. angular (geodesic) similarity on the unit hypersphere.
+2. **Negative scaling**: whether expanding the negative set via a cross-batch memory queue helps or hurts, and why the answer differs between the two similarity functions.
+
+Training is done on ASVspoof 2019 LA. The key evaluation is cross-dataset generalisation to In-The-Wild (ITW) — real-world deepfakes the model never saw during training.
+
+---
+
+## Architecture
 
 ### Baseline
 
 ![Baseline architecture](assets/baseline_architecture.png)
 
-The baseline is an end-to-end binary classifier. Audio is encoded with
-Wav2Vec2, compressed into a clip embedding, and trained with BCE. This
-establishes the reference performance for all experiments.
+End-to-end binary classifier: [Wav2Vec2 XLS-R](https://huggingface.co/facebook/wav2vec2-xls-r-300m) encoder + compression head + BCE loss.
 
-### Experiments (SupCon variants)
+### Two-stage SupCon pipeline
 
-![SupCon/experiment architecture](assets/experiment_architecture.png)
+![SupCon architecture](assets/experiment_architecture.png)
 
-All experiments share the same encoder and compression head, and differ only
-in the contrastive objective or its hyperparameters:
+**Stage 1** trains the encoder and projection head with supervised contrastive loss to shape the embedding space. **Stage 2** freezes both and trains a linear classifier on the resulting embeddings with BCE. The two stages are fully decoupled.
 
-- **Similarity choice**: cosine vs geodesic similarity.
-- **Uniformity regularizer**: optional term with `uniformity_weight` and
-  `uniformity_t`.
-- **Hard-negative mining**: top-K mining with a warmup and ramped alpha.
+---
 
-The pipeline is consistent across experiments: Stage-1 learns embeddings with
-SupCon, Stage-2 trains a lightweight classifier on those embeddings.
+## Learned Representations
 
-## Data
+UMAP projections showing what Stage 1 training does to the embedding space.
 
-Only ASVspoof 19 LA Train set is used to train the models (baseline and all the experiments)and ASVspoof LA Dev set is used vor validation. Evaluation is done on ASVspoof 19 LA Eval and In The Wild datasets.
+### ASVspoof 2019 LA eval (in-domain, coloured by attack type)
+
+| Before Stage 1 | After Stage 1 |
+|:---:|:---:|
+| ![ASV19 before](assets/umap_before_asv19.png) | ![ASV19 after](assets/umap_after_asv19.png) |
+
+### In-The-Wild (out-of-domain, real vs. spoof)
+
+| Before Stage 1 | After Stage 1 |
+|:---:|:---:|
+| ![ITW before](assets/umap_before_itw.png) | ![ITW after](assets/umap_after_itw.png) |
+
+On ITW, real (blue) and spoof (red) are massively overlapping before training. After Stage 1, they split into distinct regions — despite the model never seeing ITW data.
+
+---
+
+## Results
+
+Training: ASVspoof 2019 LA. Metric: EER (%, lower is better).
+
+| System | ASV19-LA | ITW | ASV21-DF | ASV21-LA | Pooled |
+|---|---|---|---|---|---|
+| Baseline (BCE) | 0.23 | 12.18 | 9.12 | 7.54 | 7.27 |
+| Cosine SupCon (τ=0.30, no queue) | 0.35 | 9.99 | 6.58 | 6.18 | 5.78 |
+| Geodesic SupCon (τ=0.07, no queue) | 0.25 | 8.70 | 6.16 | 6.11 | 5.31 |
+| Cosine SupCon + queue (|Q|=4096) | — | **8.29** | — | — | **4.44** |
+
+---
+
+## Running
+
+**Stage-1 contrastive training:**
+```bash
+python train_stage1.py \
+  --supcon_similarity geodesic \
+  --temperature 0.07 \
+  --queue_size 0
+```
+
+**Baseline:**
+```bash
+python baseline_train.py
+```
+
+**Extract embeddings, then train Stage-2 classifier:**
+```bash
+python extract_stage1_embeddings.py --ckpt checkpoints_stage1/<run>/stage1_head_best.pt
+python train_stage2_classifier.py --emb_dir encoder_embeddings/<run>/
+```
+
+**Evaluate on all datasets:**
+```bash
+python eval_datasets.py --ckpt_path checkpoints_stage2/<run>/
+```
+
+---
+
+## Citation
+
+```bibtex
+@article{sudan2026similarity,
+  title   = {Similarity Choice and Negative Scaling in Supervised Contrastive Learning for Deepfake Audio Detection},
+  author  = {Sudan, Jaskirat and Ali, Hashim and Subramani, Surya and Malik, Hafiz},
+  journal = {arXiv preprint arXiv:2604.26057},
+  year    = {2026}
+}
+```

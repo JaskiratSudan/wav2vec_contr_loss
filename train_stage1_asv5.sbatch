@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=pooled_bat_64_bott_enc_sil_loss_1_supcon_temp_0.3
+#SBATCH --job-name=pooled_bat_64_bott_enc_sil_loss_0.8_supcon_temp_0.3
 #SBATCH --partition=spgpu
 #SBATCH --account=hafiz1
 #SBATCH --gpus-per-node=2
@@ -39,13 +39,13 @@ export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 TRAIN_DATASET_LIST=(
   asv5
   asv19
-  # mlaad
+  mlaad
 )
 export TRAIN_DATASETS=$(IFS=,; echo "${TRAIN_DATASET_LIST[*]}")
 
 export DEV_PER_DATASET=5000   # it is using ASV 5 and ASV 19 dev set
 
-EXP_NAME=pooled_bat_64_bott_enc_sil_loss_1_supcon_temp_0.3
+EXP_NAME=pooled_bat_64_bott_enc_sil_loss_0.8_supcon_temp_0.3
 MODEL=facebook/wav2vec2-xls-r-300m
 
 SUPCON_SIMILARITY=cosine
@@ -56,7 +56,7 @@ UNIFORMITY_WEIGHT=0.0
 UNIFORMITY_T=2.0
 
 # ----- SOFT SILHOUETTE TERM -----
-SIL_WEIGHT=1
+SIL_WEIGHT=0.8
 
 # Train hyperparams
 BATCH_SIZE=64

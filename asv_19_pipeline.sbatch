@@ -1,9 +1,9 @@
 #!/bin/bash
-#SBATCH --job-name=bott_enc_sil_loss_0.5_supcon_temp_0.3
+#SBATCH --job-name=bott_enc_sil_loss_0.8_supcon_temp_0.3
 #SBATCH --partition=spgpu
 #SBATCH --account=hafiz1
 #SBATCH --gpus-per-node=2
-#SBATCH --mem=36G
+#SBATCH --mem=96G
 #SBATCH --cpus-per-task=4
 #SBATCH --time=15:00:00
 #SBATCH --output=asv_19_training_log/%x-%j.log
@@ -27,12 +27,15 @@ echo "Current GPU: $(nvidia-smi --query-gpu=name --format=csv,noheader)"
 echo "----------------------------------------------------------------"
 
 export MASTER_PORT=$((29500 + $SLURM_JOB_ID % 1000))
+export MASTER_ADDR=127.0.0.1
+export GLOO_SOCKET_IFNAME=eth0
+export NCCL_SOCKET_IFNAME=eth0
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 #----------------------------------------------------------------#
 #  EXPERIMENT VARIABLES
 #----------------------------------------------------------------#
-EXP_NAME=bott_enc_sil_loss_0.5_supcon_temp_0.3
+EXP_NAME=bott_enc_sil_loss_0.8_supcon_temp_0.3
 
 # XLS-R Layers
 # export XLSR_FROM_LAYER=1
@@ -51,7 +54,7 @@ UNIFORMITY_WEIGHT=0.0
 UNIFORMITY_T=2
 
 # SOFT SILHOUETTE TERM
-SIL_WEIGHT=0.5
+SIL_WEIGHT=0.8
 
 # HARD NEGATIVE MINING 
 TOPK_NEG=1024
@@ -166,10 +169,11 @@ ${LAUNCHER} train_stage1.py \
   --epochs 100 --batch_size ${BATCH_SIZE} --num_samples none --max_duration_seconds ${MAX_DURATION_SECONDS} \
   --accum_steps ${ACCUM_STEPS} \
   --supcon_similarity ${SUPCON_SIMILARITY} --uniformity_weight ${UNIFORMITY_WEIGHT} --uniformity_t ${UNIFORMITY_T} --sil_weight ${SIL_WEIGHT} \
-  --enc_lr 1e-5 --head_lr 5e-4 --weight_decay 3e-3 --temperature ${TEMPERATURE} \
+  --enc_lr 1e-5 --head_lr 5e-3 --weight_decay 3e-3 --temperature ${TEMPERATURE} \
   --num_workers 4 --seed ${SEED} \
   --topk_neg ${TOPK_NEG} --warmup_epochs ${WARMUP_EPOCHS} --alpha_end ${ALPHA_END} --alpha_ramp_epochs ${ALPHA_RAMP_EPOCHS} \
   --use_rawboost 1 --rawboost_prob 0.7 \
+  --use_bg_aug 1 \
   --use_ravdess ${USE_RAVDESS} --use_commonvoice ${USE_COMMONVOICE} \
   --use_bottleneck ${USE_BOTTLENECK} \
   --label_type ${LABEL_TYPE}

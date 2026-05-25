@@ -1,0 +1,347 @@
+Setting up the environment...
+Job started on gl1500.arc-ts.umich.edu at Thu May 14 21:35:37 EDT 2026
+Python version: Python 3.9.7
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+Current GPU: NVIDIA A40
+NVIDIA A40
+----------------------------------------------------------------
+ASV5_TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_train/flac
+ASV5_TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5_train_protocol.txt
+ASV5_DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_dev/flac
+ASV5_DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5.dev.metadata.txt
+ASV5_EVAL_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/No_Laundering_eval/flac
+ASV5_EVAL_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/ASVSpoof5/protocols/ASVspoof5.eval.track_1.tsv
+EXPERIMENT NAME: pooled_bat_64_bott_enc_sil_loss_0.8_supcon_temp_0.3
+Using BATCH_SIZE=64
+W0514 21:35:46.039268 3361062 torch/distributed/run.py:774] 
+W0514 21:35:46.039268 3361062 torch/distributed/run.py:774] *****************************************
+W0514 21:35:46.039268 3361062 torch/distributed/run.py:774] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0514 21:35:46.039268 3361062 torch/distributed/run.py:774] *****************************************
+[W514 21:35:46.997476602 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30400 (errno: 97 - Address family not supported by protocol).
+[W514 21:35:46.998551203 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30400 (errno: 97 - Address family not supported by protocol).
+[W514 21:35:46.999627153 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30400 (errno: 97 - Address family not supported by protocol).
+[W514 21:35:55.889927427 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30400 (errno: 97 - Address family not supported by protocol).
+[W514 21:35:55.889969127 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30400 (errno: 97 - Address family not supported by protocol).
+[W514 21:35:55.891066041 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30400 (errno: 97 - Address family not supported by protocol).
+[W514 21:35:55.891176411 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30400 (errno: 97 - Address family not supported by protocol).
+[W514 21:35:55.892194809 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30400 (errno: 97 - Address family not supported by protocol).
+[W514 21:35:55.892329058 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:30400 (errno: 97 - Address family not supported by protocol).
+=== CONFIG ===
+MODEL_NAME=facebook/wav2vec2-xls-r-300m
+SAVE_DIR=/scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/pooled_bat_64_bott_enc_sil_loss_0.8_supcon_temp_0.3/facebook__wav2vec2-xls-r-300m
+TRAIN_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_train/flac
+TRAIN_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_train_protocol_with_speaker.txt
+DEV_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_LA_dev/flac
+DEV_PROTOCOL=/nfs/turbo/umd-hafiz/issf_server_data/AsvSpoofData_2019/train/LA/ASVspoof2019_dev_protocol_with_speaker.txt
+RAVDESS_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/RAVDESS_audio
+COMMONVOICE_ROOT=/nfs/turbo/umd-hafiz/issf_server_data/common_voice_en/wav_files
+TARGET_SAMPLE_RATE=16000
+MAX_DURATION_SECONDS=10
+INPUT_DIM=1024
+HIDDEN_DIM=256
+DROPOUT=0.1
+EPOCHS=10
+BATCH_SIZE=64
+NUM_SAMPLES=None
+HEAD_LR=0.005
+ENC_LR=1e-05
+WEIGHT_DECAY=0.003
+TEMPERATURE=0.3
+NUM_WORKERS=12
+SEED=1337
+UNIFORMITY_WEIGHT=0.0
+UNIFORMITY_T=2.0
+SIL_WEIGHT=0.8
+SUPCON_SIMILARITY=cosine
+TOPK_NEG=1024
+WARMUP_EPOCHS=100
+ALPHA_END=0.9
+ALPHA_RAMP_EPOCHS=20
+USE_RAWBOOST=True
+RAWBOOST_PROB=0.7
+USE_BG_AUG=True
+BG_NOISE_DIR=/home/jsudan/wav2vec_contr_loss/bg_noise
+FINETUNE_ENCODER=True
+USE_RAVDESS=False
+USE_COMMONVOICE=False
+PATIENCE=15
+USE_BOTTLENECK=False
+DISTRIBUTED=True | WORLD_SIZE=2 | RANK=0
+=============
+Using device: cuda:0 | RawBoost=True (p=0.7)
+CUDA device count: 2
+[INFO] POOLED TRAIN_DATASETS=['asv19', 'asv5', 'mlaad']
+[INFO] Pooled train samples: bonafide=175377, spoof=340360, total=515737
+[INFO] Train samples loaded: bonafide=175377, spoof=340360
+[DEV SUBSET] ASV5  bonafide=2500 spoof=2500 total=5000
+[DEV SUBSET] ASV19 bonafide=2500 spoof=2500 total=5000
+[INFO] Global batch size=64 | Per-GPU batch size=32
+Using device: cuda:0 | RawBoost=True (p=0.7) | BG_AUG=True (15 noise files)
+[rank0] pos_mean=0.9401 neg_mean=0.9416 n_pos=16 n_neg=16
+[rank0] sim_mean=0.9427 sim_std=0.0715 Loss: 3.452216386795044
+[rank1] sim_mean=0.9171 sim_std=0.0776 Loss: 3.4551138877868652
+[rank0] pos_mean=0.9745 neg_mean=-0.5619 n_pos=16 n_neg=16
+[rank0] sim_mean=0.2071 sim_std=0.7813 Loss: 2.0247294902801514
+[rank1] sim_mean=0.2370 sim_std=0.7500 Loss: 2.452173948287964
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[rank1] sim_mean=0.1547 sim_std=0.8387 Loss: 1.9940009117126465
+[rank0] pos_mean=0.8861 neg_mean=-0.5292 n_pos=16 n_neg=16
+[rank0] sim_mean=0.1820 sim_std=0.8002 Loss: 2.345669984817505
+[rank1] sim_mean=0.0950 sim_std=0.8842 Loss: 2.2175211906433105
+[rank0] pos_mean=0.9422 neg_mean=-0.7553 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0953 sim_std=0.8798 Loss: 2.0767123699188232
+[rank0] pos_mean=0.9353 neg_mean=-0.6766 n_pos=16 n_neg=16
+[rank0] sim_mean=0.1314 sim_std=0.8497 Loss: 2.1243131160736084
+[rank1] sim_mean=0.1213 sim_std=0.8663 Loss: 2.003511428833008
+[rank0] pos_mean=0.9990 neg_mean=-0.9327 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0332 sim_std=0.9664 Loss: 1.9625160694122314
+[rank1] sim_mean=0.0545 sim_std=0.9411 Loss: 2.418276309967041
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank1] sim_mean=0.0135 sim_std=0.9636 Loss: 2.0361759662628174
+[rank0] pos_mean=0.9499 neg_mean=-0.9195 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0168 sim_std=0.9525 Loss: 2.034024238586426
+[rank1] sim_mean=0.0366 sim_std=0.9486 Loss: 1.9817030429840088
+[rank0] pos_mean=0.9917 neg_mean=-0.9359 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0282 sim_std=0.9656 Loss: 1.9675953388214111
+[rank1] sim_mean=0.0076 sim_std=0.9925 Loss: 1.958425521850586
+[rank0] pos_mean=0.9996 neg_mean=-0.9840 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0078 sim_std=0.9923 Loss: 1.9584355354309082
+[rank1] sim_mean=0.0200 sim_std=0.9656 Loss: 1.9788713455200195
+[rank0] pos_mean=0.9993 neg_mean=-0.9738 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0128 sim_std=0.9871 Loss: 1.9593048095703125
+[rank0] pos_mean=0.9892 neg_mean=-0.8529 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0685 sim_std=0.9248 Loss: 1.9780528545379639
+[rank1] sim_mean=0.0634 sim_std=0.9349 Loss: 1.9683704376220703
+[epoch 001] alpha=0.00 train_loss=2.1316 dev_asv5=3.8745 dev_asv19=2.7884 avg_dev=3.3315
+✓ Saved best -> /scratch/hafiz_root/hafiz1/jsudan/wav2vec_contr_loss/checkpoints_stage1/pooled_bat_64_bott_enc_sil_loss_0.8_supcon_temp_0.3/facebook__wav2vec2-xls-r-300m/wav2vec2-xls-r-300m_stage1_head_best.pt (dev=3.3315)
+[rank0] pos_mean=0.8797 neg_mean=-0.8346 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0263 sim_std=0.9746 Loss: 2.4276645183563232
+[rank1] sim_mean=0.0192 sim_std=0.9805 Loss: 1.9603382349014282
+[rank1] sim_mean=0.0263 sim_std=0.9569 Loss: 2.2454092502593994
+[rank0] pos_mean=0.9886 neg_mean=-0.9494 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0199 sim_std=0.9718 Loss: 1.9707651138305664
+[rank1] sim_mean=0.0158 sim_std=0.9841 Loss: 1.9597234725952148
+[rank0] pos_mean=0.9844 neg_mean=-0.9490 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0182 sim_std=0.9708 Loss: 1.976704478263855
+[rank1] sim_mean=0.0082 sim_std=0.9856 Loss: 1.9646155834197998
+[rank0] pos_mean=0.9980 neg_mean=-0.9821 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0080 sim_std=0.9907 Loss: 1.9592907428741455
+[rank1] sim_mean=0.0342 sim_std=0.9654 Loss: 1.962640643119812
+[rank0] pos_mean=0.8756 neg_mean=-0.8009 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0412 sim_std=0.9588 Loss: 2.4434475898742676
+[rank1] sim_mean=0.0135 sim_std=0.9861 Loss: 1.9595825672149658
+[rank0] pos_mean=0.9995 neg_mean=-0.9744 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0126 sim_std=0.9875 Loss: 1.9591797590255737
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[rank0] pos_mean=0.9993 neg_mean=-0.9733 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0130 sim_std=0.9868 Loss: 1.9593250751495361
+[rank1] sim_mean=0.0121 sim_std=0.9879 Loss: 1.9591383934020996
+[rank0] pos_mean=0.9981 neg_mean=-0.9939 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0022 sim_std=0.9966 Loss: 1.9585189819335938
+[rank1] sim_mean=0.0065 sim_std=0.9730 Loss: 2.2172210216522217
+[rank1] sim_mean=0.0028 sim_std=0.9973 Loss: 1.9577395915985107
+[rank0] pos_mean=0.9997 neg_mean=-0.9945 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0026 sim_std=0.9976 Loss: 1.957666277885437
+[rank0] pos_mean=0.9998 neg_mean=-0.9915 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0042 sim_std=0.9961 Loss: 1.9578392505645752
+[rank1] sim_mean=0.0041 sim_std=0.9961 Loss: 1.9578454494476318
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank1] sim_mean=0.0077 sim_std=0.9757 Loss: 1.9885470867156982
+[rank0] pos_mean=0.9997 neg_mean=-0.9924 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0036 sim_std=0.9966 Loss: 1.957810878753662
+[epoch 002] alpha=0.00 train_loss=2.0068 dev_asv5=4.2824 dev_asv19=2.6834 avg_dev=3.4829
+[rank1] sim_mean=0.0023 sim_std=0.9978 Loss: 1.9576499462127686
+[rank0] pos_mean=0.9998 neg_mean=-0.9955 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0022 sim_std=0.9981 Loss: 1.957554578781128
+[rank1] sim_mean=0.0133 sim_std=0.9810 Loss: 1.9650609493255615
+[rank0] pos_mean=0.9398 neg_mean=-0.9068 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0184 sim_std=0.9596 Loss: 2.101027488708496
+[rank1] sim_mean=0.0046 sim_std=0.9956 Loss: 1.9579081535339355
+[rank0] pos_mean=0.9964 neg_mean=-0.9828 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0069 sim_std=0.9903 Loss: 1.9601647853851318
+[rank1] sim_mean=0.0055 sim_std=0.9877 Loss: 1.9650750160217285
+[rank0] pos_mean=0.9988 neg_mean=-0.9896 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0046 sim_std=0.9947 Loss: 1.9584239721298218
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[rank0] pos_mean=0.9998 neg_mean=-0.9881 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0059 sim_std=0.9944 Loss: 1.9580509662628174
+[rank1] sim_mean=0.0067 sim_std=0.9934 Loss: 1.9582688808441162
+[rank0] pos_mean=0.9994 neg_mean=-0.9766 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0114 sim_std=0.9885 Loss: 1.9590405225753784
+[rank1] sim_mean=0.0152 sim_std=0.9750 Loss: 1.9723628759384155
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  waveform, sample_rate = librosa.load(
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank0] pos_mean=0.9988 neg_mean=-0.9847 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0071 sim_std=0.9923 Loss: 1.9587762355804443
+[rank1] sim_mean=0.0075 sim_std=0.9919 Loss: 1.9587857723236084
+[rank0] pos_mean=0.9775 neg_mean=-0.9767 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0011 sim_std=0.9821 Loss: 1.9848328828811646
+[rank1] sim_mean=0.0002 sim_std=0.9991 Loss: 1.9578579664230347
+[rank1] sim_mean=0.0021 sim_std=0.9983 Loss: 1.9575116634368896
+[rank0] pos_mean=0.9996 neg_mean=-0.9948 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0024 sim_std=0.9977 Loss: 1.9576919078826904
+[rank1] sim_mean=0.0456 sim_std=0.8909 Loss: 2.614180564880371
+[rank0] pos_mean=0.8775 neg_mean=-0.8582 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0135 sim_std=0.9895 Loss: 2.440985918045044
+[rank0] pos_mean=0.9999 neg_mean=-0.9946 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0027 sim_std=0.9978 Loss: 1.9575536251068115
+[rank1] sim_mean=0.0026 sim_std=0.9978 Loss: 1.9575409889221191
+[epoch 003] alpha=0.00 train_loss=1.9919 dev_asv5=4.5856 dev_asv19=2.6994 avg_dev=3.6425
+[rank1] sim_mean=0.0049 sim_std=0.9953 Loss: 1.9579601287841797
+[rank0] pos_mean=0.9978 neg_mean=-0.9865 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0058 sim_std=0.9928 Loss: 1.9592055082321167
+[rank0] pos_mean=0.9978 neg_mean=-0.9860 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0060 sim_std=0.9925 Loss: 1.9592134952545166
+[rank1] sim_mean=0.0075 sim_std=0.9752 Loss: 1.9918169975280762
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  try:
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank0] pos_mean=0.9998 neg_mean=-0.9941 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0029 sim_std=0.9974 Loss: 1.9576445817947388
+[rank1] sim_mean=0.0028 sim_std=0.9976 Loss: 1.9575927257537842
+[rank1] sim_mean=0.0075 sim_std=0.9896 Loss: 1.9605557918548584
+[rank0] pos_mean=0.9997 neg_mean=-0.9881 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0058 sim_std=0.9944 Loss: 1.9581012725830078
+[rank1] sim_mean=0.0009 sim_std=0.9994 Loss: 1.9573636054992676
+[rank0] pos_mean=0.9999 neg_mean=-0.9984 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0007 sim_std=0.9996 Loss: 1.9573028087615967
+[rank0] pos_mean=0.9999 neg_mean=-0.9836 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0082 sim_std=0.9922 Loss: 1.9583240747451782
+[rank1] sim_mean=0.0154 sim_std=0.9618 Loss: 2.104325532913208
+[rank0] pos_mean=0.9925 neg_mean=-0.9854 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0038 sim_std=0.9901 Loss: 1.9630367755889893
+[rank1] sim_mean=0.0056 sim_std=0.9687 Loss: 2.0554354190826416
+[rank0] pos_mean=0.9996 neg_mean=-0.9956 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0020 sim_std=0.9981 Loss: 1.9576075077056885
+[rank1] sim_mean=0.0019 sim_std=0.9984 Loss: 1.9574768543243408
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  try:
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[rank0] pos_mean=0.9999 neg_mean=-0.9964 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0018 sim_std=0.9986 Loss: 1.9574413299560547
+[rank1] sim_mean=0.0020 sim_std=0.9984 Loss: 1.957478642463684
+[rank0] pos_mean=0.9868 neg_mean=-0.9752 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0062 sim_std=0.9837 Loss: 1.970993161201477
+[rank1] sim_mean=0.0103 sim_std=0.9649 Loss: 2.102888822555542
+[rank1] sim_mean=0.0029 sim_std=0.9973 Loss: 1.9577000141143799
+[rank0] pos_mean=0.9999 neg_mean=-0.9950 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0025 sim_std=0.9979 Loss: 1.9575588703155518
+[epoch 004] alpha=0.00 train_loss=1.9839 dev_asv5=4.6289 dev_asv19=2.6813 avg_dev=3.6551
+[rank1] sim_mean=0.0002 sim_std=1.0003 Loss: 1.957177996635437
+[rank0] pos_mean=0.9999 neg_mean=-0.9994 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0003 sim_std=1.0002 Loss: 1.9572117328643799
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  try:
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/en_US/by_book/female/judy_bieber/ozma_of_oz/wavs/._ozma_of_oz_10_f000095.wav'
+[rank0] pos_mean=0.9998 neg_mean=-0.9848 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0075 sim_std=0.9928 Loss: 1.9583019018173218
+[rank1] sim_mean=0.0079 sim_std=0.9919 Loss: 1.958669662475586
+[rank1] sim_mean=0.0037 sim_std=0.9966 Loss: 1.9577327966690063
+[rank0] pos_mean=0.9999 neg_mean=-0.9925 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0037 sim_std=0.9967 Loss: 1.95772123336792
+[rank1] sim_mean=0.0238 sim_std=0.9919 Loss: 2.8847413063049316
+[rank0] pos_mean=0.9999 neg_mean=-0.9846 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0076 sim_std=0.9927 Loss: 1.958287239074707
+[rank1] sim_mean=0.0020 sim_std=0.9982 Loss: 1.9575695991516113
+[rank0] pos_mean=0.9991 neg_mean=-0.9949 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0021 sim_std=0.9975 Loss: 1.957902431488037
+[rank1] sim_mean=0.0013 sim_std=0.9987 Loss: 1.9576075077056885
+[rank0] pos_mean=0.9982 neg_mean=-0.9954 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0015 sim_std=0.9974 Loss: 1.9583638906478882
+[rank0] pos_mean=0.9997 neg_mean=-0.9991 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0003 sim_std=0.9999 Loss: 1.9573278427124023
+[rank1] sim_mean=0.0003 sim_std=1.0000 Loss: 1.9572525024414062
+[rank0] pos_mean=0.9986 neg_mean=-0.9860 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0063 sim_std=0.9929 Loss: 1.9587759971618652
+[rank1] sim_mean=0.0095 sim_std=0.9874 Loss: 1.9607253074645996
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  try:
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank0] pos_mean=0.9983 neg_mean=-0.9903 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0040 sim_std=0.9949 Loss: 1.9586740732192993
+[rank1] sim_mean=0.0058 sim_std=0.9902 Loss: 1.9611270427703857
+[rank0] pos_mean=0.9999 neg_mean=-0.9981 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0009 sim_std=0.9995 Loss: 1.9573054313659668
+[rank1] sim_mean=0.0010 sim_std=0.9994 Loss: 1.9573373794555664
+[rank0] pos_mean=0.9247 neg_mean=-0.9107 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0093 sim_std=0.9684 Loss: 2.1660079956054688
+[rank1] sim_mean=0.0040 sim_std=0.9963 Loss: 1.9577972888946533
+[epoch 005] alpha=0.00 train_loss=1.9825 dev_asv5=4.1509 dev_asv19=2.6776 avg_dev=3.4142
+[rank0] pos_mean=0.9999 neg_mean=-0.9998 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0001 sim_std=1.0003 Loss: 1.9571974277496338
+[rank1] sim_mean=0.0002 sim_std=0.9998 Loss: 1.957444667816162
+[rank0] pos_mean=0.9571 neg_mean=-0.9550 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0024 sim_std=0.9723 Loss: 2.0293946266174316
+[rank1] sim_mean=0.0003 sim_std=1.0000 Loss: 1.9572656154632568
+[rank0] pos_mean=0.9999 neg_mean=-0.9988 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0006 sim_std=0.9999 Loss: 1.9572508335113525
+[rank1] sim_mean=0.0006 sim_std=0.9998 Loss: 1.9572885036468506
+[rank0] pos_mean=0.9999 neg_mean=-0.9980 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0010 sim_std=0.9995 Loss: 1.9573066234588623
+[rank1] sim_mean=0.0010 sim_std=0.9995 Loss: 1.957298755645752
+/home/jsudan/wav2vec_contr_loss/base_audio.py:39: UserWarning: PySoundFile failed. Trying audioread instead.
+  try:
+/home/jsudan/myenv/lib/python3.9/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+[WARNING] Corrupted file: /nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav. Error: [Errno 2] No such file or directory: '/nfs/turbo/umd-hafiz/issf_server_data/multilingual/MAILabs/ru_RU/by_book/male/minaev/oblomov/wavs/._oblomov_s007702.wav'
+[rank1] sim_mean=0.0000 sim_std=1.0004 Loss: 1.9571647644042969
+[rank0] pos_mean=0.9999 neg_mean=-0.9999 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0000 sim_std=1.0004 Loss: 1.9571788311004639
+[rank1] sim_mean=0.0011 sim_std=0.9905 Loss: 1.9663162231445312
+[rank0] pos_mean=0.9974 neg_mean=-0.9957 n_pos=16 n_neg=16
+[rank0] sim_mean=0.0009 sim_std=0.9972 Loss: 1.9587278366088867
+[2026-05-16T23:35:36.011] error: *** JOB 50152900 ON gl1500 CANCELLED AT 2026-05-16T23:35:36 DUE TO TIME LIMIT ***
